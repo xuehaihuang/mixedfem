@@ -790,7 +790,7 @@ a(P_hu, v_h)=a(u, v_h)=a(u, Iv_h)=\langle Au, Iv_h\rangle_{V'\times V}=\langle I
 % \section{鞍点系统的 Inf-sup 条件：Brezzi 理论}
 \section{鞍点系统：Brezzi 理论}
 
-\subsection{Variational problem in the mixed form}
+\subsection{混合变分问题}
 We shall consider an abstract mixed variational
 problem first. Let $V$ and $P$ be two Banach spaces. For given $(f, g)\in V'\times P'$, find
 $(u, p)\in V \times P$ such that
@@ -827,7 +827,7 @@ f \\ g
 \end{equation*}
 
 
-\subsection{Inf-sup conditions}
+\subsection{Inf-sup 条件}
 
 We shall study the well posedness of this abstract mixed problem.
 
@@ -889,7 +889,7 @@ b(v, q)\geq C_1\|q\|_P^2,\quad\textrm{and } \quad\|v\|_V\leq C_2\|q\|_P.
 Note that in general a construction of desirable $v = v(q)$, especially the control of norm
 $\|v\|$, may not be straightforward.
 
-\subsection{Conforming Discretization}
+\subsection{协调离散}
 We consider finite element approximation to the mixed
 problem: Find $u_h\in V_h$ and $p_h\in P_h$ such that
 \begin{align}
@@ -936,7 +936,7 @@ the constant $C$ depends on the constants in all inf-sup conditions.
 \end{exe}
 
 
-\subsection{Fortin operator}
+\subsection{Fortin 算子}
 Note that the inf-sup condition \eqref{infsup} in the continuous level implies:
 for any $q_h\in P_h$, there exists $v \in V$ such that $b(v, q_h)\geq\beta\|v\|_V\|q_h\|_P$ and $\|v\|_V\leq C\|q_h\|_P$.
 For the discrete inf-sup condition, we need a $v_h\in V_h$ satisfying such property. One

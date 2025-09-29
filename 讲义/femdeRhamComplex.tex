@@ -1,44 +1,323 @@
 % !TEX root = lecture.tex
-\chapter{有限元de Rham复形}
+\chapter{De Rham复形及有限元离散}
+
+这一章讨论 de Rham 复形及其有限元离散. 为此，先引入一些记号.
+设$\Omega\subset\mathbb R^d$是$d$维连通区域，取$\Omega$内的任一点$a$. 
+记$\mathbb M$, $\mathbb S$和$\mathbb K$分别为$d$阶矩阵空间，对称矩阵空间和反对称矩阵空间.
+对于矩阵$\tau$, 定义对称部分$\sym\tau=(\tau+\tau^{\intercal})/2$和反对称部分$\skw\tau=(\tau-\tau^{\intercal})/2$. 显然有$\tau=\sym\tau+\skw\tau$.
+将两维向量$v=(v_1, v_2)^{\intercal}$按顺时针旋转$90^{\circ}$得到的向量记为$v^{\perp}$，即
+$$
+v^{\perp}=\begin{pmatrix}
+v_2 \\
+-v_1
+\end{pmatrix}=\begin{pmatrix}
+0 & 1 \\
+-1 & 0
+\end{pmatrix}\begin{pmatrix}
+v_1 \\
+v_2
+\end{pmatrix}.
+$$
+
+对于函数$v$, 定义梯度算子$\nabla v=\grad v=\big(\frac{\partial v}{\partial x_1}, \ldots, \frac{\partial v}{\partial x_d}\big)^{\intercal}$.
+对于向量函数$v=(v_1, \ldots, v_d)^{\intercal}$, 分别按行和按列定义$\grad v$和$\nabla v$，即
+$$
+\grad v=\left(\frac{\partial v_i}{\partial x_j}\right)_{d\times d}=\begin{pmatrix}
+\frac{\partial v_1}{\partial x_1} & \cdots & \frac{\partial v_1}{\partial x_d} \\
+\vdots &  & \vdots \\
+\frac{\partial v_d}{\partial x_1} & \cdots & \frac{\partial v_d}{\partial x_d} 
+\end{pmatrix},\quad \nabla v=\left(\frac{\partial v_j}{\partial x_i}\right)_{d\times d}=\begin{pmatrix}
+\frac{\partial v_1}{\partial x_1} & \cdots & \frac{\partial v_d}{\partial x_1} \\
+\vdots &  & \vdots \\
+\frac{\partial v_1}{\partial x_d} & \cdots & \frac{\partial v_d}{\partial x_d} 
+\end{pmatrix}.
+$$
+显然有$\grad v=(\nabla v)^{\intercal}$. 定义散度
+$$
+\div v=\nabla \cdot v=\frac{\partial v_1}{\partial x_1}+\cdots+\frac{\partial v_d}{\partial x_d}.
+$$
+易知$\div v=\tr(\grad v)=\tr(\nabla v)$. 对于二元函数$v$，定义旋度$\curl v=(\nabla v)^{\intercal}=\left(\frac{\partial v}{\partial x_2}, -\frac{\partial v}{\partial x_1}\right)^{\intercal}$. 对于二元向量函数$v=(v_1, v_2)^{\intercal}$，定义旋度
+$$
+\rot v=\frac{\partial v_2}{\partial x_1}-\frac{\partial v_1}{\partial x_2}=\div v^{\perp},\quad \curl v=\begin{pmatrix}
+\frac{\partial v_1}{\partial x_2} & -\frac{\partial v_1}{\partial x_1} \\
+\frac{\partial v_2}{\partial x_2} & -\frac{\partial v_2}{\partial x_1}
+\end{pmatrix}.
+$$
+对于三元向量函数$v=(v_1, v_2, v_3)^{\intercal}$，定义旋度
+$$
+\curl v=\nabla\times v=\begin{pmatrix}
+\frac{\partial v_3}{\partial x_2} - \frac{\partial v_2}{\partial x_3} \\
+\frac{\partial v_1}{\partial x_3} - \frac{\partial v_3}{\partial x_1} \\
+\frac{\partial v_2}{\partial x_1} - \frac{\partial v_1}{\partial x_2}
+\end{pmatrix}.
+$$
+对于一般的$d$元向量函数$v=(v_1, \ldots, v_d)^{\intercal}$，定义旋度$\curl v=\skw\grad v$.
+
+
+定义Sobolev空间
+\begin{align*}
+H^1(\Omega) &=\{v\in L^2(\Omega): \grad v\in L^2(\Omega;\mathbb R^d)\}, \\
+H(\div, \Omega) &=\{v\in L^2(\Omega;\mathbb R^d): \div v\in L^2(\Omega)\}, \\
+H(\rot, \Omega) &=\{v\in L^2(\Omega;\mathbb R^2): \rot v\in L^2(\Omega)\}, \\
+H(\curl, \Omega) &=\{v\in L^2(\Omega;\mathbb R^d): \curl v\in L^2(\Omega;\mathbb K)\}, \quad d\geq3.
+\end{align*}
+
+\section{三维de Rham复形}
+
+设$\Omega$是三维连通区域，取$\Omega$内的任一点$a$. 给出三维de Rham复形
+\begin{equation}\label{eq:deRhamcomplex3d}
+%\resizebox{.9\hsize}{!}{$
+\mathbb R\xrightarrow{\hookrightarrow} H^1(\Omega)\xrightarrow{\grad} H(\curl, \Omega)\xrightarrow{\curl} H(\div, \Omega) \xrightarrow{\div} L^2(\Omega)\xrightarrow{}0.
+\end{equation}
+之所以称为复形，是因为
+\begin{align*}    
+\grad H^1(\Omega)&\subseteq H(\curl, \Omega)\cap\ker(\curl), \\
+\curl H(\curl, \Omega)&\subseteq H(\div, \Omega)\cap\ker(\div), \\
+\div H(\div, \Omega) &\subseteq L^2(\Omega),
+\end{align*}
+其中核空间$\mathbb B\cap\ker(A)=\{v\in \mathbb B : Av=0\}$.
+
+当上式中的$\subseteq$都改成$=$后，则称复形是正合的. 为证明三维de Rham复形在可缩区域上是正合的，引入Poincar\'e算子
+\cite{GopalakrishnanDemkowicz2004,Hiptmair1999,ChristiansenHuSande2020}
+\begin{align}
+\label{poincareopP1}
+\mathcal{P}_1u &= \int_0^1u(a+t(x-a))\cdot (x-a)\dd t, \quad\quad u\in C^{\infty}(\Omega;\mathbb R^3), \\
+\label{poincareopP2}
+\mathcal{P}_2v &= \int_0^1tv(a+t(x-a))\times (x-a)\dd t, \quad \, v\in C^{\infty}(\Omega;\mathbb R^3), \\
+\label{poincareopP3}
+\mathcal{P}_3w &= (x-a)\int_0^1t^2w(a+t(x-a))\dd t, \quad\;\; w\in C^{\infty}(\Omega).
+\end{align}
+
+
+显然有复形
+\begin{equation}\label{eq:deRhamcomplexSmooth3d}
+\mathbb R\xleftarrow{\mathcal{P}_0} C^{\infty}(\Omega) \xleftarrow{\mathcal{P}_1} C^{\infty}(\Omega;\mathbb R^3)\xleftarrow{\mathcal{P}_2} C^{\infty}(\Omega;\mathbb R^3) \xleftarrow{\mathcal{P}_3} C^{\infty}(\Omega)\xleftarrow{}0,
+\end{equation}
+其中$\mathcal{P}_0: C^{\infty}(\Omega)\to\mathbb R$定义为$\mathcal{P}_0w=w-\mathcal{P}_1\grad w$. 直接计算可得
+\begin{align*}
+\mathcal{P}_0w=w(x)-\int_0^1(\grad w)(a+t(x-a))\cdot (x-a)\dd t=w(x)-\int_0^1\frac{\dd}{\dd t}w(a+t(x-a))\dd t=w(a).
+\end{align*}
+
+\begin{lemma}
+成立
+\begin{align}
+\label{eq:poincareidentity3}
+\div\mathcal{P}_3w&=w \quad\forall~w\in C^{\infty}(\Omega), \\
+\label{eq:poincareidentity2}
+\curl\mathcal{P}_2v+\mathcal{P}_3\div v&=v \quad\,\forall~v\in C^{\infty}(\Omega;\mathbb R^3), \\
+\label{eq:poincareidentity1}
+\grad\mathcal{P}_1u+\mathcal{P}_2\curl u&=u \quad\,\forall~u\in C^{\infty}(\Omega;\mathbb R^3).
+\end{align}
+\end{lemma}
+\begin{proof}
+容易验证
+$$
+(t\frac{\dd}{\dd t})w(a+t(x-a))=((x-a)\cdot\nabla)w(a+t(x-a)).
+$$
+于是
+\begin{align*}    
+\div\mathcal{P}_3w&=3\int_0^1t^2w(a+t(x-a))\dd t + \int_0^1t^2((x-a)\cdot\nabla)w(a+t(x-a))\dd t \\
+&=3\int_0^1t^2w(a+t(x-a))\dd t + \int_0^1t^3\frac{\dd}{\dd t}w(a+t(x-a))\dd t \\
+&=t^3w(a+t(x-a))|_{t=0}^1=w(x).
+\end{align*}
+
+由$\curl(v\times(x-a))=-(x-a)\div v+((x-a)\cdot\nabla) v+2v$知，
+\begin{align*}
+\curl\mathcal{P}_2v&=-\int_0^1t(x-a)\div(v(a+t(x-a)))\dd t + \int_0^1 t((x-a)\cdot\nabla) v(a+t(x-a))\dd t \\
+& \quad + \int_0^12tv(a+t(x-a))\dd t \\
+&=-\int_0^1t^2(x-a)(\div v)(a+t(x-a))\dd t + \int_0^1 t^2\frac{\dd}{\dd t} v(a+t(x-a))\dd t \\
+& \quad + \int_0^12tv(a+t(x-a))\dd t \\
+&=-\mathcal{P}_3\div v + t^2v(a+t(x-a))|_{t=0}^1=-\mathcal{P}_3\div v+v.
+\end{align*}
+
+对任意的向量$y$成立$(\nabla u)y=-(\curl u)\times y + (y\cdot\nabla)u$，故
+\begin{align*}
+\grad\mathcal{P}_1u&=\int_0^1t(\nabla u)|_{a+t(x-a)}(x-a)\dd t + \int_0^1 u(a+t(x-a))\dd t \\
+&=-\int_0^1t(\curl u)|_{a+t(x-a)}\times(x-a)\dd t + \int_0^1 t\frac{\dd}{\dd t}u(a+t(x-a))\dd t \\
+& \quad + \int_0^1 u(a+t(x-a))\dd t \\
+&=-\mathcal{P}_2\curl u + tu(a+t(x-a))|_{t=0}^1=-\mathcal{P}_2\curl u+u.
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+对于$u\in C^{\infty}(\Omega;\mathbb R^3)$, $v\in C^{\infty}(\Omega;\mathbb R^3)$和$w\in C^{\infty}(\Omega)$，有
+\begin{align}
+\label{poincareP3bound}
+\|\mathcal{P}_3w\|_0&\leq \frac{2}{3}h_{\Omega}\|w\|_0, \\
+\label{poincareP2bound}
+\|\mathcal{P}_2v\|_0&\leq 2h_{\Omega}\|v\|_0, \\
+\label{poincareP1bound}
+|\mathcal{P}_1u|_{1}&\leq \|u\|_0+2h_{\Omega}\|\curl u\|_0, \\
+% \|\mathcal{P}_1u\|_{H^1(\Omega)/\mathbb R}&\leq C\|u\|_{H(\curl,\Omega)},
+\label{poincareP1boundLp}
+\|\mathcal{P}_1u\|_{L^p(\Omega)}&\leq \frac{p}{(p-3)}h_{\Omega}\|u\|_{L^p(\Omega)},
+\end{align}
+其中$p>3$.
+\end{lemma}
+\begin{proof}
+设$s=t^{1/\alpha}$ ($\alpha>1/3$), 则
+$$
+\mathcal{P}_3w= \alpha (x-a)\int_0^1s^{3\alpha-1}w(a+s^{\alpha}(x-a))\dd s.
+$$
+令$y_s=a+s^{\alpha}(x-a)$, $\Omega_s=\{a+s^{\alpha}(x-a): x\in\Omega\}\subseteq\Omega$.
+从而
+\begin{align*}
+\|\mathcal{P}_3w\|_0^2&\leq\alpha^2h_{\Omega}^2\int_{\Omega}\dd x\int_0^1s^{6\alpha-2}w^2(a+s^{\alpha}(x-a))\dd s = \alpha^2h_{\Omega}^2\int_0^1s^{6\alpha-2}\dd s\int_{\Omega}w^2(a+s^{\alpha}(x-a))\dd x \\
+&= \alpha^2h_{\Omega}^2\int_0^1s^{6\alpha-2}\dd s\int_{\Omega}w^2(y_s)\dd x= \alpha^2h_{\Omega}^2\int_0^1s^{3\alpha-2}\dd s\int_{\Omega_s}w^2(y_s)\dd y_s \\
+&\leq \alpha^2h_{\Omega}^2\int_0^1s^{3\alpha-2}\dd s\int_{\Omega}w^2(y_s)\dd y_s=\frac{\alpha^2}{3\alpha-1}h_{\Omega}^2\|w\|_0^2.
+\end{align*}
+当$\alpha=\frac{2}{3}$时，$\frac{\alpha^2}{3\alpha-1}$取到最小值$\frac{4}{9}$，故有
+$$
+\|\mathcal{P}_3w\|_0\leq \frac{2}{3}h_{\Omega}\|w\|_0.
+$$
+
+设$s=t^{1/\alpha}$ ($\alpha>1$), 则
+$$
+\mathcal{P}_2v = \int_0^1tv(a+t(x-a))\times (x-a)\dd t= \alpha\int_0^1s^{2\alpha-1}v(a+s^{\alpha}(x-a))\times (x-a)\dd s.
+$$
+令$y_s=a+s^{\alpha}(x-a)$, $\Omega_s=\{a+s^{\alpha}(x-a): x\in\Omega\}\subseteq\Omega$.
+从而
+\begin{align*}
+\|\mathcal{P}_2v\|_0^2&\leq\alpha^2h_{\Omega}^2\int_{\Omega}\dd x\int_0^1s^{4\alpha-2}|v(a+s^{\alpha}(x-a))|^2\dd s = \alpha^2h_{\Omega}^2\int_0^1s^{4\alpha-2}\dd s\int_{\Omega}|v(a+s^{\alpha}(x-a))|^2\dd x \\
+&= \alpha^2h_{\Omega}^2\int_0^1s^{4\alpha-2}\dd s\int_{\Omega}|v(y_s)|^2\dd x= \alpha^2h_{\Omega}^2\int_0^1s^{\alpha-2}\dd s\int_{\Omega_s}|v(y_s)|^2\dd y_s \\
+&\leq \alpha^2h_{\Omega}^2\int_0^1s^{\alpha-2}\dd s\int_{\Omega}|v(y_s)|^2\dd y_s=\frac{\alpha^2}{\alpha-1}h_{\Omega}^2\|v\|_0^2.
+\end{align*}
+当$\alpha=2$时，$\frac{\alpha^2}{\alpha-1}$取到最小值$4$，故有
+$$
+\|\mathcal{P}_2v\|_0\leq 2h_{\Omega}\|v\|_0.
+$$
+
+由\eqref{eq:poincareidentity1}得 
+$$
+\|\grad\mathcal{P}_1u\|_0=\|u -\mathcal{P}_2\curl u\|_0\leq \|u\|_0+\|\mathcal{P}_2\curl u\|_0\leq \|u\|_0+2h_{\Omega}\|\curl u\|_0.
+$$
+设$s=t^{1/\alpha}$ ($\alpha>(p-1)/(p-3)$), 则
+$$
+\mathcal{P}_1u = \int_0^1u(a+t(x-a))\cdot (x-a)\dd t= \alpha\int_0^1s^{\alpha-1}u(a+s^{\alpha}(x-a))\cdot (x-a)\dd s.
+$$
+令$y_s=a+s^{\alpha}(x-a)$, $\Omega_s=\{a+s^{\alpha}(x-a): x\in\Omega\}\subseteq\Omega$.
+从而
+\begin{align*}
+\|\mathcal{P}_1u\|_{L^p(\Omega)}^p&\leq\alpha^ph_{\Omega}^p\int_{\Omega}\dd x\int_0^1s^{p\alpha-p}|u(a+s^{\alpha}(x-a))|^p\dd s \\
+&= \alpha^ph_{\Omega}^p\int_0^1s^{p\alpha-p}\dd s\int_{\Omega}|u(a+s^{\alpha}(x-a))|^p\dd x \\
+&= \alpha^ph_{\Omega}^p\int_0^1s^{p\alpha-p}\dd s\int_{\Omega}|u(y_s)|^p\dd x= \alpha^ph_{\Omega}^p\int_0^1s^{(p-3)\alpha-p}\dd s\int_{\Omega_s}|u(y_s)|^p\dd y_s \\
+&\leq \alpha^ph_{\Omega}^p\int_0^1s^{(p-3)\alpha-p}\dd s\int_{\Omega}|u(y_s)|^p\dd y_s=\frac{\alpha^p}{(p-3)\alpha-(p-1)}h_{\Omega}^p\|u\|_{L^p(\Omega)}^p.
+\end{align*}
+当$\alpha=\frac{p}{p-3}$时，$\frac{\alpha^p}{(p-3)\alpha-(p-1)}$取到最小值$\alpha^p$，故有
+$$
+\|\mathcal{P}_1u\|_{L^p(\Omega)}\leq \frac{p}{(p-3)}h_{\Omega}\|u\|_{L^p(\Omega)}.
+$$
+\end{proof}
+
+\begin{remark}
+算子$\mathcal{P}_1$不是$L^2$有界的. 事实上，设$\Omega\subseteq\mathbb R^3$包含坐标原点，取$q(x)=x/|x|^2$, 则$q(x)\in\mathbb L^2(\Omega;\mathbb R^3)$, 但是$\mathcal{P}_1q$没定义.
+\end{remark}
+
+\begin{theorem}
+由式\eqref{poincareopP1}-\eqref{poincareopP3}定义的Poincar\'e算子$\mathcal{P}_1$, $\mathcal{P}_2$和$\mathcal{P}_3$可唯一的延拓成Sobolev空间上的有界线性算子，即
+\begin{align}
+\label{poincareP3sobolevbound}
+\|\mathcal{P}_3w\|_{H(\div)}&\lesssim \|w\|_0 \quad\quad\;\;\;\forall~w\in L^2(\Omega), \\
+\label{poincareP2sobolevbound}
+\|\mathcal{P}_2v\|_{H(\curl)}&\lesssim \|v\|_{H(\div)} \quad\;\forall~v\in H(\div,\Omega), \\
+\label{poincareP1sobolevbound}
+|\mathcal{P}_1u|_{1}&\lesssim \|u\|_{H(\curl)} \quad\forall~u\in H(\curl,\Omega).
+% \|\mathcal{P}_1u\|_{H^1(\Omega)/\mathbb R}&\leq C\|u\|_{H(\curl,\Omega)},
+\end{align}
+同时成立复形
+\begin{equation}\label{eq:deRhamcomplexPoincare3d}
+%\resizebox{.9\hsize}{!}{$
+\mathbb R\xleftarrow{\mathcal{P}_0} H^1(\Omega)\xleftarrow{\mathcal{P}_1} H(\curl, \Omega)\xleftarrow{\mathcal{P}_2} H(\div, \Omega) \xleftarrow{\mathcal{P}_3} L^2(\Omega)\xleftarrow{}0.
+\end{equation}
+且有恒等式  
+\begin{align}
+\label{eq:poincareidentityP3}
+\div\mathcal{P}_3w&=w \quad\forall~w\in L^{2}(\Omega), \\
+\label{eq:poincareidentityP2}
+\curl\mathcal{P}_2v+\mathcal{P}_3\div v&=v \quad\,\forall~v\in H(\div, \Omega), \\
+\label{eq:poincareidentityP1}
+\grad\mathcal{P}_1u+\mathcal{P}_2\curl u&=u \quad\,\forall~u\in H(\curl,\Omega), \\
+\label{eq:poincareidentityP0}
+\mathcal{P}_0w+\mathcal{P}_1\grad w&=w \quad\,\forall~w\in H^1(\Omega).
+\end{align}  
+\end{theorem}
+\begin{proof}
+利用\eqref{eq:poincareidentity3}-\eqref{eq:poincareidentity1}和\eqref{poincareP3bound}-\eqref{poincareP1bound}可得
+$$
+\|\mathcal{P}_3w\|_{H(\div)}^2=\|\mathcal{P}_3w\|_{0}^2+\|w\|_0^2\leq(1+\frac{4}{9}h_{\Omega}^2)\|w\|_0^2 \quad \forall~w\in C^{\infty}(\Omega),
+$$
+$$
+\|\mathcal{P}_2v\|_{H(\curl)}^2=\|\mathcal{P}_2v\|_{0}^2+\|v-\mathcal{P}_3\div v\|_0^2\leq(2+4h_{\Omega}^2)\|v\|_0^2 +\frac{8}{9}h_{\Omega}^2\|\div v\|_0^2 \quad \forall~v\in C^{\infty}(\Omega;\mathbb R^3).
+$$
+从而由稠密性可得\eqref{poincareP3sobolevbound}-\eqref{poincareP1sobolevbound}.
+
+同样利用稠密性，由\eqref{eq:poincareidentity3}-\eqref{eq:poincareidentity1}和\eqref{poincareP3sobolevbound}-\eqref{poincareP1sobolevbound}可得\eqref{eq:poincareidentityP3}-\eqref{eq:poincareidentityP1}.
+\end{proof}
+
+\begin{theorem}
+设三维区域$\Omega$是可缩的，则
+三维de Rham复形\eqref{eq:deRhamcomplex3d}
+\begin{equation*}
+\mathbb R\xrightarrow{\hookrightarrow} H^1(\Omega)\xrightarrow{\grad} H(\curl, \Omega)\xrightarrow{\curl} H(\div, \Omega) \xrightarrow{\div} L^2(\Omega)\xrightarrow{}0
+\end{equation*}
+是正合的.
+\end{theorem}
+\begin{proof}
+由恒等式\eqref{eq:poincareidentityP3}-\eqref{eq:poincareidentityP0}直接可得.
+\end{proof}
 
 
 
 \section{多项式复形}
 
-In this section, we shall consider polynomial spaces on a simply connected domain $D\subset\mathbb R^d$ with $d=2,3$. Without loss of generality, we assume $D$ contains the origin $\bs0$ of coordinate system.
+在本节中，我们将讨论定义在可缩区域 $D\subset\mathbb R^d$ 上的多项式空间，其中 $d=2,3$. 不失一般性，我们假设 $D$ 包含坐标原点. 如果区域 $D$ 不包含坐标原点，可以平移区域 $D$ 使其包含坐标原点. 
 
-Let $\mathbb P_k(D)$ stand for the set of all polynomials in $D$ with the total degree no more than $k$, and $\mathbb P_k(D; \mathbb{X})$ denotes the tensor or vector version, where $\mathbb{X}$ is $\mathbb M$, $\mathbb{S}$, $\mathbb{K}$ or $\mathbb{R}^d$. Let $\mathbb H_k(D):=\mathbb P_k(D)\backslash \mathbb P_{k-1}(D)$. It holds
+
+设整数 $k\geq0$，记 $\mathbb P_k(D)$ 为区域 $D$ 上所有总次数不超过 $k$ 的多项式构成的空间。为方便表述，当 $k<0$ 时，约定 $\mathbb P_k(D):=\{0\}$。
+记 $\mathbb P_k(D; \mathbb{X})$ 为 $\mathbb P_k(D)$ 的张量或向量版本，其中 $\mathbb{X}$ 可取 $\mathbb M$、$\mathbb{S}$、$\mathbb{K}$ 或 $\mathbb{R}^d$。定义 $k$ 次齐次多项式空间 $\mathbb H_k(D):=\mathbb P_k(D)\backslash \mathbb P_{k-1}(D)$. 
+可以直接验证
 \begin{equation}\label{eq:Hkxgrad}
 \bs x\cdot\nabla q=kq\quad\forall~q\in\mathbb H_k(D),
 \end{equation}
 \begin{equation}\label{eq:Hkdiv}
 \div(\bs x q)=(k+d)q\quad\forall~q\in\mathbb H_k(D).
 \end{equation}
-Define operator $\pi_{0}: \mathcal C^0(D)\to \mathbb R$ as
+定义算子 $\pi_{0}: \mathcal C^0(D)\to \mathbb R$ 为
 \[
 \pi_{0}v:=v(\bs0).
 \]
 
 
-\subsection{Polynomial complexes in two dimensions}
+
+
+
+
+
+
+\subsection{二维多项式复形}
 \begin{lemma}
-The polynomial complex
+设整数 $k\geq-1$，且 $D$ 为二维可缩区域.
+多项式复形
 \begin{equation}\label{eq:deRhamcomplexPoly2d}
 %\resizebox{.9\hsize}{!}{$
 \mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\curl} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\div} \mathbb P_{k-1}(D)\xrightarrow{}0
 \end{equation}
-is exact. Here integer $k\geq1$.
+是正合的.  
 \end{lemma}
 \begin{proof}
-Due to \eqref{eq:Hkdiv}, we have $\div(\bs x \mathbb P_{k-1}(D) )= \mathbb P_{k-1}(D)$. Thus $\div\mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D)$.
-Furthermore by direct calculation
+由式 \eqref{eq:Hkdiv} 可知
+$\div(\bs x \mathbb P_{k-1}(D)) = \mathbb P_{k-1}(D)$，因此有
+\[
+\div \mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D).
+\]
+进一步通过直接计算可得
 \[
 \dim\mathbb P_k(D;\mathbb R^2)=\dim \curl \, \mathbb P_{k+1}(D)+\dim \mathbb P_{k-1}(D),
 \]
-thus the complex \eqref{eq:deRhamcomplexPoly2d} is exact.
+故复形 \eqref{eq:deRhamcomplexPoly2d} 是正合的.
 \end{proof}
 
-By rotating the complex \eqref{eq:deRhamcomplexPoly2d}, we get the following exact polynomial complex
+通过旋转复形 \eqref{eq:deRhamcomplexPoly2d}，我们得到以下正合的多项式复形：
 \begin{equation*}
 %\resizebox{.9\hsize}{!}{$
 \mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\grad} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\rot} \mathbb P_{k-1}(D)\xrightarrow{}0.
@@ -46,15 +325,23 @@ By rotating the complex \eqref{eq:deRhamcomplexPoly2d}, we get the following exa
 
 
 \begin{lemma}
-The polynomial complex
+设整数 $k\geq-1$，且 $D$ 为二维可缩区域.
+多项式复形
 \begin{equation}\label{eq:KoszulcomplexPoly2d}
 %\resizebox{.9\hsize}{!}{$
 0\xrightarrow{\subset}\mathbb P_{k-1}(D) \xrightarrow{\boldsymbol x} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\boldsymbol x^{\perp}\cdot} \mathbb P_{k+1}(D)\xrightarrow{\pi_{0}}\mathbb R\xrightarrow{}0
 \end{equation}
-is exact.
+是正合的.  
 \end{lemma}
+\begin{proof}
+显然有 $\mathbb P_{k-1}(D)\cap\ker(\boldsymbol{x})=0$, 以及 $\boldsymbol x^{\perp}\cdot\mathbb P_k(D;\mathbb R^2)=\mathbb P_{k+1}(D)\cap\ker(\pi_0)$. 接下来证明
+$$
+\mathbb P_{k-1}(D)\boldsymbol{x} = \mathbb P_k(D;\mathbb R^2)\cap\ker(\boldsymbol x^{\perp}).
+$$ 
+易知, $\mathbb P_{k-1}(D)\boldsymbol{x} \subseteq \mathbb P_k(D;\mathbb R^2)\cap\ker(\boldsymbol x^{\perp})$. 另一方面, 设 $\boldsymbol{v}\in\mathbb P_k(D;\mathbb R^2)\cap\ker(\boldsymbol x^{\perp})$, 即 $\boldsymbol{v}\in\mathbb P_k(D;\mathbb R^2)$ 满足 $\boldsymbol{v}\cdot \boldsymbol x^{\perp}=0$. 这表示 $\boldsymbol{v}$ 与 $\boldsymbol x^{\perp}$ 垂直，从而 $\boldsymbol{v}$ 平行于 $\boldsymbol{x}$， 即 $\boldsymbol{v}\in \mathbb P_{k-1}(D)\boldsymbol{x}$. 证毕.
+\end{proof}
 
-Those two complexes \eqref{eq:deRhamcomplexPoly2d} and \eqref{eq:KoszulcomplexPoly2d} are connected as
+复形 \eqref{eq:deRhamcomplexPoly2d} 和 \eqref{eq:KoszulcomplexPoly2d} 通过下列方式关联：
 \begin{equation}\label{eq:deRhamcomplexPolydouble2d}
 %\resizebox{.93\hsize}{!}{$
 \xymatrix{
@@ -62,32 +349,38 @@ Those two complexes \eqref{eq:deRhamcomplexPoly2d} and \eqref{eq:KoszulcomplexPo
 & 0 \ar@<0.4ex>[l]^-{\supset} }.
 %$}
 \end{equation}
-Unlike the Koszul complex for vectors functions, we do not have the identity property applied to homogenous polynomials. Fortunately decomposition of polynomial spaces using Koszul and differential operators still holds.
+与向量函数的 Koszul 复形不同，这里我们无法将恒等性质直接应用于齐次多项式。不过，利用 Koszul 算子与微分算子对多项式空间进行分解的方法仍然成立。
 
-First of all, we have the decomposition
+
+首先，我们有如下分解：
 \[
 \mathbb P_{k+1}(D) = \boldsymbol x^{\perp}\cdot\mathbb P_k(D;\mathbb R^2)\oplus\mathbb R.
 \]
 
 \begin{lemma}\label{lem:symmpolyspacedirectsum}
-It holds
+设整数 $k\geq-1$，且 $D$ 为二维可缩区域.
+成立
  \begin{equation}\label{eq:vector2polyspacedecomp2}
 \mathbb P_{k}(D;\mathbb R^2)=\curl\mathbb P_{k+1}(D)\oplus\mathbb P_{k-1}(D)\bs x.
 \end{equation}
 %And $\div\boldsymbol \div: \mathbb C_k^{\oplus}(D;\mathbb S)\to\mathbb P_{k-2}(D;\mathbb R^2)$ is a bijection.
 \end{lemma}
 \begin{proof}
-Assume $q\in\mathbb P_{k-1}(D)$ satisfies $\boldsymbol xq\in\curl\mathbb P_{k+1}(D)$, which means
+假设 $q\in\mathbb P_{k-1}(D)$ 且满足 $\boldsymbol xq\in\curl\mathbb P_{k+1}(D)$，即
 \[
 \div(\boldsymbol  xq)=0.
 \]
-Then it follows from \eqref{eq:Hkdiv} that
-$q=0$.
-Hence $\curl\mathbb P_{k+1}(D)\cap\mathbb P_{k-1}(D)\bs x=0$.
-Therefore we obtain the decomposition by the fact $\dim\mathbb P_{k}(D;\mathbb R^2)=\dim\curl\mathbb P_{k+1}(D)+\dim(\mathbb P_{k-1}(D)\bs x)$.
+由式 \eqref{eq:Hkdiv} 可知，$q=0$.
+因此有
+$\curl\mathbb P_{k+1}(D)\cap\mathbb P_{k-1}(D)\bs x=0$. 
+由此结合维数关系
+\[
+\dim \mathbb P_k(D;\mathbb R^2) = \dim \curl \mathbb P_{k+1}(D) + \dim (\mathbb P_{k-1}(D)\boldsymbol x),
+\]
+即可得到相应的分解。
 \end{proof}
 
-Similarly, we have
+类似地，我们有双向多项式复形
 \begin{equation*}
 %\resizebox{.93\hsize}{!}{$
 \xymatrix{
@@ -95,6 +388,7 @@ Similarly, we have
 & 0 \ar@<0.4ex>[l]^-{\supset} },
 %$}
 \end{equation*}
+和多项式空间分解
 \[
 \mathbb P_{k+1}(D) = \boldsymbol x\cdot\mathbb P_k(D;\mathbb R^2)\oplus\mathbb R,
 \]
@@ -103,7 +397,7 @@ Similarly, we have
 \]
 
 
-\subsection{Polynomial complexes in three dimensions}
+\subsection{三维多项式复形}
 
 
 \begin{lemma}
@@ -216,7 +510,7 @@ For any $\boldsymbol v=\bs x q$ with $q\in\mathbb P_{k-1}(D)$ satisfying $\bolds
 Applying \eqref{eq:Hkdiv}, we get $q=0$. Thus $\bs v=\bs0$.
 \end{proof}
 
-\section{Simplicial approximations of $H(\div)$}
+\section{$H(\div)$ 有限元}
 The material in this section comes from \cite{BoffiBrezziFortin2013}.
 Let $\Gamma:=\partial\Omega$.
 Define
@@ -390,7 +684,7 @@ where $\bs x_i$ is the Cartesian coordinate of vertex $\texttt{v}_i$, $F_{i^*}\i
 
 
 
-\section{Simplicial approximations of $H(\curl)$}
+\section{$H(\curl)$ 有限元}
 
 Assume $d=3$.
 Define
@@ -529,7 +823,7 @@ We have from \eqref{eq:Hcurlbubbleidentity} that
 \end{align*}
 We can also acquire $\dim\mathring V_{k}^c(K)$ from the unisolvence of the second kind N\'ed\'elec element.
 
-\section{Finite element de Rham complex}
+\section{有限元 de Rham 复形}
 Recall that a Hilbert complex is a sequence of Hilbert spaces connected by a sequence of linear operators satisfying the property: the composition of two consecutive operators is vanished. A Hilbert complex is exact means the range of each map is the kernel of the succeeding map. As $\Omega$ is topologically trivial, the following de Rham Complex of $\Omega$ is exact
 \begin{equation}\label{eq:derham}
 0\xrightarrow{} H^1(\Omega)\xrightarrow{\grad}\boldsymbol H(\curl;\Omega)\xrightarrow{\curl}\boldsymbol H(\div;\Omega)\xrightarrow{\div}L^2(\Omega) \xrightarrow{}0.
