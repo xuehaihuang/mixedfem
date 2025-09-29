@@ -1,0 +1,1179 @@
+% !TEX root = lecture.tex
+\chapter{Stokes方程的混合有限元方法}
+
+\section{Stokes方程}
+设$\Omega\subset\mathbb{R}^{d}$ ($d\geq2$)是有界区域.
+考虑具有齐次 Dirichlet边界条件下的  Stokes 方程
+\begin{equation}\label{eq-Stokes2}
+\left\{
+\begin{array}{l}
+-\Delta \boldsymbol{u} - \nabla p=\boldsymbol{f}(x),\qquad \,\boldsymbol{x}\in\Omega,\\
+\div \boldsymbol{u}=0, \qquad \,\qquad \qquad \,\boldsymbol{x}\in\Omega,\\
+\boldsymbol{u}=0,
+\quad \qquad \qquad \qquad\;\;\; \boldsymbol{x}\in\partial\Omega,
+\end{array}
+\right.
+\end{equation}
+其中$\boldsymbol{u}$ 表示流体速度, $p$ 表示压力.
+问题(\ref{eq-Stokes2})的混合变分问题为 : 找 $\boldsymbol{u}\in H_0^{1}(\Omega;\mathbb{R}^{d}), p\in L_{0}^{2}(\Omega)$，使得
+\begin{align}
+(\nabla\boldsymbol{u},\nabla\boldsymbol{v}) + (\div\boldsymbol{v},p) &=(\boldsymbol{f},\boldsymbol{v}),\quad \boldsymbol{v}\in  H_0^{1}(\Omega;\mathbb{R}^{d}),\label{BI2}\\
+(\div\boldsymbol{u},q) &=0, \quad\quad\quad\, q\in L_{0}^{2}(\Omega).\label{BI02}
+\end{align}
+
+对于上述混合变分问题(\ref{BI2})-(\ref{BI02}), 根据 Brezzi 定理可以得到下面的适定性结果.
+\begin{theorem}\label{Tem01}
+% 若 (\ref{BI5})和 (\ref{BT2}) 成立, 则
+混合变分问题(\ref{BI2})-(\ref{BI02})存在唯一的解
+ $\boldsymbol{u}\in H_0^{1}(\Omega; \mathbb{R}^{d}), p\in L_{0}^{2}(\Omega)$, 且
+\begin{equation*}
+\|\boldsymbol{u}\|_{1}+\|p\|_{0}\lesssim \|\boldsymbol{f}\|_{-1}.
+\end{equation*}
+\end{theorem}
+\begin{prf}
+为了得到混合变分问题(\ref{BI2})-(\ref{BI02})解的适定性, 我们来验证  Brezzi 定理的两个条件.
+\begin{enumerate}
+\item 强制性:
+由Poinc\'{a}re 不等式可得强制性
+\begin{align}\label{BI5}
+\|\boldsymbol{v}\|^{2}_{1}
+\lesssim (\nabla\boldsymbol{v},\nabla\boldsymbol{v}),\quad \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{align}
+\item Inf-sup 条件
+\begin{align}\label{BT2}
+\|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+\frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad\, q\in L_{0}^{2}(\Omega).
+\end{align}
+由$\div H_0^{1}(\Omega; \mathbb{R}^{d})=L_{0}^{2}(\Omega)$可知, 存在$\boldsymbol{u}\in H_0^{1}(\Omega; \mathbb{R}^{d})$满足
+\begin{align*}
+\div{\boldsymbol{u}}=q\in L_{0}^{2}(\Omega),\quad \text{且}\quad\|\boldsymbol{u}\|_1\lesssim \|q\|_0.
+\end{align*}
+于是$\|q\|_0\|\boldsymbol{u}\|_1\lesssim \|q\|_0^{2}=(\div{\boldsymbol{u}},q)$.
+进而有
+\begin{align}\label{BW2}
+\|q\|_{0}\lesssim \frac{(\div{\boldsymbol{u}},q)}{\|\boldsymbol{u}\|_1}\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+\frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad\, q\in L_{0}^{2}(\Omega).
+\end{align}
+即inf-sup 条件成立.
+\end{enumerate}
+\end{prf}
+事实上，inf-sup条件\eqref{BT2}等价于$\div H_0^{1}(\Omega; \mathbb{R}^{d})=L_{0}^{2}(\Omega)$.
+
+
+\section{Stokes方程的协调混合有限元方法}
+设$ V_h \subset H_0^{1}(\Omega; \mathbb{R}^{d})$ 和 $P_h \subset  L_{0}^{2}(\Omega)$为两个有限元空间，则混合变分问题(\ref{BI2})-(\ref{BI02})的有限元离散为 : 找 $\boldsymbol{u}_h \in  V_h$ 和 $p_h \in P_h$满足
+\begin{align}
+(\nabla\boldsymbol{u}_h,\nabla\boldsymbol{v}) + (\div\boldsymbol{v},p_h) &=(\boldsymbol{f},\boldsymbol{v}),\quad \boldsymbol{v}\in   V_h,\label{CO1}\\
+(\div\boldsymbol{u}_h,q) &=0, \quad\quad\quad\, q\in P_h.\label{CO2}
+\end{align}
+为了得到混合元方法(\ref{CO1})-(\ref{CO2})解的适定性, 我们需要验证Brezzi 定理的两个条件.
+\begin{enumerate}[(a)]
+\item 强制性:
+\begin{align}\label{u3}
+\|\boldsymbol{v}\|^{2}_{1}
+\lesssim (\nabla\boldsymbol{v},\nabla\boldsymbol{v}),\quad \boldsymbol{v}\in  V_h.\end{align}
+\item 离散inf-sup 条件
+\begin{equation}\label{u4}
+\|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad\, q\in P_h.
+\end{equation}
+\end{enumerate}
+
+由于$ V_h \subset H_0^{1}(\Omega; \mathbb{R}^{d})$，连续情形强制性条件\eqref{BI5}意味着离散强制性条件\eqref{u3}.
+
+下面考虑离散inf-sup条件\eqref{u4}. 连续情形，inf-sup条件\eqref{BT2}等价于$\div H_0^{1}(\Omega; \mathbb{R}^{d})=L_{0}^{2}(\Omega)$. 但是，离散inf-sup条件\eqref{u4}并不等价于$\div V_h=P_h$.
+
+\begin{lemma}
+记$Q_h :L_0^{2}(\Omega)\rightarrow  P_h$是$L^2$正交投影算子.
+假设$\|\boldsymbol{v}\|_1\eqsim \|Q_h\div\boldsymbol{v}\|_0$对所有的$\boldsymbol{v}\in V_h/\ker(\div)$成立, 则离散inf-sup条件\eqref{u4}等价于$Q_h\div V_h=P_h$.
+\end{lemma}
+\begin{prf}
+先来证明离散inf-sup条件\eqref{u4}意味着$Q_h\div V_h=P_h$. 显然$Q_h\div V_h\subseteq P_h$. 若存在$q\in P_h$满足$q$与$Q_h\div V_h$正交，则与离散inf-sup条件\eqref{u4}矛盾，故有$Q_h\div V_h=P_h$.
+
+再证$Q_h\div V_h=P_h$意味着离散inf-sup条件\eqref{u4}. 对任意的$q\in P_h$, 存在$\boldsymbol{v}\in V_h/\ker(\div)$使得$Q_h\div\boldsymbol{v}=q$. 由假设条件可知$\|\boldsymbol{v}\|_1\eqsim \|Q_h\div\boldsymbol{v}\|_0=\|q\|_0$. 于是
+\begin{equation*}
+\|q\|_0\|\boldsymbol{v}\|_1\lesssim \|q\|_0^2=(Q_h\div\boldsymbol{v}, q)=(\div\boldsymbol{v}, q).
+\end{equation*}
+故离散inf-sup条件\eqref{u4}成立.
+\end{prf}
+
+% 回顾连续性的 Inf-sup条件, 满足:
+% \begin{align}
+% \|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+% \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad \forall q\in L_0^{2}(\Omega).\,\Leftrightarrow\,
+% \div H_0^{1}(\Omega,\mathbb{R}^{2})=L_0^{2}(\Omega).
+% \end{align}
+% 但对任一空间 $Q_{h}$,\,$ V_h$ 而非上面的 $L_0^{2}(\Omega), \,H_0^{1}(\Omega; \mathbb{R}^{d})$ 来说,
+% \begin{align*}
+% \|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in  V_h} \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad \forall q\in Q_h.
+% &\,\nRightarrow\,\div  V_h=Q_h.\\
+% \|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in  V_h} \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad \forall q\in Q.&\,\Leftarrow\,\div  V_h=Q_h.
+% \end{align*}
+% 所以作 $\tilde{Q}_h :L_0^{2}(\Omega)\rightarrow  Q_h$ 的 $L^2$ 正交投影, 满足:
+% $$ (\tilde{Q}_h \boldsymbol{v},q)=(\boldsymbol{v},q),\quad\forall\, q\in L_0^{2}(\Omega).$$
+% 则有
+% \begin{align*}
+% \|q\|_{0}
+% \lesssim\sup _{\boldsymbol{v} \in  V_h} \frac{(\tilde{Q}_h\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},
+% \quad \forall q\in Q_h.\,\Leftrightarrow\,\tilde{Q}_h\div  V_h=Q_h.\\
+% \Rightarrow
+% \|q\|_{0}
+% \lesssim\sup _{\boldsymbol{v} \in  V_h} \frac{(\tilde{Q}_h \div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}
+% =\sup _{\boldsymbol{v} \in  V_h}
+% \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}
+% \quad \forall q\in Q_h.
+% \end{align*}
+
+因此，$\div V_h=P_h$意味着离散inf-sup条件\eqref{u4}成立，但是
+离散inf-sup条件\eqref{u4}成立并不推出$\div V_h=P_h$. 如果有限元空间$ V_h$和$P_h$满足$\div V_h=P_h$，由方程\eqref{CO2}可得$\div\boldsymbol{u}_h=0$，此时称混合元方法(\ref{CO1})-(\ref{CO2})是\textbf{divergence-free}的，或\textbf{质量守恒}的. 
+
+% 综上构造的有限元空间要想满足 离散的 Inf-sup 条件, 当不满足 $\div  V_h=Q_h $ 时(一般的 Stokes 方程的有限元空间都不满足), 则必须满足:
+% \begin{align*}
+% \|q\|_{0}
+% \lesssim\sup _{\boldsymbol{v} \in  V_h}
+% \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},
+% \quad \forall q\in Q_h.\,\Leftrightarrow\,\tilde{Q}_h\div  V_h=Q_h.
+% \end{align*}
+构建的有限元空间 $ V_h$ 和 $P_h$ 必须满足离散inf-sup 条件\eqref{u4}. Fortin\cite{Fortin1977}在1977 年提出了一个简单而实用的判别准则，称之为 Fortin 准则.
+\begin{lemma}[Fortin 准则]\label{lem01}
+离散inf-sup 条件(\ref{u4})等价于
+存在一个有界线性算子 $\Pi_h :H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow V_h$满足
+\begin{align}
+ (\div(\boldsymbol{v}-\Pi_h\boldsymbol{v}), q) &=0,\qquad\quad  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),q\in P_{h} ,\label{k1}\\
+ \|\Pi_h \boldsymbol{v}\|_{1} &\lesssim\|\boldsymbol{v}\|_{1}, \quad\;  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).\label{k2}
+\end{align}
+算子$\Pi_h$称为Fortin算子.
+\end{lemma}
+\begin{prf}
+先证明存在Fortin算子意味着离散inf-sup 条件(\ref{u4})成立. 对于$q\in P_h$, 由inf-sup 条件(\ref{BT2})和\eqref{k1}-\eqref{k2} 可得
+\begin{align*}
+\|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+\frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}=\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+\frac{(\div(\Pi_h\boldsymbol{v}), q)}{\|\boldsymbol{v}\|_{1}}\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+\frac{(\div(\Pi_h\boldsymbol{v}), q)}{\|\Pi_h\boldsymbol{v}\|_{1}}\leq \sup _{\boldsymbol{v} \in V_h}
+\frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}.
+\end{align*}
+% 结合inf-sup 条件(\ref{BT2})和 Fortin可得
+% \begin{align*}
+% \|q\|_{0}
+% &\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+% \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}\|q\|_{0}\\
+% &\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+% \frac{(\div\Pi_h\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}}\\
+% &\lesssim\sup _{\boldsymbol{v} \in H_0^{1}(\Omega; \mathbb{R}^{d})}
+% \frac{(\div\Pi_h\boldsymbol{v}, q)}{\|\Pi_h\boldsymbol{v}\|_{1}}\\
+% &=\sup _{\boldsymbol{v}_h \in \Pi_h H_0^{1}(\Omega; \mathbb{R}^{d})}
+% \frac{(\div\boldsymbol{v}_h, q)}{\|\boldsymbol{v}_h\|_{1}}\\
+% &\lesssim\sup _{\boldsymbol{v} \in  V_h}
+% \frac{(\div\boldsymbol{v}, q)}{\|\boldsymbol{v}\|_{1}},\quad \forall q\in Q_{h}.
+% \end{align*}
+故离散inf-sup 条件(\ref{u4})成立.
+
+再证明离散inf-sup 条件(\ref{u4})成立意味着存在Fortin算子. 
+% 当$\boldsymbol{v}\in V_h$时，取$\Pi_{h,1}\boldsymbol{v}=\boldsymbol{v}$显然满足\eqref{k1}-\eqref{k2}.
+% 记$H_0^{1}(\Omega; \mathbb{R}^{d})/V_h$为$V_h$在$H_0^{1}(\Omega; \mathbb{R}^{d})$中关于$H^1$内积的正交补.
+对于$\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d})$, $Q_h(\div\boldsymbol{v})\in P_h$. 由离散inf-sup条件(\ref{u4})知，存在$\boldsymbol{v}_h\in V_h$满足
+\begin{equation*}
+Q_h(\div\boldsymbol{v}_h)=Q_h(\div\boldsymbol{v}),\quad \|\boldsymbol{v}_h\|_1\lesssim \|Q_h(\div\boldsymbol{v})\|_0\lesssim \|\boldsymbol{v}\|_1.
+\end{equation*}
+记$\Pi_{h}\boldsymbol{v}=\boldsymbol{v}_h$, 则$\Pi_{h}$满足\eqref{k1}-\eqref{k2}.
+% 最后将两部分合并，对$\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d})$, 存在$H^1$正交分解$\boldsymbol{v}=\boldsymbol{v}_1+\boldsymbol{v}_2$，其中$\boldsymbol{v}_1\in V_h$, $\boldsymbol{v}_2\in H_0^{1}(\Omega; \mathbb{R}^{d})/V_h$，令$\Pi_h\boldsymbol{v}=\Pi_{h,1}\boldsymbol{v}_1+\Pi_{h,2}\boldsymbol{v}_2$. 可知$\Pi_h$是Fortin算子. 
+\end{prf}
+
+%  当我们利用 Fortin 准则来验证离散的 inf-sup 条件时,首先需要建立一个有界线性算子
+%  $\Pi_h :H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_h$, 使其满足:
+%  \begin{align}
+% (\div(\boldsymbol{v}-\Pi_h\boldsymbol{v}),q) &=0,
+% \qquad \forall q\in Q_{h} ,\,\forall \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),\label{o1}\\
+%  \|\Pi_h\boldsymbol{v} \|_{1}  &\lesssim\|\boldsymbol{v}\|_{1},
+%  \qquad\, \forall \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).\label{o2}
+% \end{align}
+一般情况下分两步来构造Fortin算子$\Pi_h$.
+先构造两个有界线性算子 $\Pi_1,\, \Pi_2:H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_h$, 使其满足:
+ \begin{align}
+|\Pi_{1}\boldsymbol{v}|_{1}^2+\sum_{T\in\mathcal T_h}h_T^{-2}\|\boldsymbol{v}-\Pi_{1}\boldsymbol{v}\|_{0,T}^2 &\lesssim |\boldsymbol{v}|_1^2, \qquad\quad\qquad\qquad\; \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}), \label{fortin:pi1}\\
+ \|\Pi_2\boldsymbol{v} \|_{0,T}  &\lesssim\|\boldsymbol{v} \|_{0,\omega_T}+h_T|\boldsymbol{v} |_{1,\omega_T},
+ \quad\, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}), \label{fortin:pi21}\\
+(\div(\boldsymbol{v}-\Pi_2\boldsymbol{v}),q)&=0,
+\quad\;\; q\in P_{h}, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),\label{fortin:pi22}
+\end{align}
+其中$\omega_T$是$\mathcal T_h$中所有与$T$相交非空的单形的并集.
+再如下定义有界线性算子$\Pi_{h}: H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_{h}$:
+\begin{equation}\label{PihPi12}
+\Pi_{h}\boldsymbol{v}=\Pi_{1}\boldsymbol{v}
++\Pi_{2}(\boldsymbol{v}-\Pi_{1}\boldsymbol{v}),\quad \, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation}
+这里有界线性算子$\Pi_{1}$通常用于保证收敛阶, 有界线性算子 $\Pi_{2}$用于保证离散inf-sup 条件.
+
+\begin{lemma}\label{lem:fortinoperator}
+假设\eqref{fortin:pi1}-\eqref{fortin:pi22}成立，则由式\eqref{PihPi12}定义的$\Pi_{h}$是Fortin算子，即满足 (\ref{k1}) 和 (\ref{k2}).
+\end{lemma}
+\begin{prf}	
+利用逆不等式、\eqref{fortin:pi21}和\eqref{fortin:pi1}，
+\begin{equation*}
+|\Pi_{2}(\boldsymbol{v}-\Pi_{1}\boldsymbol{v})|_1^2\lesssim \sum_{T\in\mathcal T_h}(h_T^{-2}\|\boldsymbol{v}-\Pi_{1}\boldsymbol{v}\|_{0,T}^2 + |\boldsymbol{v}-\Pi_{1}\boldsymbol{v}|_{1,T}^2)\lesssim |\boldsymbol{v}|_1^2, \quad\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+再由\eqref{fortin:pi1}可得
+\begin{equation*}
+\|\Pi_{h}\boldsymbol{v}\|_{1}\leq\|\Pi_{1}\boldsymbol{v}\|_1
++\|\Pi_{2}(\boldsymbol{v}-\Pi_{1}\boldsymbol{v})\|_1\lesssim \|\Pi_{1}\boldsymbol{v}\|_1+|\boldsymbol{v}|_1\lesssim \|\boldsymbol{v}\|_1, \quad \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+故(\ref{k2})成立.
+对于$\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d})$和$q\in P_h$, 利用\eqref{fortin:pi22}可得
+\begin{equation*}
+(\div(\boldsymbol{v}-\Pi_h\boldsymbol{v}),q)
+=(\div(\boldsymbol{v}-\Pi_{1}\boldsymbol{v}
+-\Pi_{2}(\boldsymbol{v}-\Pi_{1}\boldsymbol{v})),q)=0.
+\end{equation*}
+从而(\ref{k1})成立.
+\end{prf}
+
+\begin{theorem}\label{thm:stokeserrorestimate}
+设$(\boldsymbol{u}, p)\in H_0^{1}(\Omega; \mathbb{R}^{d})\times L_{0}^{2}(\Omega)$是Stokes方程\eqref{eq-Stokes2}的解, $(\boldsymbol{u}_h, p_h)\in V_h\times P_h$是混合元方法(\ref{CO1})-(\ref{CO2})的解，则有误差估计
+\begin{equation}\label{stokeserroruh}	
+|\boldsymbol{u}-\boldsymbol{u}_h|_1\lesssim |\boldsymbol{u}-\Pi_{h}\boldsymbol{u}|_1 + \inf_{q\in P_h}\sup_{\boldsymbol{v}\in V_h}\frac{(\div\boldsymbol{v},p-q)}{|\boldsymbol{v}|_1},
+\end{equation}
+\begin{equation}\label{stokeserrorph}	
+\|p-p_h\|_0\lesssim |\boldsymbol{u}-\Pi_{h}\boldsymbol{u}|_1 + \inf_{q\in P_h}\|p-q\|_0.
+\end{equation}
+进一步，若有$\div V_h=P_h$，则
+\begin{equation}\label{stokeserroruhu}	
+|\boldsymbol{u}-\boldsymbol{u}_h|_1\lesssim |\boldsymbol{u}-\Pi_{h}\boldsymbol{u}|_1.
+\end{equation}
+\end{theorem}
+\begin{prf}
+将(\ref{CO1})-(\ref{CO2})减去(\ref{BI2})-(\ref{BI02})可得
+误差方程
+\begin{align}
+(\nabla(\boldsymbol{u}-\boldsymbol{u}_h),\nabla\boldsymbol{v}) + (\div\boldsymbol{v},p-p_h) &=0,\quad \boldsymbol{v}\in   V_h,\label{StokesErrorEqn1}\\
+(\div(\boldsymbol{u}-\boldsymbol{u}_h),q) &=0, \quad q\in P_h.\label{StokesErrorEqn2}
+\end{align}
+由\eqref{k1}和误差方程\eqref{StokesErrorEqn2}可知，
+\begin{equation}
+(\div(\Pi_h\boldsymbol{u}-\boldsymbol{u}_h),q) =0, \quad q\in P_h.\label{StokesErrorEqn3}
+\end{equation}
+将误差方程\eqref{StokesErrorEqn1}中的$\boldsymbol{v}$用$\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h$代入，有
+\begin{equation*}
+|\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h|_1^2=-(\nabla(\boldsymbol{u}-\Pi_{h}\boldsymbol{u}),\nabla(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h))-(\div(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h),p-p_h).
+\end{equation*}
+利用\eqref{StokesErrorEqn3}可得
+\begin{equation*}
+|\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h|_1^2=-(\nabla(\boldsymbol{u}-\Pi_{h}\boldsymbol{u}),\nabla(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h))-(\div(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h),p-q).
+\end{equation*}
+从而
+\begin{equation*}
+|\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h|_1\lesssim |\boldsymbol{u}-\Pi_{h}\boldsymbol{u}|_1 + \inf_{q\in P_h}\sup_{\boldsymbol{v}\in V_h}\frac{(\div\boldsymbol{v},p-q)}{|\boldsymbol{v}|_1}
+\end{equation*}
+进一步利用三角不等式可得\eqref{stokeserroruh}.
+
+由离散inf-sup 条件\eqref{u4}，
+\begin{equation*}
+\|q-p_h\|_{0}\lesssim\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div\boldsymbol{v}, q-p_h)}{\|\boldsymbol{v}\|_{1}}\lesssim \|p-q\|_0+\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div\boldsymbol{v}, p-p_h)}{\|\boldsymbol{v}\|_{1}}.
+\end{equation*}
+利用误差方程\eqref{StokesErrorEqn1}，
+\begin{equation*}
+\|q-p_h\|_{0}\lesssim \|p-q\|_0+\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\nabla(\boldsymbol{u}_h-\boldsymbol{u}),\nabla\boldsymbol{v})}{\|\boldsymbol{v}\|_{1}}\lesssim \|p-q\|_0+|\boldsymbol{u}-\boldsymbol{u}_h|_1.
+\end{equation*}
+然后，借助三角不等式和\eqref{stokeserroruh}可得\eqref{stokeserrorph}.
+
+进一步，若有$\div V_h=P_h$，可取$q=Q_hp$, 则\eqref{stokeserroruh}式右端的第二项为零，故\eqref{stokeserroruhu}成立.
+\end{prf}
+
+如果$\boldsymbol{u}-\boldsymbol{u}_h$的误差估计只依赖于速度$\boldsymbol{u}$，不依赖于压力$p$，则称混合元方法(\ref{CO1})-(\ref{CO2})是\textbf{压力鲁棒}的. 显然，divergence-free的混合元方法(\ref{CO1})-(\ref{CO2})是压力鲁棒的. 关于Stokes方程数值格式的压力鲁棒性详见\cite{JohnLinkeMerdonNeilanEtAl2017}.
+
+\subsection{压力间断的协调元方法}
+ 
+令$\mathcal{T}_h$是$\Omega$的单形网格剖分，假设$\mathcal{T}_h$是形状正则的.
+
+% 在这之前设 $Q_{K}\mathbf{:L^{2}}(K)\rightarrow P_{0}(K)$ 是 $K$ 上的 $L^{2}$ 正交投影,
+% 即对 $\forall\,\boldsymbol{v}\in \mathbf{L^{2}}(K)$, 有:
+% $$Q_{K}\boldsymbol{v}=\frac{1}{|K|}\int_{K}\boldsymbol{v}d\boldsymbol{x}.$$
+% 且满足:
+% $$ (Q_K \boldsymbol{v},q_h)_K=(\boldsymbol{v},q_h)_K,\quad\forall\, q_h\in P_0(K).$$
+
+\subsubsection{两维$P_2$-$P_0$元}
+用向量值二次Lagrange元和分片常数分别离散速度和压力，即令
+\begin{align*}
+ V_{h}&:=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{2}): \boldsymbol{v}|_T\in \mathbb P_2(T;\mathbb{R}^{2}), T\in \mathcal{T}_h\},
+\\
+P_{h}&:=\{q\in L_{0}^2(\Omega): q|_T\in \mathbb P_0(T), T\in \mathcal{T}_h\}.
+\end{align*}
+二次Lagrange元的自由度为
+\begin{subequations}\label{quadLagrangeDoF}
+\begin{align}
+\label{quadLagrangeDoF1}
+\boldsymbol{v}(\texttt{v}), &\quad \texttt{v}\in\Delta_0(T), \\
+\label{quadLagrangeDoF2}
+\int_{e}\boldsymbol{v}\dd s, &\quad e\in\Delta_1(T).
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+$P_2$-$P_0$元满足离散inf-sup条件\eqref{u4}.
+\end{lemma}
+\begin{prf}
+记$I_h^{\rm SZ}: H_{0}^{1}(\Omega,\mathbb{R}^{2})\to V_{h}$为Scott-Zhang插值算子\cite{ScottZhang1990}，$I_h^{\rm SZ}$显然满足\eqref{fortin:pi1}.
+% \begin{equation*}
+% \|I_h^{\rm SZ}\boldsymbol{v}\|_1\lesssim \|\boldsymbol{v}\|_1,\quad \boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{2}).
+% \end{equation*} 
+引入插值算子$\Pi_2: H_{0}^{1}(\Omega,\mathbb{R}^{2})\to V_{h}$, 定义如下
+\begin{align*}
+(\Pi_2\boldsymbol{v})(\texttt{v})&=0, \quad\quad\quad\;\texttt{v}\in\Delta_0(\mathcal T_h), \\
+\int_{e}\Pi_2\boldsymbol{v}\dd s&=\int_{e}\boldsymbol{v}\dd s, \quad e\in\Delta_1(\mathcal T_h).
+\end{align*}
+由仿射等价性和迹不等式可得，
+\begin{equation*}
+\|\Pi_{2}\boldsymbol{v}\|_{0,T}^{2}
+\eqsim  h_{T}\sum_{e\in\partial T}\|Q_{0,e}\boldsymbol{v}\|_{0,e}^{2}\lesssim h_{T}\|\boldsymbol{v}\|_{0,\partial T}^{2}\lesssim \|\boldsymbol{v}\|_{0,T}^{2}+h_T^2|\boldsymbol{v}|_{1,T}^{2}.
+\end{equation*}
+故$\Pi_2$满足\eqref{fortin:pi21}.
+% 结合逆不等式得
+% \begin{equation*}
+% \|\Pi_{2}\boldsymbol{v}\|_{0,T}+h_T|\Pi_{2}\boldsymbol{v}|_{1,T}\lesssim \|\boldsymbol{v}\|_{0,T}+h_T|\boldsymbol{v}|_{1,T}.
+% \end{equation*}
+利用分部积分可得
+\begin{equation*}
+(\div(\boldsymbol{v}-\Pi_2\boldsymbol{v}),q)=-(\boldsymbol{v}-\Pi_2\boldsymbol{v},\nabla q)=0,
+\quad\;\; q\in P_{h}, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+即$\Pi_2$满足\eqref{fortin:pi22}.
+
+根据\eqref{PihPi12}定义插值算子$\Pi_{h}: H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_{h}$，即
+$\Pi_{h}\boldsymbol{v}=I_h^{\rm SZ}\boldsymbol{v}
++\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})$. 由引理\ref{lem:fortinoperator}可知，$\Pi_{h}$是Fortin算子，故由Fortin 准则可得离散inf-sup条件\eqref{u4}成立.
+\end{prf}
+
+\begin{remark}
+这里之所以选择二次Lagrange元不是线性Lagrange元来离散速度，是因为线性Lagrange元只有顶点处函数值的自由度, 没有边上函数值积分平均的自由度，这样就无法得到$\int_{T} \div(\boldsymbol{v}-\Pi_2\boldsymbol{v})\dx
+= \int_{\partial T}(\boldsymbol{v}-\Pi_2\boldsymbol{v})\cdot\boldsymbol{n}\dd s
+=0$. 边上函数值积分平均的自由度保证了$\div V_h$能映满分片常数.
+\end{remark}
+
+当$\boldsymbol{u}\in H_0^1(\Omega;\mathbb R^2)\cap H^3(\Omega;\mathbb R^2)$和$p\in L_0^2(\Omega)\cap H^1(\Omega)$时， 由定理~\ref{thm:stokeserrorestimate}可知$P_2$-$P_0$元方法的误差估计
+\begin{equation*}
+\|\boldsymbol{u}-\boldsymbol{u}_h\|_{1} + \|p-p_h\|_{0}
+\lesssim h^2\|\boldsymbol{u}\|_3+h\|p\|_1\lesssim h(\|\boldsymbol{u}\|_3+\|p\|_1).
+\end{equation*}
+该误差估计的收敛阶对于压力$p$是最优的，但对于速度$\boldsymbol{u}$不是最优的.
+
+将$P_2$-$P_0$元推广到任意$d$维，即$P_d$-$P_0$元，此时离散速度的收敛阶的丢阶现象会更加严重.
+下面考虑改进$P_2$-$P_0$元方法.
+
+\subsubsection{SMALL元}
+
+为了证明离散inf-sup条件，关键是要用到自由度\eqref{quadLagrangeDoF2}的法向部分，切向部分并不需要. 为此，只要在向量值一次多项式空间的基础上增加边上的法向泡函数，即可避免丢阶现象. 由此得到SMALL元，参见\cite[Remark 8.4.2]{BoffiBrezziFortin2013}和\cite{BernardiRaugel1981,Fortin1981}. 在SMALL元方法中，压力仍然用分片常数逼近.
+
+
+速度的形函数空间取为$\mathbb P_1(T;\mathbb R^2)\oplus\mathrm{span}\{\lambda_i\lambda_j\nabla\lambda_k: i\neq j\neq k, 0\leq i,j,k\leq2\}$. %, 其中边泡函数$b_e=\lambda_i\lambda_j$.
+自由度为
+\begin{subequations}\label{SMALLDoF}
+\begin{align}
+\label{SMALLDoF1}
+\boldsymbol{v}(\texttt{v}), &\quad \texttt{v}\in\Delta_0(T), \\
+\label{SMALLDoF2}
+\int_{e}\boldsymbol{v}\cdot\boldsymbol{n}\dd s, &\quad e\in\Delta_1(T).
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+形函数空间$\mathbb P_1(T;\mathbb R^2)\oplus\mathrm{span}\{\lambda_i\lambda_j\nabla\lambda_k: i\neq j\neq k, 0\leq i,j,k\leq2\}$由自由度\eqref{SMALLDoF}所唯一确定.
+\end{lemma}
+\begin{prf}
+形函数空间的维数和自由度的个数均为$9$. 设$\boldsymbol{v}=\boldsymbol{q}+c_0\lambda_1\lambda_2\nabla\lambda_0+c_1\lambda_2\lambda_0\nabla\lambda_1+c_2\lambda_0\lambda_1\nabla\lambda_2$满足\eqref{SMALLDoF}中所有自由度为零，其中$\boldsymbol{q}\in\mathbb P_1(T;\mathbb R^2)$, $c_0,c_1,c_2\in\mathbb R$. 由自由度\eqref{SMALLDoF1}可知$\boldsymbol{q}$在所有顶点处取值为零，故$\boldsymbol{q}=0$. 从而$\boldsymbol{v}=c_0\lambda_1\lambda_2\nabla\lambda_0+c_1\lambda_2\lambda_0\nabla\lambda_1+c_2\lambda_0\lambda_1\nabla\lambda_2$. 在边$e_0$上, $\boldsymbol{v}|_{e_0}=(c_0\lambda_1\lambda_2\nabla\lambda_0)|_{e_0}$, 故由自由度\eqref{SMALLDoF2}可知$c_0=0$. 类似可得$c_1=c_2=0$. 于是$\boldsymbol{v}=0$.
+\end{prf}
+
+类似$P_2$-$P_0$元，我们可以定义SMALL元整体有限元空间，并证明离散inf-sup条件. Stokes方程SMALL元方法的误差估计为
+\begin{equation*}
+\|\boldsymbol{u}-\boldsymbol{u}_h\|_{1} + \|p-p_h\|_{0}
+\lesssim h(\|\boldsymbol{u}\|_2+\|p\|_1).
+\end{equation*}
+
+
+任意$d$维SMALL元的速度形函数空间为$\mathbb P_1(T;\mathbb R^d)\oplus\mathrm{span}\{b_F\boldsymbol{n}_F, F\in\partial T\}$, 其中$b_F$和$\boldsymbol{n}_F$分别为面$F$的泡函数和法向量. %, 其中边泡函数$b_e=\lambda_i\lambda_j$.
+自由度为
+% \begin{subequations}%\label{SMALLDoF}
+\begin{align*}
+% \label{SMALLDoF1}
+\boldsymbol{v}(\texttt{v}), &\quad \texttt{v}\in\Delta_0(T), \\
+% \label{SMALLDoF2}
+\int_{F}\boldsymbol{v}\cdot\boldsymbol{n}\dd s, &\quad F\in\partial T.
+\end{align*}
+% \end{subequations}
+
+
+\subsubsection{Crouzeix-Raviart元}
+
+同样为了克服$P_2$-$P_0$元的丢阶现象，Crouzeix-Raviart元\cite{CrouzeixRaviart1973}考虑将压力空间的多项式次数提高，同时对速度空间增补泡函数.
+
+设$k\geq2$, Crouzeix-Raviart元的速度形函数空间为$\mathbb P_k(T;\mathbb R^2)+b_T\mathbb P_{k-2}(T;\mathbb R^2)$, 自由度为
+\begin{subequations}\label{CrouzeixRaviart2dDoF}
+\begin{align}
+\label{CrouzeixRaviart2dDoF1}
+\boldsymbol{v}(\texttt{v}), &\quad \texttt{v}\in\Delta_0(T), \\
+\label{CrouzeixRaviart2dDoF2}
+(\boldsymbol{v}, \boldsymbol{q})_e, &\quad \boldsymbol{q}\in\mathbb P_{k-2}(e;\mathbb R^2), e\in\Delta_1(T), \\
+\label{CrouzeixRaviart2dDoF3}
+(\boldsymbol{v}, \boldsymbol{q})_T, &\quad \boldsymbol{q}\in\mathbb P_{k-2}(T;\mathbb R^2).
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+设$k\geq2$, 形函数空间$\mathbb P_k(T;\mathbb R^2)+b_T\mathbb P_{k-2}(T;\mathbb R^2)$由自由度\eqref{CrouzeixRaviart2dDoF}所唯一确定.
+\end{lemma}
+\begin{prf}
+形函数空间的维数为$2(\dim\mathbb P_k(T)+\dim\mathbb P_{k-2}(T)-\dim\mathbb P_{k-3}(T))$和自由度的个数为
+\begin{equation*}
+6+6(k-1)+2\dim\mathbb P_{k-2}(T)=2(\dim\mathbb P_k(T)+\dim\mathbb P_{k-2}(T)-\dim\mathbb P_{k-3}(T)).
+\end{equation*} 
+
+设$\boldsymbol{v}\in\mathbb P_k(T;\mathbb R^2)+b_T\mathbb P_{k-2}(T;\mathbb R^2)$满足\eqref{CrouzeixRaviart2dDoF}中所有自由度为零. 由自由度\eqref{CrouzeixRaviart2dDoF1}-\eqref{CrouzeixRaviart2dDoF2}可知$\boldsymbol{v}|_{\partial T}=0$，故$\boldsymbol{v}\in b_T\mathbb P_{k-2}(T;\mathbb R^2)$. 再由自由度\eqref{CrouzeixRaviart2dDoF3}可得$\boldsymbol{v}=0$.
+\end{prf}
+
+分别定义离散速度和压力的整体有限元空间
+\begin{align*}
+ V_{h}&:=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{2}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb R^2)+b_T\mathbb P_{k-2}(T;\mathbb R^2), T\in \mathcal{T}_h\},
+\\
+P_{h}&:=\{q\in L_{0}^2(\Omega): q|_T\in \mathbb P_{k-1}(T), T\in \mathcal{T}_h\}.
+\end{align*}
+
+\begin{lemma}
+设$k\geq2$, Crouzeix-Raviart元满足离散inf-sup条件\eqref{u4}.
+\end{lemma}
+\begin{prf}
+令 $V_{h}^L$为$k$次Lagrange元空间$\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{2}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb R^2), T\in \mathcal{T}_h\}$.
+记$I_h^{\rm SZ}: H_{0}^{1}(\Omega,\mathbb{R}^{2})\to V_{h}^L$为Scott-Zhang插值算子\cite{ScottZhang1990}，满足
+\begin{equation*}
+(I_h^{\rm SZ}\boldsymbol{v}, \boldsymbol{q})_e=(\boldsymbol{v}, \boldsymbol{q})_e\quad\forall~\boldsymbol{q}\in\mathbb P_{k-2}(e;\mathbb R^2), e\in\Delta_1(\mathcal T_h).
+\end{equation*}
+引入插值算子$\Pi_2: H_{0}^{1}(\Omega;\mathbb{R}^{2})\to V_{h}$, 定义如下: 对任意的$T\in\mathcal{T}_h$， $(\Pi_2\boldsymbol{v})|_T\in b_T\nabla\mathbb P_{k-1}(T)$满足
+\begin{align*}
+(\div(\Pi_2\boldsymbol{v}), q)_T&=(\div\boldsymbol{v}, q)_T, \quad q\in\mathbb P_{k-1}(T)\cap L_0^2(T).
+\end{align*}
+由仿射等价性可得，
+\begin{equation*}
+\|\Pi_{2}\boldsymbol{v}\|_{0,T}\lesssim h_T\|Q_{k-1,T}\div\boldsymbol{v}\|_{0,T}\leq h_T\|\div\boldsymbol{v}\|_{0,T}.
+\end{equation*}
+故$\Pi_2$满足\eqref{fortin:pi21}.
+% 结合逆不等式得
+% \begin{equation*}
+% \|\Pi_{2}\boldsymbol{v}\|_{0,T}+h_T|\Pi_{2}\boldsymbol{v}|_{1,T}\lesssim \|\boldsymbol{v}\|_{0,T}+h_T|\boldsymbol{v}|_{1,T}.
+% \end{equation*}
+由 $\Pi_{2}\boldsymbol{v}$ 的定义显然有
+\begin{equation*}
+(\div(\boldsymbol{v}-\Pi_2\boldsymbol{v}),q)_T=0,
+\quad\;\; q\in\mathbb P_{k-1}(T)\cap L_0^2(T), T\in\mathcal T_h, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+% 利用分部积分可得
+% \begin{equation*}
+% (\div(\boldsymbol{v}-\Pi_2\boldsymbol{v}),q)=-(\boldsymbol{v}-\Pi_2\boldsymbol{v},\nabla q)=0,
+% \quad\;\; q\in P_{h}, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+% \end{equation*}
+% 即$\Pi_2$满足\eqref{fortin:pi22}.
+
+根据\eqref{PihPi12}定义插值算子$\Pi_{h}: H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_{h}$，即
+$\Pi_{h}\boldsymbol{v}=I_h^{\rm SZ}\boldsymbol{v}
++\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})$. 类似引理~\ref{lem:fortinoperator}的证明可得
+\begin{equation*}
+\|\Pi_{h}\boldsymbol{v}\|_1\leq\|I_h^{\rm SZ}\boldsymbol{v}\|_1+\|\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})\|_1\lesssim \|\boldsymbol{v}\|_1, \quad\forall~\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),
+\end{equation*}
+以及对任意的 $q\in P_h$成立
+\begin{align*}
+(\div(\boldsymbol{v}-\Pi_{h}\boldsymbol{v}), q) &= \sum_{T\in\mathcal T_h}(\div(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v}
+-\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})), q)_T \\
+&= \sum_{T\in\mathcal T_h}(\div(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v}
+-\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})), Q_T^0q)_T \\
+&= \sum_{T\in\mathcal T_h}(\div(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v}), Q_T^0q)_T =0.
+\end{align*}
+这表明 $\Pi_{h}$ 是 Fortin 算子，故由Fortin 准则可得离散inf-sup条件\eqref{u4}成立.
+\end{prf}
+
+当$\boldsymbol{u}\in H_0^1(\Omega;\mathbb R^2)\cap H^{k+1}(\Omega;\mathbb R^2)$和$p\in L_0^2(\Omega)\cap H^k(\Omega)$时， 由定理~\ref{thm:stokeserrorestimate}可知Crouzeix-Raviart元方法的误差估计
+\begin{equation*}
+\|\boldsymbol{u}-\boldsymbol{u}_h\|_{1} + \|p-p_h\|_{0}
+\lesssim h^k(\|\boldsymbol{u}\|_{k+1}+\|p\|_k).
+\end{equation*}
+
+设$k\geq2$, 三维情形Crouzeix-Raviart元\cite[Example 8.7.2]{BoffiBrezziFortin2013}的压力空间仍为分片$k-1$次多项式空间，
+速度形函数空间为
+\begin{equation*}
+\begin{cases}
+\mathbb P_2(T;\mathbb R^3)+b_T\mathbb P_{0}(T;\mathbb R^3)+\mathrm{span}\{b_F\boldsymbol{n}_F, F\in\partial T\}, & k=2,\\
+\mathbb P_k(T;\mathbb R^3)+b_T\mathbb P_{k-2}(T;\mathbb R^3), & k\geq2.	
+\end{cases}
+\end{equation*}
+自由度为
+\begin{align*}
+\boldsymbol{v}(\texttt{v}), &\quad \texttt{v}\in\Delta_0(T), \\
+(\boldsymbol{v}, \boldsymbol{q})_e, &\quad \boldsymbol{q}\in\mathbb P_{k-2}(e;\mathbb R^3), e\in\Delta_1(T), \\
+(\boldsymbol{v}\cdot\boldsymbol{n}, q)_F, &\quad q\in\mathbb P_{0}(F), F\in\Delta_2(T), \text{ 当$k=2$时},\\
+(\boldsymbol{v}, \boldsymbol{q})_F, &\quad \boldsymbol{q}\in\mathbb P_{k-3}(F;\mathbb R^3), F\in\Delta_2(T), \text{ 当$k\geq3$时}, \\
+(\boldsymbol{v}, \boldsymbol{q})_T, &\quad \boldsymbol{q}\in\mathbb P_{k-2}(T;\mathbb R^3).
+\end{align*}
+当$k\geq3$时, 自由度的个数为
+\begin{align*}
+12+18(k-1)+12{k-1\choose 2}+3\dim\mathbb P_{k-2}(T)&=6k^2+6+3\dim\mathbb P_{k-2}(T)\\
+&=3\dim\mathbb P_k(T)+3\dim\mathbb P_{k-2}(T)-3\dim\mathbb P_{k-4}(T).
+\end{align*}
+
+\subsubsection{Scott-Vogelius元}
+
+两维Scott-Vogelius元\cite{ScottVogelius1985}离散速度和压力的有限元空间为
+\begin{align*}
+V_{h}&:=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{2}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb{R}^{2}), T\in \mathcal{T}_h\},
+\\
+P_{h}&:=\{q\in L_{0}^2(\Omega): q|_T\in \mathbb P_{k-1}(T), T\in \mathcal{T}_h\}.
+\end{align*}
+
+对于三角剖分$\mathcal T_h$中的顶点$V$，记$\theta_1, \ldots, \theta_n$为以$V$顶点的角的角度，假设这些角按逆时针排列. 若$V$为内部顶点，令$\theta_{n+1}:=\theta_1$. 定义 
+\begin{equation*}
+S(V)=\begin{cases}
+0, & n=1,\\
+\max\{\pi-\theta_1-\theta_{2},\pi-\theta_1-\theta_{n}\}, & n>1, V\in\partial\Omega, \\
+\max\{\pi-\theta_1-\theta_{2},\pi-\theta_{n}-\theta_{n+1}\}, & V\not\in\partial\Omega.
+\end{cases}
+\end{equation*}
+显然，$S(V)=0$当且仅当$\mathcal T_h$中所有以$V$为顶点的边落在两条直线上. 此时，称$V$是奇异的. 若$S(V)$是一个很小的正数，则$V$接近奇异的. 因此，$S(V)$度量了$V$的奇异程度.
+
+\begin{lemma}[\cite{ScottVogelius1985}]
+设$\mathcal T_h$是拟一致的三角剖分. 假设存在常数$\delta>0$使得
+\begin{equation*}
+S(V)\geq\delta,\quad v\in\Delta_0(\mathcal T_h).
+\end{equation*}
+则当$k\geq4$时，Scott-Vogelius元满足离散inf-sup条件，其中常数依赖于$\delta$.
+\end{lemma}
+
+Scott-Vogelius元是divergence-free的.
+
+\begin{remark}\rm
+在任意维单形剖分的Alfeld加密下，	Scott-Vogelius元对任意的$k\geq d$均满足离散inf-sup条件\cite{GuzmanNeilan2018,Zhang2005,ArnoldQin1992}. 当$1\leq k<d$时，速度形函数空间需要增加修正的Bernardi-Raugel面泡函数.
+\end{remark}
+
+\begin{remark}\rm
+文献\cite{ChenHuang2024}详细研究了Stokes方程divergence-free的协调元，包括压力间断和压力连续的divergence-free协调元. Divergence-free协调元一般含有超光滑自由度.
+\end{remark}
+
+
+
+
+\subsection{压力连续的协调元方法}
+这一节考虑压力连续的协调元方法，此时由分部积分公式知$(\div\boldsymbol{v},q)=-(\boldsymbol{v}, \nabla q)$，因此选取的空间$V_h$的维数相对于$\nabla P_h$的维数足够大即可.
+
+\subsubsection{MINI元}
+
+MINI元\cite{ArnoldBrezziFortin1984}用Lagrange元离散压力，在Lagrange元的基础上增补泡函数离散速度，即
+\begin{align*}
+V_{h}&:=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{d}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb{R}^{d})+b_T\nabla\mathbb P_k(T), T\in \mathcal{T}_h\},
+\\
+P_{h}&:=\{q\in H^{1}(\Omega)\cap L_{0}^2(\Omega): q|_T\in \mathbb P_{k}(T), T\in \mathcal{T}_h\},
+\end{align*}
+其中$k\geq1$. 当$k=1$时,
+\begin{equation*}
+V_{h}=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{d}): \boldsymbol{v}|_T\in \mathbb P_1(T;\mathbb{R}^{d})\oplus b_T\mathbb P_0(T;\mathbb{R}^{d}), T\in \mathcal{T}_h\}.
+\end{equation*}
+
+MINI元速度空间$V_h$在边界上的自由度同Lagrange元在边界上的自由度是一样的，其内部自由度为
+\begin{equation*}
+% \label{MINIDoF0}
+(\boldsymbol{v}, \boldsymbol{q})_T, \quad \boldsymbol{q}\in\mathbb P_{k-d-1}(T;\mathbb{R}^{d})+\nabla\mathbb P_k(T).
+\end{equation*}
+特别地，当$k=1$时，其
+内部自由度为
+\begin{equation*}
+% \label{MINIDoF0}
+(\boldsymbol{v}, \boldsymbol{q})_T, \quad \boldsymbol{q}\in\mathbb P_{0}(T;\mathbb{R}^{d}).
+\end{equation*}
+
+\begin{lemma}
+设$k\geq1$, MINI元满足离散inf-sup条件\eqref{u4}.
+\end{lemma}
+\begin{prf}
+证明过程类似于Crouzeix-Raviart元.
+记$I_h^{\rm SZ}: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}^L$为Scott-Zhang插值算子\cite{ScottZhang1990}，其中$V_{h}^L$为$k$次Lagrange元空间$\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{d}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb R^d), T\in \mathcal{T}_h\}$.
+引入插值算子$\Pi_2: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$, 定义如下: 对任意的$T\in\mathcal{T}_h$， $(\Pi_2\boldsymbol{v})|_T\in b_T\nabla\mathbb P_{k}(T)$满足
+\begin{align*}
+(\Pi_2\boldsymbol{v}, \boldsymbol{q})_T&=(\boldsymbol{v}, \boldsymbol{q})_T, \quad \boldsymbol{q}\in\nabla\mathbb P_{k}(T).
+\end{align*}
+由仿射等价性可得，
+\begin{equation*}
+\|\Pi_{2}\boldsymbol{v}\|_{0,T}\lesssim  \|\boldsymbol{v}\|_{0,T}.
+\end{equation*}
+故$\Pi_2$满足\eqref{fortin:pi21}.
+% 结合逆不等式得
+% \begin{equation*}
+% \|\Pi_{2}\boldsymbol{v}\|_{0,T}+h_T|\Pi_{2}\boldsymbol{v}|_{1,T}\lesssim \|\boldsymbol{v}\|_{0,T}+h_T|\boldsymbol{v}|_{1,T}.
+% \end{equation*}
+利用分部积分可得
+\begin{equation*}
+(\div(\boldsymbol{v}-\Pi_2\boldsymbol{v}),q)=-(\boldsymbol{v}-\Pi_2\boldsymbol{v},\nabla q)=0,
+\quad\;\; q\in P_{h}, \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+即$\Pi_2$满足\eqref{fortin:pi22}.
+
+根据\eqref{PihPi12}定义插值算子$\Pi_{h}: H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_{h}$，即
+$\Pi_{h}\boldsymbol{v}=I_h^{\rm SZ}\boldsymbol{v}
++\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})$. 由引理\ref{lem:fortinoperator}可知，$\Pi_{h}$是Fortin算子，故由Fortin 准则可得离散inf-sup条件\eqref{u4}成立.
+\end{prf}
+
+当$\boldsymbol{u}\in H_0^1(\Omega;\mathbb R^d)\cap H^{k+1}(\Omega;\mathbb R^d)$和$p\in L_0^2(\Omega)\cap H^{k+1}(\Omega)$时， 由定理~\ref{thm:stokeserrorestimate}可知Crouzeix-Raviart元方法的误差估计
+\begin{equation*}
+\|\boldsymbol{u}-\boldsymbol{u}_h\|_{1} + \|p-p_h\|_{0}
+\lesssim h^k(\|\boldsymbol{u}\|_{k+1}+h\|p\|_{k+1}).
+\end{equation*}
+该误差估计的收敛阶对于速度$\boldsymbol{u}$是最优的，但对于压力$p$不是最优的.
+
+最低次MINI元因为简单常被用于离散Stokes方程.
+
+
+
+\subsubsection{Taylor-Hood元}
+
+Taylor-Hood元\cite{TaylorHood1973,Boffi1994,Boffi1997}对速度$\boldsymbol{u}$和压力$p$均采用Lagrange元离散，其误差估计对速度$\boldsymbol{u}$和压力$p$均是最优的. 具体来说，Taylor-Hood元离散速度$\boldsymbol{u}$和压力$p$的有限元空间分别为
+\begin{align*}
+V_{h}&:=\{\boldsymbol{v}\in H_{0}^{1}(\Omega,\mathbb{R}^{d}): \boldsymbol{v}|_T\in \mathbb P_k(T;\mathbb{R}^{d}), T\in \mathcal{T}_h\},
+\\
+P_{h}&:=\{q\in H^{1}(\Omega)\cap L_{0}^2(\Omega): q|_T\in \mathbb P_{k-1}(T), T\in \mathcal{T}_h\},
+\end{align*}
+其中$k\geq2$.
+
+对于Taylor-Hood元，对单形剖分$\mathcal T_h$作如下假设：
+
+\begin{center}
+每一个$d$-维单形$T\in\mathcal T_h$至少有一个顶点位于开区域$\Omega$内部. 
+\end{center}
+
+在此网格假设下，Taylor-Hood元满足离散inf-sup条件\eqref{u4}，其证明相对复杂，参考\cite{BoffiBrezziFortin2013,Boffi1994,Boffi1997,GiraultScott2003,Chen2014,DieningStornTscherpel2022}. 这里给出文献\cite{DieningStornTscherpel2022}中任意维最低次Taylor-Hood元离散inf-sup条件\eqref{u4}的证明, 关键之处是$\nabla V_{h}$为最低次棱元的子空间.
+\begin{lemma}
+设$k=2$, Taylor-Hood元满足离散inf-sup条件\eqref{u4}.
+\end{lemma}
+\begin{prf}
+记$I_h^{\rm SZ}: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$为Scott-Zhang插值算子\cite{ScottZhang1990}.
+下面考虑插值算子$\Pi_2: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$的构造.
+
+记$\mathcal E_h$, $\mathring{\mathcal E}_h$和$\mathcal E^{\partial}_h$分别为单形剖分$\mathcal T_h$所有一维边、内边和边界边的集合. 对端点为$\texttt{v}_i$和$\texttt{v}_j$的边$e_{ij}\in\mathcal E_h$，令$\boldsymbol{b}_{ij}=\lambda_i\lambda_j\boldsymbol{t}_{ij}/\int_{\Omega}\lambda_i\lambda_j\dx$, 则有
+\begin{equation*}
+(\div\boldsymbol{b}_{ij}, \lambda_k)=-(\boldsymbol{b}_{ij}, \nabla \lambda_{k})=-\frac{1}{\int_{\Omega}\lambda_{i}\lambda_{j}\dx}\int_{\Omega}\lambda_{i}\lambda_{j}\boldsymbol{t}_{ij}\cdot\nabla\lambda_{k}\dx=-\boldsymbol{t}_{ij}\cdot\nabla\lambda_{k}=\delta_{ik}-\delta_{jk}.
+\end{equation*}
+易知，当$e_{ij}\in\mathring{\mathcal E}_h$时$\boldsymbol{b}_{ij}\in V_{h}$，当$e_{ij}\in\mathcal E^{\partial}_h$时$\boldsymbol{b}_{ij}\not\in V_{h}$. 为此，对$\boldsymbol{b}_{ij}$进行修正.
+对于边界边$e_{ij}\in\mathcal E^{\partial}_h$，由网格假设知，存在一个$\Omega$内的顶点$\texttt{v}_m$使得$e_{im}, e_{jm}\in\mathring{\mathcal E}_h$. 令
+\begin{equation*}
+\boldsymbol{\psi}_{ij}=\begin{cases}
+\boldsymbol{b}_{ij}, & e_{ij}\in\mathring{\mathcal E}_h,\\
+\boldsymbol{b}_{im}+\boldsymbol{b}_{mj}, & e_{ij}\in\mathcal E^{\partial}_h,
+\end{cases}
+\end{equation*}
+则所有的$\boldsymbol{\psi}_{ij}$均属于$V_h$, 且成立
+\begin{equation*}
+(\div\boldsymbol{\psi}_{ij}, \lambda_k)=\delta_{ik}-\delta_{jk}.
+\end{equation*}
+现在如下定义插值算子$\Pi_2: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$, 
+\begin{equation*}
+\Pi_2\boldsymbol{v}:=\sum_{e_{ij}\in\mathcal E_h, i<j}(\boldsymbol{v}, \lambda_i\nabla\lambda_j-\lambda_j\nabla\lambda_i)\boldsymbol{\psi}_{ij}.
+\end{equation*}
+可知
+\begin{equation*}
+\|\Pi_{2}\boldsymbol{v}\|_{0,T}\lesssim  \|\boldsymbol{v}\|_{0,\omega_T}.
+\end{equation*}
+故$\Pi_2$满足\eqref{fortin:pi21}.
+由$\Pi_{2}\boldsymbol{v}$的定义可得，
+\begin{align*}
+(\div\Pi_{2}\boldsymbol{v},\lambda_{k})
+&=\sum_{e_{ij}\in\mathcal{E}_{h},\,i<j}(\boldsymbol{v},\lambda_{i}\nabla\lambda_{j}-\lambda_{j}\nabla\lambda_{i})(\div\boldsymbol{\psi}_{ij},\lambda_{k}) \\
+&=\sum_{e_{ij}\in \mathcal{E}_{h},\,i<j}(\boldsymbol{v},\lambda_{i}\nabla\lambda_{j}-\lambda_{j}\nabla\lambda_{i})(\delta_{ik}-\delta_{jk}) \\
+&=\sum_{e_{kj}\in \mathcal{E}_{h},\,k<j}(\boldsymbol{v},\lambda_{k}\nabla\lambda_{j}-\lambda_{j}\nabla\lambda_{k}) -\sum_{e_{ik}\in \mathcal{E}_{h},\,i<k}(\boldsymbol{v},\lambda_{i}\nabla\lambda_{k}-\lambda_{k}\nabla\lambda_{i}) \\
+&=\sum_{e_{ki}\in \mathcal{E}_{h},\,i>k}(\boldsymbol{v},\lambda_{k}\nabla\lambda_{i}-\lambda_{i}\nabla\lambda_{k}) + \sum_{e_{ik}\in \mathcal{E}_{h},\,i<k}(\boldsymbol{v}, \lambda_{k}\nabla\lambda_{i}-\lambda_{i}\nabla\lambda_{k}) \\
+&=\sum_{e_{ki}\in \mathcal{E}_{h}}(\boldsymbol{v},\lambda_{k}\nabla\lambda_{i}-\lambda_{i}\nabla\lambda_{k}) \\
+&=(\boldsymbol{v},\lambda_{k}\nabla 1-\nabla\lambda_{k})=-(\boldsymbol{v},\nabla\lambda_{k})=(\div\boldsymbol{v},\lambda_{k}).
+\end{align*}
+即可推得
+$(\div(\Pi_{2}\boldsymbol{v}-\boldsymbol{v}),\lambda_{k})=0$. 故$\Pi_2$满足\eqref{fortin:pi22}.
+
+根据\eqref{PihPi12}定义插值算子$\Pi_{h}: H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow  V_{h}$，即
+$\Pi_{h}\boldsymbol{v}=I_h^{\rm SZ}\boldsymbol{v}
++\Pi_{2}(\boldsymbol{v}-I_h^{\rm SZ}\boldsymbol{v})$. 由引理\ref{lem:fortinoperator}可知，$\Pi_{h}$是Fortin算子，故由Fortin 准则可得离散inf-sup条件\eqref{u4}成立.
+\end{prf}
+
+
+当$\boldsymbol{u}\in H_0^1(\Omega;\mathbb R^d)\cap H^{k+1}(\Omega;\mathbb R^d)$和$p\in L_0^2(\Omega)\cap H^{k}(\Omega)$时， 由定理~\ref{thm:stokeserrorestimate}可知Taylor-Hood元方法的误差估计
+\begin{equation*}
+\|\boldsymbol{u}-\boldsymbol{u}_h\|_{1} + \|p-p_h\|_{0}
+\lesssim h^k(\|\boldsymbol{u}\|_{k+1}+h\|p\|_{k}).
+\end{equation*}
+该误差估计的收敛阶对于速度$\boldsymbol{u}$和压力$p$均是最优的.
+
+
+
+\section{Stokes方程的非协调混合元方法}
+
+这一节考虑Stokes方程的非协调混合元方法，即$V_h \not\subset H_0^{1}(\Omega; \mathbb{R}^{d})$. 此时，
+混合变分问题(\ref{BI2})-(\ref{BI02})的有限元离散为 : 找 $\boldsymbol{u}_h \in  V_h$ 和 $p_h \in P_h$满足
+\begin{align}
+(\nabla_h\boldsymbol{u}_h,\nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v},p_h) &=(\boldsymbol{f},\boldsymbol{v}),\quad \boldsymbol{v}\in   V_h,\label{StokesNcfm1}\\
+(\div_h\boldsymbol{u}_h,q) &=0, \quad\quad\quad\, q\in P_h,\label{StokesNcfm2}
+\end{align}
+其中$\nabla_h$和$\div_h$关于网格剖分$\mathcal T_h$分片定义的梯度算子和散度算子.
+为了得到非协调元方法(\ref{StokesNcfm1})-(\ref{StokesNcfm2})解的适定性, 我们需要验证Brezzi 定理的两个条件.
+\begin{enumerate}[(a)]
+\item 强制性: 即离散Poincar\'e不等式
+\begin{align}\label{StokesNcfmu3}
+\|\boldsymbol{v}\|^{2}_{0}
+\lesssim (\nabla_h\boldsymbol{v},\nabla_h\boldsymbol{v}),\quad \boldsymbol{v}\in  V_h.\end{align}
+\item 离散inf-sup 条件
+\begin{equation}\label{StokesNcfmu4}
+\|q\|_{0}\lesssim\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div_h\boldsymbol{v}, q)}{\|\nabla_h\boldsymbol{v}\|_{0}},\quad\, q\in P_h.
+\end{equation}
+\end{enumerate}
+
+类似于引理~\ref{lem01}，
+离散inf-sup 条件(\ref{StokesNcfmu4})等价于存在Fortin算子，即
+存在一个有界线性算子 $\Pi_h :H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow V_h$满足
+\begin{align}
+ (\div_h(\boldsymbol{v}-\Pi_h\boldsymbol{v}), q) &=0,\qquad\qquad  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),q\in P_{h} ,\label{ncfmk1}\\
+ \|\nabla_h(\Pi_h\boldsymbol{v})\|_{0} &\lesssim\|\nabla_h\boldsymbol{v}\|_{0}, \quad\;  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).\label{ncfmk2}
+\end{align}
+
+\begin{theorem}\label{thm:stokesncfmerrorestimate}
+设$(\boldsymbol{u}, p)\in H_0^{1}(\Omega; \mathbb{R}^{d})\times L_{0}^{2}(\Omega)$是Stokes方程\eqref{eq-Stokes2}的解, $(\boldsymbol{u}_h, p_h)\in V_h\times P_h$是混合元方法(\ref{StokesNcfm1})-(\ref{StokesNcfm2})的解，则有误差估计
+\begin{equation}\label{stokesncfmerroruh}	
+\|\nabla_h(\boldsymbol{u}-\boldsymbol{u}_h)\|_0\lesssim \|\nabla_h(\boldsymbol{u}-\Pi_{h}\boldsymbol{u})\|_0 + \sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0} + \inf_{q\in P_h}\sup_{\boldsymbol{v}\in V_h}\frac{(\div_h\boldsymbol{v},p-q)}{\|\nabla_h\boldsymbol{v}\|_0},
+\end{equation}
+\begin{equation}\label{stokesncfmerrorph}	
+\|p-p_h\|_0\lesssim \|\nabla_h(\boldsymbol{u}-\Pi_{h}\boldsymbol{u})\|_0 + \sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0} + \inf_{q\in P_h}\|p-q\|_0,
+\end{equation}
+其中$E_h(\boldsymbol{u},p;\boldsymbol{v}):=(\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, p) -(\boldsymbol{f},\boldsymbol{v})$.
+进一步，若有$\div_h V_h=P_h$，则
+\begin{equation}\label{stokesncfmerroruhu}	
+\|\nabla_h(\boldsymbol{u}-\boldsymbol{u}_h)\|_0\lesssim \|\nabla_h(\boldsymbol{u}-\Pi_{h}\boldsymbol{u})\|_0+ \sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0}.
+\end{equation}
+这里$\displaystyle\sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0}$称为非协调元的相容性误差.
+\end{theorem}
+\begin{prf}
+任取$q\in P_h$, 记$\boldsymbol{v}=\Pi_h\boldsymbol{u}-\boldsymbol{u}_h$, 则由\eqref{ncfmk1}和\eqref{StokesNcfm2}可得
+\begin{equation*}
+(\div_h\boldsymbol{v}, q-p_h)=(\div_h(\Pi_h\boldsymbol{u}-\boldsymbol{u}_h), q-p_h)=0.
+\end{equation*}
+接着利用\eqref{StokesNcfm1}可得
+\begin{align*}
+\|\nabla_h(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h)\|_0^2&=(\nabla_h(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h), \nabla_h\boldsymbol{v}) = (\nabla_h(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h), \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, q-p_h) \\
+&= (\nabla_h(\Pi_{h}\boldsymbol{u}), \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, q)-(\boldsymbol{f},\boldsymbol{v}) \\
+&= (\nabla_h(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}), \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, q-p) + (\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, p) -(\boldsymbol{f},\boldsymbol{v}).
+\end{align*}
+故由Cauchy-Schwarz可得
+\begin{equation*}
+\|\nabla_h(\Pi_{h}\boldsymbol{u}-\boldsymbol{u}_h)\|_0\lesssim \|\nabla_h(\boldsymbol{u}-\Pi_{h}\boldsymbol{u})\|_0 + \sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0} + \inf_{q\in P_h}\sup_{\boldsymbol{v}\in V_h}\frac{(\div_h\boldsymbol{v},p-q)}{\|\nabla_h\boldsymbol{v}\|_0}.
+\end{equation*}
+再结合三角不等式即有\eqref{stokesncfmerroruh}.
+
+对任意的$\boldsymbol{v} \in  V_h$，利用\eqref{StokesNcfm1}可推得
+\begin{equation*}	
+(\div_h\boldsymbol{v}, p-p_h)=(\div_h\boldsymbol{v}, p)+(\nabla_h\boldsymbol{u}_h,\nabla_h\boldsymbol{v})-(\boldsymbol{f},\boldsymbol{v}) =(\nabla_h(\boldsymbol{u}_h-\boldsymbol{u}),\nabla_h\boldsymbol{v}) + E_h(\boldsymbol{u},p;\boldsymbol{v}).
+\end{equation*}
+由离散inf-sup 条件\eqref{u4}，
+\begin{align*}
+\|q-p_h\|_{0}&\lesssim\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div_h\boldsymbol{v}, q-p_h)}{\|\nabla_h\boldsymbol{v}\|_0}\lesssim \|p-q\|_0+\sup _{\boldsymbol{v} \in  V_h}
+\frac{(\div_h\boldsymbol{v}, p-p_h)}{\|\nabla_h\boldsymbol{v}\|_0} \\
+&\lesssim \|p-q\|_0 + \|\nabla_h(\boldsymbol{u}-\boldsymbol{u}_h)\|_0 + \sup_{\boldsymbol{v}\in V_h}\frac{E_h(\boldsymbol{u},p;\boldsymbol{v})}{\|\nabla_h\boldsymbol{v}\|_0}.
+\end{align*}
+进而借助三角不等式和\eqref{stokesncfmerroruh}可推得\eqref{stokesncfmerrorph}.
+
+进一步，若有$\div_h V_h=P_h$，可取$q=Q_hp$, 则\eqref{stokesncfmerroruh}式右端的第三项为零，故\eqref{stokesncfmerroruhu}成立.
+\end{prf}
+
+\subsection{非协调$P_1$-$P_0$元}
+
+向量值非协调线性元的形函数空间为$\mathbb P_1(T;\mathbb R^d)$，自由度为
+\begin{equation*}
+% \label{MINIDoF0}
+\int_F\boldsymbol{v}\dd s, \quad F\in\Delta_{d-1}(T).
+\end{equation*}
+
+在文献\cite{CrouzeixRaviart1973}中，分别用非协调线性元和分片常数离散速度和压力，即令
+\begin{align*}
+ V_{h}
+&:=\big\{\boldsymbol{v}\in L^{2}(\Omega,\mathbb{R}^{d}):
+\boldsymbol{v}|_T\in \mathbb P_1(T,\mathbb{R}^{d}), T\in \mathcal{T}_h,\,\int_{F}[\boldsymbol{v}]\dd s=0,\,F\in \triangle_{d-1}(\mathcal{T}_h)\big\},
+\\
+P_{h}&:=\{q\in L_0^2(\Omega): q|_T\in \mathbb P_0(T), T\in \mathcal{T}_h\},
+\end{align*}
+其中$[\boldsymbol{v}]|_F$为$\boldsymbol{v}$跨过面$F$的跳量; 当$F\subset\partial\Omega$时，$[\boldsymbol{v}]|_F=\boldsymbol{v}$. 显然$ V_h  \not\subset H_0^{1}(\Omega; \mathbb{R}^{d})$. 对于非协调元空间$V_h$，成立离散Poincar\'e不等式 \cite{Brenner2003}
+\begin{equation*}
+\|\boldsymbol{v}\|_0\lesssim \|\nabla_h\boldsymbol{v}\|_0,\quad\boldsymbol{v}\in V_h.
+\end{equation*}
+
+
+\begin{lemma}
+非协调$P_1$-$P_0$元满足$\div_hV_h=P_h$和离散inf-sup 条件\eqref{StokesNcfmu4}.
+\end{lemma}
+\begin{prf}
+如下定义插值算子
+$\Pi_{h}:H_0^{1}(\Omega; \mathbb{R}^{d})\to  V_{h}$:
+\begin{align}\label{qi1}
+\int_{F}\Pi_{h}\boldsymbol{v}\dd s=\int_{F} \boldsymbol{v}\dd s,
+\quad \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),\,F\in\triangle_{d-1}(\mathcal{T}_h).
+\end{align}
+由分部积分可得
+\begin{equation*}
+(\div_h(\boldsymbol{v}-\Pi_h\boldsymbol{v}), q) =0,\quad  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}), \, q\in P_{h}.	
+\end{equation*}
+故$\div_h(\Pi_h\boldsymbol{v})=Q_h(\div\boldsymbol{v})$对$\boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d})$成立. 于是, $\div_hV_h=P_h$.
+由尺度论证技巧可证
+\begin{equation*}
+\|\nabla_h(\Pi_h\boldsymbol{v})\|_{0} \lesssim\|\nabla_h\boldsymbol{v}\|_{0}, \quad\;  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).
+\end{equation*}
+因此，$\Pi_{h}$是Fortin算子，从而由Fortin准则知离散inf-sup 条件\eqref{StokesNcfmu4}成立.
+\end{prf}
+
+非协调$P_1$-$P_0$元方法是分片divergence-free的，但不是divergence-free的.
+
+\begin{lemma}
+设$(\boldsymbol{u}, p)\in H_0^{1}(\Omega; \mathbb{R}^{d})\times L_{0}^{2}(\Omega)$是Stokes方程\eqref{eq-Stokes2}的解, $(\boldsymbol{u}_h, p_h)\in V_h\times P_h$是非协调$P_1$-$P_0$元方法(\ref{StokesNcfm1})-(\ref{StokesNcfm2})的解. 假设$\boldsymbol{u}\in H^{2}(\Omega; \mathbb{R}^{d})$，$p\in H^{1}(\Omega)$，则有误差估计
+\begin{equation}\label{eq:stokesncfmp1p0error}	
+\|\nabla_h(\boldsymbol{u}-\boldsymbol{u}_h)\|_0+\|p-p_h\|_0\lesssim h(\|\boldsymbol{u}\|_2+\|p\|_1).
+\end{equation}
+\end{lemma}
+\begin{prf}
+由定理~\ref{thm:stokesncfmerrorestimate}和$\Pi_h$的插值误差估计，我们只要估计相容性误差即可.
+
+由分部积分和弱连续性可推得，
+\begin{align*}
+E_h(\boldsymbol{u},p;\boldsymbol{v})&=(\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, p) -(\boldsymbol{f},\boldsymbol{v})=(\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div_h\boldsymbol{v}, p) + (\Delta\boldsymbol{u}+\nabla p,\boldsymbol{v}) \\
+&=\sum_{T\in\mathcal T_h}\big((\partial_n\boldsymbol{u}, \boldsymbol{v})_{\partial T}+(p, \boldsymbol{v}\cdot\boldsymbol{n})_{\partial T}\big)=\sum_{F\in\mathcal F_h}\big((\partial_n\boldsymbol{u}, [\boldsymbol{v}])_F+(p, [\boldsymbol{v}\cdot\boldsymbol{n}])_F\big) \\
+&=\sum_{F\in\mathcal F_h}\big((\partial_n\boldsymbol{u}-Q_{0,F}(\partial_n\boldsymbol{u}), [\boldsymbol{v}-Q_{0,F}\boldsymbol{v}])_F+(p-Q_{0,F}p, [(\boldsymbol{v}-Q_{0,F}\boldsymbol{v})\cdot\boldsymbol{n}])_F\big).
+\end{align*}
+再利用投影算子$Q_{0,F}$的误差估计可得
+\begin{equation*}
+E_h(\boldsymbol{u},p;\boldsymbol{v})\lesssim h(\|\boldsymbol{u}\|_2+\|p\|_1).
+\end{equation*}
+得证.
+\end{prf}
+
+由误差估计\eqref{eq:stokesncfmp1p0error}知，非协调$P_1$-$P_0$元方法不是压力鲁棒的.
+通过对\eqref{StokesNcfm1}右端项中的$\boldsymbol{v}$进行最低次Raviart–Thomas重构\cite{Linke2014,BrenneckeLinkeMerdonSchoeberl2015}，得到的非协调$P_1$-$P_0$元方法是压力鲁棒的. 更多Stokes方程数值方法压力鲁棒性的介绍参见\cite{JohnLinkeMerdonNeilanEtAl2017}.
+
+
+
+
+\subsection{一个新的非协调元}
+
+记二次非协调泡函数
+\begin{equation*}
+b_{T}^{\rm NC}=2-(d+1)(\lambda_0^2+\lambda_1^2+\cdots+\lambda_d^2).
+\end{equation*}
+泡函数$b_{T}^{\rm NC}$在单形重心处取值为$1$.
+
+\begin{lemma}
+对任意的$F\in\Delta_{d-1}(T)$,
+成立
+\begin{equation*}
+(b_{T}^{\rm NC}, q)_F=0,\quad q\in \mathbb P_1(F).
+\end{equation*}
+\end{lemma}
+\begin{prf}
+不妨设面$F$对应顶点$\texttt{v}_0$，故等价于证明 %和$i=0,\ldots, d$
+\begin{equation*}
+(b_{T}^{\rm NC}, \lambda_i)_F=0,\quad i=1,2,\ldots, d.
+\end{equation*}
+通过直接计算
+\begin{equation*}
+\frac{1}{|F|}(b_{T}^{\rm NC}, \lambda_i)_F=\frac{2}{d}-(d+1)\sum_{j=1}^d\frac{1}{|F|}\int_F\lambda_j^2\lambda_i\dd s=\frac{2}{d}-(d+1)\frac{(d-1)!}{(d+2)!}(2d+4)=0.
+\end{equation*}
+得证.
+\end{prf}
+
+速度的形函数空间取为$\mathbb P_1(T;\mathbb R^d)+b_{T}^{\rm NC}\mathbb P_0(T;\mathbb R^d)$，自由度为
+\begin{align*}
+\int_F\boldsymbol{v}\dd s&, \quad F\in\Delta_{d-1}(T),\\
+\int_T\boldsymbol{v}\dx.&
+\end{align*}
+压力的形函数空间取为$\mathbb P_1(T)$
+
+\begin{itemize}
+\item 压力用分片线性元离散，由此给出Stokes方程的一种非协调元方法，进行误差分析和数值试验
+\item 压力用非协调线性元离散，由此给出Stokes方程的一种非协调元方法，进行误差分析和数值试验
+\item 压力用线性元Lagrange元离散，由此给出Stokes方程的一种非协调元方法，进行误差分析和数值试验
+\end{itemize}
+
+
+
+\subsection{Divergence-free非协调元}
+
+文献\cite{XieXuXue2008}在$H(\div)$协调元的基础上，通过泡函数增加切向连续性来构造divergence-free非协调元.
+文献\cite{XieXuXue2008}给出了两维、三维低阶divergence-free非协调元，这里统一给出任意维divergence-free非协调元.
+
+记$\mathbb K$为所有$d$阶反对称矩阵所组成的线性空间. 设$d$维单形$T$的顶点为$\texttt{v}_0, \texttt{v}_1, \ldots, \texttt{v}_d$，相对应的$(d-1)$维面为$F_i$ ($i=0,1,\ldots, d$), 面$F_i$的法向量记为$\boldsymbol{n}_{F_i}$, 不在引起混淆的情况下简记为$\boldsymbol{n}_{i}$.
+
+\begin{lemma}\label{lem:divfreencfmK}
+设$\boldsymbol{\tau}_0, \boldsymbol{\tau}_1, \ldots, \boldsymbol{\tau}_d\in\mathbb K$满足
+\begin{equation*}
+\boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}_j\boldsymbol{n}_k=\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k,\quad 0\leq i,j,k\leq d, i\neq j, i\neq k, j\neq k, 
+\end{equation*}
+则$\boldsymbol{\tau}_i=0$, 其中$i=0,1,\ldots, d$.
+\end{lemma}
+\begin{prf}
+由$\boldsymbol{\tau}_i$的反对称性知$\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_j\boldsymbol{n}_i=-\boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}_j\boldsymbol{n}_k$, $\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_j=-\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k$, 因此
+\begin{equation*}
+\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_j\boldsymbol{n}_i=\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_j,\quad 0\leq i,j,k\leq d, i\neq j, i\neq k, j\neq k. 
+\end{equation*}
+从而，$\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k$关于前两个下标和后两个下标均是对称的. 由对称性可得
+\begin{equation*}
+\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_j=\boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}_k\boldsymbol{n}_j=\boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}_j\boldsymbol{n}_k=\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k.
+\end{equation*}
+又由$\boldsymbol{\tau}_i$的反对称性知 $\boldsymbol{n}_k^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_j=-\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k$. 故
+\begin{equation*}
+\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_i\boldsymbol{n}_k=0,\quad 0\leq i,j,k\leq d, j\neq i, k\neq i. 
+\end{equation*}
+注意到$\{\boldsymbol{n}_j\boldsymbol{n}_k^{\intercal}: 0\leq j,k\leq d, j\neq i, k\neq i\}$构成了$d$阶矩阵的一组基. 于是$\boldsymbol{\tau}_i=0$，得证.
+\end{prf}
+
+引入低次$H(\div)$有限元形函数空间$V^{\div}(T)=\mathbb P_1(T;\mathbb R^d)+\boldsymbol{x}\mathbb P_k(T)$, $k=0,1$. 当$k=0$时，$V^{\div}(T)=\mathbb P_1(T;\mathbb R^d)$为最低次Brezzi-Douglas-Marini (BDM)元\cite{BrezziDouglasMarini1985,BrezziDouglasDuranFortin1987,Nedelec1986}的形函数空间；当$k=1$时，$V^{\div}(T)$为一次Raviart-Thomas (RT)元\cite{RaviartThomas1977,Nedelec1980,ChenHuang2022}的形函数空间. 定义刚体运动空间${\rm RM}(T):=\mathbb P_0(T;\mathbb R^d)+\mathbb K\boldsymbol{x}$. ${\rm RM}(T)$也是第一类最低次Nedelec元的形函数空间\cite{Nedelec1980}，且有
+\begin{equation*}
+{\rm RM}(T)={\rm span}\{\lambda_i\nabla \lambda_j-\lambda_j\nabla \lambda_i: 0\leq i<j\leq d\}, \quad\dim{\rm RM}(T)=\frac{1}{2}d(d+1).
+\end{equation*}
+当$d=1$时，${\rm RM}(T)=\mathbb P_0(T)$.
+
+
+现在在低次$H(\div)$有限元的基础上定义divergence-free非协调元. 形函数空间取为$V(T):=V^{\div}(T)\oplus\div(b_T\mathbb P_1(T;\mathbb K))$, 其中$b_T:=\lambda_0\lambda_1\ldots\lambda_d$为泡函数.
+自由度为
+\begin{subequations}\label{divfreencfmDoFs}
+\begin{align}
+\label{divfreencfmDoFs1}
+(\boldsymbol{v}\cdot\boldsymbol{n}, q)_F, &\quad q\in\mathbb P_{1}(F), F\in\Delta_{d-1}(T),\\
+\label{divfreencfmDoFs2}
+(\boldsymbol{n}\times\boldsymbol{v}\times\boldsymbol{n}, \boldsymbol{q})_F, &\quad \boldsymbol{q}\in{\rm RM}(F), F\in\Delta_{d-1}(T),\\
+\label{divfreencfmDoFs3}
+(\boldsymbol{v}, \boldsymbol{q})_T, &\quad \boldsymbol{q}\in\mathbb P_{0}(T;\mathbb R^d)\quad\textrm{ if } k=1.
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+设 $T$ 是一个 $d$ 维单形，$\boldsymbol{\tau}\in\mathbb P_1(T;\mathbb K)$，则$\boldsymbol{v}=\div(b_T\boldsymbol{\tau})$满足$\div\boldsymbol{v}=0$，以及$(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$.
+\end{lemma}
+\begin{prf}
+由$\boldsymbol{\tau}$的反对称性可得$\div\boldsymbol{v}=0$. 对于$F\in\Delta_{d-1}(T)$，由$\boldsymbol{\tau}$的反对称性和$b_T|_F=0$可得
+\begin{equation*}
+(\boldsymbol{v}\cdot\boldsymbol{n})|_{F}=(\div(b_T\boldsymbol{n}^{\intercal}\boldsymbol{\tau}))|_{F}=(\div(b_T\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\Pi_F))|_{F}=(\div_F(b_T\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\Pi_F))|_{F}=0.
+\end{equation*}
+\end{prf}
+
+\begin{lemma}\label{lem:divfreencfmunisol}
+形函数空间$V(T)=V^{\div}(T)\oplus\div(b_T\mathbb P_1(T;\mathbb K))$由自由度\eqref{divfreencfmDoFs}所唯一确定.
+\end{lemma}
+\begin{prf}
+先证明$V^{\div}(T)\cap\div(b_T\mathbb P_1(T;\mathbb K))=0$. 对于$\boldsymbol{v}\in V^{\div}(T)\cap\div(b_T\mathbb P_1(T;\mathbb K))$, 由$\div\boldsymbol{v}=0$得$\boldsymbol{v}\in\mathbb P_1(T;\mathbb R^d)$. 注意到$\boldsymbol{v}\in\div(b_T\mathbb P_1(T;\mathbb K))$意味着$(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，故由BDM元的唯一可解性知$\boldsymbol{v}=0$.
+于是，形函数空间$V(T)$的维数为
+\begin{equation*}
+\dim V^{\div}(T)+\dim\mathbb P_1(T;\mathbb K)=d(d+1)+dk +\frac{1}{2}d(d^2-1),
+\end{equation*}
+恰好等于自由度\eqref{divfreencfmDoFs}的个数.
+
+设$\boldsymbol{v}=\boldsymbol{v}_1+\boldsymbol{v}_2\in V(T)$满足\eqref{divfreencfmDoFs}中所有自由度为零，其中$\boldsymbol{v}_1\in V^{\div}(T)$，$\boldsymbol{v}_2\in \div(b_T\mathbb P_1(T;\mathbb K))$. 易知$\div\boldsymbol{v}_2=0$, 以及$(\boldsymbol{v}_2\cdot\boldsymbol{n})|_{\partial T}=0$.
+因此$\div\boldsymbol{v}=\div\boldsymbol{v}_1$, 以及$(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=(\boldsymbol{v}_1\cdot\boldsymbol{n})|_{\partial T}$. 借助分部积分，由自由度\eqref{divfreencfmDoFs1}和\eqref{divfreencfmDoFs3}可推
+\begin{equation*}
+(\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{v}, q)_{\partial T}-(\boldsymbol{v}, \nabla q)_T=0,\quad q\in\mathbb P_1(T).
+\end{equation*}
+于是$\boldsymbol{v}_1\in\mathbb P_1(T;\mathbb R^d)$且满足$(\boldsymbol{v}_1\cdot\boldsymbol{n})|_{\partial T}=0$. 由BDM元的唯一可解性知$\boldsymbol{v}_1=0$. 故$\boldsymbol{v}\in \div(b_T\mathbb P_1(T;\mathbb K))$.
+
+设$\boldsymbol{v}=\sum_{i=0}^d\div(b_T\lambda_i\boldsymbol{\tau}_i)$, 其中$\boldsymbol{\tau}_0, \boldsymbol{\tau}_1,\ldots, \boldsymbol{\tau}_d\in\mathbb K$. 由自由度\eqref{divfreencfmDoFs2}可得
+\begin{equation*}
+\sum_{m=0}^d\big(\div(b_T\lambda_{m}\boldsymbol{\tau}_{m}), \lambda_i\nabla_F \lambda_j-\lambda_j\nabla_F\lambda_i\big)_{F_{\ell}}=\big(\boldsymbol{v}, \lambda_i\nabla_F \lambda_j-\lambda_j\nabla_F\lambda_i\big)_{F_{\ell}}=0,
+\end{equation*}
+其中$0\leq i,j,\ell\leq d, i\neq\ell, j\neq\ell$. 注意到$(\div b_T)|_{F_{\ell}}=b_{F_{\ell}}\nabla\lambda_{\ell}$,
+\begin{equation*}
+\sum_{m=0}^d\big(b_{F_{\ell}}\lambda_{m}\boldsymbol{\tau}_{m}\boldsymbol{n}_{\ell}, \lambda_i\nabla_F \lambda_j-\lambda_j\nabla_F\lambda_i\big)_{F_{\ell}}=0.
+\end{equation*}
+直接计算可得
+\begin{equation*}
+2\sum_{m\neq\ell}(\nabla \lambda_j)^{\intercal}\boldsymbol{\tau}_{m}\boldsymbol{n}_{\ell} + (\nabla \lambda_j)^{\intercal}\boldsymbol{\tau}_{i}\boldsymbol{n}_{\ell} - 2\sum_{m\neq\ell}(\nabla \lambda_i)^{\intercal}\boldsymbol{\tau}_{m}\boldsymbol{n}_{\ell} - (\nabla \lambda_i)^{\intercal}\boldsymbol{\tau}_{j}\boldsymbol{n}_{\ell}=0,
+\end{equation*}
+其中$0\leq i,j,\ell\leq d, i\neq\ell, j\neq\ell$. 将上式关于下标$i$从$0$到$d$除了$j$和$\ell$进行求和可得
+\begin{equation*}
+(2d+1)\sum_{m\neq\ell}(\nabla \lambda_j)^{\intercal}\boldsymbol{\tau}_{m}\boldsymbol{n}_{\ell}=0, \quad 0\leq j,\ell\leq d, j\neq\ell.
+\end{equation*}
+因此$(\nabla\lambda_j)^{\intercal}\boldsymbol{\tau}_{i}\boldsymbol{n}_{\ell} = (\nabla\lambda_i)^{\intercal}\boldsymbol{\tau}_{j}\boldsymbol{n}_{\ell}$, 也即
+\begin{equation*}
+\boldsymbol{n}_j^{\intercal}\boldsymbol{\tau}_{i}\boldsymbol{n}_{\ell} = \boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}_{j}\boldsymbol{n}_{\ell}, \quad 0\leq i,j,\ell\leq d, i\neq\ell, j\neq\ell.
+\end{equation*}
+由引理~\ref{lem:divfreencfmK}知, $\boldsymbol{\tau}_{i}=0$, $i=0,1,\ldots, d$. 故$\boldsymbol{v}=0$.
+\end{prf}
+
+分别定义离散速度和压力的整体有限元空间
+\begin{align*}
+ V_{h}&:=\{\boldsymbol{v}\in L^{2}(\Omega;\mathbb{R}^{d}): \boldsymbol{v}|_T\in V^{\div}(T)\oplus\div(b_T\mathbb P_1(T;\mathbb K)), T\in \mathcal{T}_h,\\
+&\qquad\qquad\qquad\qquad\quad \textrm{所有自由度\eqref{divfreencfmDoFs}跨过内部边界是连续的},\\
+&\qquad\qquad\qquad\qquad\qquad\quad \textrm{自由度\eqref{divfreencfmDoFs1}-\eqref{divfreencfmDoFs2}在边界上为零}\},
+\\
+P_{h}&:=\{q\in L_{0}^2(\Omega): q|_T\in \mathbb P_{k}(T), T\in \mathcal{T}_h\}.
+\end{align*}
+显然有$V_{h}\subset H_0(\div,\Omega)$但$V_{h}\not\subseteq H^1(\Omega;\mathbb R^d)$, 且有弱连续性
+\begin{equation}\label{stokesdivfreencfmweakcontinuity}
+\int_F[\boldsymbol{v}]\dd s=0,\quad F\in\mathcal F_h.
+\end{equation}
+
+\begin{lemma}
+Divergence-free非协调元满足$\div V_h=P_h$和离散inf-sup 条件\eqref{StokesNcfmu4}.
+\end{lemma}
+\begin{prf}
+令$\Pi_{h}:H_0^{1}(\Omega; \mathbb{R}^{d})\to  V_{h}$为基于自由度\eqref{divfreencfmDoFs}的节点插值算子，则利用分部积分和尺度论证技巧可推得$\Pi_{h}$是Fortin算子，且有$\div V_h=P_h$.
+\end{prf}
+
+Divergence-free非协调元方法是divergence-free的.
+
+\begin{lemma}
+设$(\boldsymbol{u}, p)\in H_0^{1}(\Omega; \mathbb{R}^{d})\times L_{0}^{2}(\Omega)$是Stokes方程\eqref{eq-Stokes2}的解, $(\boldsymbol{u}_h, p_h)\in V_h\times P_h$是divergence-free非协调元方法(\ref{StokesNcfm1})-(\ref{StokesNcfm2})的解. 假设$\boldsymbol{u}\in H^{2}(\Omega; \mathbb{R}^{d})$，$p\in H^{1}(\Omega)$，则有误差估计
+\begin{equation}\label{stokesdivfreencfmerroruh}
+\|\nabla_h(\boldsymbol{u}-\boldsymbol{u}_h)\|_0\lesssim h\|\boldsymbol{u}\|_2,
+\end{equation}
+\begin{equation}\label{stokesdivfreencfmerrorph}
+\|p-p_h\|_0\lesssim h(\|\boldsymbol{u}\|_2+h^{k}\|p\|_1).
+\end{equation}
+\end{lemma}
+\begin{prf}
+由定理~\ref{thm:stokesncfmerrorestimate}和$\Pi_h$的插值误差估计，我们只要估计相容性误差即可.
+
+由分部积分和弱连续性可推得，
+\begin{align*}
+E_h(\boldsymbol{u},p;\boldsymbol{v})&=(\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div\boldsymbol{v}, p) -(\boldsymbol{f},\boldsymbol{v})=(\nabla\boldsymbol{u}, \nabla_h\boldsymbol{v}) + (\div\boldsymbol{v}, p) + (\Delta\boldsymbol{u}+\nabla p,\boldsymbol{v}) \\
+&=\sum_{T\in\mathcal T_h}(\partial_n\boldsymbol{u}, \boldsymbol{v})_{\partial T}=\sum_{F\in\mathcal F_h}(\partial_n\boldsymbol{u}, [\boldsymbol{v}])_F \\
+&=\sum_{F\in\mathcal F_h}(\partial_n\boldsymbol{u}-Q_{0,F}(\partial_n\boldsymbol{u}), [\boldsymbol{v}-Q_{0,F}\boldsymbol{v}])_F.
+\end{align*}
+再利用投影算子$Q_{0,F}$的误差估计可得
+\begin{equation*}
+E_h(\boldsymbol{u},p;\boldsymbol{v})\lesssim h\|\boldsymbol{u}\|_2.
+\end{equation*}
+得证.
+\end{prf}
+
+当$d=2,3$时，我们得到了文献\cite{XieXuXue2008}中的两维、三维低阶divergence-free非协调元.
+
+只要有弱连续性\eqref{stokesdivfreencfmweakcontinuity}, 即可得到误差估计\eqref{stokesdivfreencfmerroruh}和\eqref{stokesdivfreencfmerrorph}. 因此，可以减少自由度\eqref{divfreencfmDoFs2}中的矩量.
+令反对称矩阵线性函数约化空间
+\begin{equation*}
+\mathbb P_1^r(T;\mathbb K)=\mathbb P_1(T;\mathbb K)/\oplus_{i=0}^d(d\lambda_i-1)\mathbb K_i,
+\end{equation*}
+其中$\mathbb K_i$是面$F_i$上全部切向反对称矩阵所形成的线性空间.
+
+\begin{lemma}
+$\dim\mathbb P_1^r(T;\mathbb K)=d^2-1$.
+\end{lemma}
+\begin{prf}
+由于
+\begin{equation*}
+\sum_{i=0}^d\dim\mathbb K_i=\frac{1}{2}(d-2)(d^2-1),
+\end{equation*}
+故只需证明$\{(d\lambda_i-1)\mathbb K_i, i=0,1,\ldots, d\}$线性无关. 设
+\begin{equation*}
+\sum_{i=0}^d(d\lambda_i-1)\boldsymbol{\tau}_i=0,\quad \boldsymbol{\tau}_i\in\mathbb K_i.
+\end{equation*}
+将重心的坐标代入，即$\lambda_0=\lambda_1=\ldots=\lambda_d=\frac{1}{d+1}$，可推得 
+\begin{equation*}
+\sum_{i=0}^d\boldsymbol{\tau}_i=0,\quad \sum_{i=0}^d\lambda_i\boldsymbol{\tau}_i=0.
+\end{equation*}
+由$\lambda_0,\lambda_1,\ldots,\lambda_d$的线性无关性可得$\boldsymbol{\tau}_i=0$, $i=0,1,\ldots, d$.
+\end{prf}
+
+% \begin{equation*}
+% \mathbb P_1^r(T;\mathbb K)=\{\boldsymbol{\tau}\in \mathbb P_1(T;\mathbb K): (\div(b_T\boldsymbol{\tau}), \boldsymbol{q})_F=0, \boldsymbol{q}\in{\rm RM}(F)/\mathbb P_0(F;\mathbb R^{d-1}), F\in\Delta_{d-1}(T)\},
+% \end{equation*}
+% 则有
+% \begin{equation*}
+% \dim\mathbb P_1^r(T;\mathbb K)\geq\frac{1}{2}d(d^2-1)-\frac{1}{2}(d-2)(d^2-1)=d^2-1.
+% \end{equation*}
+约化后的形函数空间取为$V^r(T):=V^{\div}(T)\oplus\div(b_T\mathbb P_1^r(T;\mathbb K))$.
+自由度为
+\begin{subequations}\label{reducedivfreencfmDoFs}
+\begin{align}
+\label{reducedivfreencfmDoFs1}
+(\boldsymbol{v}\cdot\boldsymbol{n}, q)_F, &\quad q\in\mathbb P_{1}(F), F\in\Delta_{d-1}(T),\\
+\label{reducedivfreencfmDoFs2}
+(\boldsymbol{n}\times\boldsymbol{v}\times\boldsymbol{n}, \boldsymbol{q})_F, &\quad \boldsymbol{q}\in\mathbb P_0(F;\mathbb R^{d-1}), F\in\Delta_{d-1}(T),\\
+\label{reducedivfreencfmDoFs3}
+(\boldsymbol{v}, \boldsymbol{q})_T, &\quad \boldsymbol{q}\in\mathbb P_{0}(T;\mathbb R^d)\quad\textrm{ if } k=1.
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+形函数空间$V^r(T)=V^{\div}(T)\oplus\div(b_T\mathbb P_1^r(T;\mathbb K))$由自由度\eqref{reducedivfreencfmDoFs}所唯一确定.
+\end{lemma}
+\begin{prf}
+形函数空间$V^r(T)$的维数为
+\begin{equation*}
+\dim V^r(T)= d(d+1)+dk +d^2-1,
+\end{equation*}
+等于自由度\eqref{divfreencfmDoFs}的个数为$d(d+1) +d^2-1+dk$.
+
+设$\boldsymbol{v}\in V^r(T)$满足\eqref{reducedivfreencfmDoFs}中所有自由度为零. 
+类似于引理~\ref{lem:divfreencfmunisol}的证明可得$\boldsymbol{v}\in \div(b_T\mathbb P_1^r(T;\mathbb K))$. 
+
+
+设$\boldsymbol{v}=\sum_{i=0}^d\div(b_T\lambda_i\boldsymbol{\tau}_i)$, 其中$\boldsymbol{\tau}_0, \boldsymbol{\tau}_1,\ldots, \boldsymbol{\tau}_d\in\mathbb K$. 由自由度\eqref{reducedivfreencfmDoFs2}可得
+\begin{equation*}
+\sum_{i=0}^d\int_{F_j}b_{F_j}\lambda_{i}\boldsymbol{\tau}_{i}\nabla\lambda_j\dd s=\int_{F_j}\boldsymbol{n}\times \boldsymbol{v} \times\boldsymbol{n}\dd s=0,\quad j=0,1,\ldots,d.
+\end{equation*}
+由此可得
+% \begin{equation*}
+% \sum_{i\neq j}\boldsymbol{\tau}_{i}\boldsymbol{n}_{j}=0,\quad j=0,1,\ldots,d.
+% \end{equation*}
+% 所以
+\begin{equation*}
+\sum_{i=0}^d\boldsymbol{\tau}_{i}\boldsymbol{n}_{j}=\boldsymbol{\tau}_{j}\boldsymbol{n}_{j},\quad j=0,1,\ldots,d.
+\end{equation*}
+由$\boldsymbol{\tau}_{i}$的反对称性可得
+\begin{equation*}
+\boldsymbol{\tau}_{j}=\boldsymbol{\sigma}_{j}+\sum_{i=0}^d\boldsymbol{\tau}_{i}, \quad j=0,1,\ldots,d,
+\end{equation*}
+其中$\boldsymbol{\sigma}_{j}\in\mathbb K_j$.
+对上式关于$j$进行求和有$d\sum_{i=0}^d\boldsymbol{\tau}_{i}=-\sum_{i=0}^d\boldsymbol{\sigma}_{i}$, 故
+\begin{equation*}
+\boldsymbol{\tau}_{j}=\boldsymbol{\sigma}_{j}-\frac{1}{d}\sum_{i=0}^d\boldsymbol{\sigma}_{i}, \quad j=0,1,\ldots,d.
+\end{equation*}
+从而
+\begin{equation*}
+\sum_{i=0}^d\lambda_i\boldsymbol{\tau}_i=\sum_{i=0}^d\lambda_i\boldsymbol{\sigma}_i-\frac{1}{d}\sum_{i=0}^d\boldsymbol{\sigma}_{i}=\frac{1}{d}\sum_{i=0}^d(d\lambda_i-1)\boldsymbol{\sigma}_i\in \oplus_{i=0}^d(d\lambda_i-1)\mathbb K_i.
+\end{equation*}
+另一方面，$\sum_{i=0}^d\lambda_i\boldsymbol{\tau}_i\in\mathbb P_1^r(T;\mathbb K)=\mathbb P_1(T;\mathbb K)/\oplus_{i=0}^d(d\lambda_i-1)\mathbb K_i$. 所以，$\sum_{i=0}^d\lambda_i\boldsymbol{\tau}_i=0$, 从而$\boldsymbol{v}=0$.
+\end{prf}
+
+
+约化后的divergence-free非协调元方法具有与\eqref{stokesdivfreencfmerroruh}和\eqref{stokesdivfreencfmerrorph}一样的误差估计.
+
+三维情形$d=3$，约化向量有限元形函数空间为$V^{\div}(T)\oplus\curl(b_T\mathbb P_1^r(T;\mathbb R^3))$, 其中$\mathbb P_1^r(T;\mathbb R^3):=\mathbb P_1(T;\mathbb R^3)/{\rm span}\{(3\lambda_i-1)\nabla\lambda_i, i=0,1,2,3\}$, 与文献\cite{XieXuXue2008}中的相同.
+
+% 在三维情形$d=3$，文献\cite{XieXuXue2008}中的约化向量有限元形函数空间为$V^{\div}(T)\oplus\curl(b_T\mathbb P_1^r(T;\mathbb R^3))$, 其中$\mathbb P_1^r(T;\mathbb R^3):=\mathbb P_1(T;\mathbb R^3)/{\rm span}\{(3\lambda_i-1)\nabla\lambda_i, i=0,1,2,3\}$.
+
+
+
+\section{ Stokes 复形}
+\subsection{有限元Stokes复形}
+回顾二维de Rham复形
+\begin{equation*}
+0\xrightarrow{} H_0^1(\Omega)\xrightarrow{\curl} H_0(\div,\Omega)\xrightarrow{\div} L_0^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+\mathbb R\xrightarrow{} H^1(\Omega)\xrightarrow{\curl} H(\div,\Omega)\xrightarrow{\div} L^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+0\xrightarrow{} H_0^{s+2}(\Omega)\xrightarrow{\curl} H_0^{s+1}(\Omega;\mathbb R^2)\xrightarrow{\div} H_0^s(\Omega)\cap L_0^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+\mathbb R\xrightarrow{} H^{s+2}(\Omega)\xrightarrow{\curl} H^{s+1}(\Omega;\mathbb R^2)\xrightarrow{\div} H^s(\Omega)\xrightarrow{}0.
+\end{equation*}
+
+
+回顾三维de Rham复形
+\begin{equation*}
+0\xrightarrow{} H_0^1(\Omega)\xrightarrow{\grad} H_0(\curl,\Omega)\xrightarrow{\curl} H_0(\div,\Omega)\xrightarrow{\div} L_0^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+\mathbb R\xrightarrow{} H^1(\Omega)\xrightarrow{\grad} H(\curl,\Omega)\xrightarrow{\curl} H(\div,\Omega)\xrightarrow{\div} L^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+0\xrightarrow{} H_0^{s+3}(\Omega)\xrightarrow{\grad} H_0^{s+2}(\Omega;\mathbb R^3)\xrightarrow{\curl} H_0^{s+1}(\Omega;\mathbb R^3)\xrightarrow{\div} H_0^{s}(\Omega)\cap L_0^2(\Omega)\xrightarrow{}0,
+\end{equation*}
+\begin{equation*}
+\mathbb R\xrightarrow{} H^{s+3}(\Omega)\xrightarrow{\grad} H^{s+2}(\Omega;\mathbb R^3)\xrightarrow{\curl} H^{s+1}(\Omega;\mathbb R^3)\xrightarrow{\div} H^{s}(\Omega)\xrightarrow{}0.
+\end{equation*}
+

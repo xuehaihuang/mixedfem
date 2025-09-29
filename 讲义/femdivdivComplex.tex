@@ -1,0 +1,1432 @@
+% !TEX root = femtensorlecture.tex
+\chapter{Finite Element Divdiv Complexes in Three Dimensions}
+
+
+
+\section{Green's Identities and Traces}\label{sec:greentrace}
+%\section{Divdiv Conforming finite element spaces}
+We first present a Green's identity based on which we can characterize two traces of $ \boldsymbol{H}(\div\div, \Omega; \mathbb{S}) $ on polyhedrons and give a sufficient continuity condition for a piecewise smooth function to be in $ \boldsymbol{H}(\div\div, \Omega; \mathbb{S}) $. 
+
+\subsection{Notation}
+Let $\{\mathcal {T}_h\}_{h>0}$ be a regular family of polyhedral meshes
+of $\Omega$. Our finite element spaces are constructed for tetrahedrons but some results, e.g., traces and Green's formulae etc, hold for general polyhedrons.   For each element $K\in\mathcal{T}_h$, denote by $\boldsymbol{n}_K $ the
+unit outward normal vector to $\partial K$,  which will be abbreviated as $\boldsymbol{n}$ for simplicity.
+Let $\mathcal{F}_h$, $\mathcal{F}^i_h$, $\mathcal{E}_h$, $\mathcal{E}^i_h$, $\mathcal{V}_h$ and $\mathcal{V}^i_h$ be the union of all faces, interior faces, all edges, interior edges, vertices and interior vertices
+of the partition $\mathcal {T}_h$, respectively.
+For any $F\in\mathcal{F}_h$,
+fix a unit normal vector $\boldsymbol{n}_F$ and two unit tangent vectors $\boldsymbol{t}_{F,1}$ and $\boldsymbol{t}_{F,2}$, which will be abbreviated as $\boldsymbol{t}_{1}$ and $\boldsymbol{t}_{2}$ without causing any confusions.
+For any $e\in\mathcal{E}_h$,
+fix a unit tangent vector $\boldsymbol{t}_e$ and two unit normal vectors $\boldsymbol{n}_{e,1}$ and $\boldsymbol{n}_{e,2}$, which will be abbreviated as $\boldsymbol{n}_{1}$ and $\boldsymbol{n}_{2}$ without causing any confusions.
+For $K$ being a polyhedron, denote by $\mathcal{F}(K)$, $\mathcal{E}(K)$ and $\mathcal{V}(K)$ the set of all faces, edges and vertices of $K$, respectively. 
+%$\mathcal{E}^i(G)$ the set of all
+%interior edges of $G$ and $\mathcal{V}(G)$ the set of all vertices of $G$.
+For any $F\in\mathcal{F}_h$, let $\mathcal{E}(F)$ be the set of all edges of $F$. And for each $e\in\mathcal{E}(F)$, denote by $\boldsymbol n_{F,e}$ the unit vector
+being parallel to $F$ and outward normal to $\partial F$.
+Furthermore, set
+\[
+\mathcal{F}^i(K):=\mathcal{F}(K)\cap\mathcal{F}^i_h, \quad\mathcal{E}^i(F):=\mathcal{E}(F)\cap\mathcal{E}^i_h. %, \quad\mathcal{E}^i(K):=\mathcal{E}(K)\cap\mathcal{E}^i_h
+\]
+
+\subsection{Green's identities}
+We first derive a Green's identity for smooth functions on polyhedrons.
+
+\begin{lemma} [Green's identity in 3D]\label{lm:Green}
+Let $K$ be a polyhedron, and let $\boldsymbol  \tau\in \mathcal C^2(K; \mathbb S)$ and $v\in H^2(K)$. 
+Then we have
+\begin{align}
+(\div\div\boldsymbol \tau, v)_K&=(\boldsymbol \tau, \nabla^2v)_K -\sum_{F\in\mathcal F(K)}\sum_{e\in\mathcal E(F)}(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e \notag\\
+&\quad - \sum_{F\in\mathcal F(K)}\left[(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n, \partial_n v)_{F} -  ( 2\div_F(\boldsymbol \tau\boldsymbol n)+\partial_n (\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n), v)_F\right]. \label{eq:greenidentitydivdiv}
+\end{align}
+\end{lemma}
+\begin{proof}
+We start from the standard integration by parts
+\begin{align*}
+\begin{aligned}
+(\operatorname{div}\div \boldsymbol  \tau, v)_{K} &=-(\div\boldsymbol \tau, \nabla v)_{K}+\sum_{F \in \mathcal F(K)}(\boldsymbol  n^{\intercal}\div  \boldsymbol   \tau, v)_F \\
+&=\left(\boldsymbol  \tau, \nabla^{2} v\right)_{K}-\sum_{F \in \mathcal F(K)} (\boldsymbol  \tau \boldsymbol  n, \nabla v)_F+\sum_{F \in \mathcal F(K)}(\boldsymbol  n^{\intercal} \div  \boldsymbol   \tau, v)_F.
+\end{aligned}
+\end{align*}
+We then decompose $\nabla v = \partial_nv\boldsymbol n+ \nabla_F v$ and apply the Stokes theorem to get
+\begin{align*}
+(\boldsymbol  \tau \boldsymbol  n, \nabla v)_F&=(\boldsymbol \tau \boldsymbol n, \partial_nv\boldsymbol n+ \nabla_F v)_F \\
+%&=(\boldsymbol n^{\intercal}\boldsymbol \tau \boldsymbol n, \partial_nv)_F+(\boldsymbol n\times(\boldsymbol \tau \boldsymbol n), \boldsymbol n\times\nabla v)_F \\
+&=(\boldsymbol n^{\intercal}\boldsymbol \tau \boldsymbol n, \partial_nv)_F -( \div_F(\boldsymbol \tau\boldsymbol n),  v)_F + \sum_{e\in\mathcal E(F)} (\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e.
+\end{align*}
+Now we rewrite the term
+$$
+(\boldsymbol  n^{\intercal}\div  \boldsymbol   \tau, v)_F = (\div  (\boldsymbol  \tau \boldsymbol n), v)_F = ( \div_F(\boldsymbol \tau\boldsymbol n),  v)_F + (\partial_n \boldsymbol (\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n),  v)_{F} .
+$$
+Thus the Green's identity~\eqref{eq:greenidentitydivdiv} follows by merging all terms.
+\end{proof}
+When the domain is smooth in the sense that $\mathcal E(K)$ is an empty set, the term $\sum\limits_{F\in\mathcal F(K)}\sum\limits_{e\in\mathcal E(F)}(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e $ disappears. When $v$ is continuous on edge $e$, this term will define a jump of the tensor. 
+
+A similar Green's identity in two dimensions is included here for later usage. To avoid confusion with three dimensional version, $\bs n_e$ is used to emphasize it is a normal vector of edge $e$ of a polygon $F$ and differential operators with subscript $F$ are used. 
+\begin{lemma} [Green's identity in 2D]\label{lm:Green2D}
+Let $F$ be a polygon, and let $\boldsymbol  \tau\in \mathcal C^2(F; \mathbb S)$ and $v\in H^2(F)$. Then we have
+\begin{align}
+(\div_F\div_F\boldsymbol \tau, v)_F&=(\boldsymbol \tau, \nabla_F^2v)_F -\sum_{e\in\mathcal E(K)}\sum_{\delta\in\partial e}\sign_{e,\delta}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_e)(\delta)v(\delta) \notag\\
+&\quad - \sum_{e\in\mathcal E(K)}\left[(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n_e, \partial_n v)_{e}-(2\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n)+\partial_n (\boldsymbol  n_e^{\intercal}\boldsymbol \tau\boldsymbol  n_e),  v)_{e}\right], \notag%\label{eq:greenidentitydivdiv2D}
+\end{align}
+where
+\[
+\sign_{e,\delta}:=\begin{cases}
+1, & \textrm{ if } \delta \textrm{ is the end point of } e, \\
+-1, & \textrm{ if } \delta \textrm{ is the start point of } e.
+\end{cases}
+\]
+\end{lemma}
+Here the trace $2\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_e)+\partial_n (\boldsymbol  n_e^{\intercal}\boldsymbol \tau\boldsymbol  n_e) = \partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_e)+\boldsymbol  n_e^{\intercal}\div\boldsymbol \tau$ is called the effective transverse shear force respectively for $\bs\tau$ being a moment and $\boldsymbol  n_e^{\intercal}\boldsymbol \tau\boldsymbol  n_e$ is the normal bending moment in the context of elastic mechanics~\cite{FengShi1996}.
+
+%We can also write the term
+%$$
+%(\boldsymbol n\times\nabla)\cdot(\boldsymbol n\times(\boldsymbol \tau \boldsymbol n)) = \nabla_F\cdot \Pi_F(\boldsymbol \tau \boldsymbol n),
+%$$
+%which is the surface divergence of the tangential projection of the vector $\boldsymbol \tau \boldsymbol n$.
+
+\subsection{Traces and continuity across the boundary}\label{subsec:trace}
+The Green's identity~\eqref{eq:greenidentitydivdiv} motives the definition of two trace operators for function $\boldsymbol \tau\in \boldsymbol{H}(\div{\div },K; \mathbb{S})$:
+$$
+{\rm tr}_1(\boldsymbol \tau) = \boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol  n, \quad
+{\rm tr}_2(\boldsymbol \tau) = 2\div_F(\boldsymbol \tau\boldsymbol n)+\partial_n (\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n). 
+$$
+%In two dimensions, in the context of elastic mechanics~\cite{FengShi1996}, $\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n$ and $2\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n)+\partial_n (\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n) = \partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n)+\boldsymbol  n^{\intercal}\boldsymbol \div\boldsymbol \tau$ are called
+%normal bending moment and effective transverse shear force respectively for $\bs\tau$ being a moment.
+
+
+We first recall the trace of the space $\boldsymbol{H}(\div{\div },K; \mathbb{S})$ on the boundary of polyhedron $K$  (cf.~\cite[Lemma 3.2]{Fuhrer;Heuer;Niemi:2019ultraweak} and~\cite{Sinwel2009,PechsteinSchoeberl2018}).
+Let $H_{00}^{1/2}(F)$ be the closure of $\mathcal C_0^{\infty}(F)$ with respect to the norm $\|\cdot\|_{H^{1/2}(\partial K)}$, which includes all functions in $H^{1/2}(F)$ whose continuation to the whole boundary $\partial K$ by zero belongs to $H^{1/2}(\partial K)$.
+Define trace spaces
+\begin{align*}
+H_{n,0}^{1/2}(\partial K)&:=\{\partial_n v|_{\partial K}: v\in H^2(K)\cap H_0^1(K)\} \\
+&\;=\{g\in L^2(\partial K): g|_F\in H_{00}^{1/2}(F)\;\;\forall~F\in\mathcal F(K)\}
+\end{align*}
+with norm
+\[
+\|g\|_{H_{n,0}^{1/2}(\partial K)}:=\inf_{v\in H^2(K)\cap H_0^1(K)\atop \partial_n v=g}\|v\|_2,
+\]
+and
+\begin{align*}
+H_{t,0}^{3/2}(\partial K)&:=\{v|_{\partial K}: v\in H^2(K), \partial_nv|_{\partial K}=0, v|_{e}=0 \textrm{ for each edge } e\in\mathcal E(K) \}
+\end{align*}
+with norm
+\[
+\|g\|_{H_{t,0}^{3/2}(\partial K)}:=\inf_{v\in H^2(K)\atop \partial_n v=0, v=g}\|v\|_2.
+\]
+Let $H_n^{-1/2}(\partial K):=(H_{n,0}^{1/2}(\partial K))'$ for $\tr_1$, and $H_t^{-3/2}(\partial K):=(H_{t,0}^{3/2}(\partial K))'$ for $\tr_2$. 
+
+%\begin{lemma}
+%For any $\boldsymbol \tau\in\boldsymbol{H}(\div \boldsymbol{\div },K; \mathbb{S})$,  it holds
+%\[
+%\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} \lesssim \|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div \boldsymbol{\div })}.
+%\]
+%Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$, there exists some $\boldsymbol \tau\in\boldsymbol{H}(\div \boldsymbol{\div },K; \mathbb{S})$ such that
+%\[
+%\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=g_n, \quad 
+%\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div \boldsymbol{\div })} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}.
+%\]
+%The hidden constants depend only the shape of the domain $K$.
+%\end{lemma}
+
+\begin{lemma}[Lemma 3.2 in~\cite{Fuhrer;Heuer;Niemi:2019ultraweak}]\label{lem:Hdivdivtrace}
+For any $\boldsymbol \tau\in\boldsymbol{H}(\div{\div },K; \mathbb{S})$,  it holds
+\[
+\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} + \|2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)\|_{H_t^{-3/2}(\partial K)}\lesssim \|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div{\div },K)}.
+\]
+Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$ and $g_t\in H_t^{-3/2}(\partial K)$, there exists some $\boldsymbol \tau\in\boldsymbol{H}(\div{\div },K; \mathbb{S})$ such that
+\[
+\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=g_n, \quad 2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)=g_t,
+\]
+\[ 
+\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div{\div },K)} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}+\|g_t\|_{H_t^{-3/2}(\partial K)}.
+\]
+The hidden constants depend only the shape of the domain $K$.
+\end{lemma}
+
+Notice that the term $(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e$ in the Green's identity~\eqref{eq:greenidentitydivdiv} is not covered by Lemma~\ref{lem:Hdivdivtrace}.
+Indeed, the full characterization of the trace of $\boldsymbol{H}(\div{\div },K; \mathbb{S})$ is defined by $(\div{\div }\bs\tau, v)-\left(\boldsymbol  \tau, \nabla^{2} v\right)_{K}$, which cannot be equivalently decoupled~\cite[Lemma~3.2]{Fuhrer;Heuer;Niemi:2019ultraweak}.
+It is possible, however, to face-wisely localize the trace if imposing additional smoothness. 
+
+We then present a sufficient continuity condition for piecewise smooth functions to be in $\boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$. %Recall that $\mathcal {T}_h$ is a shape regular polygonal mesh of $\Omega$. For each edge $e\in \mathcal E_h^i$, we chose and fix two normal vectors $\boldsymbol n_1, \boldsymbol n_2$. 
+
+
+
+
+\begin{lemma}[cf. Proposition 3.6 in~\cite{Fuhrer;Heuer;Niemi:2019ultraweak}]\label{lem:Hdivdivpatching}
+Let $\boldsymbol \tau\in \boldsymbol  L^2(\Omega;\mathbb S)$ such that
+\begin{enumerate}[\rm (i)]
+\item $\boldsymbol \tau|_K\in \boldsymbol{H}(\div{\div },K; \mathbb{S})$ for each polyhedron  $K\in\mathcal T_h$;
+
+\smallskip
+\item $(2\div_F(\boldsymbol\tau \boldsymbol n_F)+ \partial_{n_F}(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n))|_F\in L^2(F)$ is single-valued for each $F\in\mathcal F_h^i$;
+
+\smallskip
+\item $(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n)|_F\in L^2(F)$ is single-valued for each $F\in\mathcal F_h^i$;
+
+\smallskip
+\item $(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol  n_j)|_e\in L^2(e)$ is single-valued for each $e\in\mathcal E_h^i$, $\, i, j=1, 2$,
+
+%\smallskip
+%\item $\boldsymbol \tau(\delta)$ is single-valued for each $\delta\in\mathcal V_h^i$,
+\end{enumerate}
+then $\boldsymbol \tau\in \boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$.
+\end{lemma}
+\begin{proof}
+For any $v\in \mathcal C_0^{\infty}(\Omega)$, we get from the Green's identity~\eqref{eq:greenidentitydivdiv} that
+\begin{align*}
+(\boldsymbol \tau, \nabla^2v)&=\sum_{K\in\mathcal T_h}(\div\div\boldsymbol \tau, v)_K+\sum_{K\in\mathcal T_h}\sum_{F\in\mathcal F^i(K)}\sum_{e\in\mathcal E^i(F)}(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e\\
+&\quad+\sum_{K\in\mathcal T_h}\sum_{F\in\mathcal F^i(K)}\left[(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n, \partial_n v)_{F} -  ( 2\div_F(\boldsymbol \tau\boldsymbol n)+\partial_n (\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n), v)_F\right].
+\end{align*}
+Since the terms in (ii)-(iv) are single-valued and each interior face is repeated twice in the summation with opposite orientation, it follows
+\[
+\langle\div\div\boldsymbol \tau, v\rangle=\sum_{K\in\mathcal T_h}(\div\div\boldsymbol \tau, v)_K.
+\]
+Thus we have $\boldsymbol \tau\in \boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$ by the definition of derivatives of the distribution, and $(\div\div\boldsymbol \tau)|_K=\div\div(\boldsymbol \tau|_K)$ for each $K\in\mathcal T_h$.
+\end{proof}
+
+For any piecewise smooth $\boldsymbol \tau\in \boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$,    
+the single-valued term $(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol  n_j)|_e$ in (iv) in Lemma~\ref{lem:Hdivdivpatching} implies that there is some compatible condition for $\boldsymbol \tau$ at each vertex $\delta\in\mathcal V_h^i$.
+Indeed, for any $\delta\in\mathcal V_h^i$ and $F\in\mathcal F_h^i$ with $\delta$ being a vertex of $F$, let $\boldsymbol n_1=\boldsymbol t_1\times\boldsymbol n_F$ and $\boldsymbol n_2=\boldsymbol t_2\times\boldsymbol n_F$, where $\boldsymbol t_1$ and $\boldsymbol t_2$ are the unit tangential vectors of two edges of $F$ sharing $\delta$. Then by (iv) we have
+\[
+%\resizebox{.98\hsize}{!}{$
+\llbracket\boldsymbol  n_1^{\intercal}\boldsymbol \tau\boldsymbol  n_1\rrbracket_F(\delta)=\llbracket\boldsymbol  n_2^{\intercal}\boldsymbol \tau\boldsymbol  n_2\rrbracket_F(\delta)=\llbracket\boldsymbol  n_F^{\intercal}\boldsymbol \tau\boldsymbol  n_F\rrbracket_F(\delta)=\llbracket\boldsymbol  n_1^{\intercal}\boldsymbol \tau\boldsymbol  n_F\rrbracket_F(\delta)=\llbracket\boldsymbol  n_2^{\intercal}\boldsymbol \tau\boldsymbol  n_F\rrbracket_F(\delta)=0,
+%$}
+\]
+where $\llbracket\cdot\rrbracket_F$ is the jump across $F$.
+Hence this suggests the tensor value at vertex as the degree of freedom when defining the finite element.
+
+%for each $e\in\mathcal E_h^i$ with two linearly independent normal vectors $\boldsymbol n_{e,1}$ and $\boldsymbol n_{e,2}$, it follows from the piecewise smoothness of $\bs\tau$ that $(\boldsymbol  n_{e,i}^{\intercal}\boldsymbol \tau\boldsymbol  n_{e,j})(\delta)$ is single-valued among tetrahedrons sharing the edge $e$.
+
+Continuity of $(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol  n_j)|_e$ is a sufficient but not necessary condition for functions in $\boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$. Sufficient and necessary conditions are presented in~\cite[Proposition 3.6]{Fuhrer;Heuer;Niemi:2019ultraweak}.
+
+\section{Divdiv Conforming Finite Elements}\label{sec:fem}
+In this section we construct conforming finite element space for $\boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$ and prove the unisolvence.
+
+\subsection{Finite element spaces for symmetric tensors}
+Let $K$ be a tetrahedron. %, and $b_K$ be the cubic bubble function, i.e., $b_K\in \mathbb P_3(K)\cap H_0^1(K)$.
+Take the space of shape functions
+%\[
+%\boldsymbol \Sigma_{\ell,k}(K):= \mathbb P_{\ell}(K;\mathbb S)+\mathbb C_k^{\oplus}(K;\mathbb S)=\mathbb C_{\ell}(K;\mathbb S)\oplus\mathbb C_k^{\oplus}(K;\mathbb S)
+%\]
+\[
+\boldsymbol \Sigma_{\ell,k}(K):= \mathbb C_{\ell}(K;\mathbb S)\oplus\mathbb C_k^{\oplus}(K;\mathbb S)
+\]
+with $k\geq 3$ and $\ell\geq \max\{k-1, 3\}$. Recall that 
+\[
+\mathbb C_{\ell}(K; \mathbb S)=\sym \curl \, \mathbb  P_{\ell +1}(K; \mathbb T),\quad \mathbb C_k^{\oplus}(K; \mathbb S)=\boldsymbol  x\boldsymbol  x^{\intercal}\mathbb P_{k-2}(K).
+\]
+%\begin{align*}
+%\boldsymbol \Sigma_{\ell,k}(K)=\{\boldsymbol \tau\in\mathbb P_{k}(K;\mathbb S):&\, \boldsymbol \tau\boldsymbol x^{\perp} \in \mathbb P_{\ell+1}(K;\mathbb R^3), \boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_e\in\mathbb P_{\ell}(e),\\
+%&(\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n)+\boldsymbol  n \cdot \boldsymbol \div\boldsymbol \tau)|_e\in\mathbb P_{\ell-1}(e)\quad\forall~e\in\mathcal E(K) \}
+%\end{align*}
+%for $\ell\leq k-1$.
+ By Lemma~\ref{lem:symmpolyspacedirectsum}, we have
+\[
+\mathbb P_{\min\{\ell,k\}}(K;\mathbb S)\subseteq\boldsymbol \Sigma_{\ell,k}(K) \subseteq \mathbb P_{\max\{\ell,k\}}(K;\mathbb S) \quad\textrm{ and }\quad \boldsymbol \Sigma_{k,k}(K)=\mathbb P_k(K;\mathbb S).
+\]
+%Define
+%\begin{align*}
+%\mathbb M_{\ell}(K):=\{\boldsymbol\tau\in\mathbb P_{\ell}(K;\mathbb S):& \div\boldsymbol\div\boldsymbol\tau=0,  \boldsymbol \tau|_{\mathcal V(K)}=\boldsymbol 0, \\
+%&\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=0, \boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol n_j|_{\mathcal E(K)}=0, i,j=1,2, \\
+%&\quad\;\;\;(\nabla_F^{\bot}\cdot(\boldsymbol n\times(\boldsymbol\tau \boldsymbol n))+\boldsymbol  n \cdot \boldsymbol \div\boldsymbol \tau)|_{\partial K}=0\}.
+%\end{align*}
+%The dimension of $\mathbb M_{\ell}(K)$ is $\frac{1}{6}(5\ell^3+12\ell^2-17\ell)$. \XH{Can we characterize $\mathbb M_{\ell}(K)$ explicitly, as in 2D?}
+% It is easy \LC{ Can you write more details? } to check that when $\ell\leq k$,
+%\begin{align*}
+%\boldsymbol \Sigma_{\ell,k}(K)=\{\boldsymbol \tau\in\mathbb P_{k}(K;\mathbb S):&\, \boldsymbol \tau\boldsymbol  x^{\perp} \in \mathbb P_{\ell+1}(K;\mathbb R^3), \boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_e\in\mathbb P_{\ell}(e),\\
+%&(\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n)+\boldsymbol  n \cdot \boldsymbol \div\boldsymbol \tau)|_e\in\mathbb P_{\ell-1}(e)\quad\forall~e\in\mathcal E(K) \}.
+%\end{align*}
+The most interesting cases are $\ell=k-1$ and $\ell = k$, which correspond to RT (incomplete polynomial) and BDM (complete polynomial) $H(\div)$-conforming elements for the vector functions, respectively. 
+
+For each edge, we chose two normal vectors $\boldsymbol n_1$ and $\boldsymbol n_2$. The degrees of freedom are given by
+\begin{align}
+\boldsymbol \tau (\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hdivdivfem3ddof1}\\
+(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol n_j, q)_e & \quad\forall~q\in\mathbb P_{\ell-2}(e),  e\in\mathcal E(K),\; i,j=1,2,\label{Hdivdivfem3ddof2}\\
+(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n, q)_F & \quad\forall~q\in\mathbb P_{\ell-3}(F),  F\in\mathcal F(K),\label{Hdivdivfem3ddof3}\\
+(2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n), q)_F & \quad\forall~q\in\mathbb P_{\ell-1}(F),  F\in\mathcal F(K),\label{Hdivdivfem3ddof4}\\
+(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in\nabla^2\mathbb P_{k-2}(K), \label{Hdivdivfem3ddof5} \\
+(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in \sym(\mathbb P_{\ell-2}(K; \mathbb T)\times\boldsymbol x), \label{Hdivdivfem3ddof55} \\
+(\boldsymbol \tau\boldsymbol n, \boldsymbol  n\times \boldsymbol x q)_{F_1} & \quad\forall~q\in\mathbb P_{\ell-2}(F_1),\label{Hdivdivfem3ddof6}
+\end{align}
+where $F_1\in\mathcal F(K)$ is an arbitrary but fixed face. The degrees of freedom~\eqref{Hdivdivfem3ddof6} will be regarded as interior degrees of freedom to the tetrahedron $K$, that is the degrees of freedom~\eqref{Hdivdivfem3ddof6} will be double-valued if $F\in\mathcal F_h^i$ is selected in different elements. 
+
+Before we prove the unisolvence, we give characterization of the space of shape functions restricted to edges and faces, and derive some consequence of vanishing degree of freedoms. 
+
+%Before we prove the unisolvence, we give another characterization of the space of shape functions.
+\begin{lemma}\label{lem:boundpolyl}
+For any $\boldsymbol \tau\in\boldsymbol \Sigma_{\ell,k}(K)$, we have
+\[
+\boldsymbol  n_i^{\intercal}\boldsymbol\tau\boldsymbol  n_j|_e\in\mathbb P_{\ell}(e),\quad \boldsymbol  n^{\intercal}\boldsymbol\tau\boldsymbol  n|_F\in\mathbb P_{\ell}(F),\quad
+2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)|_F\in\mathbb P_{\ell-1}(F)
+\]
+for each edge $e\in\mathcal E(K)$, each face $F\in\mathcal F(K)$ and $i,j=1,2$.
+\end{lemma}
+%\[
+%\div_F(\boldsymbol\tau \boldsymbol n)+\boldsymbol n^{\intercal} \boldsymbol \div\boldsymbol \tau=2\div_F(\boldsymbol\tau \boldsymbol n)+\partial_n(\boldsymbol  n^{\intercal}\boldsymbol\tau\boldsymbol  n)
+%\]
+\begin{proof}
+Take any $\boldsymbol\tau=\boldsymbol  x\boldsymbol  x^{\intercal}q\in\mathbb C_k^{\oplus}(K;\mathbb S)$ with $q\in\mathbb P_{k-2}(K)$.
+Since $\boldsymbol  n_i^{\intercal}\boldsymbol  x$ is constant on each edge of $K$ and $\boldsymbol  n^{\intercal}\boldsymbol  x$ is constant on each face of $K$,
+\[
+\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol n_j|_{e}=(\boldsymbol  n_i^{\intercal}\boldsymbol  x)(\boldsymbol  n_j^{\intercal}\boldsymbol  x)q\in\mathbb P_{k-2}(e),\quad \boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_F=(\boldsymbol  n^{\intercal}\boldsymbol  x)^2q\in\mathbb P_{k-2}(F),
+\]
+and
+\begin{align*}
+2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n) &= 
+ (\div_F(\boldsymbol\tau \boldsymbol n)+\boldsymbol n^{\intercal}\div\boldsymbol \tau)|_F \\&=
+ \boldsymbol  n^{\intercal}\boldsymbol  x(\div_F(\boldsymbol x q)+\div(\boldsymbol  x q)+q)\in\mathbb P_{k-2}(F).
+\end{align*}
+Thus we conclude the results from the requirement $\ell\geq k-1$.
+\end{proof}
+
+
+\begin{lemma}\label{lem:vanishdof}
+For any $\boldsymbol \tau\in\boldsymbol \Sigma_{\ell,k}(K)$ with the degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof55} vanishing, we have 
+\begin{align}
+\label{eq:20200707-1}
+ \boldsymbol  n_i^{\intercal}\boldsymbol\tau\boldsymbol  n_j|_e&=0\quad\forall~e\in\mathcal E(K),\; i,j=1,2,\\
+\label{eq:20200707-21}
+\boldsymbol  n^{\intercal}\boldsymbol\tau\boldsymbol  n|_F &= 0\quad\forall~F\in\mathcal F(K),\\
+\label{eq:20200707-22}
+(2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n))|_F & = 0\quad\forall~F\in\mathcal F(K),
+\\
+\notag%\label{eq:20200707-31}
+\div\div \bs\tau &= 0,\\
+\label{eq:20200707-3}
+(\boldsymbol \tau, \boldsymbol \varsigma)_K &=0 \quad\forall~\boldsymbol \varsigma\in\mathbb P_{\ell-1}(K;\mathbb S).
+\end{align}
+\end{lemma}
+\begin{proof}
+According to Lemma~\ref{lem:boundpolyl}, we acquire~\eqref{eq:20200707-1}-\eqref{eq:20200707-22} from the vanishing degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof4} directly. The scalar function $\boldsymbol  n^{\intercal}\boldsymbol\tau\boldsymbol  n|_F$ is the standard Lagrange element and the vanishing function value $\boldsymbol \tau(\delta)$ at vertices are used to ensure~\eqref{eq:20200707-21}. 
+
+Noting that
+$\div\div\bs\tau\in \mathbb P_{k-2}(K)$, 
+we get from the Green's identity~\eqref{eq:greenidentitydivdiv}, ~\eqref{eq:20200707-1}-\eqref{eq:20200707-22} and the vanishing degrees of freedom~\eqref{Hdivdivfem3ddof5} that $\div\div\bs\tau=0$. Applying the Green's identity~\eqref{eq:greenidentitydivdiv} and ~\eqref{eq:20200707-1}-\eqref{eq:20200707-22}, it follows
+\[
+(\boldsymbol \tau, \nabla^2v)_K=0\quad\forall~v\in H^2(K),
+\]
+which together with~\eqref{Hdivdivfem3ddof55} and the decomposition~\eqref{eq:hesspolyspacedecomp2} yields~\eqref{eq:20200707-3}.
+\end{proof}
+
+With previous preparations, 
+we prove the unisolvence as follows. 
+For any $\bs\tau\in\boldsymbol \Sigma_{\ell,k}(K)$ satisfying $\div\div\boldsymbol \tau=0$, we have $\bs\tau\in\mathbb P_{\ell}(K;\mathbb S)$ as no contribution from $\mathbb C_k^{\oplus}(K;\mathbb S)$. By~\eqref{eq:20200707-3} the volume moments can only determine the polynomial of degree up to $\ell-1$. 
+
+We then use the vanished trace. Similarly as the RT and BDM elements~\cite{BoffiBrezziFortin2013},  the vanishing normal-normal trace~\eqref{eq:20200707-21} implies the normal-normal part of $\bs\tau$ is zero. To determine the normal-tangential terms, further degrees of freedoms are needed. 
+%Due to the symmetry of $\bs\tau$,  it is sufficient to provide additional degrees of freedoms on one face, which are inspired by the RT and BDM elements in two dimensions.
+
+Unlike the traditional approach by transforming back to the reference element, we will chose an intrinsic coordinate. For ease of presentation, denote the four faces in $\mathcal F(K)$ by $F_i$, which is opposite to the $i$th vertex of $K$, and by $\boldsymbol n_i$ the outward unit normal vector of $F_i$ for $i=1,2,3,4$. 
+Let $\boldsymbol t_i$ be the unit tangential vector of the edge from vertex $4$ to vertex $i$; see Fig.~\ref{fig:localcoor}. 
+% by $F_{j_1}$ and $F_{j_2}$, where $(i,j_1,j_2)$ is a cyclic permutation of $(1,2,3)$. 
+The set of three vectors $\{\boldsymbol t_1, \boldsymbol t_2, \boldsymbol t_3\}$ forms a basis of $\mathbb R^3$ although they may not be orthogonal in general. Consequently $\{\boldsymbol t_i\boldsymbol t_j^{\intercal}\}_{i,j=1}^3$ forms a basis of the second order tensor and $(\boldsymbol t_i, \boldsymbol n_i) \neq 0$ for $i=1,2,3$.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=6cm]{figures/tet.pdf}
+\caption{Local coordinate formed by three edge vectors.}
+\label{fig:localcoor}
+\end{center}
+\end{figure}
+Let $\lambda_i(\boldsymbol x)$ be the $i$th barycentric coordinate with respect to the tetrahedron $K$ for $i=1,2,3,4$. Then $\lambda_i|_{F_i} = 0$ and $\nabla \lambda_i = - c_i \boldsymbol n_i$ for some $c_i>0$.
+
+\begin{theorem}\label{lem:unisovlenHdivdivfem}
+The degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof6} are unisolvent for $\boldsymbol \Sigma_{\ell,k}(K)$.
+\end{theorem}
+\begin{proof}
+We first count the number of the degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof6}. Calculation of d.o.f.~\eqref{Hdivdivfem3ddof55} can be found in~\eqref{eq:dimsymx}.
+The number of d.o.f.~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof6} is
+\begin{align*}
+&24+18(\ell-1)+2[(\ell-1)(\ell-2)+(\ell+1)\ell] \\
+&\quad+\frac{1}{6}(k^3-k)-4+\frac{1}{6}\ell(\ell-1)(5\ell+14) +\frac{1}{2}\ell(\ell-1) \\
+=&\frac{1}{6}(5\ell^3+36\ell^2+67\ell+36)+\frac{1}{6}(k^3-k),
+\end{align*}
+which is same as $\dim\boldsymbol \Sigma_{\ell,k}(K)$ cf.~\eqref{eq:dimC}. 
+
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=5in]{figures/doftable.pdf}
+%%\caption{The number of the degrees of freedom and the dimension of the space.}
+%%\label{default}
+%\end{center}
+%\end{figure}
+
+
+Take any $\boldsymbol \tau\in\boldsymbol \Sigma_{\ell,k}(K)$ and
+suppose all the degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof6} vanish. We are going to prove the function $\boldsymbol \tau = 0$. 
+Using the local coordinate sketched in Fig.~\ref{fig:localcoor}, we can expand $\boldsymbol \tau$ as
+\[
+\bs\tau=\sum_{i,j=1}^3\tau_{ij}\boldsymbol t_i\boldsymbol t_j^{\intercal} \quad\textrm{with}\quad \tau_{ij}=\frac{\boldsymbol n_i^{\intercal}\bs\tau\boldsymbol n_j}{(\boldsymbol t_i^{\intercal}\boldsymbol n_i)(\boldsymbol t_j^{\intercal}\boldsymbol n_j)}.
+\]
+As $\boldsymbol \tau$ is symmetric, $\tau_{ij} = \tau_{ji}$. 
+By~\eqref{eq:20200707-21}, it follows
+\[
+\tau_{ii}|_{F_i}=\boldsymbol n_i^{\intercal}\bs\tau\boldsymbol n_i|_{F_i}=0, \quad i = 1,2,3.
+\]
+Thus there exists $q_{\ell-1}\in \mathbb P_{\ell-1}(K)$ satisfying $\tau_{ii}=\lambda_iq_{\ell-1}$ for $i=1,2,3$.
+Taking $\boldsymbol \varsigma = q_{\ell-1}\boldsymbol n_i\boldsymbol n_i^{\intercal}$ in~\eqref{eq:20200707-3} will produce 
+\begin{equation}\label{eq:diagonal}
+\tau_{ii}=0, \quad i = 1,2,3.
+\end{equation}
+Namely the diagonal of $\boldsymbol \tau$ is zero.
+So far, in the chosen coordinate, $\boldsymbol n_4^{\intercal}\bs\tau\boldsymbol n_4 = 0$ has no simple formulation and will be used later on.
+
+On the other hand, from~\eqref{eq:20200707-1} we have $\Pi_{F_1}(\bs\tau\boldsymbol n_1)\in H_0(\div_{F_1}, F_1) $.
+As $\boldsymbol n_1^{\intercal}\boldsymbol \tau \boldsymbol n_1 = \tau_{11} = 0$ in $K$ cf.~\eqref{eq:diagonal}, it follows $\partial_{n_1}(\boldsymbol n_1^{\intercal}\boldsymbol \tau \boldsymbol n_1)|_{F_1}=0$. Therefore~\eqref{eq:20200707-22} becomes
+%$$\boldsymbol n_1^{\intercal} \boldsymbol \div\boldsymbol \tau |_{F_1}=\div(\boldsymbol\tau \boldsymbol n_1)|_{F_1}=\div(\Pi_{F_1}(\boldsymbol\tau \boldsymbol n_1))|_{F_1}=\div_{F_1}(\boldsymbol\tau \boldsymbol n_1)|_{F_1},
+%$$
+%we obtain from~\eqref{eq:20200707-22} that
+\[
+2\div_{F_1}(\boldsymbol\tau \boldsymbol n_1)|_{F_1}=0.
+\]
+Hence there exists $q_{\ell-2}\in \mathbb P_{\ell-2}(F_1)$ such that $\boldsymbol n_1\times(\boldsymbol\tau \boldsymbol n_1)=\nabla_{F_1}(b_{F_1}q_{\ell-2})$, 
+where $b_{F_1}$ is the cubic bubble function on face $F_1$.
+Together with~\eqref{Hdivdivfem3ddof6} and the fact $\div_{F_1}(\boldsymbol x\mathbb P_{\ell-2}(F_1))=\mathbb P_{\ell-2}(F_1)$, 
+we get $(\boldsymbol n_1\times(\boldsymbol\tau \boldsymbol n_1))|_{F_1}=\boldsymbol 0$.
+Thus $(\boldsymbol\tau \boldsymbol n_1)|_{F_1}=\boldsymbol 0$.
+Then there exists $\boldsymbol q_{\ell-1}\in \mathbb P_{\ell-1}(K;\mathbb R^3)$ such that $\boldsymbol\tau \boldsymbol n_1=\lambda_1\boldsymbol q_{\ell-1}$,  combined with~\eqref{eq:20200707-3} yields $\boldsymbol\tau \boldsymbol n_1=\boldsymbol 0$. That is the first row of $\boldsymbol \tau$ is zero, i.e. $\tau_{11}=\tau_{12}=\tau_{13}=0$. 
+
+By the symmetry, now
+$
+\bs\tau=2\tau_{23}\sym(\boldsymbol t_2\boldsymbol t_3^{\intercal})
+$. Multiplying $\bs\tau$ by $\boldsymbol n_4$ from both sides and restricting to $F_4$, we have
+\[
+\tau_{23}|_{F_4}=\frac{1}{2}\frac{\boldsymbol n_4^{\intercal}\bs\tau\boldsymbol n_4}{(\boldsymbol t_2^{\intercal}\boldsymbol n_4)(\boldsymbol t_3^{\intercal}\boldsymbol n_4)}|_{F_4}=0.
+\]
+The denominator is non-zero as $\boldsymbol t_2, \boldsymbol t_3$ are non tangential vectors of face $F_4$. 
+Again there exists $q_{\ell-1}\in \mathbb P_{\ell-1}(K)$ satisfying $\tau_{23}=\lambda_4q_{\ell-1}$.
+Taking $\boldsymbol \varsigma=\sym(\boldsymbol t_2\boldsymbol t_3^{\intercal})q_{\ell-1}$ in~\eqref{eq:20200707-3} gives $\tau_{23}=0$. We thus have proved $\boldsymbol \tau = 0$ and consequently the unisolvence. 
+\end{proof}
+
+Due to~\eqref{Hdivdivfem3ddof4}, it is arduous to figure out the explicit basis functions of  $\boldsymbol \Sigma_{\ell,k}(K)$, which are dual to the degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof6}.
+Alternatively we can hybridize the degrees of freedom~\eqref{Hdivdivfem3ddof4}, and use the basis functions of the standard Lagrange element~\cite{ChenHuang2020}. 
+%We will discuss the hybridization in the next section.
+
+\subsection{Polynomial bubble function spaces and the bubble complex}\label{sec:bubble}
+%For the symmetric tensor space, it seems odd to have degrees of freedom not symmetric, as a face is singled out. 
+Let
+\begin{align*}
+\mathring{\boldsymbol \Sigma}_{\ell,k}(K)&:=\{\boldsymbol  \tau\in\boldsymbol \Sigma_{\ell,k}(K): \textrm{all degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof4} vanish}\}.%,
+%\\
+%\mathring{\mathbb P}_{k-2}(K)&:=\mathbb P_{k-2}(K)/\mathbb P_{1}(K)
+\end{align*}
+Together with vanishing~\eqref{Hdivdivfem3ddof5}, we can  conclude that $\div\div \boldsymbol \tau = 0$. 
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=5.4cm]{figures/femspacedecomposition.pdf}
+\caption{Decomposition of a generic finite element space}
+\label{fig:femdec}
+\end{center}
+\end{figure}
+In view of Fig.~\ref{fig:femdec} and Lemma~\ref{lem:vanishdof}, the last two set of d.o.f.~\eqref{Hdivdivfem3ddof55}-\eqref{Hdivdivfem3ddof6} can be replaced by 
+\begin{equation*}%\label{eq:divdivbubbledof}
+(\boldsymbol \tau, \boldsymbol \varsigma)_K \quad \forall~\boldsymbol \varsigma\in \mathring{\boldsymbol \Sigma}_{\ell,k}(K) \cap \ker(\div\div),
+\end{equation*}
+Next we give characterization of $\mathring{\boldsymbol \Sigma}_{\ell,k}(K) \cap \ker(\div\div)$.
+
+By the exactness of divdiv complex, if $\div\div \boldsymbol \tau = 0$ and $\tr(\boldsymbol \tau) = 0$, it is possible that $\boldsymbol \tau = \sym \curl \boldsymbol \sigma$ for some $\boldsymbol \sigma \in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) : = \boldsymbol H_0(\sym \curl,K; \mathbb T)\cap \mathbb P_{\ell +1}(K;\mathbb T)$. 
+%for each $K\in\mathcal T_h$.
+We will give an explicit characterization of $\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$, show $\mathring{\boldsymbol \Sigma}_{\ell,k}(K) \cap \ker(\div\div)= \sym \curl \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$, and consequently get a set of computable and symmetric d.o.f..
+
+We begin with a characterization of the trace of functions in $\boldsymbol H(\sym \curl,K; \mathbb T)$.
+\begin{lemma} [Green's identity]\label{lm:Green}
+Let $K$ be a polyhedron, and let $\boldsymbol  \tau\in \boldsymbol H^1(K; \mathbb M)$ and $\bs\sigma \in \boldsymbol H^1(K; \mathbb S)$. Then we have
+\begin{align}
+(\sym\curl\boldsymbol \tau, \boldsymbol \sigma)_K=(\boldsymbol \tau, \curl\boldsymbol \sigma)_K & - \sum_{F\in\mathcal F(K)}(\sym \Pi_F (\boldsymbol \tau\times\boldsymbol n)\Pi_F, \Pi_F \boldsymbol\sigma \Pi_F)_F \notag\\
+& - \sum_{F\in\mathcal F(K)}(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n, \boldsymbol  n\cdot \boldsymbol\sigma \Pi_F)_F. \notag%\label{eq:greenidentitysymcurl}
+\end{align}
+\end{lemma}
+\begin{proof}
+As $\boldsymbol \sigma$ is symmetric,
+\begin{align*}
+(\sym\curl\boldsymbol \tau, \boldsymbol \sigma)_K&= (\curl\boldsymbol \tau, \boldsymbol \sigma)_K = (\boldsymbol \tau, \curl \boldsymbol \sigma)_K - (\boldsymbol \tau \times \boldsymbol n, \boldsymbol \sigma)_{\partial K}.
+\end{align*}
+%Note that due to our notation there  is  a negative sign on $\boldsymbol \tau \times \boldsymbol n$  
+On each face, we expand the boundary term
+\begin{align*}
+(\boldsymbol \tau\times \boldsymbol n, \boldsymbol \sigma)_{F} = (\Pi_F (\boldsymbol \tau\times \boldsymbol n)\Pi_F, \Pi_F \boldsymbol\sigma \Pi_F)_F + (\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n , \boldsymbol  n\cdot \boldsymbol\sigma \Pi_F)_F.
+\end{align*}
+Then we use the fact $\Pi_F \boldsymbol\sigma \Pi_F$ is symmetric to arrive the desired identity. 
+\end{proof}
+
+Based on the Green's identity, we introduce the following trace operators for $\boldsymbol H(\sym\curl)$ space
+\begin{enumerate}
+\item $\tr_1(\boldsymbol \tau) := \Pi_F \sym (\boldsymbol\tau\times\boldsymbol n)\Pi_F$,
+
+ \item $\tr_1^{\bot}(\boldsymbol \tau) := \boldsymbol n \times \sym (\boldsymbol\tau\times\boldsymbol n)\times \boldsymbol n$,
+
+ \item $\tr_2(\boldsymbol \tau) := \boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n$.
+\end{enumerate}
+Both $\tr_1(\boldsymbol \tau)$ and $\tr_1^{\bot}(\boldsymbol \tau)$ are symmetric tensors on each face and $\tr_2(\boldsymbol \tau)$ is a vector function. Obviously $\tr_1(\boldsymbol \tau) = 0$ if and only if  $\tr_1^{\bot}(\boldsymbol \tau) = 0$  as   $\tr_1^{\bot}(\boldsymbol \tau)$ is just a rotation of $\tr_1(\boldsymbol \tau)$.
+%$$\tr(\boldsymbol \tau) = \{\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n, \boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n \}.$$
+%In this subsection, we will show a polynomial bubble subcomplex of the divdiv complex, and one alternative of the interior degrees of freedom~\eqref{Hdivdivfem3ddof5}-\eqref{Hdivdivfem3ddof6}.
+%
+%
+%
+%For $\boldsymbol \sigma = \sym\curl \, \boldsymbol\tau$ with $\boldsymbol\tau\in\boldsymbol H^2(K;\mathbb M)$, Lemma~\ref{lm:tracerelation} suggests that 
+%$$
+%(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)|_F\in \boldsymbol H(\div_F, F), \quad\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n)\Pi_F\in \boldsymbol H(\div_F\div_F, F;\mathbb S).
+%$$
+%By the degrees of freedom of Raviart-Thomas element~\cite{RaviartThomas1977} and divdiv element in two dimensions~\cite{ChenHuang2020}, we list the following identities for later uses
+%%For $\div_F$ and $\div_F\div_F$ elements on face $F$, the boundary edge degree freedom are simplified as
+%\begin{equation}\label{eq:symcurltracepart1}
+%(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)\boldsymbol n_{F,e}=\boldsymbol n_{F}^{\intercal}\boldsymbol\tau\boldsymbol t_{F,e},
+%\end{equation}
+%\begin{equation}\label{eq:symcurltracepart2}
+%(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)\boldsymbol t_{F,e}=-\boldsymbol n_{F}^{\intercal}\boldsymbol\tau\boldsymbol n_{F,e},
+%\end{equation}
+%\begin{equation}\label{eq:symcurltracepart3}
+%\boldsymbol n_{F,e}^{\intercal}(\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n)\Pi_F)\boldsymbol n_{F,e}=\boldsymbol n_{F,e}^{\intercal}\sym(\boldsymbol\tau\times\boldsymbol n)\boldsymbol n_{F,e}= \boldsymbol n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol t_{F,e},
+%\end{equation}
+%\begin{equation}\label{eq:symcurltracepart4}
+% \boldsymbol  t_{F,e}^{\intercal}\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n)\Pi_F\boldsymbol  t_{F,e}=\boldsymbol  t_{F,e}^{\intercal}(\boldsymbol\tau\times\boldsymbol n)\boldsymbol  t_{F,e}=-\boldsymbol  t_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e},
+% \end{equation}
+% \begin{align}
+% \boldsymbol  t_{F,e}^{\intercal}\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n)\Pi_F\boldsymbol  n_{F,e}&=\frac{1}{2}\big(\boldsymbol  t_{F,e}^{\intercal}(\boldsymbol\tau\times\boldsymbol n)\boldsymbol  n_{F,e} + \boldsymbol  n_{F,e}^{\intercal}(\boldsymbol\tau\times\boldsymbol n)\boldsymbol  t_{F,e}\big) \notag\\
+% &=\frac{1}{2}(\boldsymbol  t_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  t_{F,e} - \boldsymbol  n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e} ). \label{eq:symcurltracepart5}
+% \end{align}
+%
+Using the trace operators, $\boldsymbol H(\sym\curl)$ polynomial bubble function space can be defined as
+\begin{align*}
+\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T):=\{&  
+\bs\tau\in\mathbb P_{\ell+1}(K;\mathbb T):(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)|_F=\bs0, \\
+&(\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n)|_F=\bs0\quad\forall~F\in\mathcal F(K)
+\}.
+\end{align*}
+
+We shall give an explicit characterization of $\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$. 
+\begin{lemma}\label{lem:symcurlbubbleedgevanish}
+Let $\bs\tau\in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$. It holds
+\begin{equation}\label{eq:edge}
+\bs\tau|_e=\boldsymbol 0\quad\forall~e\in\mathcal E(K).
+\end{equation}
+\end{lemma}
+\begin{proof}
+It is straightforward to verify~\eqref{eq:edge} on the reference tetrahedron for which $\boldsymbol e = (1,0,0)$ and two normal vectors of the face containing $\boldsymbol e$ is $\boldsymbol n_1= (1,0,0)$ and $\boldsymbol n_2=(0,0,1)$. To avoid complicated transformation of trace operators, we provide a proof using an intrinsic basis of $\mathbb T$ on $K$. 
+
+Take any edge $e\in\mathcal E(K)$ with the tangential vector $\boldsymbol t$. Let $\boldsymbol n_1$ and $\boldsymbol n_2$ be the unit outward normal vectors of two faces sharing edge $e$. Set $\boldsymbol s_i:=\boldsymbol t\times\boldsymbol n_i$ for $i=1,2$.
+By direction computation, we get on edge $e$ for $i=1,2$ that
+$$
+\boldsymbol n_i^{\intercal}\bs\tau\boldsymbol t=(\boldsymbol n_i\cdot\bs\tau\times\boldsymbol n_i)\cdot\boldsymbol s_i=0,
+$$
+$$
+\boldsymbol n_i^{\intercal}\bs\tau\boldsymbol s_i=-(\boldsymbol n_i\cdot\bs\tau\times\boldsymbol n_i)\cdot\boldsymbol t=0,
+$$
+$$
+\boldsymbol t^{\intercal}\bs\tau\boldsymbol t - \boldsymbol s_i^{\intercal}\bs\tau\boldsymbol s_i=2\boldsymbol t\cdot \sym(\boldsymbol\tau\times\boldsymbol n_i)\cdot\boldsymbol s_i=2\boldsymbol s_i\cdot(\boldsymbol n_i\times \sym(\boldsymbol\tau\times\boldsymbol n_i)\times\boldsymbol n_i)\cdot\boldsymbol t=0,
+$$
+$$
+\boldsymbol t^{\intercal}\bs\tau\boldsymbol s_i=-\boldsymbol t\cdot \sym(\boldsymbol\tau\times\boldsymbol n_i)\cdot\boldsymbol t=\boldsymbol s_i\cdot(\boldsymbol n_i\times \sym(\boldsymbol\tau\times\boldsymbol n_i)\times\boldsymbol n_i)\cdot\boldsymbol s_i=0.
+$$
+Both $\textrm{span}\{\boldsymbol s_1, \boldsymbol s_2\}$ and $\textrm{span}\{\boldsymbol n_1, \boldsymbol n_2\}$ form the same normal vector space of edge $e$, then the last identity implies
+$$
+\boldsymbol t^{\intercal}\bs\tau\boldsymbol n_i=0.
+$$
+% $$
+% \boldsymbol n_i^{\intercal}\bs\tau\boldsymbol t=\boldsymbol n_i^{\intercal}\bs\tau\boldsymbol s_i=\boldsymbol t^{\intercal}\bs\tau\boldsymbol n_i=\boldsymbol t^{\intercal}\bs\tau\boldsymbol t - \boldsymbol s_i^{\intercal}\bs\tau\boldsymbol s_i=0\; \textrm{ on edge } e \;\textrm{ for } i=1,2.
+% $$
+Then it is sufficient to prove the eight trace-free tensors 
+\begin{equation}\label{eq:nst}
+\boldsymbol n_1\boldsymbol t^{\intercal},\; \boldsymbol n_2\boldsymbol t^{\intercal},\; \boldsymbol n_1\boldsymbol s_1^{\intercal},\; \boldsymbol n_2\boldsymbol s_2^{\intercal},\; \boldsymbol t\,\boldsymbol n_1^{\intercal},\; \boldsymbol t\,\boldsymbol n_2^{\intercal},\; \boldsymbol t\,\boldsymbol t^{\intercal}-\boldsymbol s_1\boldsymbol s_1^{\intercal},\; \boldsymbol t\,\boldsymbol t^{\intercal}-\boldsymbol s_2\boldsymbol s_2^{\intercal}
+\end{equation}
+are linear independent. Assume there exist $c_i\in\mathbb R$, $i=1,\cdots,8$ such that 
+\begin{align*}
+c_1\boldsymbol n_1\boldsymbol t^{\intercal} + c_2\boldsymbol n_2\boldsymbol t^{\intercal} + c_3\boldsymbol n_1\boldsymbol s_1^{\intercal} + c_4\boldsymbol n_2\boldsymbol s_2^{\intercal} + c_5\boldsymbol t\,\boldsymbol n_1^{\intercal} + c_6\boldsymbol t\,\boldsymbol n_2^{\intercal}&\\+c_7(\boldsymbol t\,\boldsymbol t^{\intercal}-\boldsymbol s_1\boldsymbol s_1^{\intercal}) + c_8(\boldsymbol t\,\boldsymbol t^{\intercal}-\boldsymbol s_2\boldsymbol s_2^{\intercal})&=\bs0.
+\end{align*}
+Multiplying the last equation by $\boldsymbol t$ from the right and left respectively, we obtain
+$$
+c_1\boldsymbol n_1 + c_2\boldsymbol n_2 + (c_7+c_8)\boldsymbol t=\bs0, \quad c_5\boldsymbol n_1^{\intercal} + c_6\boldsymbol n_2^{\intercal} + (c_7+c_8)\boldsymbol t^{\intercal}=\bs0.
+$$
+Hence $c_1=c_2=c_5=c_6=c_7+c_8=0$, which yields
+$$
+c_3\boldsymbol n_1\boldsymbol s_1^{\intercal} + c_4\boldsymbol n_2\boldsymbol s_2^{\intercal} + c_7(\boldsymbol s_2\boldsymbol s_2^{\intercal}-\boldsymbol s_1\boldsymbol s_1^{\intercal})=\bs0.
+$$
+Multiplying the last equation by $\boldsymbol n_1$ from the right, it follows
+$$
+(\boldsymbol s_2\cdot\boldsymbol n_1)(c_4\boldsymbol n_2 + c_7\boldsymbol s_2)=\bs0.
+$$
+As a result $c_4=c_7=0$, and then $c_3=0$.
+\end{proof}
+
+We write $\mathbb P_{\ell+1}(K;\mathbb T)$ as $\mathbb P_{\ell+1}(K)\otimes \mathbb T$ and use the barycentric coordinate representation of a polynomial. That is a polynomial $p\in \mathbb P_{\ell+1}(K)$ has a unique representation in terms of
+\begin{equation}\label{eq:bary}
+ p = \lambda_{1}^{\alpha_1}\lambda_{2}^{\alpha_2}\lambda_{3}^{\alpha_3}\lambda_{4}^{\alpha_4}, \quad \sum_{i=1}^4\alpha_i = \ell+1, \alpha_i \in \mathbb N.
+\end{equation}
+Lemma~\ref{lem:symcurlbubbleedgevanish} implies that $p$ must contain a face bubble $b_F = \lambda_{i}\lambda_{j}\lambda_{k}$ where $(i,j,k)$ are three vertices of $F$. Otherwise, if $p = \lambda_i^{\alpha_i}\lambda_j^{\alpha_j}, \alpha_i + \alpha_j = \ell+1$, then $p$ is not zero on the edge $(i,j)$. 
+
+We consider the subspace $b_F \mathbb P_{\ell-2}(K)\otimes \mathbb T$ and identify its intersection with $\ker(\tr)$. Due to the face bubble $b_F$, the polynomial is zero on the other faces. So we only need to consider the trace on face $F$. Without loss of generality, we can chose the coordinate s.t. $n_F = (0,0,1)$. Chose the canonical basis of $\mathbb T$ associated to this coordinate. Then by direct calculation to find out $\ker(\tr)\cap \mathbb T$ consists of
+$$
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix},
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{pmatrix},
+\text{ and }
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -2
+\end{pmatrix}.
+$$
+Switch to an intrinsic basis, we obtain the following explicit characterization of $\boldsymbol B_{\ell + 1}(\sym\curl, K;\mathbb T)$.
+\begin{lemma}
+For each face $F$, we chose two unit tangent vectors $\boldsymbol t_1, \boldsymbol t_2$ s.t. $(\boldsymbol t_1, \boldsymbol t_2, \boldsymbol n_F)$ forms an orthonormal basis of $\mathbb R^3$. Then
+\begin{equation}\label{eq:span1}
+\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)  = {\rm span}\{ p b_F \psi_i^F, p\in \mathbb P_{\ell-2}(K), F\in \mathcal F(K), i = 1,2,3\},
+\end{equation}
+where the three bubble functions are:
+$$
+\psi_1^F = \boldsymbol t_1 \boldsymbol n_F^{\intercal}, \quad \psi_2^F = \boldsymbol t_2 \boldsymbol n_F^{\intercal}, \quad  \psi_3^F = \boldsymbol t_1  \boldsymbol t_1^{\intercal} +  \boldsymbol t_2  \boldsymbol t_2^{\intercal} - 2 \boldsymbol n_F  \boldsymbol n_F^{\intercal}.
+$$
+\end{lemma}
+\begin{proof}
+% For any $\boldsymbol u, \boldsymbol v, \boldsymbol w\in\mathbb R^3$, it is easy to see that on each face $F\in\mathcal F(K)$
+%\begin{align*}
+%\boldsymbol n\cdot (\boldsymbol u\otimes \boldsymbol v)\times\boldsymbol n &= (\boldsymbol u\cdot\boldsymbol n)(\boldsymbol v\times \boldsymbol n)^{\intercal},\\
+%\boldsymbol n\times\sym((\boldsymbol u\otimes \boldsymbol v)\times\boldsymbol n)\times\boldsymbol n &= \sym((\boldsymbol u\times\boldsymbol n)\otimes(\boldsymbol n\times\boldsymbol v\times\boldsymbol n)).
+%\end{align*}
+Using the formulae~\eqref{eq:xuv}-\eqref{eq:xtimesuv}, by the direct calculation, we can easily show $\psi_i^F\in \ker(\tr)\cap \mathbb T$ for each face $F$ and $i=1,2,3$. As $\dim \ker(\tr)\cap \mathbb T = 3$, we conclude that
+$$ \ker (\tr) \cap (b_F \mathbb P_{\ell-2}(K)\otimes \mathbb T) = {\rm span} \{ p b_F \psi_i^F, p\in \mathbb P_{\ell-2}(K), i = 1,2,3\}.$$
+By Lemma~\ref{lem:symcurlbubbleedgevanish}  we know that 
+$$
+\ker(\tr)\cap (\mathbb P_{\ell+1}\otimes \mathbb T) =  \cup_F \ker(\tr)\cap (b_F \mathbb P_{\ell-2}(K)\otimes \mathbb T) 
+$$
+and thus~\eqref{eq:span1} follows. 
+\end{proof}
+
+We only give a generating set of the bubble function space as the $12$ constant matrices $\{ \psi_1^F, \psi_2^F, \psi_3^F, F\in \mathcal F(K)\}, $ are not linear independent. Next we find out a basis from this generating set. 
+\begin{lemma}
+Let $(i,j,k)$ be three vertices of face $F$ and $\mathbb P_{\ell-2}(F) = \{ \lambda_{i}^{\alpha_1}\lambda_{j}^{\alpha_2}\lambda_{k}^{\alpha_3}, \alpha_1+\alpha_2+\alpha_3 = \ell-2, \alpha_i\in \mathbb N, i=1,2,3\}$.
+ Define $\boldsymbol B_{F,\ell + 1}: = b_F\mathbb P_{\ell-2}(F)\otimes {\rm span}\{ \psi_1^F, \psi_2^F, \psi_3^F\}$ and $\boldsymbol B_{K, \ell + 1} = b_K\mathbb P_{\ell-3}(K)\otimes {\rm span}\{ \psi_1^F, \psi_2^F, F\in \mathcal F(K)\}$. Then
+\begin{equation}\label{eq:basisofB}
+\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)  = \oplus_{F\in \mathcal F(K)} \boldsymbol B_{F,\ell + 1} \oplus \boldsymbol B_{K,\ell + 1},
+\end{equation} 
+and consequently
+$$\dim \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)=\frac{2}{3}\ell(\ell-1)(2\ell+5)=\frac{1}{3}(4\ell^3+6\ell^2-10\ell).$$ 
+\end{lemma}
+\begin{proof}
+The $12$ constant matrices $\{ \psi_1^F, \psi_2^F, \psi_3^F, F\in \mathcal F(K)\}$ are not linear independent as $\dim \mathbb T = 8$. Among them, $\{ \psi_1^F, \psi_2^F, F\in \mathcal F(K)\}$ forms a basis of $\mathbb T$ which can be proved as verifying the linear independence of~\eqref{eq:nst} in Lemma~\ref{lem:symcurlbubbleedgevanish} or see~\cite{HuLiang2020}. 
+
+For each $p b_F$, with $p\in \mathbb P_{\ell - 2}(K)$, we can group into either $b_K\mathbb P_{\ell-3}(K)$ or $b_F\mathbb P_{\ell-2}(F)$  depending on if the polynomial $p|_F$ is zero or not, respectively. That is, for one fixed face $F$:
+$$
+b_F \mathbb P_{\ell - 2}(K) = b_F\mathbb P_{\ell-2}(F) \oplus b_K\mathbb P_{\ell-3}(K). 
+$$
+The sum is direct in view of the barycentric representation~\eqref{eq:bary} of a polynomial.
+Then coupled with $\{\psi_i^F\}$, we get the basis~\eqref{eq:basisofB} of the bubble function space.
+
+The dimension of $\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) $ is 
+\begin{align*}
+4\cdot 3 \cdot \dim\mathbb P_{\ell-2}(F) + 8 \dim\mathbb P_{\ell-3}(K) = \frac{1}{3}(4\ell^3+6\ell^2-10\ell),
+\end{align*}
+as required.
+\end{proof}
+
+
+%\subsection{Bubble complex}
+
+% Define divdiv bubble function spaces
+% $$
+% \boldsymbol B_{\ell}(\div\div, K;\mathbb S):=\{\bs\tau\in\mathbb P_{\ell}(K;\mathbb S): \textrm{all degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof4} vanish}\}.
+% $$
+% We have
+% \begin{align*}
+% \dim\boldsymbol B_{\ell}(\div\div, K;\mathbb S)&=\frac{1}{6}\ell(\ell^2-1)-4+\frac{1}{6}\ell(\ell-1)(5\ell+14) +\frac{1}{2}\ell(\ell-1) \\
+% &=\ell^3+2\ell^2-3\ell-4.
+% \end{align*}
+
+We then verify $\sym \curl \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) \subset \mathring{\boldsymbol \Sigma}_{\ell,k}(K)$ by verifying all boundary d.o.f. are vanished. 
+\begin{lemma}\label{lem:symcurledgeprop}
+Let $\bs\tau \in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$. Assume edge $e\in\mathcal E(K)$ is shared by faces $F_i$ and $F_j$. It holds $\boldsymbol  n_i^{\intercal}(\sym\curl\boldsymbol \tau )\boldsymbol n_j|_e=0$.
+\end{lemma}
+\begin{proof}
+For the ease of notation, let $\boldsymbol \sigma=\sym\curl\boldsymbol \tau$. Suppose $\bs\tau=\sum\limits_{F\in\mathcal F(K)}\sum\limits_{l=1}^3q_{F,l} b_F \psi_l^F$ with $q_{F,l}\in \mathbb P_{\ell-2}(K)$.
+By $b_F|_e=0$, we get
+$$
+\boldsymbol n_i^{\intercal}\boldsymbol \sigma\boldsymbol n_j|_e=\sum_{F\in\mathcal F(K)}\sum_{l=1}^3q_{F,l}|_e(\boldsymbol n_i^{\intercal} \sym\curl(b_F \psi_l^F)\boldsymbol n_j)|_e.
+$$
+Since $\lambda_i|_e=\lambda_j|_e=0$, we can see that $(\boldsymbol n_i\times\boldsymbol n_F\cdot\nabla b_F)|_e=(\boldsymbol n_j\times\boldsymbol n_F\cdot\nabla b_F)|_e=0$. Thus for $l=1,2$,
+\begin{align*}
+&\quad\;(\boldsymbol n_i^{\intercal} \sym\curl(b_F \psi_l^F)\boldsymbol n_j)|_e\\
+&=-(\boldsymbol n_i\cdot(b_F \boldsymbol t_l\boldsymbol n_F)\times\nabla\cdot\boldsymbol n_j)|_e - (\boldsymbol n_j\cdot(b_F\boldsymbol t_l\boldsymbol n_F)\times\nabla\cdot\boldsymbol n_i)|_e \\
+&=\boldsymbol n_i\cdot\boldsymbol t_l(\boldsymbol n_F\times\boldsymbol n_j\cdot\nabla b_F)|_e + \boldsymbol n_j\cdot\boldsymbol t_l(\boldsymbol n_F\times\boldsymbol n_i\cdot\nabla b_F)|_e\\
+&=0.
+\end{align*}
+
+Next consider $l=3$. When $F\neq F_j$, the face bubble $b_F$ has a factor $\lambda_j$, which implies $(\boldsymbol n_j\times\nabla b_F)|_e=\bs0$. Thus
+$$
+(\boldsymbol n_i^{\intercal}\curl(b_F \psi_3^F)\boldsymbol n_j)|_e =-(\boldsymbol n_i\cdot(b_F \psi_3^F)\times\nabla\cdot\boldsymbol n_j)|_e=(\boldsymbol n_i\cdot\psi_3^F\cdot(\boldsymbol n_j\times\nabla b_F))|_e=0.
+$$
+When $F= F_j$, the face bubble $b_F$ has a factor $\lambda_i$. 
+By the fact that $(\boldsymbol t_1, \boldsymbol t_2, \boldsymbol n_j)$ forms an orthonormal basis of $\mathbb R^3$,
+%we have
+\begin{align*}
+\boldsymbol n_i\cdot\boldsymbol t_2(\boldsymbol t_2\times\boldsymbol n_j\cdot\nabla\lambda_i)&=\boldsymbol n_i\cdot(\boldsymbol n_j\times\boldsymbol t_1)(\boldsymbol t_1\cdot\nabla\lambda_i)=-(\boldsymbol t_1\cdot\nabla\lambda_i)(\boldsymbol n_j\times\boldsymbol n_i\cdot\boldsymbol t_1) \\
+&=-\boldsymbol n_i\cdot\boldsymbol t_1(\boldsymbol n_j\times\nabla\lambda_i\cdot\boldsymbol t_1),
+\end{align*}
+which implies
+$$
+\boldsymbol n_i\cdot\boldsymbol t_1(\boldsymbol n_j\times\nabla\lambda_i\cdot\boldsymbol t_1) + \boldsymbol n_i\cdot\boldsymbol t_2(\boldsymbol n_j\times\nabla\lambda_i\cdot\boldsymbol t_2)=0.
+$$
+As a result,
+$$
+(\boldsymbol n_i^{\intercal}\curl(b_F \psi_3^F)\boldsymbol n_j)|_e = \boldsymbol n_i\cdot\boldsymbol t_1(\boldsymbol n_j\times\nabla b_F\cdot\boldsymbol t_1)|_e + \boldsymbol n_i\cdot\boldsymbol t_2(\boldsymbol n_j\times\nabla b_F\cdot\boldsymbol t_2)|_e=0.
+$$
+Similarly $(\boldsymbol n_j^{\intercal}\curl(b_F \psi_3^F)\boldsymbol n_i)|_e=0$ holds. Hence $(\boldsymbol n_i^{\intercal}\sym\curl(b_F \psi_3^F)\boldsymbol n_j)|_e=0$.
+
+Therefore $\boldsymbol  n_i^{\intercal}\boldsymbol \sigma\boldsymbol n_j|_e=0$.
+\end{proof}
+
+Next we show the two traces $\tr_2(\bs \tau)$ is in $H(\div_F)$ and $\tr_1(\bs \tau)$ in $H(\div_F\div_F)$. 
+\begin{lemma}\label{lm:tracerelation}
+When $\boldsymbol \sigma = \sym\curl \, \boldsymbol\tau$ with $\boldsymbol\tau\in\boldsymbol H^2(K;\mathbb M)$, we can express the trace in terms of the differential operators on surface $F$ of $K$
+\begin{align}
+\label{eq:trace1} \boldsymbol n^{\intercal}\boldsymbol \sigma\boldsymbol n &=\div_F(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n),\\
+\label{eq:trace2} \nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol \sigma\cdot\boldsymbol n)+\boldsymbol  n^{\intercal} \div\boldsymbol \sigma  &=-\mathrm{rot}_F\mathrm{rot}_F(\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n)\\
+& = \div_F\div_F(\Pi_F \sym(\boldsymbol\tau\times\boldsymbol n) \Pi_F). \notag
+\end{align}
+%Therefore $\tr_1(\boldsymbol \tau)\in H_n^{-1/2}(\div; \partial K)$ and $\tr_2(\boldsymbol \tau) \in H_t^{-3/2}(\div\div; \partial K)$. 
+\end{lemma}
+\begin{proof}
+By
+\begin{align*}
+\boldsymbol n^{\intercal}\boldsymbol\sigma\boldsymbol n&=\frac{1}{2}\boldsymbol n\cdot(\nabla\times(\boldsymbol\tau^{\intercal})-\boldsymbol\tau\times\nabla)\cdot\boldsymbol n=\frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal})\cdot\boldsymbol n + \frac{1}{2}\boldsymbol n\cdot\boldsymbol\tau\cdot\nabla_F^{\bot}
+\end{align*}
+and the fact $\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal})\cdot\boldsymbol n=\boldsymbol n\cdot\boldsymbol\tau\cdot\nabla_F^{\bot}$, we get
+$$
+\boldsymbol n^{\intercal}\boldsymbol\sigma\boldsymbol n=\boldsymbol n\cdot\boldsymbol\tau\cdot\nabla_F^{\bot}=\mathrm{rot}_F (\boldsymbol n\cdot\boldsymbol \tau \Pi_F).
+$$
+Then the identity~\eqref{eq:trace1} holds from~\eqref{eq:rotFdivF}.
+
+Next we prove~\eqref{eq:trace2}. Employing~\eqref{eq:tangentialtrace} with $\boldsymbol v=\boldsymbol\tau^{\intercal}\cdot\boldsymbol n$,
+\begin{align*}
+\nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol \sigma\cdot\boldsymbol n) &=\frac{1}{2}\nabla_F^{\bot}\cdot\big(\boldsymbol n\times(\nabla\times(\boldsymbol\tau^{\intercal})-\boldsymbol\tau\times\nabla)\cdot\boldsymbol n\big) \\
+ &=\frac{1}{2}\nabla_F^{\bot}\cdot\big(\boldsymbol n\times(\nabla\times(\boldsymbol\tau^{\intercal}\cdot\boldsymbol n))\big) + \frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol\tau)\cdot\nabla_F^{\bot} \\
+ &=\frac{1}{2}\nabla_F^{\bot}\cdot\big(\nabla(\boldsymbol n\cdot\boldsymbol\tau^{\intercal}\cdot\boldsymbol n) - \partial_n(\boldsymbol\tau^{\intercal}\cdot\boldsymbol n)\big) + \frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol\tau)\cdot\nabla_F^{\bot} \\
+ &=-\frac{1}{2}\nabla_F^{\bot}\cdot\big(\partial_n(\boldsymbol\tau^{\intercal}\cdot\boldsymbol n)\big) + \frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol\tau)\cdot\nabla_F^{\bot}.
+\end{align*}
+On the other side, we have
+\begin{align*}
+\boldsymbol n\cdot \div\boldsymbol \sigma &=\boldsymbol  n\cdot\boldsymbol\sigma\cdot\nabla=\frac{1}{2}\boldsymbol n\cdot(\nabla\times(\boldsymbol\tau^{\intercal}))\cdot\nabla=\frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal})\cdot\nabla \\
+&=\frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal})\cdot(\boldsymbol n\partial_n+\nabla_F)=\frac{1}{2}\nabla_F^{\bot}\cdot\big(\partial_n(\boldsymbol\tau^{\intercal}\cdot\boldsymbol n)\big) + \frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal})\cdot\nabla_F \\
+&=\frac{1}{2}\nabla_F^{\bot}\cdot\big(\partial_n(\boldsymbol\tau^{\intercal}\cdot\boldsymbol n)\big) - \frac{1}{2}\nabla_F^{\bot}\cdot(\boldsymbol\tau^{\intercal}\times\boldsymbol n)\cdot\nabla_F^{\bot}.
+\end{align*}
+The sum of the last two identities gives
+\begin{align*}
+\nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol \sigma\cdot\boldsymbol n)+\boldsymbol  n\cdot \div\boldsymbol \sigma &=\nabla_F^{\bot}\cdot\sym(\boldsymbol n\times\boldsymbol\tau\Pi_F)\cdot\nabla_F^{\bot}.
+\end{align*}
+Therefore~\eqref{eq:trace2} follows from $\sym(\boldsymbol n\times\boldsymbol\tau\Pi_F)=-\boldsymbol  n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n$.
+\end{proof}
+
+Note that $ \nabla_F^{\bot}\cdot(\boldsymbol n\times\boldsymbol \sigma\cdot\boldsymbol n)+\boldsymbol  n^{\intercal} \div\boldsymbol \sigma$ is an equivalent formulation of the second trace of $\boldsymbol \sigma$. 
+%We shall not discuss more on the trace operator in the general setting but restrict to polynomial spaces. 
+%
+Combining Lemmas~\ref{lem:symcurledgeprop} and~\ref{lm:tracerelation} gives the following result.
+\begin{lemma}\label{lm:symbubble}
+It holds
+\begin{equation}\label{eq:symcurlindivdivbubble}
+\sym\curl \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) \subseteq (\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div)).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $\boldsymbol \tau \in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$, by construction, $\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n = 0$ and $\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n = 0$ on $\partial K$. Let $\boldsymbol \sigma = \sym \curl \boldsymbol \tau$. Then by Lemma~\ref{lm:tracerelation}, d.o.f.~\eqref{Hdivdivfem3ddof3}-\eqref{Hdivdivfem3ddof4} vanish. By Lemma~\ref{lem:symcurledgeprop},~\eqref{Hdivdivfem3ddof2} vanish. As $\boldsymbol \tau$ contains a face bubble, $\boldsymbol \sigma$  will have an  edge bubble function which means $\boldsymbol \sigma(\delta) = 0$ for all $\delta \in \mathcal V(K)$. Therefore  $\sym\curl \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) \subseteq \mathring{\boldsymbol \Sigma}_{\ell,k}(K)$. The property $\div\div (\sym \curl \boldsymbol \tau) = 0$ is from the divdiv complex.
+\end{proof}
+
+Indeed the $``\subseteq"$  in~\eqref{eq:symcurlindivdivbubble} can be changed to ``=". This will be clean after we present a bubble complex. 
+
+\begin{lemma}\label{lem:divdivbubble}
+For each $K\in\mathcal T_h$, it holds
+\begin{equation}\label{eq:divdivL2local0}
+\div\div\mathring{\boldsymbol \Sigma}_{\ell,k}(K)=\mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K),
+\end{equation}
+where $\mathbb P_1^{\bot}(K)$ is a subspace of $L^2(K)$ being orthogonal to $\mathbb P_1(K)$ with respect to the $L^2$-inner product $(\cdot, \cdot)_K$. Consequently
+\begin{equation}\label{eq:dimdivdivbubble}
+\dim(\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div))=\frac{1}{6}\ell(\ell-1)(5\ell+17). 
+\end{equation}
+%That is for any $q\in\mathring{\mathbb P}_{k-2}(K)$, there exists $\bs\tau\in\mathring{\boldsymbol \Sigma}_{\ell,k}(K)$ such that
+%\[
+%\div\bs\div\bs\tau=q,\quad
+%\]
+\end{lemma}
+\begin{proof}
+From the integration by parts, it is obviously true that $\div\div\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\subseteq\mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K)$.
+On the other side, for any $v\in\mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K)$, due to the fact that $\div\div \boldsymbol H_0^2(K;\mathbb S)=L^2(K)\cap \mathbb P_1^{\bot}(K)$~\cite{CostabelMcIntosh2010}, 
+there exists $\widetilde{\bs\tau}\in\boldsymbol H_0^2(K;\mathbb S)$ such that
+\[
+\div\div\widetilde{\bs\tau}=v. %,\quad \|\widetilde{\bs\tau}\|_{2,K}\lesssim \|q\|_{0,K}.
+\]
+Then take $\boldsymbol \tau \in\mathring{\boldsymbol \Sigma}_{\ell,k}(K)$ with the rest d.o.f. 
+\begin{align*}
+(\boldsymbol \tau-\widetilde{\bs\tau}, \boldsymbol \varsigma)_K=0&  \quad\forall~\boldsymbol \varsigma\in\nabla^2\mathbb P_{k-2}(K)\oplus\sym(\mathbb P_{\ell-2}(K; \mathbb T)\times\boldsymbol x), \\
+((\boldsymbol \tau-\widetilde{\bs\tau})\boldsymbol n, \boldsymbol  n\times \boldsymbol x q)_{F_1}=0 &\quad\forall~q\in\mathbb P_{\ell-2}(F_1).
+\end{align*}
+Applying the Green's identity~\eqref{eq:greenidentitydivdiv}, we get
+\[
+(\div\div(\boldsymbol \tau-\widetilde{\bs\tau}), q)_K=0\quad\forall~q\in\mathbb P_{k-2}(K).
+\]
+This implies $\div\div\boldsymbol \tau=\div\div\widetilde{\bs\tau}=v$. Namely~\eqref{eq:divdivL2local0} holds.
+
+An immediate result of~\eqref{eq:divdivL2local0} is
+\begin{align*}
+\dim(\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div))& =\dim\mathring{\boldsymbol \Sigma}_{\ell,k}(K)-\dim\mathbb P_{k-2}(K)+4 \\
+&=\frac{1}{6}\ell(\ell-1)(5\ell+14) +\frac{1}{2}\ell(\ell-1)\\
+&=\frac{1}{6}\ell(\ell-1)(5\ell+17).
+\end{align*}
+\end{proof}
+
+
+Define
+$$
+\boldsymbol B_{\ell+2}(K;\mathbb R^3):=\{\boldsymbol v\in\mathbb P_{\ell+2}(K;\mathbb R^3): \boldsymbol v|_{\partial K}=\bs0\}=b_K\mathbb P_{\ell-2}(K;\mathbb R^3).
+$$
+Now we are in the position to present the so-called bubble complex. 
+
+\begin{theorem}\label{th:bubblecomplex}
+The bubble function spaces for the divdiv complex
+\begin{equation}\label{eq:divdivcomplex3dfembubble}
+\resizebox{.92\hsize}{!}{$
+0\xrightarrow{} \boldsymbol B_{\ell+2}(K;\mathbb R^3)\xrightarrow{\dev\grad} \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) \xrightarrow{\sym\curl} \mathring{\boldsymbol \Sigma}_{\ell,k}(K) \xrightarrow{\div{\div}} \mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K)\xrightarrow{}0
+$}
+\end{equation}
+form an exact Hilbert complex. 
+\end{theorem}
+\begin{proof}
+Take any $\boldsymbol v\in \boldsymbol B_{\ell+2}(K;\mathbb R^3)$ with $\boldsymbol v|_{\partial K}=\bs0$.
+We have on each face $F\in\mathcal F(K)$,
+\begin{equation}\label{eq:devgradtr1}
+\boldsymbol n\cdot(\dev\grad\boldsymbol v)\times\boldsymbol n=\boldsymbol n\cdot(\grad\boldsymbol v)\times\boldsymbol n=-(\boldsymbol n\times\nabla)(\boldsymbol v\cdot\boldsymbol n)=\bs0,
+\end{equation}
+and
+\begin{align}
+\boldsymbol n\times \sym((\dev\grad\boldsymbol v)\times\boldsymbol n)\times\boldsymbol n&=\boldsymbol n\times \sym((\grad\boldsymbol v)\times\boldsymbol n)\times\boldsymbol n \notag\\
+&=-\boldsymbol n\times \sym(\boldsymbol v\nabla_F^{\bot})\times\boldsymbol n \notag\\
+&=-\boldsymbol n\times \sym((\Pi_F\boldsymbol v)\nabla_F^{\bot})\times\boldsymbol n=\bs0. \label{eq:devgradtr2}
+\end{align}
+Hence $\dev\grad\boldsymbol B_{\ell+2}(K;\mathbb R^3)\subseteq\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)\cap\ker(\sym\curl)$.
+Thanks to Lemma~\ref{lm:symbubble} and~\eqref{eq:divdivL2local0}, we conclude that ~\eqref{eq:divdivcomplex3dfembubble} is a complex.
+
+We then verify the exactness from the left to the right.
+
+\medskip
+\noindent {\em 1. $\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)\cap\ker(\sym\curl)=\dev\grad\boldsymbol B_{\ell+2}(K;\mathbb R^3)$, i.e. if $\sym\curl\boldsymbol \tau = \boldsymbol 0$ and $\bs\tau\in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$, then there exists a $\boldsymbol v\in\boldsymbol B_{\ell+2}(K;\mathbb R^3)$, s.t. $\boldsymbol \tau = \dev\grad\boldsymbol v$}. 
+
+Firstly, by the exactness of the polynomial divdiv complex~\eqref{eq:divdivcomplex3dPoly}, there exists $\boldsymbol v\in\mathbb P_{\ell+2}(K;\mathbb R^3)$ such that $\bs\tau=\dev\grad\boldsymbol v$. As $\bs{RT}=\ker(\dev\grad)$, we  can further impose constraint $\int_F \boldsymbol v\cdot\boldsymbol n=0$ for each $F\in\mathcal F(K)$.
+By~\eqref{eq:devgradtr1}, we get $ \boldsymbol v\cdot\boldsymbol n \mid _F\in\mathbb P_0(F)$. Hence $\boldsymbol v\cdot\boldsymbol n|_F=0$, which indicates $\boldsymbol v(\delta)=\bs0$ for each vertex $\delta\in\mathcal V(K)$.
+By~\eqref{eq:devgradtr2}, we obtain $\sym((\Pi_F\boldsymbol v)\nabla_F^{\bot})=\bs0$, i.e. $\Pi_F\boldsymbol v\in\mathbb P_0(F;\mathbb R^2)+(\Pi_F\boldsymbol x)\mathbb P_0(F)$. This combined with $\boldsymbol v(\delta)=\bs0$ for each vertex $\delta\in\mathcal V(F)$ means $\Pi_F\boldsymbol v=\bs0$, and then $\boldsymbol v|_F=\bs0$ for each $F\in \mathcal F(K)$. Thus $\boldsymbol v\in \boldsymbol B_{\ell+2}(K;\mathbb R^3)$.
+
+\medskip
+\noindent {\em 2. $\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)=\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div)$}. 
+
+By step 1, we acquire
+\begin{align}
+&\quad\,\dim\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T) \notag \\
+&=\dim\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)-\dim\boldsymbol B_{\ell+2}(K;\mathbb R^3) \notag  \\
+&=\dim\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)-\dim\mathbb P_{\ell-2}(K;\mathbb R^3) \notag \\
+&=\frac{1}{6}\ell(\ell-1)(5\ell+17) \label{eq:dimsymcurlB},
+\end{align}
+which together with~\eqref{eq:dimdivdivbubble} indicates
+$$
+\dim\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)=\dim(\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div)).$$ 
+Together with~\eqref{eq:symcurlindivdivbubble} implies $\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)=\mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div)$.
+
+\medskip
+\noindent {\em 3. $\div\div\mathring{\boldsymbol \Sigma}_{\ell,k}(K)=\mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K)$.}  This is~\eqref{eq:divdivL2local0} proved in Lemma~\ref{lem:divdivbubble}.
+
+\medskip
+
+Therefore complex~\eqref{eq:divdivcomplex3dfembubble} is exact.
+\end{proof}
+
+As a result of complex~\eqref{eq:divdivcomplex3dfembubble}, we can replace the degrees of freedom~\eqref{Hdivdivfem3ddof55}-\eqref{Hdivdivfem3ddof6} by
+\begin{align}\label{Hdivdivfem3ddofbubble}
+(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T).
+\end{align}
+The dimension of~\eqref{Hdivdivfem3ddofbubble} is counted in~\eqref{eq:dimsymcurlB}, which also matches the sum of~\eqref{Hdivdivfem3ddof55}-\eqref{Hdivdivfem3ddof6}. 
+
+We summarize the unisolvence below.
+
+\begin{corollary}\label{cor:unisovlenHdivdivfem2}
+The degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof5} and~\eqref{Hdivdivfem3ddofbubble} are unisolvent for $\boldsymbol \Sigma_{\ell,k}(K)$.
+\end{corollary}
+
+Notice that although $\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$ is in a symmetric form, cf.~\eqref{eq:basisofB}, the degrees of freedom~\eqref{Hdivdivfem3ddofbubble} is indeed not simpler than~\eqref{Hdivdivfem3ddof55}-\eqref{Hdivdivfem3ddof6} in computation as $\sym\curl\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$ is much more complicated than polynomials on a face. 
+
+\subsection{Two dimensional divdiv conforming finite elements}\label{sec:2D}
+Recently we have constructed divdiv conforming finite elements in two dimensions in~\cite{ChenHuang2020}. Here we briefly review the results and compare to the three dimensional case. 
+
+Let $F$ be a triangle. Take the space of shape functions
+\begin{equation}\label{eq:2DSigma}
+\boldsymbol \Sigma_{\ell,k}(F):= \mathbb C_{\ell}(F;\mathbb S)\oplus\mathbb C_k^{\oplus}(F;\mathbb S)
+\end{equation}
+with $k\geq 3$ and $\ell\geq \max\{k-1, 3\}$ and 
+\[
+\mathbb C_{\ell}(F; \mathbb S)=\sym \curl_F \, \mathbb  P_{\ell +1}(F; \mathbb R^2),\quad \mathbb C_k^{\oplus}(F; \mathbb S)=\boldsymbol  x\boldsymbol  x^{\intercal}\mathbb P_{k-2}(F).
+\]
+Here the polynomial space for $\boldsymbol H(\sym \curl, F; \mathbb R^2)$ is the vector space not a tensor space, which simplifies the construction significantly. 
+
+The degrees of freedom are given by
+\begin{align}
+%v(\delta) & \quad\textrm{for each } \delta\in \mathcal V(K), \label{H1ncfmdof1}\\
+\boldsymbol \tau (\delta) & \quad\forall~\delta\in \mathcal V(F), \label{Hdivdivfemdof1}\\
+(\boldsymbol  n_{e}^{\intercal}\boldsymbol \tau\boldsymbol  n_{e}, q)_e & \quad\forall~q\in\mathbb P_{\ell-2}(e),  e\in\mathcal E(F),\label{Hdivdivfemdof2}\\
+(\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})+\boldsymbol  n_{e}^{\intercal}\div_F\boldsymbol \tau, q)_e & \quad\forall~q\in\mathbb P_{\ell-1}(e),  e\in\mathcal E(F),\label{Hdivdivfemdof3}\\
+(\boldsymbol \tau, \boldsymbol \varsigma)_F & \quad\forall~\boldsymbol \varsigma\in\nabla_F^2\mathbb P_{k-2}(F), \label{Hdivdivfemdof4}\\
+(\boldsymbol \tau, \boldsymbol \varsigma)_F & \quad\forall~\boldsymbol \varsigma\in \sym (\boldsymbol x^{\bot} \mathbb P_{\ell-2}(F;\mathbb R^2)). \label{Hdivdivfemdof5}
+%\sym\curl(b_K\mathbb P_{\ell-2}(K;\mathbb R^2))
+\end{align}
+Here to avoid confusion with three dimensional version, we use $\bs n_e$ to emphasize it is a normal vector of edge vector $e$. 
+
+The unisolvence is again better understood with the help of Fig.~\ref{fig:femdec}. 
+By the vanishing degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof3}, the trace is vanished. Then together with the vanishing ~\eqref{Hdivdivfemdof4}, $\div \div \boldsymbol \tau = 0$. The rest is to identify the intersection of the bubble space and the kernel of $\div\div$. Define
+\begin{align*}
+\mathring{\boldsymbol \Sigma}_{\ell,k}(F)&:=\{\boldsymbol  \tau\in\boldsymbol \Sigma_{\ell,k}(F): \textrm{all degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof3} vanish}\}.%,
+\end{align*}
+It turns out the space $\mathring{\boldsymbol \Sigma}_{\ell,k}(F)\cap \ker(\div_F\div_F)$ is much simpler in two dimensions. 
+
+The key is the following formulae on the trace $\tr_2$. 
+\begin{lemma}\label{lm:tauv}
+When $\boldsymbol  \tau = \sym \curl_F \, \boldsymbol  v$, we have
+\begin{align}
+\label{eq:trace2-2d} \partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})+\boldsymbol  n_{e}^{\intercal}\div_F\boldsymbol \tau & =  \partial_t(\boldsymbol  t^{\intercal}\partial_t\boldsymbol  v).
+\end{align}
+\end{lemma}
+\begin{proof}
+Since $\div_F \curl_F \, \boldsymbol  v = 0$, we have
+$$\boldsymbol  n^{\intercal}\div_F\boldsymbol \tau  = \frac{1}{2}\boldsymbol  n_{e}^{\intercal} \div_F ( \curl_F \, \boldsymbol  v)^{\intercal} = \frac{1}{2}\boldsymbol  n_{e}^{\intercal} \curl_F \div_F \boldsymbol  v =  \frac{1}{2} \partial_t \div_F \boldsymbol  v.$$
+As $\div_F\boldsymbol  v = {\rm trace} (\nabla_F\boldsymbol  v)$ is invariant to the rotation, we can write it as
+$$
+\div_F \boldsymbol  v = \boldsymbol  t^{\intercal}\nabla_F\boldsymbol  v \boldsymbol  t + \boldsymbol  n_{e}^{\intercal}\nabla_F\boldsymbol  v \boldsymbol  n_{e} =  \boldsymbol  t^{\intercal}\partial_t\boldsymbol  v + \boldsymbol  n_{e}^{\intercal}\partial_n\boldsymbol  v.
+$$
+Then
+$$
+ \partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})+\boldsymbol  n_{e}^{\intercal}\div_F\boldsymbol \tau  =\frac{1}{2}\partial_t[  \boldsymbol  t^{\intercal}\partial_t\boldsymbol  v -  \boldsymbol  n_{e}^{\intercal}\partial_n\boldsymbol  v + \div_F\boldsymbol  v]  =  \partial_t  (\boldsymbol  t^{\intercal}\partial_t\boldsymbol  v),
+ $$
+ i.e.~\eqref{eq:trace2-2d} holds.
+\end{proof}
+
+
+\begin{lemma}
+The following bubble complex: 
+\begin{equation*}%\label{eq:divdivbubble}
+%\resizebox{.92\hsize}{!}{$
+\bs0\xrightarrow{\subset} b_F\mathbb P_{\ell-2}(F;\mathbb R^2)\xrightarrow{\sym\curl_F} \mathring{\boldsymbol \Sigma}_{\ell,k}(F)\xrightarrow{\div_F\div_F} \mathbb P_{k-2}(F)\cap\mathbb P_1^{\perp}(F)\xrightarrow{}0
+%$}
+\end{equation*}
+is exact.
+\end{lemma}
+\begin{proof}
+The fact $\div_F\div_F: \mathring{\boldsymbol \Sigma}_{\ell,k}(F) \to \mathbb P_{k-2}(F)\cap\mathbb P_1^{\perp}(F)$ is surjective can be proved similarly to Lemma~\ref{lem:divdivbubble}. 
+
+For $\boldsymbol \tau \in \mathring{\boldsymbol \Sigma}_{\ell,k}(F)\cap\ker(\div_F\div_F)$, from the complex~\eqref{eq:divdivcomplexPolydouble2D}, we can find $\boldsymbol v\in \mathbb P_{\ell+1}(F)$ s.t. $\sym \curl_F \boldsymbol v = \boldsymbol \tau$.  We will prove $\boldsymbol v|_{\partial F} = \boldsymbol 0$. 
+
+Since $\bs{RT}=\ker(\sym\curl_F)$, we can further impose constraint $\int_e \boldsymbol v\cdot\boldsymbol n_{e}=0$ for each $e\in\mathcal E(F)$. The fact $(\boldsymbol n_{e}^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})|_{\partial F}=0$ implies
+\[
+\partial_t(\boldsymbol  n_{e}^{\intercal}\boldsymbol  v)|_{\partial F}= (\boldsymbol  n_{e}^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})|_{\partial F}=0.
+\]
+Hence $\boldsymbol  n_{e}^{\intercal}\boldsymbol  v|_{\partial F}=0$.
+%Hence $\boldsymbol  n^{\intercal}\boldsymbol  v|_e$ is constant on each edge $e\in\mathcal E(K)$.
+%Then we can choose $\boldsymbol  v$ satisfying $\boldsymbol  n^{\intercal}\boldsymbol  v|_{\partial K}=0$.
+This also means $\boldsymbol  v(\delta)=\boldsymbol 0$ for each $\delta\in\mathcal V(F)$.
+
+
+By Lemma~\ref{lm:tauv}, since
+\begin{equation*}%\label{eq:20200422}
+\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})+\boldsymbol  n_{e}^{\intercal}\div_F\boldsymbol \tau= \partial_t(\boldsymbol  t^{\intercal}\partial_t\boldsymbol  v)
+\end{equation*}
+and $(\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol \tau\boldsymbol  n_{e})+\boldsymbol  n_{e}^{\intercal}\div_F\boldsymbol \tau)|_{\partial F}=0$, we acquire
+\[
+\partial_{tt}(\boldsymbol  t^{\intercal}\boldsymbol  v)|_{\partial F}=0.
+\]
+That is $\boldsymbol  t^{\intercal}\boldsymbol  v|_e\in\mathbb P_1(e)$ on each edge $e\in\mathcal E(F)$. Noting that $\boldsymbol  v(\delta)=\boldsymbol 0$ for each $\delta\in\mathcal V(F)$, we get $\boldsymbol t^{\intercal}\boldsymbol  v|_{\partial F}=0$ and consequently $\boldsymbol  v|_{\partial F}=\boldsymbol 0$, i.e., 
+$$
+\boldsymbol v = b_F\psi_{\ell-2},\quad \text{for some } \psi_{\ell-2} \in \mathbb P_{\ell-2}(F;\mathbb R^2).
+$$
+\end{proof}
+
+
+We now prove the unisolvence as follows.
+
+\begin{theorem}\label{thm:unisovlenHdivdivfem2D}
+The degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof4} are unisolvent for $\boldsymbol \Sigma_{\ell,k}(F)$~\eqref{eq:2DSigma}.
+\end{theorem}
+\begin{proof}
+We first count the number of the degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof4}  and the dimension of the space, i.e., $\dim\boldsymbol \Sigma_{\ell,k}(K)$.
+Both of them are $$\ell^2+5\ell+3+\frac{1}{2}k(k-1).$$
+Then suppose all the degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof4} applied to $\boldsymbol \tau$ vanish. We are going to prove the function $\boldsymbol \tau = 0$. 
+
+By the vanishing degrees of freedom~\eqref{Hdivdivfemdof1}-\eqref{Hdivdivfemdof3}, the two traces are vanished. Together with~\eqref{Hdivdivfemdof4}, the Green's identity implies $\div_F\div_F \boldsymbol \tau = 0$. Then $$
+\boldsymbol \tau = \sym \curl_{F}  (b_F\psi_{\ell-2}),\quad \text{for some } \psi_{\ell-2} \in \mathbb P_{\ell-2}(F;\mathbb R^2).
+$$
+We then use the fact $\rot_F: \sym(\boldsymbol x^{\perp}\mathbb P_{\ell-2}(F;\mathbb R^2)) \to  \mathbb P_{\ell-2}(F;\mathbb R^2)$ is bijection, cf. the complex~\eqref{eq:hessiancomplexPolydouble2D}, to find $\phi_{\ell-2}$ s.t. $\rot_F (\sym(\boldsymbol x^{\perp}\phi_{\ell-2})) = \psi_{\ell-2}$.
+%
+Finally we finish the unisolvence proof by choosing $\boldsymbol \varsigma = \sym (\boldsymbol x^{\perp} \phi_{\ell -2})$ in~\eqref{Hdivdivfemdof5}. The fact 
+$$
+(\boldsymbol \tau, \boldsymbol \varsigma)_F = (\sym\curl_F(b_F\psi_{\ell-2}),  \sym (\boldsymbol x^{\perp} \phi_{\ell -2}))_F = ( b_F\psi_{\ell-2}, \psi_{\ell-2} )_F = 0
+$$
+will imply $\psi_{\ell-2} = 0$ and consequently $\boldsymbol \tau = 0$.  
+\end{proof}
+As finite element spaces for $\boldsymbol  H^1$ are relatively mature and the bubble function space of $\mathbb P_{\ell+1}(F;\mathbb R^2)\cap \boldsymbol H_0^1(F;\mathbb R^2) = b_F\mathbb P_{\ell-2}(F;\mathbb R^2)$, the design of divdiv conforming finite elements in two dimensions is relatively easy. By rotation, we can also get finite elements for the strain space $\boldsymbol{H}(\rot_F\rot_F,F; \mathbb{S})$; see~\cite[Section 3.4]{ChenHuang2020}. 
+
+
+
+\section{Finite Elements for Sym Curl-Conforming Trace-Free Tensors}\label{sec:tracefreefem}
+In this section we construct conforming finite element spaces for $\boldsymbol{H}(\sym\curl,\Omega; \mathbb{T})$.
+
+
+\subsection{A finite element space}
+Let $K$ be a tetrahedron. For each edge $e$, we have a direction vector $\bs t$ and then chose two orthonormal vectors $\boldsymbol n_1$ and $\boldsymbol n_2$ being orthogonal to $e$ such that $\boldsymbol n_2=\boldsymbol t\times\boldsymbol n_1$ and $\boldsymbol n_1=\boldsymbol n_2\times\boldsymbol t$. 
+Take the space of shape functions as $\mathbb P_{\ell+1}(K;\mathbb T)$.
+The degrees of freedom $\mathcal N_{\ell+1}(K)$ are given by
+{\small
+\begin{align}
+\boldsymbol \tau(\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hsymcurlfem3ddof1}\\
+(\sym\curl\boldsymbol \tau )(\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hsymcurlfem3ddof2}\\
+(\boldsymbol  n_i^{\intercal}(\sym\curl\boldsymbol \tau )\boldsymbol n_j, q)_e & \quad\forall~q\in\mathbb P_{\ell-2}(e),  e\in\mathcal E(K), i,j=1,2, \label{Hsymcurlfem3ddof3}\\
+(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol t, q)_e & \quad\forall~q\in\mathbb P_{\ell-1}(e),  e\in\mathcal E(K), i=1,2,\label{Hsymcurlfem3ddof4}\\
+(\boldsymbol n_{2}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_1 + \partial_{t}(\boldsymbol t^{\intercal}\bs\tau\boldsymbol t), q)_e & \quad\forall~q\in\mathbb P_{\ell}(e),  e\in\mathcal E(K),\label{Hsymcurlfem3ddof5}\\
+% (\sym(\boldsymbol\tau\times\boldsymbol n), \boldsymbol \varsigma)_F &\quad\forall~\boldsymbol \varsigma\in \nabla_F^2\, \mathbb P_{\ell-1}(F)\oplus
+%  \sym (\boldsymbol x^{\bot}\otimes \mathbb P_{\ell-1}(F;\mathbb R^2)), \label{Hsymcurlfem3ddof6}\\
+(\boldsymbol n\times\sym(\boldsymbol\tau\times\boldsymbol n)\times\boldsymbol n, \boldsymbol \varsigma)_F &\quad\forall~\boldsymbol \varsigma\in (\nabla_F^{\bot})^2\, \mathbb P_{\ell-1}(F)\oplus
+ \sym (\boldsymbol x\otimes \mathbb P_{\ell-1}(F;\mathbb R^2)), \label{Hsymcurlfem3ddof6}\\
+(\boldsymbol n\cdot \boldsymbol\tau\times\boldsymbol n, \boldsymbol q)_F & \quad\forall~\boldsymbol q\in\nabla_F\mathbb P_{\ell-3}(F)\oplus\boldsymbol x^{\perp}\mathbb P_{\ell-1}(F),  F\in\mathcal F(K),\label{Hsymcurlfem3ddof7}\\
+(\boldsymbol \tau, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T). \label{Hsymcurlfem3ddof8} 
+%( \sym\curl\boldsymbol \tau,  \boldsymbol b)_K & \quad\forall~\boldsymbol b\in \sym \curl \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T),\label{Hsymcurlfem3ddof8}\\
+%%( (\sym\curl\boldsymbol \tau)\boldsymbol n, \boldsymbol n\times\boldsymbol x q)_F & \quad\forall~q\in\mathbb P_{\ell-2}(F_1),\label{Hsymcurlfem3ddof8}\\
+%%(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in\curl\mathbb P_{\ell-1}(K; \mathbb S), \label{Hsymcurlfem3ddof9} \\
+%(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in\dev\grad\boldsymbol B_{\ell+2}(K;\mathbb R^3).\label{Hsymcurlfem3ddof10} 
+\end{align}}
+
+The degree of freedom~\eqref{Hsymcurlfem3ddof2},~\eqref{Hsymcurlfem3ddof3}, and~\eqref{Hsymcurlfem3ddof8} are motivated by~\eqref{Hdivdivfem3ddof1},~\eqref{Hdivdivfem3ddof2}, and~\eqref{Hdivdivfem3ddofbubble}, respectively, as $\sym \curl \boldsymbol \tau \in \boldsymbol H(\div\div, K;\mathbb S)$. Recall that $\tr_2(\boldsymbol \tau)\in H(\div_F)$ and $\tr_1(\boldsymbol \tau) \in H(\div_F\div_F)$, cf. Lemma \ref{lm:tracerelation}. Let $\bs n_{F,e} = \bs t\times \bs n$ be the norm vector of $e$ sitting on the face $F$. 
+%relative to the face normal vector $\bs n$ and $\bs t_{F,e}$ be the edge vector so that $\bs t_{F,e}$ and $\bs n$ follow the right hand rule. Then $\bs n\times \bs n_{F,e} = \bs t_{F,e}$. 
+For $\div_F$ elements on face $F$, the normal trace becomes
+\begin{equation*}%\label{eq:symcurltracepart2}
+(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)\cdot \boldsymbol n_{F,e}=\boldsymbol n^{\intercal}\boldsymbol\tau\boldsymbol t,
+\end{equation*}
+which motivates d.o.f.~\eqref{Hsymcurlfem3ddof4}. Together with d.o.f.~\eqref{Hsymcurlfem3ddof7}, $\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n$ can be determined. 
+For the $\div_F\div_F$ element, the normal-normal trace becomes
+\begin{equation}\label{eq:symcurltracepart1}
+\boldsymbol n_{F,e}^{\intercal}(\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n)\Pi_F)\boldsymbol n_{F,e}=\boldsymbol n_{F,e}^{\intercal}\sym(\boldsymbol\tau\times\boldsymbol n)\boldsymbol n_{F,e}= \boldsymbol n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol t,
+\end{equation}
+which can be also determined by~\eqref{Hsymcurlfem3ddof4}. Notice that for each edge $e$, there are two $\boldsymbol n_{F,e}$ inside one tetrahedron. In~\eqref{Hsymcurlfem3ddof4}, the two normal vectors $\bs n_1, \bs n_2$ are chosen independent of elements and~\eqref{Hsymcurlfem3ddof4} can determine the projection of vector $\bs \tau\bs t$ to the plane orthogonal to edge $e$ including $\boldsymbol n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol t$. 
+
+The other trace of a $\div_F\div_F$ element will be determined by~\eqref{Hsymcurlfem3ddof3} and~\eqref{Hsymcurlfem3ddof5}, which is less obvious. The following lemma is borrowed from~\cite[Lemma 9 and Remark 8]{Hu;Liang;Ma:2021Finite}. 
+
+%  Motivation for dofs: %\eqref{Hsymcurlfem3ddof4} and~\eqref{Hsymcurlfem3ddof5}.
+%  \begin{equation}\label{eq:symcurltracepart3}
+%  \boldsymbol  t_{F,e}^{\intercal}\Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F\boldsymbol  t_{F,e}=\boldsymbol  t_{F,e}^{\intercal}(\boldsymbol n\times\boldsymbol\tau)\boldsymbol  t_{F,e}=\boldsymbol  t_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e},
+%  \end{equation}
+%  \begin{align}
+%  \boldsymbol  t_{F,e}^{\intercal}\Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F\boldsymbol  n_{F,e}&=\frac{1}{2}\left(\boldsymbol  t_{F,e}^{\intercal}(\boldsymbol n\times\boldsymbol\tau)\boldsymbol  n_{F,e} + \boldsymbol  n_{F,e}^{\intercal}(\boldsymbol n\times\boldsymbol\tau)\boldsymbol  t_{F,e}\right) \notag\\
+%  &=\frac{1}{2}(-\boldsymbol  t_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  t_{F,e} + \boldsymbol  n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e} ), \label{eq:symcurltracepart4}
+%  \end{align}
+%  \begin{align*}
+%  &\partial_{t_{F,e}}(\boldsymbol  t_{F,e}^{\intercal} \Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F\boldsymbol  n_{F,e}) +\boldsymbol  n_{F,e}^{\intercal}\boldsymbol  \div_F(\Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F) \\
+%  =&2\partial_{t_{F,e}}(\boldsymbol  t_{F,e}^{\intercal} \Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F\boldsymbol  n_{F,e}) + \partial_{n_{F,e}}(\boldsymbol  n_{F,e}^{\intercal} \Pi_F\sym(\boldsymbol n\times\boldsymbol\tau)\Pi_F\boldsymbol  n_{F,e}) \\
+%  =&2\partial_{t_{F,e}}(\boldsymbol  t_{F,e}^{\intercal} \sym(\boldsymbol n\times\boldsymbol\tau)\boldsymbol  n_{F,e}) + \partial_{n_{F,e}}(\boldsymbol  n_{F,e}^{\intercal} \sym(\boldsymbol n\times\boldsymbol\tau)\boldsymbol  n_{F,e}) \\
+%  =&\partial_{t_{F,e}}(-\boldsymbol  t_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  t_{F,e} + \boldsymbol  n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e}) - \partial_{n_{F,e}}(\boldsymbol n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol t_{F,e}).
+%  \end{align*}
+
+%\subsubsection{Vanished trace} 
+%We first show the trace can be uniquely determined by the boundary degree of freedoms. 
+\begin{lemma}\label{lem:symcurlkey}
+Let $F\in\mathcal F(K)$ with a normal vector $\bs n_F$. For an edge $e\in\mathcal E(F)$, we fix a direction vector $\bs t$ for $e$ and chose two orthonormal vectors $\boldsymbol n_1$ and $\boldsymbol n_2$ being orthogonal to $e$ such that $\boldsymbol n_2=\boldsymbol t\times\boldsymbol n_1$ and $\boldsymbol n_1=\boldsymbol n_2\times\boldsymbol t$. Let $\boldsymbol n_{F,e}=\boldsymbol t \times\boldsymbol n_{F}$.
+For any sufficiently smooth tensor $\bs\tau$, we have
+\begin{align}
+\boldsymbol n_{F,e}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_F
+&=(\boldsymbol n_F\cdot\boldsymbol n_1) (\boldsymbol n_F\cdot\boldsymbol n_2) \left [\boldsymbol n_{2}^{\intercal}(\sym\curl\boldsymbol \tau)\boldsymbol n_2-\boldsymbol n_{1}^{\intercal}(\sym\curl\boldsymbol \tau)\boldsymbol n_1\right ] \notag\\
+&\quad - 2(\boldsymbol n_F\cdot\boldsymbol n_2)^2\boldsymbol n_{1}^{\intercal}(\sym\curl\boldsymbol \tau)\boldsymbol n_2 + \boldsymbol n_{2}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_1, \label{eq:edgedofprop1}
+\end{align}
+% \begin{equation}\label{eq:edgedofprop2}
+% \boldsymbol n_{F,e}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_F + \partial_{t_e}(\boldsymbol t^{\intercal}\bs\tau\boldsymbol t)
+% =\partial_{t}(\boldsymbol n_{F,e}^{\intercal} {\rm tr}_1(\boldsymbol \tau)\boldsymbol t) -\boldsymbol t^{\intercal}\mathrm{rot}_F{\rm tr}_1(\boldsymbol \tau),
+% \end{equation}
+For ${\rm tr}_1(\boldsymbol \tau)=\Pi_F\sym(\bs\tau\times\boldsymbol n_F)\Pi_F$, we have
+\begin{equation}\label{eq:edgedofprop2}
+\partial_{t}(\boldsymbol  t^{\intercal}{\rm tr}_1(\boldsymbol \tau)\boldsymbol  n_{F,e}) +\boldsymbol  n_{F,e}^{\intercal}\div_F({\rm tr}_1(\boldsymbol \tau)) = \boldsymbol n_{F,e}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_F + \partial_{t}(\boldsymbol t^{\intercal}\bs\tau\boldsymbol t).
+\end{equation}
+Consequently it can be determined by d.o.f.~\eqref{Hsymcurlfem3ddof3} and~\eqref{Hsymcurlfem3ddof5}. 
+\end{lemma}
+\begin{proof}
+On the plane orthogonal to $e$, the vectors $\bs n_1$ and $\bs n_2$ form an orthonormal basis. We expand $\boldsymbol n_F= c_1 \boldsymbol n_1+c_2\boldsymbol n_2$ in this coordinate, with $c_i = \boldsymbol n_F\cdot\boldsymbol n_i$ for $i=1,2$. Then $
+\boldsymbol n_{F,e}=\boldsymbol t \times\boldsymbol n_{F}=c_1\boldsymbol n_2 - c_2 \boldsymbol n_1.$
+Then in this coordinate
+\begin{align*}
+\boldsymbol n_{F,e}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_F&=(c_1\boldsymbol n_2-c_2\boldsymbol n_1)^{\intercal}(\curl\boldsymbol \tau)(c_1\boldsymbol n_1+c_2\boldsymbol n_2) \\
+&=c_1c_2(\boldsymbol n_{2}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_2-\boldsymbol n_{1}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_1) \\
+&\quad+ c_1^2\boldsymbol n_{2}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_1 - c_2^2\boldsymbol n_{1}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_2.
+\end{align*}
+Thus we acquire~\eqref{eq:edgedofprop1} from the fact $c_1^2+c_2^2=1$.
+
+On the other hand, by the fact $\nabla_F=\boldsymbol t\partial_{t}+\boldsymbol n_{F,e}\partial_{n_{F,e}}$, we obtain
+\begin{align*}
+&\partial_{t}(\boldsymbol t^{\intercal}{\rm tr}_1(\boldsymbol \tau)\boldsymbol  n_{F,e}) +\boldsymbol  n_{F,e}^{\intercal}\div_F({\rm tr}_1(\boldsymbol \tau)) \\
+=&2\partial_{t}(\boldsymbol t^{\intercal}{\rm tr}_1(\boldsymbol \tau)\boldsymbol  n_{F,e}) + \partial_{n_{F,e}}(\boldsymbol  n_{F,e}^{\intercal} {\rm tr}_1(\boldsymbol \tau)\boldsymbol n_{F,e}) \\
+=&2\partial_{t}(\boldsymbol  t^{\intercal} \sym(\bs\tau\times\boldsymbol n_F)\boldsymbol  n_{F,e}) + \partial_{n_{F,e}}(\boldsymbol  n_{F,e}^{\intercal} \sym(\bs\tau\times\boldsymbol n_F)\boldsymbol  n_{F,e}) \\
+=&\partial_{t}(\boldsymbol t^{\intercal}\boldsymbol\tau\boldsymbol  t - \boldsymbol  n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol  n_{F,e}) + \partial_{n_{F,e}}(\boldsymbol n_{F,e}^{\intercal}\boldsymbol\tau\boldsymbol t),
+\end{align*}
+and
+\begin{align*}
+\boldsymbol n_{F,e}^{\intercal}(\curl\boldsymbol \tau)\boldsymbol n_F&=(\boldsymbol n_F\times\nabla)\cdot(\boldsymbol n_{F,e}^{\intercal}\bs\tau)=(\boldsymbol n_F\times\nabla)\cdot(\boldsymbol n_{F,e}^{\intercal}\bs\tau\boldsymbol t\boldsymbol t+\boldsymbol n_{F,e}^{\intercal}\bs\tau\boldsymbol n_{F,e}\boldsymbol n_{F,e}) \\
+&=\partial_{n_{F,e}}(\boldsymbol n_{F,e}^{\intercal}\bs\tau\boldsymbol t) - \partial_{t}(\boldsymbol n_{F,e}^{\intercal}\bs\tau\boldsymbol n_{F,e}).
+\end{align*}
+Therefore~\eqref{eq:edgedofprop2} is true.
+\end{proof}
+
+The trace $\partial_{t}(\boldsymbol  t^{\intercal}{\rm tr}_1(\boldsymbol \tau)\boldsymbol  n_{F,e}) +\boldsymbol  n_{F,e}^{\intercal}\div_F({\rm tr}_1(\boldsymbol \tau))$ depends on $F$. For one edge $e$ in a tetrahedron $K$, there are two such traces. Lemma~\ref{lem:symcurlkey} shows that these two traces are linear dependent and only one d.o.f.~\eqref{Hsymcurlfem3ddof5} is needed. 
+
+\begin{lemma}\label{lem:trace0}
+Let $F\in\mathcal F(K)$ and $\boldsymbol \tau\in\mathbb P_{\ell+1}(K;\mathbb T)$.
+If all the degrees of freedom~\eqref{Hsymcurlfem3ddof1}-\eqref{Hsymcurlfem3ddof7} vanish, then $\boldsymbol n\cdot \boldsymbol\tau\times\boldsymbol n =\boldsymbol 0$ and $\boldsymbol n\times\sym(\bs\tau\times\boldsymbol n)\times\boldsymbol n =\bs0$ on face $F$.
+\end{lemma}
+\begin{proof}
+It follows from~\eqref{eq:trace1},~\eqref{Hsymcurlfem3ddof4} and the first part of~\eqref{Hsymcurlfem3ddof7} that
+\[
+(\boldsymbol  n^{\intercal}(\sym\curl\boldsymbol\tau)\boldsymbol  n, q)_F=(\div_F(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n), q)_F=0\quad\forall~q\in\mathbb P_{\ell-3}(F).
+\]
+This combined with~\eqref{Hsymcurlfem3ddof2}-\eqref{Hsymcurlfem3ddof3} yields $\boldsymbol n^{\intercal}(\sym\curl\boldsymbol\tau)\boldsymbol n|_F=\bs0$, i.e. $\div_F(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n|_F)=0$.
+Thanks to the unisolvence of BDM element, we achieve $\boldsymbol n\cdot\boldsymbol\tau\times\boldsymbol n |_F=\boldsymbol 0$ from~\eqref{Hsymcurlfem3ddof4} and the second part of~\eqref{Hsymcurlfem3ddof7}.
+
+Let $\boldsymbol \sigma=\Pi_F\sym(\boldsymbol\tau\times\boldsymbol n_F)\Pi_F$ for simplicity. 
+Thanks to~\eqref{eq:symcurltracepart1}, we get from~\eqref{Hsymcurlfem3ddof4} that $\boldsymbol n_{F,e}^{\intercal}\bs\sigma\boldsymbol n_{F,e}=0$ on each edge $e\in\mathcal E(F)$.
+By~\eqref{eq:edgedofprop1}-\eqref{eq:edgedofprop2}, it follows from~\eqref{Hsymcurlfem3ddof2}-\eqref{Hsymcurlfem3ddof3} and~\eqref{Hsymcurlfem3ddof5} that
+$(\partial_{t}(\boldsymbol  t^{\intercal} \bs\sigma\boldsymbol n_{F,e}) +\boldsymbol  n_{F,e}^{\intercal}\div_F\bs\sigma)|_e=0$, which together with~\eqref{Hsymcurlfem3ddof6} and 
+the unisolvence of divdiv element in two dimensions, 
+i.e. Theorem~\ref{thm:unisovlenHdivdivfem2D},
+implies that $\bs\sigma|_F=\bs0$.
+\end{proof}
+
+%\subsubsection{Vanished differential operator}
+%We then show the derivative is zero.
+%\begin{lemma}\label{lem:symcurl0}
+%Assume $\boldsymbol \tau\in\mathbb P_{\ell+1}(K;\mathbb T)$ with vanishing degrees of freedom~\eqref{Hsymcurlfem3ddof1}-\eqref{Hsymcurlfem3ddof8}, then $\sym\curl\boldsymbol \tau =\boldsymbol 0$.
+%\end{lemma}
+%\begin{proof}
+%Let $\boldsymbol \sigma=\sym\curl\boldsymbol \tau$ for simplicity. Thanks to~\eqref{eq:trace1}-\eqref{eq:trace2}, we have from Lemma~\ref{lem:trace0} that on each face $F\in\mathcal F(K)$,
+%\begin{align*}
+%\boldsymbol  n^{\intercal}\boldsymbol \sigma\boldsymbol  n &=\div_F(\boldsymbol n\cdot \boldsymbol \tau\times\boldsymbol n)=0,\\
+%2\div_F(\boldsymbol\sigma \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \sigma\boldsymbol n) &=\div_F\div_F(\sym(\boldsymbol\tau\times\boldsymbol n))=0.
+%\end{align*}
+%That is $\bs \sigma \in \mathring{\boldsymbol \Sigma}_{\ell,k}(K)\cap\ker(\div\div)$.  Then the vanishing degrees of freedom~\eqref{Hsymcurlfem3ddof8} implies that $\sym\curl\boldsymbol \tau = \bs \sigma=0$. 
+%%Applying the Green's identity in Lemma~\ref{lm:Green}, we get from Lemma~\ref{lem:trace0} and the vanishing degrees of freedom~\eqref{Hsymcurlfem3ddof9} that
+%%$$
+%%(\boldsymbol \sigma, \boldsymbol \varsigma)_K=(\sym\curl\boldsymbol \tau, \boldsymbol \varsigma)_K=(\boldsymbol \tau, \curl\boldsymbol \varsigma)_K=0\quad\forall~\boldsymbol \varsigma\in\sym(\mathbb P_{\ell-2}(K; \mathbb T)\times\boldsymbol x).
+%%$$
+%%Together with the vanishing degrees of freedom~\eqref{Hsymcurlfem3ddof2}-\eqref{Hsymcurlfem3ddof3} and
+%%\eqref{Hsymcurlfem3ddof8}, we conclude $\sym\curl\boldsymbol \tau=\boldsymbol \sigma=\boldsymbol 0$ from Theorem~\ref{lem:unisovlenHdivdivfem}.
+%\end{proof}
+
+We are in the position to prove the unisolvence. 
+\begin{theorem}\label{lem:unisovlenHsymcurlfem}
+The degrees of freedom~\eqref{Hsymcurlfem3ddof1}-\eqref{Hsymcurlfem3ddof8} are unisolvent for $\mathbb P_{\ell+1}(K;\mathbb T)$.
+\end{theorem}
+\begin{proof}
+It is easy to see that
+\begin{align*}
+\#\mathcal N_{\ell+1}(K)&= 56+ 6(6\ell-2) + 4\left(2\ell(\ell+1) + \frac{1}{2}(\ell-1)(\ell-2)-4\right) \\
+&\quad+ \frac{1}{3}(4\ell^3+6\ell^2-10\ell)
+=\frac{4}{3}(\ell+4)(\ell+3)(\ell+2)\\
+&=\dim\mathbb P_{\ell+1}(K;\mathbb T).
+\end{align*}
+
+Take any $\boldsymbol \tau\in\mathbb P_{\ell+1}(K;\mathbb T)$ and
+suppose all the degrees of freedom~\eqref{Hsymcurlfem3ddof1}-\eqref{Hsymcurlfem3ddof8} vanish. Then by Lemmas~\ref{lem:trace0}, $\boldsymbol \tau\in \boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T)$. Then taking $\boldsymbol q = \bs \tau$ in~\eqref{Hsymcurlfem3ddof8}, we conclude $\boldsymbol \tau = 0$. 
+% and $\sym \curl \boldsymbol \tau = 0$. Therefore by the complex of bubble functions in Theorem~\ref{th:bubblecomplex}, we know $\boldsymbol \tau = \dev \grad p$ for some $p\in \boldsymbol B_{\ell+2}(K;\mathbb R^3)$. Then taking $\boldsymbol\varsigma = \dev \grad p$ in~\eqref{Hsymcurlfem3ddof10}, we conclude $\boldsymbol \tau = 0$. 
+%we know $\boldsymbol \tau = \dev \grad (b_K\boldsymbol\phi)$ for some $\boldsymbol\phi \in \mathbb P_{\ell - 2}(K; \mathbb R^3)$. As $\div: \dev(\mathbb P_{\ell - 2}(K; \mathbb R^3)\boldsymbol x^{\intercal}) \to \mathbb P_{\ell - 2}(K; \mathbb R^3)$ is bijective (cf. \cite[Lemma~4.1]{Chen;Huang:2020Discrete}), we can find $\boldsymbol \varsigma\in\dev(\mathbb P_{\ell-2}(K;\mathbb R^3)\boldsymbol x^{\intercal})$ s.t. $\div \boldsymbol \varsigma = \boldsymbol\phi$.  Then taking such $\boldsymbol\varsigma$ in~\eqref{Hsymcurlfem3ddof10}, we conclude $\boldsymbol \tau = 0$. 
+\end{proof}
+
+%\begin{remark}\rm 
+% We can also change the last dof~\eqref{Hsymcurlfem3ddof10} to 
+% \begin{align}
+%\label{Hsymcurlfem3ddof100}
+%(\boldsymbol \tau, \boldsymbol \varsigma)_K & \quad\forall~\boldsymbol \varsigma\in\dev(\mathbb P_{l-2}(K;\mathbb R^3)\boldsymbol x^{\intercal}).
+%\end{align}
+%In the last step of the proof, we can write $\boldsymbol \tau = \dev \grad (b_K\boldsymbol\phi)$ for some $\boldsymbol\phi \in \mathbb P_{\ell - 2}(K; \mathbb R^3)$. As $\div: \dev(\mathbb P_{\ell - 2}(K; \mathbb R^3)\boldsymbol x^{\intercal}) \to \mathbb P_{\ell - 2}(K; \mathbb R^3)$ is bijective (cf. \cite[Lemma~4.1]{Chen;Huang:2020Discrete}), we can find $\boldsymbol \varsigma\in\dev(\mathbb P_{\ell-2}(K;\mathbb R^3)\boldsymbol x^{\intercal})$ s.t. $\div \boldsymbol \varsigma = \boldsymbol\phi$.  Then taking such $\boldsymbol\varsigma$ in~\eqref{Hsymcurlfem3ddof100}, we conclude $\boldsymbol \tau = 0$. 
+%
+%\end{remark}
+
+
+%{\color{gray}By Lemma~\ref{lem:unisovlenHsymcurlfempre1}, there exists $\boldsymbol  v\in\mathbb P_{\ell+2}(K;\mathbb R^3)$ such that 
+%$\boldsymbol \tau=\dev\grad\boldsymbol  v$ and
+%\[
+%Q_0^F(\boldsymbol  v\cdot\boldsymbol  n)=0\quad\forall~F\in\mathcal F(K).
+%\]
+%The vanishing~\eqref{Hsymcurlfem3ddof1} and~\eqref{Hsymcurlfem3ddof4} imply 
+%\begin{equation}\label{eq:20200829-1}
+%\partial_t(\boldsymbol  v\cdot\boldsymbol  n_1)|_e=\partial_t(\boldsymbol  v\cdot\boldsymbol  n_2)|_e=0 \quad\forall~e\in\mathcal E(K). 
+%\end{equation}
+%Take any face $F\in\mathcal F(K)$, then $(\boldsymbol  v\cdot\boldsymbol  n)|_{\partial F}$ is constant. 
+%Hence there exists $q_1\in\mathbb P_{\ell-1}(F)$ and constant $c$ such that
+%\[
+%(\boldsymbol  v\cdot\boldsymbol  n)|_{F}=b_Fq_1+C,
+%\]
+%where $b_F$ is the face bubble function corresponding to face $F$. Thanks to~\eqref{Hsymcurlfem3ddof7}, it holds for any $\boldsymbol  q\in\boldsymbol  x^{\perp}\mathbb P_{\ell-1}(F)$ that  
+%\[
+%(b_Fq_1, \rot_F\boldsymbol  q)_F=(\boldsymbol  n\times\nabla(b_Fq_1), \boldsymbol  q)_F=(\boldsymbol  n\times\nabla(\boldsymbol  v\cdot\boldsymbol  n), \boldsymbol  q)_F =(\boldsymbol n\times \boldsymbol \tau\cdot\boldsymbol n, \boldsymbol  q)_F=0.
+%\]
+%By the fact $\rot_F: \boldsymbol  x^{\perp}\mathbb P_{\ell-1}(F)\to\mathbb P_{\ell-1}(F)$ is bijective, we get $q_1=0$ and $(\boldsymbol  v\cdot\boldsymbol  n)|_{F}=C$.
+%Thus $\boldsymbol  v\cdot\boldsymbol  n|_{\partial K}=0$ and $\boldsymbol  v(\delta)=0$ for each vertex $\delta\in\mathcal V(K)$. Then~\eqref{eq:20200829-1} will becomes
+%\begin{equation*}
+%\boldsymbol  v\cdot\boldsymbol  n_1|_e=\boldsymbol  v\cdot\boldsymbol  n_2|_e=0 \quad\forall~e\in\mathcal E(K). 
+%\end{equation*}
+%Moreover,
+%since $\partial_{t}(\boldsymbol  t^{\intercal}\boldsymbol\tau\boldsymbol  t-\boldsymbol  n_{1}^{\intercal}\boldsymbol\tau\boldsymbol  n_{1}) + \partial_{n_{1}}(\boldsymbol n_{1}^{\intercal}\boldsymbol\tau\boldsymbol t)=\partial_{tt}(\boldsymbol  v\cdot\boldsymbol  t)$ on edge $e$, we obtain from~\eqref{Hsymcurlfem3ddof5} that
+%\[
+%\partial_{tt}(\boldsymbol  v\cdot\boldsymbol  t)|_e=0\quad\forall~e\in\mathcal E(K). 
+%\]
+%Thus $\boldsymbol  v\cdot\boldsymbol  t|_e=0$. As a result $\boldsymbol  v|_e=\boldsymbol  0$ for each edge $e\in\mathcal E(K)$.
+%
+%By~\eqref{Hsymcurlfem3ddof6},  we have
+%\[
+%(\boldsymbol  n\times \nabla \boldsymbol  v, \boldsymbol  q)_F=0\quad\forall~\boldsymbol  q\in\sym(\boldsymbol  x^{\perp}\otimes\mathbb P_{\ell-1}(F,\mathbb R^2)),
+%\]
+%which together with $\boldsymbol  v|_{\partial F}=\boldsymbol  0$ implies $\boldsymbol  v|_F=\boldsymbol  0$.
+%Finally we conclude $\boldsymbol  v=0$ from the vanishing degrees of freedom~\eqref{Hsymcurlfem3ddof10}.
+%}
+
+\subsection{Lagrange-type Degree of freedoms}
+The d.o.f. $\mathcal N_{\ell +1}$ is designed to form a finite element divdiv complex. If the exactness of the sequence is not the concern, we can construct simpler degree of freedoms.  Below is the Lagrange-type $\boldsymbol H(\sym\curl)$-conforming finite elements for trace-free tensors.
+Take the space of shape functions as $\mathbb P_{\ell+1}(K;\mathbb T)$.
+The degrees of freedom are given by
+\begin{align}
+\boldsymbol \tau(\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hsymcurlfem1dof1}\\
+(\boldsymbol \tau, \boldsymbol q)_e & \quad\forall~\boldsymbol q\in\mathbb P_{\ell-1}(e;\mathbb T),  e\in\mathcal E(K),\label{Hsymcurlfem1dof2}\\
+(\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times \boldsymbol n, \boldsymbol q)_F &\quad\forall~\boldsymbol q\in\mathbb P_{\ell-2}(F;\mathbb S), F\in\mathcal F(K),\label{Hsymcurlfem1dof3}\\
+(\boldsymbol n\cdot \boldsymbol\tau\times\boldsymbol n, \boldsymbol q)_F & \quad\forall~\boldsymbol q\in\mathbb P_{\ell-2}(F;\mathbb R^2),  F\in\mathcal F(K),\label{Hsymcurlfem1dof4}\\
+(\boldsymbol \tau, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T). \label{Hsymcurlfem1dof5} 
+\end{align}
+It is straightforward to verify the unisolvence of~\eqref{Hsymcurlfem1dof1}-\eqref{Hsymcurlfem1dof5}  due to the characterization of trace operators and bubble functions. 
+
+%\LC{\eqref{Hsymcurlfem3ddof8}-\eqref{Hsymcurlfem3ddof10} can be also merged as one like~\eqref{Hsymcurlfem1dof5} and simplify the previous unisolvence proof.}
+%The degrees of freedom are unisolvent for $\mathbb P_{k}(K;\mathbb T)$.
+
+
+We can also take another set of degrees of freedom
+\begin{align}
+\boldsymbol \tau(\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hsymcurlfem2dof1}\\
+(\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol t, q)_e & \quad\forall~q\in\mathbb P_{\ell-1}(e),  e\in\mathcal E(K), i=1,2,\label{Hsymcurlfem2dof2}\\
+(\boldsymbol n\times \sym(\boldsymbol\tau\times\boldsymbol n)\times \boldsymbol n, \boldsymbol q)_F &\quad\forall~\boldsymbol q\in\mathring{\mathbb P}_{\ell}(F;\mathbb S), F\in\mathcal F(K),\label{Hsymcurlfem2dof3}\\
+(\boldsymbol n\cdot \boldsymbol\tau\times\boldsymbol n, \boldsymbol q)_F & \quad\forall~\boldsymbol q\in\nabla_F\mathbb P_{\ell}(F)\oplus\boldsymbol x^{\perp}\mathbb P_{\ell-1}(F),  F\in\mathcal F(K),\label{Hsymcurlfem2dof4}\\
+(\boldsymbol \tau, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\boldsymbol B_{\ell+1}(\sym\curl, K;\mathbb T), \label{Hsymcurlfem2dof5} 
+\end{align}
+where 
+$$
+\mathring{\mathbb P}_{\ell}(F;\mathbb S):=\{\boldsymbol q\in\mathbb P_{\ell}(F;\mathbb S): (\boldsymbol t_1^{\intercal}\boldsymbol q\boldsymbol t_2)(\delta)=0\textrm{ for each } \delta\in\mathcal V(K)\}
+$$
+with $\boldsymbol t_1$ and $\boldsymbol t_2$ being the unit tangential vectors of two edges of $F$ sharing $\delta$.
+The degree of freedom~\eqref{Hsymcurlfem2dof3} is motivated by the Hellan-Herrmann-Johnson mixed method for the Kirchhoff plate bending problems \cite{Hellan1967,Herrmann1967,Johnson1973}.
+
+% \subsection{Smoother conforming finite elements}
+
+% \LC{Add from other paper.}
+
+
+\section{A Finite Element Divdiv Complex in Three Dimensions}\label{sec:femdivdivcomplex}
+In this section, we collect finite element spaces defined before to form a finite element div-div complex. We assume $\mathcal T_h$ is a triangulation of a topological trivial domain $\Omega$. 
+
+\subsection{A finite element $\textrm{divdiv}$ complex}
+We start from the vectorial Hermite element space in three dimensions \cite{Ciarlet1978}
+\begin{align*}
+\boldsymbol V_h:=\{\boldsymbol v_h\in \boldsymbol H^1(\Omega;\mathbb R^3): &\boldsymbol v_h|_K\in\mathbb P_{\ell+2}(K;\mathbb R^3)\textrm{ for each } K\in\mathcal T_h,\\
+&\nabla \boldsymbol v_h(\delta) \textrm{ is single-valued at each vertex } \delta\in\mathcal V_h  
+\}.
+\end{align*}
+The local degrees of freedom for $\boldsymbol V_h(K):=\boldsymbol V_h|_K$ are
+\begin{align}
+\boldsymbol v(\delta), \nabla \boldsymbol v(\delta) & \quad\forall~\delta\in \mathcal V(K), \label{Hermitfem3ddof1}\\
+(\boldsymbol v, \boldsymbol q)_e & \quad\forall~\boldsymbol q\in\mathbb P_{\ell-2}(e;\mathbb R^3),  e\in\mathcal E(K), \label{Hermitfem3ddof2}\\
+(\boldsymbol v, \boldsymbol q)_F & \quad\forall~\boldsymbol q\in\mathbb P_{\ell-1}(F;\mathbb R^3),  F\in\mathcal F(K),\label{Hermitfem3ddof3}\\
+(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\mathbb P_{\ell-2}(K;\mathbb R^3). \label{Hermitfem3ddof4} 
+\end{align}
+The unisolvence for $\bs V_h(K)$ is trivial. 
+%\LC{ Is this Hermite element in 3D?}
+And
+$$
+\dim\boldsymbol V_h= 12\#\mathcal V_h+ 3(\ell-1)\#\mathcal E_h + \frac{3}{2}(\ell+1)\ell\#\mathcal F_h +\frac{1}{2}(\ell^3-\ell)\#\mathcal T_h.
+$$
+%
+Let
+\begin{align*}
+\bs\Sigma_h^{\mathbb T}:=\{\bs\tau_h\in \boldsymbol L^2(\Omega; \mathbb T): &\bs\tau_h|_K\in\mathbb P_{\ell+1}(K;\mathbb T) \textrm{ for each } K\in\mathcal T_h, \textrm{ all the } \\
+& \textrm{ degrees of freedom~\eqref{Hsymcurlfem3ddof1}-\eqref{Hsymcurlfem3ddof7} are single-valued} \},
+\end{align*}
+then
+\begin{align*}
+\dim\bs\Sigma_h^{\mathbb T}&= 14\#\mathcal V_h+ (6\ell-2)\#\mathcal E_h + \left(2\ell(\ell+1) + \frac{1}{2}(\ell-1)(\ell-2)-4\right)\#\mathcal F_h \\
+&\quad+ \frac{1}{3}(4\ell^3+6\ell^2-10\ell) \#\mathcal T_h.
+%&\quad+\left(\frac{1}{2}\ell(\ell-1)+ \frac{1}{6}(\ell-1)\ell(5\ell+14) + \frac{1}{2}(\ell^3-\ell)\right)\#\mathcal T_h.
+\end{align*}
+Clearly Lemma~\ref{lem:trace0} ensures $\bs\Sigma_h^{\mathbb T}\subset \boldsymbol H(\sym\curl,\Omega;\mathbb T)$. 
+%
+Let
+\begin{align*}
+\bs\Sigma_h^{\mathbb S}:=\{\bs\tau_h\in \boldsymbol L^2(\Omega; \mathbb S): &\bs\tau_h|_K\in\boldsymbol \Sigma_{\ell,k}(K) \textrm{ for each } K\in\mathcal T_h, \textrm{ all the } \\
+& \textrm{ degrees of freedom~\eqref{Hdivdivfem3ddof1}-\eqref{Hdivdivfem3ddof4} are single-valued} \},
+\end{align*}
+then
+\begin{align*}
+\dim\bs\Sigma_h^{\mathbb S}&= 6\#\mathcal V_h+ 3(\ell-1)\#\mathcal E_h + (\ell^2 -\ell+1)\#\mathcal F_h \\
+&\quad+\left(\frac{1}{2}\ell(\ell-1)+ \frac{1}{6}(\ell-1)\ell(5\ell+14) + \frac{1}{6}(k^3-k)-4\right)\#\mathcal T_h.
+\end{align*}
+It follows from the proof of Lemma~\ref{lem:vanishdof} ensures $\bs\Sigma_h^{\mathbb S}\subset \boldsymbol H(\div\div,\Omega;\mathbb S)$.
+%
+Let 
+$$
+\mathcal Q_h :=\mathbb P_{k-2}(\mathcal T_h)=\{q_h\in L^2(\Omega): q_h|_K\in \mathbb P_{k-2}(K) \textrm{ for each } K\in\mathcal T_h\}
+$$
+be the discontinuous polynomial space. Obviously 
+$$
+\dim \mathcal Q_h = \frac{1}{6}(k^3 - k)\#\mathcal T_h.
+$$
+
+
+\begin{lemma}\label{lem:divdivonto}
+It holds
+$$
+\div\div\boldsymbol\Sigma_h^{\mathbb S}=\mathcal Q_h.
+$$
+\end{lemma}
+\begin{proof}
+Apparently $\div\div\boldsymbol\Sigma_h^{\mathbb S}\subseteq\mathcal Q_h$. Then we focus on $\mathcal Q_h\subseteq\div\div\boldsymbol\Sigma_h^{\mathbb S}$.
+
+Take any $v_h\in\mathcal Q_h$.  By the fact $\div\div \boldsymbol H^2(\Omega;\mathbb S)=L^2(\Omega)$~\cite{CostabelMcIntosh2010}, 
+there exists $\bs\tau\in\boldsymbol H^2(\Omega;\mathbb S)$ such that
+\[
+\div\div\bs\tau=v_h. %,\quad \|\widetilde{\bs\tau}\|_{2,K}\lesssim \|q\|_{0,K}.
+\]
+% Let $Q_{\ell}^K: L^2(K)\to\mathbb P_{\ell}(K)$ be the $L^2$-orthogonal projector, and its vector or tensor version is denoted by $\boldsymbol Q_{\ell}^K$.
+% Define $\widetilde{\boldsymbol\Pi}_h: \boldsymbol{H}^2(\Omega; \mathbb{S})\to\boldsymbol\Sigma_h$ as follows: for any $\bs\tau\in\boldsymbol{H}^2(\Omega; \mathbb{S})$, 
+Let $I_h{\bs\tau}\in\boldsymbol\Sigma_h^{\mathbb S}$ be determined by 
+$$
+\bs N (I_h\bs \tau) = \bs N(\bs \tau)
+$$
+for all d.o.f. $\bs N$ from~\eqref{Hdivdivfem3ddof1} to~\eqref{Hdivdivfem3ddof6}.
+% and $I_h\bs \tau(\delta)=\boldsymbol0 $ for $\delta \in \mathcal V_h$. 
+Note that for functions in $H^2(K)$, the integrals on edge and pointwise value are well-defined.
+%\begin{align*}
+%&I_h \bs \tau (\delta)=\boldsymbol0 , \\
+%&(\boldsymbol  n_i^{\intercal}I_h \bs \tau\boldsymbol n_j, q)_e = (\boldsymbol  n_i^{\intercal}\boldsymbol \tau\boldsymbol n_j, q)_e  \quad\forall~q\in\mathbb P_{\ell-2}(e),\; i,j=1,2,\\
+%&(\boldsymbol  n^{\intercal}I_h \bs \tau\boldsymbol  n, q)_F=(\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n, q)_F \quad\forall~q\in\mathbb P_{\ell-3}(F),  \\
+%&(2\div_F((I_h \bs \tau-\boldsymbol \tau)\boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal}(I_h \bs \tau-\boldsymbol \tau)\boldsymbol n), q)_F=0  \quad\forall~q\in\mathbb P_{\ell-1}(F),  \\
+%&(I_h \bs \tau, \boldsymbol \varsigma)_K=(\boldsymbol \tau, \boldsymbol \varsigma)_K   \quad\forall~\boldsymbol \varsigma\in\nabla^2\mathbb P_{k-2}(K)\oplus\sym(\mathbb P_{\ell-2}(K; \mathbb T)\times\boldsymbol x),  \\
+%&(I_h \bs \tau\boldsymbol n, \boldsymbol  n\times \boldsymbol x q)_{F_1}=(\boldsymbol \tau\boldsymbol n, \boldsymbol  n\times \boldsymbol x q)_{F_1}  \quad\forall~q\in\mathbb P_{\ell-2}(F_1)
+%\end{align*}
+%for each $\delta\in\mathcal V_h$, $e\in\mathcal E_h$, $F\in\mathcal F_h$, $K\in\mathcal T_h$ and $F_1\in\mathcal F(K)$.
+Since $\ell\geq3$,
+it follows from the Green's identity~\eqref{eq:greenidentitydivdiv} that
+\[
+\left(\div\div(\boldsymbol \tau - I_h{\bs\tau}), q \right)_K=0\quad\forall~q\in\mathbb P_1(K), \; K\in\mathcal T_h.
+\]
+Hence $(v_h-\div\div I_h \bs \tau)|_K=\div\div(\boldsymbol \tau - I_h \bs \tau)|_K\in \mathbb P_{k-2}(K)\cap \mathbb P_1^{\bot}(K)$.
+Applying~\eqref{eq:divdivL2local0}, there exists $\bs\tau_b\in\boldsymbol\Sigma_h^{\mathbb S}$ such that $\bs\tau_b|_K \in \mathring{\boldsymbol \Sigma}_{\ell,k}(K)$ for each $K\in\mathcal T_h$, and
+\[
+v_h-\div\div I_h \bs \tau=\div\div\bs\tau_b.
+\]
+Therefore $v_h=\div\div(I_h \bs \tau+\bs\tau_b)$, where $I_h \bs \tau+\bs\tau_b\in\boldsymbol\Sigma_h^{\mathbb S}$, as required.
+\end{proof}
+
+\begin{theorem}
+Assume $\Omega$ is a bounded and topologically trivial Lipschitz domain in $\mathbb R^3$.
+The finite element divdiv complex
+\begin{equation}\label{eq:divdivcomplex3dfem}
+%\resizebox{.92\hsize}{!}{$
+\boldsymbol{RT}\xrightarrow{\subset} \boldsymbol V_h\xrightarrow{\dev\grad}\bs\Sigma_h^{\mathbb T}\xrightarrow{\sym\curl} \bs\Sigma_h^{\mathbb S} \xrightarrow{\div{\div}} \mathcal Q_h\xrightarrow{}0
+%$}
+\end{equation}
+is exact.
+\end{theorem}
+\begin{proof}
+For any sufficient vector function $\boldsymbol v$ and $e\in\mathcal E(K)$, we have from $\boldsymbol t=\boldsymbol n_1\times \boldsymbol n_2$ that
+\begin{align*}
+&\quad\boldsymbol n_{2}^{\intercal}(\curl(\dev\grad\boldsymbol v)))\boldsymbol n_1 + \partial_{t}(\boldsymbol t^{\intercal}(\dev\grad\boldsymbol v)\boldsymbol t) \\
+&= -\frac{1}{3}\boldsymbol n_1\cdot\curl(\boldsymbol n_{2}\div\boldsymbol v) + \partial_{tt}(\boldsymbol v\cdot\boldsymbol t)- \frac{1}{3}\partial_{t}(\div\boldsymbol v) \\
+&= \frac{1}{3}(\boldsymbol n_1\times\boldsymbol n_2)\cdot\nabla(\div\boldsymbol v)  + \partial_{tt}(\boldsymbol v\cdot\boldsymbol t)- \frac{1}{3}\partial_{t}(\div\boldsymbol v)=\partial_{tt}(\boldsymbol v\cdot\boldsymbol t).
+% &= -\boldsymbol n_1\cdot\curl(\boldsymbol n_{2}\div\boldsymbol v) + \partial_{t}(\partial_t(\boldsymbol v\cdot\boldsymbol t)-\div\boldsymbol v) \\
+% &= (\boldsymbol n_1\times\boldsymbol n_2)\cdot\nabla(\div\boldsymbol v) + \partial_{t}(\partial_t(\boldsymbol v\cdot\boldsymbol t)-\div\boldsymbol v)=\partial_{tt}(\boldsymbol v\cdot\boldsymbol t).
+\end{align*}
+Hence by~\eqref{eq:devgradtr1}-\eqref{eq:devgradtr2} it is easy to see that $\dev\grad\boldsymbol V_h\subset\bs\Sigma_h^{\mathbb T}$.
+It holds from Lemma~\ref{lem:trace0} and the degrees of freedom~\eqref{Hsymcurlfem3ddof2}-\eqref{Hsymcurlfem3ddof3} that
+\begin{equation}\label{eq:symcurlinsigmaS}
+\sym\curl\bs\Sigma_h^{\mathbb T}\subset\bs\Sigma_h^{\mathbb S}.
+\end{equation}
+Thus we get from Lemma~\ref{lem:divdivonto} that~\eqref{eq:divdivcomplex3dfem} is a complex.
+
+We then verify the exactness.
+
+\medskip
+\noindent {\em 1. $\boldsymbol V_h \cap\ker(\dev\grad)=\bs{RT}$.} By the exactness of the complex~\eqref{eq:divdivcomplex3d}, 
+\[
+\bs{RT}\subseteq\boldsymbol V_h \cap\ker(\dev\grad)\subseteq\boldsymbol H^1(\Omega;\mathbb R^3) \cap\ker(\dev\grad)=\bs{RT}.
+\]
+
+\medskip
+\noindent {\em 2. $\bs\Sigma_h^{\mathbb T}\cap\ker(\sym\curl)=\dev\grad\boldsymbol V_h$, i.e. if $\sym\curl\boldsymbol \tau = 0$ and $\boldsymbol\tau\in\bs\Sigma_h^{\mathbb T}$, then there exists a $\boldsymbol v_h\in\boldsymbol V_h$, s.t. $\bs\tau =\dev\grad\boldsymbol v_h$}. 
+
+Since $\sym\curl\boldsymbol \tau = 0$, by the divdiv complex~\eqref{eq:divdivcomplex3d}, there exists $\boldsymbol v\in\boldsymbol H^1(\Omega;\mathbb R^3)$ such that $\bs\tau=\dev\grad\boldsymbol v$.
+Due to~\eqref{Hsymcurlfem3ddof4}, we obtain $(\boldsymbol v\cdot\boldsymbol n_i)|_e\in H^1(e)$ for each edge $e\in\mathcal E_h$ and $i=1,2$. Hence $\boldsymbol v(\delta)$ is well-defined for each vertex $\delta\in\mathcal V_h$. 
+Take $\boldsymbol v_h\in\boldsymbol V_h$ satisfying
+$
+N(\boldsymbol v_h)=N(\boldsymbol v)
+$, where $N$ goes through all the degrees of freedom~\eqref{Hermitfem3ddof1}-\eqref{Hermitfem3ddof4}.
+Then it follows from the integration by parts that
+$$
+\dev\grad\boldsymbol v_h=\dev\grad\boldsymbol v=\bs\tau.
+$$
+This indicates $\bs\Sigma_h^{\mathbb T}\cap\ker(\sym\curl)\subseteq\dev\grad\boldsymbol V_h$.
+
+\medskip
+\noindent {\em 3. $\div\div\boldsymbol\Sigma_h^{\mathbb S}=\mathcal Q_h$.} This is Lemma~\ref{lem:divdivonto}.
+
+
+\medskip
+\noindent {\em 4. $\bs\Sigma_h^{\mathbb S}\cap\ker(\div\div)=\sym\curl\bs\Sigma_h^{\mathbb T}$.} 
+
+We verify the identity by dimension count. By Lemma~\ref{lem:divdivonto},
+\begin{align}
+\dim(\bs\Sigma_h^{\mathbb S}\cap\ker(\div\div))&=\dim\bs\Sigma_h^{\mathbb S}-\dim\mathcal Q_h \notag\\
+&= 6\#\mathcal V_h+ 3(\ell-1)\#\mathcal E_h + (\ell^2 -\ell+1)\#\mathcal F_h \notag \\
+&\quad+\left(\frac{1}{6}(\ell-1)\ell(5\ell+17)-4\right)\#\mathcal T_h. \label{eq:20210112}
+\end{align}
+As a result of step 2,
+\begin{align*}
+\dim\sym\curl\bs\Sigma_h^{\mathbb T}&=\dim\bs\Sigma_h^{\mathbb T} -\dim\dev\grad\boldsymbol V_h=\dim\bs\Sigma_h^{\mathbb T} -\dim\boldsymbol V_h+4 \\
+&=2\#\mathcal V_h+ (3\ell+1)\#\mathcal E_h + (\ell^2-\ell-3)\#\mathcal F_h \\
+&\quad+\frac{1}{6}(\ell-1)\ell(5\ell+17)\#\mathcal T_h+4.
+\end{align*}
+Applying the Euler's formula $\#\mathcal V_h-\#\mathcal E_h+\#\mathcal F_h-\#\mathcal T_h=1$, we get from~\eqref{eq:20210112} that $\dim\sym\curl\bs\Sigma_h^{\mathbb T}=\dim(\bs\Sigma_h^{\mathbb S}\cap\ker(\div\div))$.
+Then the result follows from~\eqref{eq:symcurlinsigmaS}. 
+%Finally $\bs\Sigma_h^{\mathbb S}\cap\ker(\div\div)=\sym\curl\bs\Sigma_h^{\mathbb T}$.
+
+\medskip
+
+Therefore the finite element divdiv complex~\eqref{eq:divdivcomplex3dfem} is exact.
+\end{proof}
+
+% \subsection{Smoother complexes}
+% \LC{Add another complexes with smoother sym curl finite element spaces}.
+
+
+
+For the completeness, we present a two dimensional finite element divdiv complex but restricted to one element. A global version of~\eqref{eq:divdivcomplexPolyvar} as well as a commutative diagram involving quasi-interpolation operators from Sobolev spaces to finite element spaces can be found in~\cite{ChenHuang2020}.  
+
+%
+%
+%Due to the simpler structure of $\boldsymbol H(\sym \curl)$ space in two dimensions, we can construct a finite element complex. 
+Let $\boldsymbol V_{\ell+1}(F):=\mathbb P_{\ell+1}(F;\mathbb R^2)$ with $\ell\geq2$ be the vectorial Hermite element~\cite{BrennerScott2008,Ciarlet1978}. 
+
+%The local degrees of freedom are given by
+%\begin{align}
+%\boldsymbol  v (\delta), \nabla\boldsymbol  v (\delta) & \quad\forall~\delta\in \mathcal V(F), \label{HermitfemVdof1}\\
+%(\boldsymbol  v, \boldsymbol  q)_e & \quad\forall~\boldsymbol  q\in\mathbb P_{\ell-3}(e;\mathbb R^2),  e\in\mathcal E(F),\label{HermitfemVdof2}\\
+%(\boldsymbol  v, \boldsymbol  q)_F & \quad\forall~\boldsymbol  q\in\mathbb P_{\ell-2}(F;\mathbb R^2). \label{HermitfemVdof3}
+%\end{align}
+%This finite element is just 
+\begin{lemma}
+For any triangle $F$, the polynomial complex
+\begin{equation}\label{eq:divdivcomplexPolyvar}
+%\resizebox{.9\hsize}{!}{$
+\boldsymbol  {RT}\xrightarrow{\subset} \boldsymbol V_{\ell+1}(F)\xrightarrow{\sym\curl_F} \boldsymbol \Sigma_{\ell,k}(F) \xrightarrow{\div_F{\div_F}} \mathbb P_{k-2}(F)\xrightarrow{}0
+\end{equation}
+is exact.
+\end{lemma}
+

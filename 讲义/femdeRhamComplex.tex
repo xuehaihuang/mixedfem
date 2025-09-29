@@ -1,0 +1,536 @@
+% !TEX root = lecture.tex
+\chapter{有限元de Rham复形}
+
+
+
+\section{多项式复形}
+
+In this section, we shall consider polynomial spaces on a simply connected domain $D\subset\mathbb R^d$ with $d=2,3$. Without loss of generality, we assume $D$ contains the origin $\bs0$ of coordinate system.
+
+Let $\mathbb P_k(D)$ stand for the set of all polynomials in $D$ with the total degree no more than $k$, and $\mathbb P_k(D; \mathbb{X})$ denotes the tensor or vector version, where $\mathbb{X}$ is $\mathbb M$, $\mathbb{S}$, $\mathbb{K}$ or $\mathbb{R}^d$. Let $\mathbb H_k(D):=\mathbb P_k(D)\backslash \mathbb P_{k-1}(D)$. It holds
+\begin{equation}\label{eq:Hkxgrad}
+\bs x\cdot\nabla q=kq\quad\forall~q\in\mathbb H_k(D),
+\end{equation}
+\begin{equation}\label{eq:Hkdiv}
+\div(\bs x q)=(k+d)q\quad\forall~q\in\mathbb H_k(D).
+\end{equation}
+Define operator $\pi_{0}: \mathcal C^0(D)\to \mathbb R$ as
+\[
+\pi_{0}v:=v(\bs0).
+\]
+
+
+\subsection{Polynomial complexes in two dimensions}
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:deRhamcomplexPoly2d}
+%\resizebox{.9\hsize}{!}{$
+\mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\curl} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\div} \mathbb P_{k-1}(D)\xrightarrow{}0
+\end{equation}
+is exact. Here integer $k\geq1$.
+\end{lemma}
+\begin{proof}
+Due to \eqref{eq:Hkdiv}, we have $\div(\bs x \mathbb P_{k-1}(D) )= \mathbb P_{k-1}(D)$. Thus $\div\mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D)$.
+Furthermore by direct calculation
+\[
+\dim\mathbb P_k(D;\mathbb R^2)=\dim \curl \, \mathbb P_{k+1}(D)+\dim \mathbb P_{k-1}(D),
+\]
+thus the complex \eqref{eq:deRhamcomplexPoly2d} is exact.
+\end{proof}
+
+By rotating the complex \eqref{eq:deRhamcomplexPoly2d}, we get the following exact polynomial complex
+\begin{equation*}
+%\resizebox{.9\hsize}{!}{$
+\mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\grad} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\rot} \mathbb P_{k-1}(D)\xrightarrow{}0.
+\end{equation*}
+
+
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:KoszulcomplexPoly2d}
+%\resizebox{.9\hsize}{!}{$
+0\xrightarrow{\subset}\mathbb P_{k-1}(D) \xrightarrow{\boldsymbol x} \mathbb P_k(D;\mathbb R^2) \xrightarrow{\boldsymbol x^{\perp}\cdot} \mathbb P_{k+1}(D)\xrightarrow{\pi_{0}}\mathbb R\xrightarrow{}0
+\end{equation}
+is exact.
+\end{lemma}
+
+Those two complexes \eqref{eq:deRhamcomplexPoly2d} and \eqref{eq:KoszulcomplexPoly2d} are connected as
+\begin{equation}\label{eq:deRhamcomplexPolydouble2d}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\mathbb R\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(D)\; \ar@<0.4ex>[r]^-{\curl}\ar@<0.4ex>[l]^-{\pi_0}  & \; \mathbb P_k(D;\mathbb R^2) \ar@<0.4ex>[r]^-{\div}\; \ar@<0.4ex>[l]^-{\boldsymbol x^{\bot}\cdot} & \; \mathbb P_{k-1}(D)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+%$}
+\end{equation}
+Unlike the Koszul complex for vectors functions, we do not have the identity property applied to homogenous polynomials. Fortunately decomposition of polynomial spaces using Koszul and differential operators still holds.
+
+First of all, we have the decomposition
+\[
+\mathbb P_{k+1}(D) = \boldsymbol x^{\perp}\cdot\mathbb P_k(D;\mathbb R^2)\oplus\mathbb R.
+\]
+
+\begin{lemma}\label{lem:symmpolyspacedirectsum}
+It holds
+ \begin{equation}\label{eq:vector2polyspacedecomp2}
+\mathbb P_{k}(D;\mathbb R^2)=\curl\mathbb P_{k+1}(D)\oplus\mathbb P_{k-1}(D)\bs x.
+\end{equation}
+%And $\div\boldsymbol \div: \mathbb C_k^{\oplus}(D;\mathbb S)\to\mathbb P_{k-2}(D;\mathbb R^2)$ is a bijection.
+\end{lemma}
+\begin{proof}
+Assume $q\in\mathbb P_{k-1}(D)$ satisfies $\boldsymbol xq\in\curl\mathbb P_{k+1}(D)$, which means
+\[
+\div(\boldsymbol  xq)=0.
+\]
+Then it follows from \eqref{eq:Hkdiv} that
+$q=0$.
+Hence $\curl\mathbb P_{k+1}(D)\cap\mathbb P_{k-1}(D)\bs x=0$.
+Therefore we obtain the decomposition by the fact $\dim\mathbb P_{k}(D;\mathbb R^2)=\dim\curl\mathbb P_{k+1}(D)+\dim(\mathbb P_{k-1}(D)\bs x)$.
+\end{proof}
+
+Similarly, we have
+\begin{equation*}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\mathbb R\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(D)\; \ar@<0.4ex>[r]^-{\grad}\ar@<0.4ex>[l]^-{\pi_0}  & \; \mathbb P_k(D;\mathbb R^2) \ar@<0.4ex>[r]^-{\rot}\; \ar@<0.4ex>[l]^-{\boldsymbol x\cdot} & \; \mathbb P_{k-1}(D)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x^{\bot}}
+& 0 \ar@<0.4ex>[l]^-{\supset} },
+%$}
+\end{equation*}
+\[
+\mathbb P_{k+1}(D) = \boldsymbol x\cdot\mathbb P_k(D;\mathbb R^2)\oplus\mathbb R,
+\]
+\[
+\mathbb P_{k}(D;\mathbb R^2)=\nabla\mathbb P_{k+1}(D)\oplus\mathbb P_{k-1}(D)\bs x^{\perp}.
+\]
+
+
+\subsection{Polynomial complexes in three dimensions}
+
+
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:deRhamcomplex3dPoly}
+%\resizebox{.9\hsize}{!}{$
+\mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\grad} \mathbb P_{k}(D;\mathbb R^3)\xrightarrow{\curl}\mathbb P_{k-1}(D;\mathbb R^3) \xrightarrow{\div} \mathbb P_{k-2}(D)\xrightarrow{}0
+%$}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+Again it follows from \eqref{eq:Hkdiv} that $\div\mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D)$, and
+\begin{align*}
+\dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)&=\dim \mathbb P_k(D; \mathbb R^3)-\dim \mathbb P_{k-1}(D) \\
+&=\frac{1}{2}(k+1)(k+2)(k+3)-\frac{1}{6}k(k+1)(k+2)=\frac{1}{6}(k+1)(k+2)(2k+9).
+\end{align*}
+
+For any $\boldsymbol v\in\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, the line integral
+\[
+q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
+\]
+is path independent, thus it is well-defined and $\boldsymbol v=\grad q$. Thus $\grad\mathbb P_{k+2}(D)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, and
+\begin{align*}
+\dim\curl\mathbb P_{k+1}(D; \mathbb R^3)&=\dim \mathbb P_{k+1}(D; \mathbb R^3)-\dim \mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl) \\
+&=\dim \mathbb P_{k+1}(D; \mathbb R^3)-\dim\grad\mathbb P_{k+2}(D) \\
+&=\frac{1}{2}(k+2)(k+3)(k+4)-\frac{1}{6}(k+3)(k+4)(k+5)+1 \\
+&=\frac{1}{6}(k+1)(k+2)(2k+9).
+\end{align*}
+
+Noting that $\dim\curl\mathbb P_{k+1}(D; \mathbb R^3)=\dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$ and $\curl\mathbb P_{k+1}(D; \mathbb R^3)\subseteq\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, we obtain $\curl\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$.
+Thus the complex \eqref{eq:deRhamcomplex3dPoly} is exact.
+\end{proof}
+
+%\LC{Add the backwards complex using Poincare operators first. Then the following decomposition follows naturally.}
+%
+
+
+
+\begin{lemma}\label{lem:Koszul}
+The polynomial complex
+%\begin{equation}\label{eq:divdivKoszulcomplexPoly}
+%%\resizebox{.9\hsize}{!}{$
+%0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(\Omega) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(\Omega; \mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_k(\Omega; \mathbb S)\boldsymbol x^{\perp}\autorightarrow{}{}0
+%\end{equation}
+\begin{equation}\label{eq:deRhamvKoszulcomplex3dPoly}
+%\resizebox{.922\hsize}{!}{$
+0\xrightarrow{\subset}\mathbb P_{k-1}(D) \xrightarrow{\boldsymbol x} \mathbb P_k(D; \mathbb R^3) \xrightarrow{\boldsymbol x\times} \mathbb P_{k+1}(D; \mathbb R^3)\xrightarrow{\boldsymbol x\cdot} \mathbb P_{k+2}(D)\xrightarrow{\pi_{0}}\mathbb {R}\xrightarrow{}0
+%$}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+It is easy to see that $\pi_0\mathbb P_{k+2}(D)=\mathbb R$ and $\boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_{k+2}(D)\cap\ker(\pi_0)$. And
+\begin{align*}
+\dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)&=\dim\mathbb P_{k+1}(D; \mathbb R^3)-\dim\bs x\cdot\mathbb P_{k+1}(D; \mathbb R^3) \\
+&=\dim\mathbb P_{k+1}(D; \mathbb R^3)-\dim\mathbb P_{k+2}(D)\cap\ker(\pi_0) \\
+&=\frac{1}{2}(k+2)(k+3)(k+4) - \frac{1}{6}(k+3)(k+4)(k+5) + 1 \\
+&=\frac{1}{6}(k+1)(k+2)(2k+9).
+\end{align*}
+
+For any $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times)$, we have $\bs x\times\boldsymbol v=\boldsymbol0$. Thus $\bs v$ is parallel to $\bs x$, which implies $\bs v\in\bs x\mathbb P_{k-1}(D)$. That is $\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times)=\bs x\mathbb P_{k-1}(D)$. And
+\begin{align*}
+\dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)&=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times) \\
+&=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\bs x\mathbb P_{k-1}(D) \\
+&=\frac{1}{2}(k+1)(k+2)(k+3) - \frac{1}{6}k(k+1)(k+2) \\
+&=\frac{1}{6}(k+1)(k+2)(2k+9).
+\end{align*}
+
+Noting that $\dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$ and $\bs x\times\mathbb P_{k}(D; \mathbb R^3)\subseteq\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$, we obtain $\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$.
+Thus the complex \eqref{eq:deRhamvKoszulcomplex3dPoly} is exact.
+\end{proof}
+
+Those two complexes \eqref{eq:deRhamcomplex3dPoly} and \eqref{eq:deRhamvKoszulcomplex3dPoly} are connected as
+\begin{equation}\label{eq:divdivcomplex3dPolydouble}
+%\resizebox{.92\hsize}{!}{$
+\xymatrix{
+\mathbb R\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k+2}(D)\ar@<0.4ex>[r]^-{\grad}\ar@<0.4ex>[l]^-{\pi_{0}} & \mathbb P_{k+1}(D; \mathbb R^3)\ar@<0.4ex>[r]^-{\curl}\ar@<0.4ex>[l]^-{\boldsymbol x\cdot}  & \mathbb P_k(D; \mathbb R^3) \ar@<0.4ex>[r]^-{\div}\ar@<0.4ex>[l]^-{\boldsymbol x\times} & \mathbb P_{k-1}(D)  \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+%$}
+\end{equation}
+
+It is easy to see that
+\[
+\mathbb P_{k+2}(D)= \boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)\oplus\mathbb R.
+\]
+We then move to the space $\mathbb P_{k+1}(D; \mathbb R^3)$.
+\begin{lemma}
+We have the decomposition
+\begin{equation}\label{eq:vector3polyspacedecomp1}
+\mathbb P_{k+1}(D; \mathbb R^3)=\grad\mathbb P_{k+2}(D)\oplus\boldsymbol x\times\mathbb P_k(D; \mathbb R^3).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Since the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in \eqref{eq:vector3polyspacedecomp1}, we only need to prove that the sum in \eqref{eq:vector3polyspacedecomp1} is the direct sum.
+
+For any $\boldsymbol v=\nabla q$ with $q\in\mathbb P_{k+2}(D)$ satisfying $\boldsymbol v\in\boldsymbol x\times\mathbb P_k(D; \mathbb R^3)$, it follows $(\boldsymbol x\cdot\nabla)q=0$. Then we get from \eqref{eq:Hkxgrad} that $q$ is constant. Hence $\bs v=\bs0$.
+\end{proof}
+
+\begin{lemma}
+We have the decomposition
+\begin{equation}\label{eq:vector3polyspacedecomp2}
+\mathbb P_{k}(D; \mathbb R^3)=\curl\mathbb P_{k+1}(D;\mathbb R^3)\oplus \boldsymbol x\mathbb P_{k-1}(D).
+\end{equation}
+\end{lemma}
+\begin{proof}
+ Noting that the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in \eqref{eq:vector3polyspacedecomp2}, we only need to prove the direct sum.
+
+For any $\boldsymbol v=\bs x q$ with $q\in\mathbb P_{k-1}(D)$ satisfying $\boldsymbol v\in\curl\mathbb P_{k+1}(D;\mathbb R^3)$, it follows $\div(\bs x q)=0$. 
+Applying \eqref{eq:Hkdiv}, we get $q=0$. Thus $\bs v=\bs0$.
+\end{proof}
+
+\section{Simplicial approximations of $H(\div)$}
+The material in this section comes from \cite{BoffiBrezziFortin2013}.
+Let $\Gamma:=\partial\Omega$.
+Define
+\[
+H(\div,\Omega):=\{\bs v\in \bs L^2(\Omega;\mathbb R^d): \div\bs v\in L^2(\Omega)\}.
+\]
+with squared  norm $\|\bs v\|_{\div, \Omega}^2:=\|\bs v\|_{0, \Omega}^2+\|\div\bs v\|_{0, \Omega}^2$.
+\begin{lemma}
+Let $\bs v\in H(\div,\Omega)$. We have $\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ and the Green's formula
+\[
+(\div\bs v, w)_{\Omega} + (\bs v, \grad w)_{\Omega}=\langle\bs v\cdot\bs n, w\rangle_{H^{-1/2}(\Gamma)\times H^{1/2}(\Gamma)}\quad\forall~w\in H^1(\Omega).
+\]
+\end{lemma}
+
+\begin{lemma}
+The trace operator $\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ is surjective.
+\end{lemma}
+
+Now introduce $H(\div)$-conforming finite elements on simplexes.
+Assume $K\subset \mathbb R^d$ is a simplex with $d=2,3$. 
+
+In two dimensions,
+thanks to \eqref{eq:vector2polyspacedecomp2}, define the shape function space
+\[
+V_{k,\ell}^d(K):=\curl\mathbb P_{k+1}(K)\oplus \boldsymbol x\mathbb P_{\ell-1}(K)=\mathbb P_{k}(K; \mathbb R^2) + \boldsymbol x\mathbb P_{\ell-1}(K),
+\]
+where $\ell=k, k+1$ for $k\geq1$, and $\ell=1$ for $k=0$. 
+The degrees of freedom $\mathcal N_{k,\ell}^d(K)$ are given by
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol  n, q)_e & \quad\forall~q\in\mathbb P_{k}(e),  e\in\mathcal E(K),\label{Hdivfem2ddof1}\\
+(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\nabla\mathbb P_{\ell-1}(K)\oplus\boldsymbol x^{\perp}\mathbb P_{k-2}(K). \label{Hdivfem2ddof2}
+\end{align}
+
+
+In three dimensions,
+thanks to \eqref{eq:vector3polyspacedecomp2}, define the shape function space
+\[
+V_{k,\ell}^d(K):=\curl\mathbb P_{k+1}(K;\mathbb R^3)\oplus \boldsymbol x\mathbb P_{\ell-1}(K)=\mathbb P_{k}(K; \mathbb R^3) + \boldsymbol x\mathbb P_{\ell-1}(K),
+\]
+where $\ell=k, k+1$ for $k\geq1$, and $\ell=1$ for $k=0$. 
+The degrees of freedom $\mathcal N_{k,\ell}^d(K)$ are given by
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol  n, q)_F & \quad\forall~q\in\mathbb P_{k}(F),  F\in\mathcal F(K),\label{Hdivfem3ddof1}\\
+(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\nabla\mathbb P_{\ell-1}(K)\oplus\boldsymbol x\times\mathbb P_{k-2}(K; \mathbb R^3). \label{Hdivfem3ddof2}
+\end{align}
+
+Apparently $\bs v\cdot \bs n|_F\in\mathbb P_{k}(F)$ for any $\bs v\in V_{k,\ell}^d(K)$ and $F\in\mathcal F(K)$.
+And $\div V_{k,\ell}^d(K)=\mathbb P_{\ell-1}(K)$.
+
+
+
+
+\begin{lemma}\label{lem:unisovlenHdivfem}
+The finite element triple $(K, V_{k,\ell}^d(K), \mathcal N_{k,\ell}^d(K))$ is well-defined.
+\end{lemma}
+\begin{proof}
+We only prove the unisolvence of the finite element triple $(K, V_{k,\ell}^d(K), \mathcal N_{k,\ell}^d(K))$ in three dimensions, since the proof is similar for two dimensions. It is easy to check that the number of the degrees of freedom \eqref{Hdivfem3ddof1}-\eqref{Hdivfem3ddof2}  is equal to $\dim V_{k,\ell}^d(K)$.
+
+
+Take any $\boldsymbol v\in V_{k,\ell}^d(K)$ and
+suppose all the degrees of freedom \eqref{Hdivfem3ddof1}-\eqref{Hdivfem3ddof2} vanish. 
+By the vanishing degrees of freedom \eqref{Hdivfem3ddof1}, we get $\bs v\in H_0(\div, K)$. 
+Together with the vanishing degrees of freedom \eqref{Hdivfem3ddof2} and the fact $\div V_{k,\ell}^d(K)=\mathbb P_{\ell-1}(K)$, we obtain $\div\bs v=0$, and then $\bs v\in\curl\mathbb P_{k+1}(K;\mathbb R^3)$.
+It follows from \eqref{eq:vector3polyspacedecomp1} and the vanishing degrees of freedom \eqref{Hdivfem3ddof2} that 
+\begin{equation}\label{eq:20200917}
+(\boldsymbol v, \boldsymbol q)_K =0 \quad\forall~\boldsymbol q\in\mathbb P_{k-1}(K; \mathbb R^3). 
+\end{equation}
+
+For ease of presentation, denote four faces in $\mathcal F(K)$ by $F_i$, which is opposite to the $i$th vertex of $K$, and by $\bs n_i$ the outward unit normal vector of $F_i$ for $i=1,2,3,4$. 
+Let $\bs t_i$ be the unit tangential vector of the edge from vertex $4$ to vertex $i$. 
+The set of three vectors $\{\bs t_1, \bs t_2, \bs t_3\}$ forms a basis of $\mathbb R^3$ although they may not be orthogonal in general. Then we have
+\[
+\bs v=\sum_{i=1}^3\frac{\bs v\cdot\bs n_i}{\bs t_i\cdot\bs n_i}\bs t_i.
+\]
+Since $\bs v\cdot\bs n_i|_{F_i}=0$, there exists $p\in\mathbb P_{k-1}(K)$ satisfying $\bs v\cdot\bs n_i=\lambda_ip$. Taking $\bs q=\bs n_ip$ in \eqref{eq:20200917} gives
+\[
+(\lambda_ip, p)_K =0.
+\]
+Hence $p=0$ and $\boldsymbol v\cdot\bs n_i=0$. As a result, $\boldsymbol v=\bs 0$.
+\end{proof}
+
+We can see that the finite element triple $(K, V_{k,k+1}^d(K), \mathcal N_{k,k+1}^d(K))$ is the Raviart-Thomas element \cite{RaviartThomas1977,Nedelec1980}, and $(K, V_{k,k}^d(K), \mathcal N_{k,k}^d(K))$ is the Brezzi-Douglas-Marini element \cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987}.
+
+%\newpage
+Next we present the explicit expression of the $H(\div)$ bubble functions for $k\geq2$. Let
+\[
+\mathring V_{k}^d(K):=\{\bs v\in\mathbb P_{k}(K;\mathbb R^3): \bs v\cdot\bs n|_{\partial K}=0\},\quad
+V_{k,b}^d(K):=\sum_{1\leq i<j\leq 4}\lambda_i\lambda_j\mathbb P_{k-2}(K)\bs t_{ij},
+\]
+where $\bs t_{ij}:=\bs x_j-\bs x_i$ with $\bs x_1, \bs x_2, \bs x_3, \bs x_4$ being the four vertices of the tetrahedron $K$.
+\begin{lemma}
+It holds for $k\geq2$ that
+\begin{equation}\label{eq:Hdivbubbleidentity}
+\mathring V_{k}^d(K)=V_{k,b}^d(K).
+\end{equation}
+\end{lemma}
+\begin{proof}
+It is easy to see that $V_{k,b}^d(K)\subseteq\mathring V_{k}^d(K)$. Next let's prove $\mathring V_{k}^d(K)\subseteq V_{k,b}^d(K)$. Take any $\bs v\in\mathring V_{k}^d(K)$. Since $\{\bs t_{14}, \bs t_{24}, \bs t_{34}\}$ forms a basis of $\mathbb R^3$, we can express 
+$$\bs v=q_1\bs t_{14}+q_2\bs t_{24}+q_3\bs t_{34},$$ 
+where $q_1, q_2, q_3\in\mathbb P_k(K)$. Noting that $\bs v\cdot\bs n|_{\partial K}=0$, we get
+\[
+q_i\bs t_{i4}\cdot\bs n_i|_{F_i}=0\quad\textrm{ for } i=1,2,3,
+\quad
+(q_1+q_2+q_3)\bs t_{14}\cdot\bs n_4|_{F_4}=0.
+\]
+Thus there exist $\tilde q_i\in\mathbb P_{k-1}(K)$ such that $q_i=\tilde q_i\lambda_i$ for $i=1,2,3$. Then $(\tilde q_1\lambda_1+\tilde q_2\lambda_2+\tilde q_3\lambda_3)|_{F_4}=0$. And there exists $\tilde q_4\in\mathbb P_{k-1}(K)$ satisfying
+\begin{equation}\label{eq:20201002-1}
+\sum_{i=1}^3\tilde q_i\lambda_i = \tilde q_1\lambda_1+\tilde q_2\lambda_2+\tilde q_3\lambda_3=\tilde q_4\lambda_4.
+\end{equation}
+For each $i=1,2,3$, express $\tilde q_i$ as
+\[
+\tilde q_i=\sum_{j=1}^4q_{ij}\lambda_j=q_{i4}\lambda_4+q_{ii}\lambda_i+\sum_{j=1, j\neq i}^3q_{ij}\lambda_j,
+\]
+where $q_{i4}\in\sum\limits_{0\leq k_1,k_2,k_3,k_4\leq k-2
+\atop k_1+k_2+k_3+k_4=k-2}\textrm{span}\{\lambda_1^{k_1}\lambda_2^{k_2}\lambda_3^{k_3}\lambda_4^{k_4}\}$, $q_{ii}\in\textrm{span}\{\lambda_i^{k-2}\}$, $q_{ij}\in\sum\limits_{0\leq k_1,k_2,k_3\leq k-2
+\atop k_1+k_2+k_3=k-2}\textrm{span}\{\lambda_1^{k_1}\lambda_2^{k_2}\lambda_3^{k_3}\}$.
+Then \eqref{eq:20201002-1} becomes
+\[
+(q_{12}+q_{21})\lambda_1\lambda_2+(q_{13}+q_{31})\lambda_1\lambda_3+(q_{23}+q_{32})\lambda_2\lambda_3
++ q_{11}\lambda_1^2+ q_{22}\lambda_2^2 + q_{33}\lambda_3^2=\tilde q_4\lambda_4-\lambda_4\sum_{i=1}^3\lambda_iq_{i4}.
+\]
+Hence $q_{11}=q_{22}=q_{33}=0$, and
+\[
+(q_{12}+q_{21})\lambda_1\lambda_2+(q_{13}+q_{31})\lambda_1\lambda_3+(q_{23}+q_{32})\lambda_2\lambda_3=0.
+\]
+By this identity, we get $\lambda_1|(q_{23}+q_{32})$, $\lambda_2|(q_{31}+q_{13})$ and $\lambda_3|(q_{12}+q_{21})$.
+Hence there exist $p_1, p_2\in \mathbb P_{k-3}(K)$ such that
+\begin{equation}\label{eq:20201002-2}
+q_{23}+q_{32}=\lambda_1p_1, \quad q_{31}+q_{13}=\lambda_2p_2, \quad q_{12}+q_{21}=-\lambda_3(p_1+p_2).
+\end{equation}
+Therefore
+\begin{align*}
+\bs v&=\sum_{i=1}^3\tilde q_i\lambda_i\bs t_{i4} =\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4} + \sum_{i=1}^3\sum_{j=1, j\neq i}^3q_{ij}\lambda_j\lambda_i\bs t_{i4}  \\
+&=\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4} + \lambda_1\lambda_2(q_{12}\bs t_{14}+q_{21}\bs t_{24}) + \lambda_1\lambda_3(q_{13}\bs t_{14}+q_{31}\bs t_{34}) + \lambda_2\lambda_3(q_{23}\bs t_{24}+q_{32}\bs t_{34}) \\
+&=\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4}  + \lambda_1\lambda_2q_{12}\bs t_{12} + \lambda_1\lambda_3q_{13}\bs t_{13}  + \lambda_2\lambda_3q_{23}\bs t_{23}\\
+&\quad + \lambda_1\lambda_2(q_{12}+q_{21})\bs t_{24} + \lambda_1\lambda_3(q_{13}+q_{31})\bs t_{34}+ \lambda_2\lambda_3(q_{23}+q_{32})\bs t_{34}. 
+\end{align*}
+On the other hand, it follows from \eqref{eq:20201002-2} that
+\begin{align*}
+&\lambda_1\lambda_2(q_{12}+q_{21})\bs t_{24} + \lambda_1\lambda_3(q_{13}+q_{31})\bs t_{34}+ \lambda_2\lambda_3(q_{23}+q_{32})\bs t_{34} \\
+=&\lambda_1\lambda_2\lambda_3\big(-(p_1+p_2)\bs t_{24} +p_2\bs t_{34}+p_1\bs t_{34} \big)=\lambda_1\lambda_2\lambda_3(p_1+p_2)\bs t_{32}.
+\end{align*}
+Finally \eqref{eq:Hdivbubbleidentity} holds from the last two identities.
+\end{proof}
+
+
+Since
+\[
+\resizebox{\textwidth}{!}{$ %
+\dim\textrm{span}\{\lambda_1\lambda_4\mathbb P_{k-2}(K)\bs t_{14}, \lambda_2\lambda_4\mathbb P_{k-2}(K)\bs t_{24}, \lambda_3\lambda_4\mathbb P_{k-2}(K)\bs t_{34}\}\cap\textrm{span}\{\lambda_2\lambda_3\mathbb P_{k-2}(K)\bs t_{23}\}=\dim\mathbb P_{k-3}(K), 
+$}
+\]
+\[
+\resizebox{\textwidth}{!}{$ %
+\dim\textrm{span}\{\lambda_1\lambda_4\mathbb P_{k-2}(K)\bs t_{14}, \lambda_2\lambda_4\mathbb P_{k-2}(K)\bs t_{24}, \lambda_3\lambda_4\mathbb P_{k-2}(K)\bs t_{34}, \lambda_2\lambda_3\mathbb P_{k-2}(K)\bs t_{23}\}\cap\textrm{span}\{\lambda_1\lambda_3\mathbb P_{k-2}(K)\bs t_{13}, \lambda_1\lambda_2\mathbb P_{k-2}(K)\bs t_{12}\}=\dim\mathbb P_{k-3}(K) = 3\dim\mathbb P_{k-3}(K)-\mathbb P_{k-4}(K), 
+$}
+\]
+We have from \eqref{eq:Hdivbubbleidentity} that
+\begin{align*}
+\dim\mathring V_{k}^d(K)=6\dim\mathbb P_{k-2}(K)-\dim\mathbb P_{k-3}(K)-(3\dim\mathbb P_{k-3}(K)-\mathbb P_{k-4}(K))=\frac{1}{2}(k^2-1)(k+2).
+\end{align*}
+We can also acquire $\dim\mathring V_{k}^d(K)$ from the unisolvence of the BDM element.
+
+
+\XH{Discuss more on RT element in arbitrary dimension}.
+The geometric decomposition for Raviart-Thomas element in arbitrary dimension is (cf. \cite{ArnoldFalkWinther2009})
+$$
+\mathbb P_k(K;\mathbb R^d)+\mathbb P_k(K)\bs x=\Oplus_{i=0}^d\mathbb P_{k}(F_{i^*})\frac{1}{|K|}(\bs x-\bs x_i) \oplus \Oplus_{i=1}^d\mathbb P_{k-1}(K)\lambda_i(\bs x-\bs x_i),
+$$
+where $\bs x_i$ is the Cartesian coordinate of vertex $\texttt{v}_i$, $F_{i^*}\in\Delta_{d-1}(K)$ is opposite to $\texttt{v}_i$.
+
+
+
+\section{Simplicial approximations of $H(\curl)$}
+
+Assume $d=3$.
+Define
+\[
+H(\curl,\Omega):=\{\bs v\in \bs L^2(\Omega;\mathbb R^3): \curl\bs v\in \bs L^2(\Omega;\mathbb R^3)\}.
+\]
+with squared  norm $\|\bs v\|_{\curl, \Omega}^2:=\|\bs v\|_{0, \Omega}^2+\|\curl\bs v\|_{0, \Omega}^2$.
+
+The results on the trace of $H(\curl,\Omega)$ can be found in \cite{BuffaCostabelSheen2002,BuffaCiarlet2001,BuffaCiarlet2001a}.
+ For any regular vector field $\bs v$ in $\Omega$, we define the tangential trace $\gamma_{t}(\bs v):=\bs n\times \bs v|_{\Gamma}$, and the projection on the tangential plane $\pi_{t}(\bs v):=\bs n\times\bs v\times  \bs n|_{\Gamma}$. Let
+ \[
+ \bs H^{-1/2}(\div_{\Gamma}, \Gamma):=\{\bs\lambda\in V_{\pi}': \div_{\Gamma}\bs\lambda\in H^{-1/2}(\Gamma)\},
+ \]
+ \[
+ \bs H^{-1/2}(\curl_{\Gamma}, \Gamma):=\{\bs\lambda\in V_{\gamma}': \curl_{\Gamma}\bs\lambda\in H^{-1/2}(\Gamma)\},
+ \]
+ where $V_{\gamma}:=\gamma_{t}(\bs H^{1/2}(\Gamma))$ and $V_{\pi}:=\pi_{t}(\bs H^{1/2}(\Gamma))$.
+Spaces $ \bs H^{-1/2}(\div_{\Gamma}, \Gamma)$ and $ \bs H^{-1/2}(\curl_{\Gamma}, \Gamma)$ are dual to each other with the pivot space $\bs L_t^2(\Gamma):=\{\bs \lambda\in\bs L^2(\Gamma;\mathbb R^3): \bs \lambda\cdot\bs n=0\}$.
+
+If the surface $\Gamma$ was regular, then
+\[
+V_{\gamma}=V_{\pi}=\{\bs\lambda\in\bs H^{1/2}(\Gamma, \mathbb R^3): \bs\lambda\cdot\bs n=0\}.
+\]
+In the case of piecewise regular surfaces, the spaces $V_{\gamma}$ and $V_{\pi}$ are different (see \cite{BuffaCiarlet2001}).
+
+\begin{lemma}
+The trace operators $\gamma_{t}:  H(\curl,\Omega)\to\bs H^{-1/2}(\div_{\Gamma}, \Gamma)$ and $\pi_{t}:  H(\curl,\Omega)\to\bs H^{-1/2}(\curl_{\Gamma}, \Gamma)$ are linear, continuous and surjective. And we have the 
+Green's formula
+\[
+(\curl\bs v, \bs\phi)_{\Omega} - (\bs v, \curl\bs\phi)_{\Omega}=\langle\gamma_t\bs v, \pi_t\bs \phi\rangle\quad\forall~\bs v, \bs \phi\in H(\curl,\Omega).
+\]
+\end{lemma}
+
+Now introduce $H(\curl)$-conforming finite elements on tetrahedrons.
+Assume $K\subset \mathbb R^3$ is a tetrahedron.
+Thanks to \eqref{eq:vector3polyspacedecomp1}, define the shape function space
+\[
+V_{k,\ell}^c(K):=\grad\mathbb P_{k+1}(K)\oplus \boldsymbol x\times\mathbb P_{\ell-1}(K; \mathbb R^3)=\mathbb P_{k}(K; \mathbb R^3) + \boldsymbol x\times\mathbb P_{\ell-1}(K; \mathbb R^3),
+\]
+where $\ell=k, k+1$ for $k\geq1$, and $\ell=1$ for $k=0$. 
+The degrees of freedom $\mathcal N_{k,\ell}^c(K)$ are given by
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol t, q)_e & \quad\forall~q\in\mathbb P_{k}(e),  e\in\mathcal E(K),\label{Hcurlfem3ddof1}\\
+(\boldsymbol n\times\boldsymbol v\times\boldsymbol  n, \bs q)_F & \quad\forall~q\in\curl_F\mathbb P_{
+\ell-1}(F)\oplus\bs x\mathbb P_{k-2}(F),  F\in\mathcal F(K),\label{Hcurlfem3ddof2}\\
+(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\curl\mathbb P_{\ell-2}(K; \mathbb R^3)\oplus\boldsymbol x\mathbb P_{k-3}(K). \label{Hcurlfem3ddof3}
+\end{align}
+Since $\ell=k, k+1$, we have $\curl_F\mathbb P_{
+\ell-1}(F)\oplus\bs x\mathbb P_{k-2}(F)=\mathbb P_{
+\ell-2}(F;\mathbb R^2)+\bs x\mathbb P_{k-2}(F)$ and $\curl\mathbb P_{\ell-2}(K; \mathbb R^3)\oplus\boldsymbol x\mathbb P_{k-3}(K)=\mathbb P_{
+\ell-3}(F;\mathbb R^3)+\boldsymbol x\mathbb P_{k-3}(K)$.
+
+Apparently $\bs v\cdot \bs t|_e\in\mathbb P_{k}(e)$ for any $\bs v\in V_{k,\ell}^c(K)$ and $e\in\mathcal E(K)$.
+And $\curl V_{k,\ell}^c(K)=\curl\mathbb P_{\ell}(K;\mathbb R^3)$.
+
+
+
+
+\begin{lemma}\label{lem:unisovlenHdivfem}
+The finite element triple $(K, V_{k,\ell}^c(K), \mathcal N_{k,\ell}^c(K))$ is well-defined.
+\end{lemma}
+\begin{proof}
+It is easy to check that the number of the degrees of freedom \eqref{Hcurlfem3ddof1}-\eqref{Hcurlfem3ddof3}  is equal to $\dim V_{k,\ell}^c(K)$.
+
+
+Take any $\boldsymbol v\in V_{k,\ell}^c(K)$ and
+suppose all the degrees of freedom \eqref{Hcurlfem3ddof1}-\eqref{Hcurlfem3ddof3} vanish. 
+By the vanishing degrees of freedom \eqref{Hcurlfem3ddof1}-\eqref{Hcurlfem3ddof2}, we get $\bs v\in H_0(\curl, K)$. 
+Now consider $\curl\bs v\in H_0(\div, K)\cap\cap \mathbb P_{\ell-1}(K;\mathbb R^3)$.
+By the vanishing degrees of freedom \eqref{Hcurlfem3ddof3}, we get 
+\[
+(\curl\boldsymbol v, \boldsymbol q)_K = \quad\forall~\boldsymbol q\in\mathbb P_{\ell-2}(K; \mathbb R^3).
+\]
+Then by the well-posedness of the finite element triple $(K, V_{\ell-1,\ell-1}^d(K), \mathcal N_{\ell-1,\ell-1}^d(K))$, we obtain $\curl\boldsymbol v=0$. Hence $\boldsymbol v\in \grad\mathbb P_{k+1}(K)\cap H_0(\curl, K)$. Then there exists $w\in\mathbb P_{k-3}(K)$ such that $\bs v=\nabla(b_Kw)$, where $b_K:=\lambda_1\lambda_2\lambda_3\lambda_4$ is the bubble function.
+It follows from the vanishing degrees of freedom \eqref{Hcurlfem3ddof3} that
+\[
+(b_Kw, \div\boldsymbol q)_K = \quad\forall~\boldsymbol q\in\boldsymbol x\mathbb P_{k-3}(K).
+\]
+Due to \eqref{eq:vector3polyspacedecomp2},  it holds $\div(\boldsymbol x\mathbb P_{k-3}(K))=\mathbb P_{k-3}(K)$. As a result, $w=0$ and then $\boldsymbol v=\bs 0$.
+\end{proof}
+
+We can see that the finite element triple $(K, V_{k,k+1}^c(K), \mathcal N_{k,k+1}^c(K))$ is the first kind N\'ed\'elec element \cite{Nedelec1980}, and $(K, V_{k,k}^c(K), \mathcal N_{k,k}^c(K))$ is the second kind N\'ed\'elec  element \cite{Nedelec1986}.
+
+Next we present the explicit expression of the $H(\curl)$ bubble functions for $k\geq3$. Let
+\[
+\mathring V_{k}^c(K):=\{\bs v\in\mathbb P_{k}(K;\mathbb R^3): \bs v\times\bs n|_{\partial K}=0\},\quad
+V_{k,b}^c(K):=\sum_{i=1}^4b_{F_i}\mathbb P_{k-3}(K)\nabla\lambda_{i}.
+\]
+\begin{lemma}
+It holds for $k\geq3$ that
+\begin{equation}\label{eq:Hcurlbubbleidentity}
+\mathring V_{k}^c(K)=V_{k,b}^c(K).
+\end{equation}
+\end{lemma}
+\begin{proof}
+It is easy to see that $V_{k,b}^c(K)\subseteq\mathring V_{k}^c(K)$. Next let's prove $\mathring V_{k}^c(K)\subseteq V_{k,b}^c(K)$. Take any $\bs v\in\mathring V_{k}^c(K)$. Since $\{\nabla\lambda_{1}, \nabla\lambda_{2}, \nabla\lambda_{3}\}$ forms a basis of $\mathbb R^3$, we can express 
+$$\bs v=q_1\nabla\lambda_{1}+q_2\nabla\lambda_{2}+q_3\nabla\lambda_{3},$$ 
+where $q_1, q_2, q_3\in\mathbb P_k(K)$. Noting that $\bs v\times\bs n|_{\partial K}=0$, we get
+\[
+(q_2\nabla\lambda_{2}\times\bs n_1+q_3\nabla\lambda_{3}\times\bs n_1)|_{F_1}= 
+(q_1\nabla\lambda_{1}\times\bs n_2+q_3\nabla\lambda_{3}\times\bs n_2)|_{F_2}= 
+(q_1\nabla\lambda_{1}\times\bs n_3+q_2\nabla\lambda_{2}\times\bs n_3)|_{F_3}=0,
+\]
+\begin{equation}\label{eq:20201002-3}
+(q_1\nabla\lambda_{1}\times\bs n_4+q_2\nabla\lambda_{2}\times\bs n_4+q_3\nabla\lambda_{3}\times\bs n_4)|_{F_4}=0.
+\end{equation}
+Hence $\lambda_2\lambda_3|q_1$, $\lambda_1\lambda_3|q_2$ and $\lambda_1\lambda_2|q_3$. This means
+there exist $\tilde q_1, \tilde q_2, \tilde q_3\in\mathbb P_{k-2}(K)$ such that $q_1=\tilde q_1\lambda_2\lambda_3$, $q_2=\tilde q_2\lambda_1\lambda_3$ and $q_3=\tilde q_3\lambda_1\lambda_2$.  %Then
+%\[
+%\bs v=\tilde q_1\lambda_2\lambda_3\nabla\lambda_{1}+\tilde q_2\lambda_1\lambda_3\nabla\lambda_{2}+\tilde q_3\lambda_1\lambda_2\nabla\lambda_{3}.
+%\]
+Since $\nabla\lambda_{1}\times\bs n_4+\nabla\lambda_{2}\times\bs n_4+\nabla\lambda_{3}\times\bs n_4=\bs0$,
+it follows from~\eqref{eq:20201002-3} that
+\[
+((q_1-q_3)\nabla\lambda_{1}\times\bs n_4+(q_2-q_3)\nabla\lambda_{2}\times\bs n_4)|_{F_4}=0.
+\]
+Consequently $\lambda_4|(\tilde q_1\lambda_3-\tilde q_3\lambda_1)$ and $\lambda_4|(\tilde q_2\lambda_3-\tilde q_3\lambda_2)$. 
+Thus there exist $p_{ij}\in\mathbb P_{k-3}(K)$ ($i=1,2,3, j=1,2$) such that
+\[
+\tilde q_1=\lambda_1p_{11}+\lambda_4p_{12},
+\quad \tilde q_2=\lambda_2p_{21}+\lambda_4p_{22}, \quad \tilde q_3=\lambda_3p_{31}+\lambda_4p_{32}.
+\]
+Moreover we have $\lambda_4|(p_{11}-p_{31})$ and $\lambda_4|(p_{21}-p_{31})$.
+Therefore we acquire from $\nabla\lambda_{3}=-\nabla\lambda_{1}-\nabla\lambda_{2}-\nabla\lambda_{4}$ that
+\begin{align*}
+\bs v&=\tilde q_1\lambda_2\lambda_3\nabla\lambda_{1}+\tilde q_2\lambda_1\lambda_3\nabla\lambda_{2}+\tilde q_3\lambda_1\lambda_2\nabla\lambda_{3} \\
+&=b_{F_4}(p_{11}\nabla\lambda_{1}+p_{21}\nabla\lambda_{2}+p_{31}\nabla\lambda_{3}) +p_{12}b_{F_1}\nabla\lambda_{1}+p_{22}b_{F_2}\nabla\lambda_{2}+p_{32}b_{F_3}\nabla\lambda_{3} \\
+&=b_{F_4}((p_{11}-p_{31})\nabla\lambda_{1}+(p_{21}-p_{31})\nabla\lambda_{2}) - p_{31}b_{F_4}\nabla\lambda_{4} +p_{12}b_{F_1}\nabla\lambda_{1}+p_{22}b_{F_2}\nabla\lambda_{2}+p_{32}b_{F_3}\nabla\lambda_{3},
+\end{align*}
+which ends the proof.
+\end{proof}
+
+We have from \eqref{eq:Hcurlbubbleidentity} that
+\begin{align*}
+\dim\mathring V_{k}^c(K)=4\dim\mathbb P_{k-3}(K)-\dim\mathbb P_{k-4}(K)=\frac{1}{2}(k^2-1)(k-2).
+\end{align*}
+We can also acquire $\dim\mathring V_{k}^c(K)$ from the unisolvence of the second kind N\'ed\'elec element.
+
+\section{Finite element de Rham complex}
+Recall that a Hilbert complex is a sequence of Hilbert spaces connected by a sequence of linear operators satisfying the property: the composition of two consecutive operators is vanished. A Hilbert complex is exact means the range of each map is the kernel of the succeeding map. As $\Omega$ is topologically trivial, the following de Rham Complex of $\Omega$ is exact
+\begin{equation}\label{eq:derham}
+0\xrightarrow{} H^1(\Omega)\xrightarrow{\grad}\boldsymbol H(\curl;\Omega)\xrightarrow{\curl}\boldsymbol H(\div;\Omega)\xrightarrow{\div}L^2(\Omega) \xrightarrow{}0.
+\end{equation}

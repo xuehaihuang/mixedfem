@@ -1,0 +1,1350 @@
+% !TEX root = lecture.tex
+\chapter{混合变分问题}
+
+
+
+
+
+% ------------------------------------------------
+% 散度定理  本质守恒
+% ------------------------------------------------
+\section{混合变分问题举例}
+\subsection*{Poisson方程}
+对$ f \in L^2(\Omega)$, 考虑 Poisson 方程齐次 Dirichlet 边值问题
+\begin{equation}
+\begin{aligned}
+-\Delta u & = f,   \qquad \text{in} \quad \Omega , \nonumber \\
+u & = 0,           \qquad \text{on} \quad \partial \Omega. \nonumber
+\end{aligned}
+\end{equation}
+其变分形式为, 找 $u \in V = H_0^1(\Omega) $, 使得
+\begin{equation}\label{Possion}
+( \nabla u, \nabla v ) = ( f, v ), \quad \forall v \in V. 
+\end{equation}
+对应的有限元方法为, 找 $ u \in V_h $, 使得
+\begin{equation}\label{Possion_fem}
+( \nabla_h u, \nabla_h v ) = ( f, v ), \quad \forall v \in V_h.  
+\end{equation}
+其中有限元空间$V_h$是$V$的某种分片多项式近似. 另一方面, 许多偏微分方程都是由物理过程决定的, 对上述泊松方程, 通过引入一个新的变量$\boldsymbol{\sigma}$ 可以分解为如下形式
+\begin{subequations}
+\begin{align}
+\qquad \qquad \qquad \qquad \qquad \qquad
+\boldsymbol\sigma &= \nabla u, &&\text{in} \quad\Omega \qquad \qquad \qquad \qquad \qquad \qquad \label{Poisson1}\\
+-\div\boldsymbol\sigma &= f , &&\text{in} \quad\Omega \label{Poisson2}\\
+u & = 0,               &&  \text{on} \quad \partial \Omega. \label{Poisson3}
+\end{align}
+\end{subequations}
+其中\eqref{Poisson1}称为本构方程, \eqref{Poisson2}为守恒方程. 本例中可以理解标量势函数$u$(温度, 电势等)决定了通量$\boldsymbol{\sigma}$; 通量的散度(通过分布积分, 对应于净流出量)对应于源项$f$, 即
+\[
+-\int_K \div \boldsymbol \sigma \text{d}x = -\int_{\partial K}\boldsymbol \sigma\cdot\boldsymbol{n}\,\text{d}s=\int_{K}f\,\text{d}x,
+\]
+其中$K$是$\Omega$的任意子区域. 对于标准有限元方法\eqref{Possion_fem}, 上述守恒相当于测试函数空间$V_h$包含分片间断函数, 显然不成立. 而混合形式\eqref{Poisson1}-\eqref{Poisson3}对应的混合有限元方法则可以满足守恒律.
+
+\par 混合形式\eqref{Poisson1}-\eqref{Poisson3}可以定义多种变分问题:
+\begin{formula}
+找 $\boldsymbol{\sigma} \in H(\div, \Omega), u \in L^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}\label{MixPoisson1}
+(\boldsymbol\sigma, v) + (\div \boldsymbol\tau, u) &= 0,  &&\forall \boldsymbol\tau \in H(\div,\Omega),\\ 
+-(\div \boldsymbol\sigma, v) &= (f, v),  &&\forall  v \in L^2(\Omega)
+\end{aligned}
+\end{equation}
+\end{formula}
+变分问题\eqref{MixPoisson1}称为Possion方程的混合对偶格式. 通过分部积分可以将微分算子转移到$u, v $上, 得到与Primal变分形式\eqref{Possion}等价的混合变分问题\eqref{MixPoisson2}.
+\begin{formula}
+找 $\boldsymbol{\sigma} \in L_0^2(\Omega; \mathbb{R}^d), u \in H_0^1(\Omega)$, 使得
+\begin{equation}\label{MixPoisson2}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) - (\boldsymbol\tau, \nabla u) &= 0, \qquad\;\;\forall\boldsymbol\tau\in L_0^2(\Omega;\mathbb{R}^d),\\ 
+(\boldsymbol\sigma, \nabla v) &= (f, v), \quad \forall v\in H_0^1(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+若将\eqref{MixPoisson1}中的内积理解为$H^{-1}(\Omega)$与$H_0^1(\Omega)$上的对偶对, 则可得到
+\begin{formula}
+找 $\boldsymbol{\sigma} \in L_0^2(\Omega; \mathbb{R}^d) , u \in H_0^1(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) + \langle\div \boldsymbol\tau, u\rangle  &= 0, \qquad\;\;\forall\boldsymbol\tau\in L_0^2(\Omega;\mathbb{R}^d),\\ 
+-\langle\div \boldsymbol\sigma, v\rangle&= (f, v), \quad \forall v\in H_0^1(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+
+\subsection*{Stokes方程}
+考虑Stokes方程：
+\begin{subequations}
+\begin{align}
+-\Delta \boldsymbol{u} - \grad p &=\boldsymbol{f},  &&\text{in} \quad \Omega, \label{Stokes1} \\
+\div \boldsymbol{u} & = 0,    &&\text{in} \quad \Omega,  \label{Stokes2} \\ 
+\boldsymbol{u} & =\boldsymbol{0}, &&\text{on} \quad \partial \Omega \label{Stokes3} .
+\end{align}
+\end{subequations}
+其中$\boldsymbol u$表示流体速度，$p$表示压力，\eqref{Stokes1}为本构方程, \eqref{Stokes2}为守恒方程. 通过引入伪应力$\boldsymbol{\sigma}$, 可以将\eqref{Stokes1}-\eqref{Stokes3}改写为
+\begin{subequations}
+\begin{align}
+\boldsymbol\sigma &= \nabla\boldsymbol u,    && \text{in} \quad \Omega \label{Stokes_sigma1}\\
+-\div\boldsymbol\sigma - \nabla p &=f  && \text{in} \quad \Omega, \label{Stokes_sigma2}\\
+\div\boldsymbol u &=0,              && \text{in} \quad \Omega \label{Stokes_sigma3}\\
+\boldsymbol{u} &= \boldsymbol{0} && \text{on} \quad \partial \Omega . \label{Stokes_sigma4}
+\end{align}
+\end{subequations}
+注意到$\tr\boldsymbol\sigma= \div\boldsymbol u = 0$，即$\boldsymbol{\sigma}$属于无迹张量空间$\mathbb{T}$.
+\par \eqref{Stokes1}-\eqref{Stokes3}对应的变分问题为
+\begin{formula}
+找$ \boldsymbol{u} \in H_0^1(\Omega; \mathbb{R}^d), p \in L_0^2(\Omega)$, 使得
+\begin{equation}\label{Stokes_fem}
+\begin{aligned}
+(\nabla \boldsymbol u,\nabla \boldsymbol v) + (\div\boldsymbol v,p) &= (\boldsymbol f,\boldsymbol v),\quad  \forall \boldsymbol v \in H_0^1(\Omega;\mathbb{R}^d),\\
+(\div\boldsymbol u,q) &= 0,\qquad \quad \forall q\in L_0^2(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+变分问题\eqref{Stokes_fem}说明, 与椭圆型偏微分方程(eg. Possion方程的primal形式)不同, Stokes方程对应的变分问题本身即为鞍点问题. \eqref{Stokes_sigma1}-\eqref{Stokes_sigma4}对应的变分问题为
+\begin{formula}
+找 $\boldsymbol{\sigma} \in H(\div, \Omega; \mathbb{T}), u \in H_0(\div, \Omega)), p \in L_0^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol\sigma,\boldsymbol\tau)+(\div\boldsymbol\tau,\boldsymbol u) + (\div\boldsymbol u,q)&=0,\qquad  &&  \forall\,\boldsymbol{\tau}\in H(\div,\Omega;\mathbb{T}),q\in L_0^2(\Omega)\\
+-(\div\boldsymbol{\sigma},v)+(\div\boldsymbol v,p) &=(\boldsymbol f,\boldsymbol v),\qquad   && \forall\,  \boldsymbol v\in H_0(\div,\Omega).  \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+实际上, $\boldsymbol{\sigma}$ 的光滑性要求可以降低, 对应的分部式混合变分问题为
+\begin{formula}
+找 $\boldsymbol{\sigma} \in H^{-1}(\curl\div,\Omega;\mathbb{T}), u \in H_0(\div, \Omega)), p \in L_0^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol\sigma,\boldsymbol\tau)+\langle\div\boldsymbol\tau,\boldsymbol u\rangle+ (\div\boldsymbol u,q)&=0,\qquad &&\forall\,\boldsymbol{\tau}\in H^{-1}(\curl\div,\Omega;\mathbb{T}),q\in L_0^2(\Omega)\\
+-\langle\div\boldsymbol\sigma,\boldsymbol v \rangle+(\div\boldsymbol v,p) &=(\boldsymbol f,\boldsymbol v),\qquad &&\forall\,\boldsymbol v\in H_0(\div,\Omega), \nonumber
+\end{aligned}
+\end{equation}
+其中$H^{-1}(\curl\div,\Omega;\mathbb{T}) = \{\boldsymbol\tau\in L^2(\Omega;\mathbb{T}):\div\boldsymbol\tau\in (H_0(\div,\Omega))')\}$, $\langle \cdot, \cdot \rangle$ 表示 $ (H_0(\div, \Omega))' $ 与 $H_0(\div, \Omega)$间的对偶对.
+\end{formula}
+在Stokes方程的基础上, 有更贴合物理性质的应变Stokes方程：
+\begin{equation}\label{st_Stokes}
+\begin{aligned}
+-\div(\varepsilon(\boldsymbol u) )-\grad p&=\boldsymbol{f},  && \text{in} \quad \Omega, \\ 
+\div \boldsymbol{u}&=0, && \text{in} \quad \Omega , \\ 
+\boldsymbol{u}  &=\boldsymbol{0} && \text{on} \quad \partial \Omega ,
+\end{aligned}
+\end{equation}
+其中$\varepsilon(\boldsymbol u)=\tfrac12(\grad\boldsymbol u+\grad\boldsymbol u^{\intercal})$为梯度的对称部分. 进一步地, 引入$\boldsymbol{\sigma} = \varepsilon(\boldsymbol u)$, 对应的方程为
+\begin{equation}\label{st_Stokes_sigma}
+\begin{aligned}
+\boldsymbol{\sigma} & = \varepsilon(\boldsymbol u),  && \text{in} \quad \Omega, \\ 
+-\div \boldsymbol{\sigma} - \grad p &=\boldsymbol{f},  && \text{in} \quad \Omega, \\ 
+\div \boldsymbol{u}&=0, && \text{in} \quad \Omega ,\\ 
+\boldsymbol{u}  &=\boldsymbol{0} && \text{on} \quad \partial \Omega .
+\end{aligned}
+\end{equation}
+方程\eqref{st_Stokes}, \eqref{st_Stokes_sigma}对应的变分问题分别为
+\begin{formula}
+找 $\boldsymbol{u} \in H_0^1(\Omega;\mathbb{R}^d), p \in L_0^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\varepsilon(\boldsymbol u),\varepsilon(\boldsymbol u))+(\div\boldsymbol{v},p)&=(\boldsymbol{f},\boldsymbol{v}),\qquad \forall\,\boldsymbol{v}\in H^{1}_{0}(\Omega;\mathbb{R}^d),\\
+(\div\boldsymbol{u},q)&=0,\qquad \qquad\forall\,q\in L_0^{2}(\Omega). \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+\begin{formula}
+{找 $\boldsymbol{\sigma} \in H(\div, \Omega; \mathbb{S} \cap \mathbb{T}), u \in H_0(\div, \Omega)), p \in L_0^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol\sigma,\boldsymbol\tau)+(\div\boldsymbol\tau,\boldsymbol u) - (\div\boldsymbol u,q)&=0,\qquad  &&  \forall\,\boldsymbol{\tau}\in H(\div,\Omega;\mathbb{S} \cap \mathbb{T}),q\in L_0^2(\Omega)\\
+(\div\boldsymbol{\sigma},v)-(\div\boldsymbol v,p) &=-(\boldsymbol f,\boldsymbol v),\qquad   && \forall\,  \boldsymbol v\in H_0(\div,\Omega).  \nonumber
+\end{aligned}
+\end{equation}}
+\end{formula}
+
+
+
+\subsection*{线弹性方程}
+线弹性方程为:
+\begin{subequations}
+\begin{align}
+-\div \boldsymbol\sigma(\boldsymbol{u}) &= \boldsymbol f, && \text{in } \Omega, \label{linear_ela1} \\
+\boldsymbol\sigma(\boldsymbol{u}) &=2\mu\,\varepsilon(\boldsymbol{u})+\lambda \div \boldsymbol{u} I && \text{in } \Omega, \label{linear_ela2} \\
+\boldsymbol u &=0, &&\text{on } \partial \Omega. \label{linear_ela3} 
+\end{align}
+\end{subequations}
+其中 \eqref{linear_ela1}为守恒方程, \eqref{linear_ela2}为本构方程, $\boldsymbol u$ 是位移向量，$\varepsilon(\boldsymbol u)$ 是应变, $\boldsymbol{\sigma}(\boldsymbol u)$ 是应力张量， $\mu$是正常数， $\lambda$ 称为Lamé 系数.若引入$p = \lambda \div\boldsymbol u$，则线弹性方程可以改写为
+\begin{equation}\label{linear_eal_p}
+\begin{aligned}
+-\div (2 \mu \varepsilon(\boldsymbol u) + p I ) &= \boldsymbol f,  &&\text{in } \Omega , \\
+p &= \lambda \div \boldsymbol u \quad  &&\text{in } \Omega , \\
+\boldsymbol u  &= 0 , && \text{on } \partial \Omega. 
+\end{aligned}
+\end{equation}
+\eqref{linear_eal_p}对应的混合变分问题为
+\begin{formula}
+找 $ \boldsymbol u \in  H^1_0(\Omega;\mathbb{R}^d), p \in L_0^2(\Omega)$, 使得
+\begin{subequations}
+\begin{align}
+2\mu(\varepsilon(\boldsymbol{u}),\varepsilon(\boldsymbol{v}))+(\div\boldsymbol{v},p)&=(f,\boldsymbol{v}), \label{linear_ela_p_weak1} \qquad 
+\forall\boldsymbol{v}\in H^1_0(\Omega;\mathbb{R}^d) ,    \\
+(\div\boldsymbol{u},q)-\frac{1}{\lambda}(p,q)&=0,\qquad \qquad\forall\,q\in L_0^{2}(\Omega). \label{linear_ela_p_weak2}
+\end{align}
+\end{subequations}
+\end{formula}
+\eqref{linear_ela_p_weak1}-\eqref{linear_ela_p_weak2}通常被称为 Lamé 系统. 当$\lambda \to \infty $时, 其数值方法常会出现闭锁(locking)现象. 注意到当没有$\frac{1}{\lambda}(p,q)$这一项时，即为应变Stokes方程, 即应变Stokes方程是线弹性方程的极限问题, 使用应变Stokes方程的有限元方法可以解决闭锁现象.
+\par 进一步地, 对线弹性方程\eqref{linear_ela1}-\eqref{linear_ela3}改写. 由$\operatorname{tr}\boldsymbol\sigma = 2\mu \div \boldsymbol u + d \lambda \div \boldsymbol u$，得 $\div \boldsymbol u=\frac{1}{d\lambda+2\mu}\operatorname{tr}\boldsymbol\sigma$, 即 $\boldsymbol\sigma =2\mu\varepsilon(\boldsymbol u)+\frac{\lambda}{d\lambda+2\mu}\operatorname{tr}\boldsymbol\sigma I$, 故有
+\begin{equation}
+\varepsilon(u) = \frac{1}{2\mu}\Big(\boldsymbol\sigma- \frac{\lambda}{d\lambda+2\mu}\operatorname{tr}\boldsymbol\sigma I\Big). \nonumber
+\end{equation}
+为了简化记号，引入算子$A$:
+\begin{equation}
+A\boldsymbol\sigma=\frac{1}{2\mu}\Big(\boldsymbol\sigma - \frac{\lambda}{d\lambda+2\mu}\operatorname{tr}\boldsymbol\sigma I\Big)
+= \frac{1}{2\mu}\,\dev\boldsymbol\sigma + \frac{1}{d(2\mu+d\lambda)}\,\operatorname{tr}\boldsymbol\sigma I, \nonumber
+\end{equation}
+其中$\dev\boldsymbol\sigma = \boldsymbol\sigma-\frac{1}{d}\operatorname{tr}\boldsymbol\sigma I$，则对应的方程为
+\begin{equation}
+\begin{aligned}
+A\boldsymbol{\sigma} & = \varepsilon(\boldsymbol u),  && \text{in } \Omega , \\
+-\div \boldsymbol{\sigma} &= \boldsymbol f, && \text{in } \Omega, \\
+\boldsymbol u &= 0 , &&\text{on } \partial \Omega. \nonumber
+\end{aligned}
+\end{equation}
+\newline 其对应的混合变分问题为
+\begin{formula}
+找 $ \boldsymbol \sigma \in H(\div , \Omega; \mathbb{S}), \boldsymbol u \in L^2(\Omega; \mathbb{R}^d)$, 使得
+\begin{equation}
+\begin{aligned}
+(A\boldsymbol\sigma,\boldsymbol\tau)+(\div\boldsymbol \tau,\boldsymbol u) &=0 ,\qquad && \forall\boldsymbol\tau\in H(\div,\Omega;\mathbb{S}),\\
+-(\div\boldsymbol\sigma,\boldsymbol v)&=(\boldsymbol f,\boldsymbol v), \quad && \forall \boldsymbol v \in L^2(\Omega;\mathbb{R}^d).  \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+
+\begin{formula}
+找 $ \boldsymbol \sigma \in L^2(\Omega; \mathbb{S}), \boldsymbol u \in H_0^1(L^2(\Omega; \mathbb{R}^d)$, 使得
+\begin{equation}
+\begin{aligned}
+(A\boldsymbol\sigma,\boldsymbol\tau) - ( \boldsymbol \tau,\nabla \boldsymbol u) &=0 ,\qquad &&\forall\boldsymbol\tau\in L^2(\Omega;\mathbb{S}),\\
+(\boldsymbol\sigma, \nabla \boldsymbol v) & =(\boldsymbol f,\boldsymbol v), \quad &&\forall \boldsymbol v \in H_0^1(\Omega;\mathbb{R}^d).  \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+
+\begin{formula}
+找 $ \boldsymbol \sigma \in H^{-1}(\curl\div,\Omega;\mathbb{S}), \boldsymbol u \in H_0(\div, \Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(A\boldsymbol\sigma,\boldsymbol\tau)+\langle\div\boldsymbol \tau,\boldsymbol u\rangle &=0 ,\qquad  &&\forall\boldsymbol\tau\in H^{-1}(\curl\div,\Omega;\mathbb{S}),\\
+-\langle\div\boldsymbol\sigma,\boldsymbol v\rangle &=(\boldsymbol f,\boldsymbol v), \quad  &&\forall \boldsymbol v \in H_0(\div,\Omega), \nonumber 
+\end{aligned}
+\end{equation}
+其中$ H^{-1}(\curl\div,\Omega;\mathbb{S}):=\{\boldsymbol\tau\in L^2(\Omega;\mathbb{S}):\div\boldsymbol\tau\in (H_0(\div,\Omega))' \}$, $\langle \cdot, \cdot \rangle$ 为 $( H_0(\div, \Omega))'$ 与  $H_0(\div, \Omega)$的对偶对.
+\end{formula}
+
+\begin{formula}
+找 $ \boldsymbol \sigma \in H^{-1}(\div \div,\Omega;\mathbb{S}), \boldsymbol u \in H_0(\curl, \Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(A\boldsymbol\sigma,\boldsymbol\tau)+\langle\div\boldsymbol \tau,\boldsymbol u\rangle &=0 ,\qquad &&\forall\boldsymbol\tau\in H^{-1}(\div\div,\Omega;\mathbb{S}),\\
+-\langle\div\boldsymbol\sigma,\boldsymbol v\rangle &=(\boldsymbol f,\boldsymbol v), \quad &&\forall \boldsymbol v \in H_0(\curl,\Omega), \nonumber
+\end{aligned}
+\end{equation}
+其中$ H^{-1}(\div\div,\Omega;\mathbb{S}):=\{\boldsymbol\tau\in L^2(\Omega;\mathbb{S}):\div\boldsymbol\tau\in (H_0(\curl,\Omega))' \}$,  $\langle \cdot, \cdot \rangle$ 为 $( H_0(\curl, \Omega))'$ 与  $H_0(\curl, \Omega)$的对偶对.
+\end{formula}
+
+
+
+\subsection*{双旋度方程}
+双旋度方程为
+\begin{subequations}
+\begin{align}
+\operatorname{curl}^2 \boldsymbol u& = \boldsymbol f,   && \text{in } \Omega  \label{curl1} \\
+\div \boldsymbol u&=0,   && \text{in } \Omega \label{curl2} \\
+\boldsymbol u\times\boldsymbol{n} &=0 ,  && \text{on } \partial \Omega \label{curl3} ,
+\end{align}
+\end{subequations}
+约束\eqref{curl2}可以理解为$\boldsymbol u $与$H_0^1(\Omega)$的函数在$L^2$意义下正交: $(u ,\nabla v) = 0, \forall v \in H_0^1(\Omega)$. 其变分问题为
+\begin{formula}
+找 $ \boldsymbol u \in H_0(\curl, \Omega), p \in H_0^1(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\curl \boldsymbol u,\curl \boldsymbol v)+( \boldsymbol v,\nabla p)&=(\boldsymbol f,\boldsymbol v),  &&\forall \boldsymbol v\in H_0(\curl,\Omega),\\
+(\boldsymbol{u},\nabla q) & = 0 ,  && \forall q\in H_0^1(\Omega).  \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+
+
+
+\subsection*{重调和方程}
+齐次Dirchlet边界的重调和方程为
+\begin{equation}\label{biharmonic}
+\begin{aligned}
+\Delta^2 u &=f,  && \text{in } \Omega, \\
+u = \partial_n u & =0, &&\text{on } \partial \Omega .
+\end{aligned}
+\end{equation}
+四阶算子$\Delta^2 = \div\div\nabla\nabla$, 通过引入变量$\boldsymbol\sigma$, 得
+\begin{equation}
+\begin{aligned}
+\boldsymbol \sigma &=\nabla^2 u,   \quad && \text{in } \Omega, \\
+\div\div \boldsymbol \sigma &=f,  && \text{in } \Omega, \\
+u = \partial_n u & =0, &&\text{on } \partial \Omega . 
+\end{aligned}
+\end{equation}
+\newline 其对应的变分问题为:
+\begin{formula}
+找 $ \boldsymbol \sigma \in L^2(\Omega; \mathbb{S}), u \in H_0^2(\Omega) $, 使得
+\begin{equation}\label{biharmonic_formula1}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) - (\nabla^2 u, \boldsymbol\tau) &= 0,\qquad  &&\forall
+\boldsymbol\tau \in L^2(\Omega; \mathbb S), \\
+(\boldsymbol\sigma, \nabla^2 v) &= (f,v),\quad  && \forall v\in H_0^2(\Omega). 
+\end{aligned}
+\end{equation}
+\end{formula}
+
+\begin{formula}
+找 $ \boldsymbol \sigma \in H(\div\div,\Omega;\mathbb{S}), u \in L^2(\Omega) $, 使得
+\begin{equation}\label{biharmonic_formula2}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) - (\div\div\boldsymbol\tau,u) &= 0,\qquad && \forall
+\boldsymbol\tau \in H(\div\div,\Omega;\mathbb{S}), \\
+(\div\div\boldsymbol\sigma,  v) &= (f,v),\quad  && \forall v\in L^2(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+\begin{formula}
+找 $ \boldsymbol \sigma \in H(\div, \Omega; \mathbb{S}) , u \in H_0^1(\Omega) $, 使得
+\begin{equation}\label{biharmonic_formula3}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) + (\nabla u, \operatorname{div}\boldsymbol\tau) &= 0,
+\qquad  && \forall	\boldsymbol \tau \in H(\operatorname{div}, \Omega; \mathbb S),\\
+-(\operatorname{div}\boldsymbol\sigma, \nabla v) &= (f,v),
+\quad && \forall v \in H^1_0(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+变分问题\eqref{biharmonic_formula1}称为双调和方程的Primal形式; \eqref{biharmonic_formula2}为对偶形式; \eqref{biharmonic_formula3}对前两者间空间的光滑性做了平衡, 但该变分问题适定性会出现问题，解决的方法是将内积使用$\langle \operatorname{div}\boldsymbol\sigma, \nabla v\rangle_{(H_0(\operatorname{curl}))'\times H_0(\operatorname{curl})}$代替. 另一种分部式变分问题为
+\begin{formula}
+找 $ \boldsymbol \sigma \in H^{-1}(\operatorname{div}\operatorname{div},\Omega; \mathbb S), u \in H_0^1(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol \sigma, \boldsymbol \tau)
+- \langle \operatorname{div}\operatorname{div}\boldsymbol\tau, u\rangle
+&= 0,
+\qquad  && \forall \boldsymbol \tau \in H^{-1}(\operatorname{div}\operatorname{div},\Omega; \mathbb S),\\
+\langle \operatorname{div}\operatorname{div}\boldsymbol\sigma, v\rangle
+&= (f,v),
+\quad  && \forall v \in H^1_0(\Omega).   \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+双调和方程\eqref{biharmonic}也可以改写为
+\begin{equation}
+\begin{aligned}
+\sigma & =-\Delta u,    &&\text{in } \Omega,  \\
+-\Delta \sigma &=f,       &&\text{in } \Omega\\
+u =  \partial_n u &=0,  &&\text{on } \partial \Omega
+\end{aligned}
+\end{equation}
+该格式对应的变分问题\eqref{biharmonic_formula5}在$\Omega$为凸区域时与原形式等价.
+\begin{formula}
+找 $ \sigma \in H^1(\Omega), u \in H_0^1(\Omega)$, 使得
+\begin{equation}\label{biharmonic_formula5}
+\begin{aligned}
+(\sigma,\tau) - (\nabla \tau, \nabla u) &= 0,\qquad\qquad && \forall\tau\in H^1(\Omega)\\
+(\nabla \sigma, \nabla v) &= (f, v),\qquad  && \forall  v\in H_0^1(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+
+这种格式在适定性上存在一些问题，但可以理解为：
+\begin{formula}
+找 $ \sigma \in H^{-1}(\Delta, \Omega), u \in H_0^1(\Omega) $, 使得 
+\begin{equation}
+\begin{aligned}
+(\sigma,\tau) + \langle\Delta\tau,u\rangle&= 0,\qquad\qquad&&  \forall\sigma\in H^{-1}(\Delta,\Omega)\\
+- \langle\Delta\sigma,v\rangle &= (f, v),\qquad &&  \forall  v\in H_0^1(\Omega). \nonumber
+\end{aligned}  
+\end{equation}
+\end{formula}
+
+另一方面，我们也可以将原方程重写为一阶系统：
+\begin{equation}
+\begin{aligned}
+\boldsymbol \phi &= \nabla u,     &&\text{in } \Omega , \\
+\boldsymbol \sigma &= \nabla \boldsymbol \phi,  &&\text{in } \Omega , \\
+\boldsymbol q & = \div \boldsymbol \sigma ,  &&\text{in } \Omega , \\
+\div \boldsymbol q & = f             &&\text{in } \Omega , \\
+u &= \boldsymbol \phi \cdot \boldsymbol n = 0 , \quad  &&\text{on } \partial \Omega , \\
+\end{aligned}
+\end{equation}
+对应的混合变分问题为
+\begin{formula}
+找 $ \boldsymbol \phi \in L^2(\Omega; \mathbb{R}^d), \boldsymbol \sigma \in H(\div, \Omega; \mathbb{M}), \boldsymbol q \in H(\div, \Omega), u \in L^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol \sigma, \boldsymbol \tau)+(\div \boldsymbol\tau, \boldsymbol\phi) - ( \boldsymbol \phi, \boldsymbol p) - (\div \boldsymbol p,u) &=0  \quad && \forall \boldsymbol \tau\in H(\div,\Omega;\mathbb{M}), \boldsymbol p \in H(\div,\Omega) ,\\
+(\div \boldsymbol \sigma, \boldsymbol \psi)-(\boldsymbol q, \boldsymbol \psi)-(\div \boldsymbol q,v) &= -(f,v) \quad && \forall \boldsymbol \psi\in L^2(\Omega;\mathbb{R}^d), v\in L^2(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+
+
+
+
+
+\subsection*{$m$ 重调和方程}
+一般地, 对$m$重调和方程
+\begin{equation}
+(-\Delta)^m u =f,  \nonumber  
+\end{equation}
+通过引入$\boldsymbol \sigma $ 可以改写为
+\begin{equation}
+\begin{aligned}
+\boldsymbol \sigma &=\nabla^m u,\\
+(-\div)^m \boldsymbol \sigma&=f.  \nonumber
+\end{aligned}
+\end{equation}
+对应的混合变分问题为
+\begin{formula}
+找$ \boldsymbol \sigma \in  H(\div^m,\Omega;\mathbb{S}), u \in L^2(\Omega)$, 使得
+\begin{equation}
+\begin{aligned}
+(\boldsymbol\sigma, \boldsymbol\tau) - ((-\div)^{m}\boldsymbol\tau,u) &= 0,\qquad\forall
+\boldsymbol\tau \in H(\div^m,\Omega;\mathbb{S}), \\
+((-\div)^{m}\boldsymbol\sigma,  v) &= (f,v),\quad\forall v\in L^2(\Omega).  \nonumber
+\end{aligned}
+\end{equation}
+\end{formula}
+
+\subsection*{四阶奇异摄动方程}
+奇异摄动问题为
+\begin{equation}
+\begin{aligned}
+\varepsilon^2\Delta^2 u-\Delta u &= f ,   &&\text{in } \Omega , \\
+u =  \partial_n u &=0,  &&\text{on } \partial  \Omega .  \nonumber
+\end{aligned}
+\end{equation}
+当$\varepsilon$趋向$0$时, 该问题趋于Possion方程, 此时边界条件有多余, 会导致边界层现象. 引入$\boldsymbol \sigma$, 上述问题可以改写为
+\begin{equation}
+\begin{aligned}
+\boldsymbol \sigma & = \varepsilon^2 \nabla^2 u,  \quad &&\text{in } \Omega, \\ 
+\div \div \boldsymbol \sigma - \Delta u & = f,  &&\text{in } \Omega, \\ 
+u =  \partial_n u &=0,  &&\text{on } \partial  \Omega .  \nonumber
+\end{aligned}
+\end{equation}
+对应的混合变分问题为\eqref{Singular_per_formula1}, 该方法可以避免边界层现象.
+\begin{formula}
+找 $ \boldsymbol \sigma \in H^{-1}(\div \div, \Omega; \mathbb{S}), u \in H_0^1(\Omega)$, 使得
+\begin{equation}\label{Singular_per_formula1}
+\begin{aligned}
+\varepsilon^{-2}(\boldsymbol \sigma, \boldsymbol \tau) - \langle\operatorname{div}\operatorname{div}\boldsymbol \tau, u\rangle &= 0 ,\quad &&\forall\tau\in H^{-1}(\div\div,\Omega,\mathbb{S})\\
+\langle\operatorname{div}\operatorname{div} \boldsymbol \sigma, v\rangle + (\nabla u, \nabla v) &= ( f, v ), \quad && \forall v\in H_0^{1}(\Omega).
+\end{aligned}
+\end{equation}
+\end{formula}
+
+
+
+
+
+\subsection*{应变梯度问题}
+应变梯度问题为
+\begin{equation}
+\begin{aligned}
+\div (\iota^2\Delta-I)\boldsymbol \sigma(\boldsymbol u) &= \boldsymbol f,     \\
+\boldsymbol \sigma(\boldsymbol u)&=2\mu \varepsilon(\boldsymbol u)+\lambda \div \boldsymbol u I. \nonumber
+\end{aligned}
+\end{equation}
+引入新变量$p$, 上述方程改写为
+\begin{equation}
+\begin{aligned}
+ p = \lambda\div \boldsymbol u,\\
+\div (\iota^2\Delta-I)(2\mu \varepsilon(\boldsymbol u)+p I) = \boldsymbol f. \label{strain_gra}
+\end{aligned}
+\end{equation}
+问题\eqref{strain_gra}对应的混合问题为
+\begin{formula}
+找 $ \boldsymbol  u \in H_0^2(\Omega; \mathbb{R}^d), p \in H_0^1(\Omega) \cap L_0^2(\Omega) $, 使得
+\begin{equation}
+\begin{aligned}
+2\mu (\varepsilon( \boldsymbol u),\varepsilon(\boldsymbol v))_{\iota}+ (\div \boldsymbol v,p)_{\iota} &=(\boldsymbol f,\boldsymbol v), \quad &&\forall \boldsymbol v\in H^2_0(\Omega;\mathbb{R}^d),\\
+(\div \boldsymbol u,q)_{\iota} - \tfrac1\lambda(p,q)_{\iota} & =0,  \quad && \forall q\in H_0^1(\Omega)\cap L_0^2(\Omega). \nonumber
+\end{aligned}
+\end{equation}
+其中内积$(p, q)_{\iota} := \iota^2 (\nabla p, \nabla q) + (p, q)$.
+\end{formula}
+
+或者，类似于线弹性方程的做法：
+\begin{subequations}
+\begin{align}
+\iota^{-2}\bar{A}\bar{\boldsymbol\sigma} &= \nabla\varepsilon(\boldsymbol u),\\
+\div\div\bar{\boldsymbol\sigma}-\div\varepsilon(\boldsymbol u)&=f.
+\end{align}
+\end{subequations}
+得到混合格式：
+\begin{subequations}
+\begin{align}
+(\iota^{-2}\bar{A}\bar{\boldsymbol\sigma},\bar{\boldsymbol\tau}) - \langle\div\div\bar{\boldsymbol\tau},\boldsymbol u\rangle &= 0 \quad \bar{\boldsymbol \tau}\in H^{-1}(\div\div,\Omega;\mathbb{S}\otimes\mathbb{R}^d),\\
+\langle\div\div\bar{\boldsymbol\sigma},\boldsymbol v\rangle +  (\varepsilon(\boldsymbol u),\varepsilon(\boldsymbol v)) & = (f,\boldsymbol v) \quad \boldsymbol u\in H_0^1(\Omega;\mathbb{R}^d).
+\end{align}
+\end{subequations}
+
+
+% \section{Reissner-Mindlin板}
+
+% \section{Hodge-Laplace方程}
+
+% \section{Inf-sup 条件：Babu\v{s}ka 理论}
+\section{Babu\v{s}ka 理论}
+
+算子方程$Au = f$的适定性包括存在性、唯一性和稳定性三个方面.
+
+
+\subsection{抽象变分问题}
+
+给定变分问题：找$u\in U$使得
+\begin{equation}\label{variationalproblemabstract}
+a(u, v) = \langle f, v\rangle\quad\forall~v\in V.
+\end{equation}
+这里, 
+$
+a(\cdot, \cdot): U\times V\to\mathbb R
+$是Banach空间$U$和$V$上的双线性形式, 即关于每个变量都是线性的.
+基于双线性形式$a(\cdot, \cdot)$, 如下定义两个线性算子
+$A: U\to V'$ 和 $A': V\to U'$：
+\[
+\langle Au, v\rangle=\langle u, A'v\rangle=a(u, v).
+\]
+
+变分问题~\eqref{variationalproblemabstract} 等价于如下算子方程: 给定$f\in V'$, 找$u\in U$, 使得在对偶空间$V'$里满足
+\begin{equation}\label{eq:operatorequation}
+ Au = f .
+\end{equation}
+% 等价地, 
+% \[
+% a(u, v) = \langle f, v\rangle \quad\forall~ v \in V.
+% \]
+
+% To begin with, we have to assume both $A$ and $A'$ are continuous which can be derived
+% from the continuity of the bilinear form. 
+假定双线性形式$a(\cdot, \cdot)$是连续的, 即
+\begin{equation}\label{abounded}
+a(u, v) \leq  C\|u\|_U\|v\|_V\quad \forall~u\in U,  v\in V.
+\end{equation}
+将使得上述不等式成立的最小的常数记作$\|a\|$, 即
+$$
+\|a\|=\sup_{u\in U, v\in V}\frac{a(u, v)}{\|u\|_U\|v\|_V}.
+$$
+在连续性条件 \eqref{abounded} 下, 易知$A$和$A'$都是有界算子, 且$\|A\| = \|A'\| = \|a\|$.
+为了讨论算子方程 \eqref{eq:operatorequation} 的存在性和唯一性, 引入以下两个inf-sup条件:
+\begin{equation}\label{infsup1}
+\inf_{v\in V}\sup_{u\in U}\frac{a(u, v)}{\|u\|_U\|v\|_V}=\alpha_1>0,
+\end{equation}
+\begin{equation}\label{infsup2}
+\inf_{u\in U}\sup_{v\in V}\frac{a(u, v)}{\|u\|_U\|v\|_V}=\alpha_2>0.
+\end{equation}
+
+\begin{theorem}[\cite{Babuska1971}]
+假设双线性形式$a(\cdot, \cdot)$是连续的, 即 \eqref{abounded} 成立. 算子方程 \eqref{eq:operatorequation} 是适定的, 当且仅当 \eqref{infsup1} 和 \eqref{infsup2} 成立. 在 \eqref{infsup1} 和 \eqref{infsup2} 成立的前提下, 有
+\[
+\|A^{-1}\|=\|(A')^{-1}\|=\alpha_{1}^{-1}=\alpha_{2}^{-1}=\alpha^{-1},
+\]
+故算子方程 \eqref{eq:operatorequation} 的解满足
+\[
+\|u\|_U\leq\frac{1}{\alpha}\|f\|_{V'}.
+\]
+\end{theorem}
+\begin{proof}
+Inf-sup条件 \eqref{infsup1} 的算子形式为 
+$$
+\|A'v\|_{U'}\geq \alpha_1\|v\|_V\quad \forall~v\in V,
+$$
+这等价于算子$A$是满射. 类似地, inf-sup条件 \eqref{infsup2} 的算子形式为
+$$
+\|Au\|_{V'}\geq \alpha_2\|u\|_U\quad \forall~u\in U,
+$$ 
+这等价于算子$A$是单射. 因此, inf-sup条件 \eqref{infsup1} 和 \eqref{infsup2} 等价于
+$A : U\to V$是同构算子. 进一步, 由开映射定理知, 算子$A^{-1}$是有界的,  且易知$A^{-1}$的范数等于$\alpha_{2}^{-1}$. 关于$A'$的结论类似可证.
+\end{proof}
+
+下面以 inf-sup 条件 \eqref{infsup1} 为例来说明如何验证 inf-sup 条件. 
+% 显然, inf-sup条件\eqref{infsup1}成立的一个充分条件是
+% \begin{equation}\label{infsupequiv1}
+% \textrm{对任意的 }~v\in V,\; \textrm{总存在非零 }~u \in U, \textrm{ s.t. } a(u, v)\geq\alpha\|u\|_U\|v\|_V.
+% \end{equation}
+% 以下定理给出inf-sup条件\eqref{infsup1}的另一种等价刻画, 这样要验证inf-sup条件\eqref{infsup1}只需构造一个合适的函数.
+\begin{theorem}\label{thm:infsupequiv2}
+Inf-sup条件 \eqref{infsup1} 等价于： 对任意的 $v\in V$ 存在
+$u\in U$, 使得
+\begin{equation}\label{infsupequiv2}
+a(u, v)\geq C_1\|v\|_V^2,\quad\quad \|u\|_U\leq C_2\|v\|_V.
+\end{equation}
+\end{theorem}
+\begin{proof}
+显然 \eqref{infsupequiv2} 意味着 \eqref{infsup1}, 其中$\alpha_1\geq C_1/C_2$. 现在来证明 \eqref{infsup1} 意味着 \eqref{infsupequiv2}. 对任意的$v\in V$, 由Hahn-Banach定理的推论知, 存在$f\in V'$满足$f(v) =\|v\|_V^2$, 以及 $\|f\|_{V'} = \|v\|_V$. 由于$A$是满射, 由开映射定理知, 总可以找到$\tilde u\in U$满足$A\tilde u = f$, 以及 $\inf\limits_{w\in\ker(A)}\|\tilde u+w\|_U\leq\alpha_E^{-1}\|f\|_{V'}=\alpha_E^{-1}\|v\|_V$. 于是, 存在$u\in U$和$C\geq1$满足
+\[
+\|u\|_U\leq C\alpha_E^{-1}\|v\|_V, \quad  Au=f.
+\]
+因此, $a(u, v)=\langle Au, v\rangle=f(v)=\|v\|_V^2$. 如果Banach空间$U$是自反的, 还可以要求$C=1$.
+\end{proof}
+
+% 显然, inf-sup条件\eqref{infsup1}成立的一个充分条件是
+% 以下定理给出inf-sup条件\eqref{infsup1}的另一种等价刻画, 
+这样要验证inf-sup条件 \eqref{infsup1} 只需构造一个合适的函数.
+
+由定理~\ref{thm:infsupequiv2} 可知, inf-sup条件 \eqref{infsup1} 也等价于 %\eqref{infsupequiv1}.
+\begin{equation*}%\label{infsupequiv1}
+\textrm{对任意的 }~v\in V,\; \textrm{总存在非零 }~u \in U, \textrm{ s.t. } a(u, v)\geq\alpha\|u\|_U\|v\|_V.
+\end{equation*}
+
+\begin{remark}[\cite{Lau1978}]
+设$K$是(实)Banach空间$X$的一个非空子集. 对任意的$x\in X$,
+称$y\in K$是$x$在 $K$上的\textbf{最佳逼近}, 如果
+\[
+\|x - y\|= \inf\{\|x - z\|: z\in K\}.
+\]
+如果任何一点$x\in X$在$K$上都有(唯一)最佳逼近, 则称集合$K$是\textbf{可逼近的}(\textbf{Chebyshev集}). 易知, 自反空间$X$中的闭凸集合$K$都是可逼近的. 进一步, 如果范数是严格凸的, 则$K$是Chebyshev集. 但是, 如果$X$不是自反的或$K$不是凸的, 那么以上结论通常不成立.
+\end{remark}
+
+
+满足 \eqref{infsupequiv2} 的$u$依赖于$v$. 一种特殊情形是当$U=V$时$u = v$,  相应的结果就是Lax-Milgram引理.
+
+\begin{lemma}[Lax-Milgram引理, \cite{LaxMilgram1954}]\label{laxmilgramlemma}
+设$V\times V$上的双线性形式$a(\cdot, \cdot)$满足
+\begin{enumerate}
+\item 连续性: $a(u, v)\leq\beta\|u\|_V\|v\|_V$;
+\item 强制性: $a(u, u)\geq\alpha\|u\|_V^2$,
+\end{enumerate}
+则对任意的$f\in V'$, 存在唯一的$u\in V$满足
+\[
+a(u, v) = \langle f, v\rangle,
+\]
+且
+\[
+\|u\|_V\leq\frac{1}{\alpha}\|f\|_{V'}.
+\]
+\end{lemma}
+
+最简单的情形是双线性形式$a(\cdot, \cdot)$在$V$上对称正定的. 此时, $a(\cdot, \cdot)$定义了一个新的内积, Lax-Milgram引理就是Riesz表示定理.
+
+
+
+% \subsection{变分问题的离散}
+
+% 给定变分问题：找$u\in U$使得
+% \begin{equation}\label{variationalproblemabstract}
+% a(u, v) = \langle f, v\rangle\quad\forall~v\in V.
+% \end{equation}
+
+\subsection{变分问题的离散：Ritz方法}
+假设$a(\cdot,\cdot)$是对称正定的, 且$U=V$. 抽象Galerkin变分问题 \eqref{variationalproblemabstract} 的Ritz变分问题为：找$u\in U$, 使得
+\begin{equation}\label{ritzvariationalproblemabstract}
+J(u)=\min_{w\in U}J(w),
+\end{equation}
+其中$\displaystyle J(u)=\frac{1}{2}a(u, u)-\langle f, u\rangle$.
+
+因为$U$通常是无穷维的函数空间, 直接求解Ritz变分问题 \eqref{ritzvariationalproblemabstract} 非常困难, 为此需要近似求解 \eqref{ritzvariationalproblemabstract}. 设有限维子空间$U_h\subset U$是$U$的协调离散, 称$U_h$为\textbf{试探函数空间}. Ritz变分问题 \eqref{ritzvariationalproblemabstract} 的近似问题是：
+找$u_h\in U_h$, 使得
+\begin{equation}\label{ritzmethod}
+J(u_h)=\min_{w_h\in U_h}J(w_h).
+\end{equation}
+离散问题 \eqref{ritzmethod} 称为\textbf{Ritz方法}.
+
+设$U_h$的一组基函数为$\varphi_1,\ldots, \varphi_N$, 即$U_h=\textrm{span}\{\varphi_1,\ldots, \varphi_N\}$. 对任意的$w_h\in U_h$, 有线性表示
+$$
+w_h=\sum_{i=1}^Nc_i\varphi_i,
+$$
+其中系数$c_1,\ldots, c_n$是常数. 于是
+$$
+J(w_h)=\frac{1}{2}\sum_{i,j=1}^Na(\varphi_i, \varphi_j)c_ic_j - \sum_{i=1}^N\langle f, \varphi_i\rangle c_i.
+$$
+令$A=(a_{ij})_{N\times N}$, $b=(b_i)_{N\times1}$, $c=(c_i)_{N\times1}$, 其中$a_{ij}=a(\varphi_i, \varphi_j)$, $b_i=\langle f, \varphi_i\rangle$, 则
+$$
+J(w_h)=\frac{1}{2}c^{\intercal}Ac - c^{\intercal}b.
+$$
+由此, Ritz方法 \eqref{ritzmethod} 等价于以$c$为自变量的二次函数的极值问题
+$$
+\min_{c\in \mathbb R^N}\frac{1}{2}c^{\intercal}Ac - c^{\intercal}b.
+$$
+设$u_h=(\varphi_1, \ldots,\varphi_N)c^{*}$, 其中$c^{*}\in\mathbb R^N$. 于是向量$c^{*}$满足线性代数方程组
+$$
+Ac^{*}=b.
+$$
+
+\subsection{变分问题的离散：Galerkin方法}
+
+考虑变分问题 \eqref{variationalproblemabstract} 在有限维子空间 $U_h\subset U$ 和 $V_h\subset V$ 上的协调离散, 称 $V_h$ 为\textbf{检验函数空间}.
+变分问题 \eqref{variationalproblemabstract} 的离散方法为：找 $u_h\in U_h$ 使得
+\begin{equation}\label{discetemethodabstract}
+a(u_h, v_h) = \langle f, v_h\rangle\quad\forall~ v_h\in V_h.
+\end{equation}
+若 $U_h\neq V_h$, 称离散方法 \eqref{discetemethodabstract} 为\textbf{Petrov-Galerkin方法}；若 $U_h=V_h$, 称离散方法 \eqref{discetemethodabstract} 为\textbf{Galerkin方法}.
+离散问题 \eqref{discetemethodabstract} 的存在唯一性等价于以下离散 inf-sup 条件:
+\begin{equation}\label{disceteinfsupabstract}
+\inf_{v_h\in V_h}\sup_{u_h\in U_h}\frac{a(u_h, v_h)}{\|u_h\|_U\|v_h\|_V}=\inf_{u_h\in U_h}\sup_{v_h\in V_h}\frac{a(u_h, v_h)}{\|u_h\|_U\|v_h\|_V}=\alpha_h>0.
+\end{equation}
+
+选取有限维空间 $U_h$ 和 $V_h$ 的基函数, 设 $U_h=\textrm{span}\{\varphi_1,\ldots, \varphi_N\}$, $V_h=\textrm{span}\{\psi_1,\ldots, \psi_N\}$.
+设$\displaystyle u_h=\sum_{j=1}^Nc_j^{*}\varphi_j$, 其中$c^{*}=(c_1^{*}, \ldots, c_N^{*})^{\intercal}\in\mathbb R^N$. 
+代入离散方法 \eqref{discetemethodabstract}, 并取 $v_h=\psi_i$ ($i=1,\ldots, N$), 得
+$$
+\sum_{j=1}^Na(\varphi_j, \psi_i)c_j^{*}=\langle f, \psi_i\rangle, \quad i=1,\ldots, N.
+$$
+令$A=(a_{ij})_{N\times N}$, $b=(b_i)_{N\times1}$, 其中$a_{ij}=a(\varphi_j, \psi_i)$, $b_i=\langle f, \psi_i\rangle$.
+由此, 离散方法 \eqref{discetemethodabstract} 转化成线性代数方程组
+$$
+Ac^{*}=b.
+$$
+考虑到适定性, 要求系数矩阵$A$是可逆的. 为确保一致稳定性, 要求常数 $\alpha_h$ 关于 $h$ 一致有下界, 且下界为正.
+
+在双线性形式 $a(\cdot,\cdot)$ 是对称正定及 $U_h=V_h$ 的情形下, Ritz 方法 \eqref{ritzmethod} 和 Galerkin 方法 \eqref{discetemethodabstract} 是等价的. 如果双线性形式 $a(\cdot,\cdot)$ 不是对称的, 离散方法 \eqref{discetemethodabstract} 仍可以用. 
+
+利用inf-sup条件可以建立离散方法 \eqref{discetemethodabstract} 的误差估计. 协调离散的关键性质是Garlerkin正交性
+\[
+a(u-u_h, v_h) = 0\quad \forall~v_h\in V_h.
+\]
+引入投影算子 $P_h : U\to U_h$, 
+\begin{equation*}
+a(P_hu, v_h)=a(u,u_h)\qquad\forall~u\in U, v_h\in V_h.
+\end{equation*}
+显然, $u_h = P_hu$, 并且 $P_h$ 限制在 $U_h$ 上是恒等算子.
+\begin{lemma}
+成立
+\begin{equation*}
+A_hP_hu = I'Au\quad\forall~u\in U,
+\end{equation*}
+其中 $I': V'\to V_h'$ 是嵌入算子 $I: V_h\to V$ 的对偶,  算子 $A_h: U_h\to V_h'$ 定义为
+\[
+\langle A_hu_h, v_h\rangle=a(u_h, v_h)\quad\forall~u_h\in U_h, v_h\in V_h.
+\]
+\end{lemma} 
+\begin{proof}
+由 $P_h$ 和 $I$ 的定义, 有
+\begin{align*}
+a(P_hu, v_h)=a(u, v_h)=a(u, Iv_h)=\langle Au, Iv_h\rangle_{V'\times V}=\langle I'Au, v_h\rangle_{V_h'\times V_h}.
+\end{align*}
+结合 $A_h$ 的定义, 即得证.
+\end{proof}
+
+\begin{lemma}
+投影算子 $P_h : U\to U_h$ 是有界的:
+\begin{equation}\label{eq:Phbounded}
+\|P_hu\|_U\leq \frac{\|a\|}{\alpha_h}\|u\|_U\quad\forall~u\in U.
+\end{equation}
+\end{lemma}
+\begin{proof}
+由离散 inf-sup 条件 \eqref{disceteinfsupabstract} 和双线性形式 $a(\cdot, \cdot)$ 的有界性 \eqref{abounded}, 有
+\[
+\|P_hu\|_U\leq\frac{1}{\alpha_h}\sup_{v_h\in V_h}\frac{a(P_hu, v_h)}{\|v_h\|_V}=\frac{1}{\alpha_h}\sup_{v_h\in V_h}\frac{a(u, v_h)}{\|v_h\|_V}\leq \frac{1}{\alpha_h}\sup_{v\in V}\frac{a(u, v)}{\|v\|_V}\leq\frac{\|a\|}{\alpha_h}\|u\|_U.
+\]
+证毕.
+\end{proof}
+
+\begin{lemma}
+设 $U_h$ 是 $U$ 的非零子空间. 成立等式
+\begin{equation}\label{eq:PhIPhequal}
+\|I-P_h\|=\|P_h\|.
+\end{equation}
+\end{lemma}
+\begin{proof}
+由假设 $U_h$ 是 $U$ 的非零子空间可知, $P_h\neq 0$ 且 $P_h\neq I$. 又 $P_h^2=P_h$, 应用文献 \cite{XuZikatanov2003} 中的引理~5 可得等式~\eqref{eq:PhIPhequal}.
+\end{proof}
+
+\begin{theorem}[C\'ea引理]
+设双线性形式$a(\cdot, \cdot)$满足 \eqref{abounded}, \eqref{infsup1}, \eqref{infsup2} 和 \eqref{disceteinfsupabstract}. 变分问题 \eqref{variationalproblemabstract} 存在唯一解 $u\in U$, 离散问题 \eqref{discetemethodabstract} 存在唯一解 $u_h\in U_h$, 并成立
+\[
+\|u-u_h\|_U\leq\frac{\|a\|}{\alpha_h}\inf_{v_h\in U_h}\|u-v_h\|_U.
+\]
+\end{theorem}
+\begin{proof}
+在定理假设下, 对于 $f\in V'$, 变分问题 \eqref{variationalproblemabstract} 和离散问题 \eqref{discetemethodabstract} 都是适定的. 
+% 引入投影算子$P_h : U\to U_h$, 定义为$P_hu = u_h$.
+% 显然, $P_h$限制在$U_h$上是恒等算子. 易知$P_h$的算子表达式为$P_h = A_h^{-1}I'A$, 其中$I': V'\to V_h'$是嵌入算子$I: V_h\to V$的对偶,  算子$A_h: U_h\to V_h'$定义为
+% \[
+% \langle A_hu_h, v_h\rangle=a(u_h, v_h)\quad\forall~u_h\in U_h, v_h\in V_h.
+% \]
+% 如下证明$P_h$是有界线性算子, 且$\|P_h\| \leq\|a\|/\alpha_h$:
+% \[
+% \|u_h\|_U\leq\frac{1}{\alpha_h}\sup_{v_h\in V_h}\frac{a(u_h, v_h)}{\|v_h\|_V}=\frac{1}{\alpha_h}\sup_{v_h\in V_h}\frac{a(u, v_h)}{\|v_h\|_V}\leq \frac{1}{\alpha_h}\sup_{v\in V}\frac{a(u, v)}{\|v\|_V}\leq\frac{\|a\|}{\alpha_h}\|u\|_U.
+% \]
+对任意的 $w_h\in U_h$, 注意到 $P_hw_h = w_h$, 有
+\[
+\|u-u_h\|_U=\|(I-P_h)(u-w_h)\|_U\leq\|I-P_h\|\|u-w_h\|_U.
+\]
+应用等式~\eqref{eq:PhIPhequal} 和 \eqref{eq:Phbounded}, 
+即可完成证明.
+\end{proof}
+
+
+
+% \section{鞍点系统的 Inf-sup 条件：Brezzi 理论}
+\section{鞍点系统：Brezzi 理论}
+
+\subsection{Variational problem in the mixed form}
+We shall consider an abstract mixed variational
+problem first. Let $V$ and $P$ be two Banach spaces. For given $(f, g)\in V'\times P'$, find
+$(u, p)\in V \times P$ such that
+\begin{align}
+a(u, v)+ b(v, p) & =\langle f, v\rangle \quad \forall~v\in V, \label{abstractmixed1}\\
+b(u, q) & =\langle g, q\rangle  \quad \forall~q\in P.\label{abstractmixed2}
+\end{align}
+Let us introduce linear operators
+\[
+A : V \to V',\quad \textrm{ as } \langle Au, v\rangle = a(u, v)
+\]
+and
+\[
+B: V\to P', \quad B' : P \to V',\quad \textrm{ as } \langle Bv, q\rangle = \langle v, B'q\rangle = b(v, q).
+\]
+Written in the operator form, the problem becomes
+\begin{align}
+Au+ B'p & =f, \label{abstractmixedoperator1}\\
+Bu & =g, \label{abstractmixedoperator2}
+\end{align}
+or in short
+\begin{equation*}%\label{abstractmixedoperatormatrix}
+\begin{pmatrix}
+A &  B' \\
+B & 0
+\end{pmatrix}
+\begin{pmatrix}
+u \\ p
+\end{pmatrix}
+=
+\begin{pmatrix}
+f \\ g
+\end{pmatrix}.
+\end{equation*}
+
+
+\subsection{Inf-sup conditions}
+
+We shall study the well posedness of this abstract mixed problem.
+
+First we assume all bilinear forms are continuous so that all operators $A, B, B'$ are
+continuous: the bilinear form $a(\cdot, \cdot)$ and $b(\cdot, \cdot)$ are continuous
+\begin{equation}\label{acontinuous}
+a(u, v)\leq C\|u\|_V\|v\|_V \quad \forall~ u, v\in V,
+\end{equation}
+\begin{equation}\label{bcontinuous}
+b(v, q)\leq C\|v\|_V\|q\|_P \quad \forall~ v\in V, q\in P.
+\end{equation}
+
+The solvable of the second equation \eqref{abstractmixedoperator2} is equivalent to $B$ is surjective or $B'$ is injective
+and $R(B')$ closed which is equivalent to the following inf-sup condition
+\begin{equation}\label{infsup}
+\inf_{q\in P}\sup_{v\in V}\frac{b(v, q)}{\|v\|_V\|q\|_P}=\beta>0.
+\end{equation}
+With condition \eqref{infsup}, we have $B : V/\ker(B)\to P'$ is an isomorphism. So given $g\in P'$, we
+can choose $u_1\in V/\ker(B)$ such that $Bu_1 = g$ and $\|u_1\|_V\leq \beta^{-1}\|g\|_{P'}$.
+
+After we get a unique $u_1$, we restrict the test function $v$ in \eqref{abstractmixed1} to $\ker(B)$. Since
+$\langle v, B'q\rangle = \langle Bv, q\rangle = 0$ for $v\in \ker(B)$, we get the following variational form: find
+$u_0\in \ker(B)$ such that
+\begin{equation}\label{abstractkernelproblem}
+a(u_0, v) = \langle f, v\rangle- a(u_1, v)\quad \forall~v \in \ker(B).
+\end{equation}
+The existence and uniqueness of $u_0$ is then equivalent to the two inf-sup conditions for
+$a(u, v)$ on space $Z = \ker(B)$:
+\begin{equation}\label{infsupkernel}
+\inf_{u\in Z}\sup_{v\in Z}\frac{a(u, v)}{\|u\|_V\|v\|_V}=\inf_{v\in Z}\sup_{u\in Z}\frac{a(u, v)}{\|u\|_V\|v\|_V}=\alpha>0.
+\end{equation}
+
+After we determine a unique $u = u_0 + u_1$ in this way, we solve
+\[
+B'p = f - Au
+\]
+to get $p$. Since $u_0$ is the solution to \eqref{abstractkernelproblem}, the right hand side $f - Au \in \ker(B)^{\perp}$. Thus we
+require $B': P\to \ker(B)^{\perp}$ is an isomorphism which is also equivalent to the condition \eqref{infsup}.
+
+\begin{theorem}
+Assume the bilinear forms $a(\cdot, \cdot)$, $b(\cdot, \cdot)$ are continuous, i.e., \eqref{acontinuous}-\eqref{bcontinuous} hold. The
+mixed variational problem \eqref{abstractmixed1}-\eqref{abstractmixed2} is well-posed if and only if \eqref{infsup} and \eqref{infsupkernel} hold. When \eqref{infsup} and \eqref{infsupkernel} hold, we have the stability result
+\[
+\|u\|_V+\|p\|_P\lesssim \|f\|_{V'}+\|g\|_{P'}.
+\]
+\end{theorem}
+
+The following characterization of the inf-sup condition for the operator $B$ is useful. The
+verification is again transferred to a construction of a suitable function.
+The proof is similar to that in Theorem~\ref{thm:infsupequiv2} and thus skipped here.
+\begin{theorem}
+The inf-sup condition \eqref{infsup} is equivalent to that for any $q\in P$, there exists
+$v\in V$, such that
+\begin{equation*}%\label{infsupequiv2}
+b(v, q)\geq C_1\|q\|_P^2,\quad\textrm{and } \quad\|v\|_V\leq C_2\|q\|_P.
+\end{equation*}
+\end{theorem}
+
+Note that in general a construction of desirable $v = v(q)$, especially the control of norm
+$\|v\|$, may not be straightforward.
+
+\subsection{Conforming Discretization}
+We consider finite element approximation to the mixed
+problem: Find $u_h\in V_h$ and $p_h\in P_h$ such that
+\begin{align}
+a(u_h, v_h)+ b(v_h, p_h) & =\langle f, v_h\rangle \quad \forall~v_h\in V_h, \label{abstractmfem1}\\
+b(u_h, q_h) & =\langle g, q_h\rangle  \quad \forall~q_h\in P_h.\label{abstractmfem2}
+\end{align}
+We shall mainly consider the conforming case $V_h\subset V$ and $P_h\subset P$. We denote $B_h:
+V_h\to P_h'$, and denote $Z_h = \ker(B_h)$. Recall that $Z = \ker(B)$. In the application
+to Stokes equations $B = -\div$, so $Z$ is called divergence free space and $Z_h$ is discrete
+divergence free space.
+
+\begin{remark}
+In general $Z_h \not\subset Z$. Namely a discrete divergence free function may not be
+exactly divergence free. Just compare the meaning of $B_hu_h = 0$ in $(P_h)'$
+\[
+\langle B_hu_h, q_h\rangle=0\quad\forall~q_h\in P_h,
+\]
+with $Bu_h=0$ in $P'$
+\[
+\langle Bu_h, q\rangle=0\quad\forall~q\in P.
+\]
+\end{remark}
+
+The discrete inf-sup conditions for the finite element approximation will be
+\begin{equation}\label{discreteinfsupkernel}
+\inf_{u_h\in Z_h}\sup_{v_h\in Z_h}\frac{a(u_h, v_h)}{\|u_h\|_V\|v_h\|_V}=\inf_{v_h\in Z_h}\sup_{u_h\in Z_h}\frac{a(u_h, v_h)}{\|u_h\|_V\|v_h\|_V}=\alpha_h>0,
+\end{equation}
+\begin{equation}\label{discreteinfsup}
+\inf_{q_h\in P_h}\sup_{v_h\in V_h}\frac{b(v_h, q_h)}{\|v_h\|_V\|q_h\|_P}=\beta_h>0.
+\end{equation}
+
+\begin{theorem}
+If \eqref{acontinuous}-\eqref{bcontinuous}, \eqref{infsup}, \eqref{infsupkernel}, \eqref{discreteinfsupkernel} and \eqref{discreteinfsup} hold, then the discrete problem is well-posed and
+\[
+\|u-u_h\|_V+\|p-p_h\|_P\leq C\inf_{v_h\in V_h, q_h\in P_h}(\|u-v_h\|_V+\|p-q_h\|_P).
+\]
+\end{theorem}
+
+\begin{exe}
+%Assume Banach spaces $V$ and $P$ are reflexive.
+Let $U = V\times P$ and rewrite the mixed formulation using one bilinear form
+defined on $U$. Then use Babu\v{s}ka theory to prove the above theorem. Write explicitly how
+the constant $C$ depends on the constants in all inf-sup conditions.
+\end{exe}
+
+
+\subsection{Fortin operator}
+Note that the inf-sup condition \eqref{infsup} in the continuous level implies:
+for any $q_h\in P_h$, there exists $v \in V$ such that $b(v, q_h)\geq\beta\|v\|_V\|q_h\|_P$ and $\|v\|_V\leq C\|q_h\|_P$.
+For the discrete inf-sup condition, we need a $v_h\in V_h$ satisfying such property. One
+approach is to use the so-called Fortin operator \cite{Fortin1977} to get such a $v_h$ from $v$.
+
+\begin{defn}[Fortin operator]
+A linear operator $\Pi_h: V\to V_h$ is called a Fortin operator
+if
+\begin{enumerate}
+\item $b(\Pi_hv, q_h) = b(v, q_h)$ for all $q_h\in P_h$
+\item $\|\Pi_hv\|_V\leq C\|v\|_V$.
+\end{enumerate}
+\end{defn}
+
+\begin{theorem}
+Assume the inf-sup condition \eqref{infsup} holds and there exists a Fortin operator
+$\Pi_h$, then the discrete inf-sup condition \eqref{discreteinfsup} holds.
+\end{theorem}
+\begin{proof}
+By the inf-sup condition \eqref{infsup},
+\[
+\beta\leq \inf_{q_h\in P_h}\sup_{v\in V}\frac{b(v, q_h)}{\|v\|_V\|q_h\|_P}\leq C\inf_{q_h\in P_h}\sup_{v\in V}\frac{b(\Pi_hv, q_h)}{\|\Pi_hv\|_V\|q_h\|_P}\leq C\inf_{q_h\in P_h}\sup_{v_h\in V_h}\frac{b(v_h, q_h)}{\|v_h\|_V\|q_h\|_P}
+\]
+Thus the discrete inf-sup condition \eqref{discreteinfsup} holds with $\beta_h=\beta/C$.
+\end{proof}
+
+
+% \section{鞍点系统的 Inf-sup 条件：Zulehner 理论}
+\section{鞍点系统：Zulehner 理论}
+
+We refer to \cite{Zulehner2011} for details in this section.
+
+We shall consider an abstract mixed variational
+problem first. Let $V$ and $P$ be two Hilbert spaces. For given $(f, g)\in V'\times P'$, find
+$(u, p)\in V \times P$ such that
+\begin{align}
+a(u, v)+ b(v, p) & =f(v) \quad \forall~v\in V, \label{abstractmixed3}\\
+b(u, q)-c(p,q) & =g(q)  \quad \forall~q\in P,\label{abstractmixed4}
+\end{align}
+where $a$, $b$, and $c$ are bounded bilinear forms on $V\times V$ , $V\times P$, and $P\times P$, respectively.
+Assume in this section that $a$ and $c$ are symmetric, i.e.,
+\[
+a(w,v)=a(v,w)\quad\forall~w,v\in V,\quad c(p,q)=c(q,p)\quad\forall~p,q\in P,
+\]
+and $a$ and $c$ are nonnegative, i.e.,
+\[
+a(v,v)\geq0\quad\forall~v\in V, \quad c(q,q)\geq0\quad\forall~q\in P.
+\]
+Thus \eqref{abstractmixed3}-\eqref{abstractmixed4} is a symmetric and indefinite problem.
+
+The mixed variational problem \eqref{abstractmixed3}-\eqref{abstractmixed4} in $V$ and $P$ can also be written as a variational problem on the product space $X=V\times P$. Find $x=(u,p)\in X$ such that
+\begin{equation}\label{eq:BxyFy}
+\mathcal B(x, y) =\mathcal F(y) \quad\forall~y\in X
+\end{equation}
+with
+\[
+\mathcal B(x, y)=a(u,v)+b(v,p)+b(u,q)-c(p,q) ,\quad\mathcal F(y)=f(v)+g(q)
+\]
+for $y=(v,q)$.
+Since we have assumed that the bilinear forms $a$, $b$, and $c$ are bounded, there is a
+constant $\overline{C}$ such that
+\begin{equation}\label{eq:Bsupsup}
+\sup_{y\in X}\sup_{x\in X}\frac{\mathcal B(x, y)}{\|x\|_X\|y\|_X}\leq \overline{C}.
+\end{equation}
+By the Babu\v{s}ka theory, problem \eqref{eq:BxyFy} is well-posed if and only if there is a constant $\underline{C}>0$ such that
+\begin{equation}\label{eq:Binfsup}
+\inf_{y\in X}\sup_{x\in X}\frac{\mathcal B(x, y)}{\|x\|_X\|y\|_X}\geq \underline{C}.
+\end{equation}
+Then the following estimate holds
+\[
+\frac{1}{\overline{C}}\|\mathcal F\|_{X'}\leq \|x\|_X\leq \frac{1}{\underline{C}}\|\mathcal F\|_{X'}.
+\]
+
+Let us introduce linear operators
+\[
+A : V \to V',\quad \textrm{ as } \langle Au, v\rangle = a(u, v),
+\]
+\[
+B: V\to P', \quad B' : P \to V',\quad \textrm{ as } \langle Bv, q\rangle = \langle v, B'q\rangle = b(v, q).
+\]
+and
+\[
+C : P \to P',\quad \textrm{ as } \langle Cp, q\rangle = c(p, q).
+\]
+
+Written in the operator form, the problem becomes
+\begin{align}
+Au+ B'p & =f, \label{abstractmixedoperator3}\\
+Bu-Cp & =g, \label{abstractmixedoperator4}
+\end{align}
+or in short
+\begin{equation*}%\label{abstractmixedoperatormatrix}
+\begin{pmatrix}
+A &  B' \\
+B & -C
+\end{pmatrix}
+\begin{pmatrix}
+u \\ p
+\end{pmatrix}
+=
+\begin{pmatrix}
+f \\ g
+\end{pmatrix}.
+\end{equation*}
+In a similar way, we associate a linear operator $\mathcal A\in L(X, X')$ to the bilinear form $\mathcal B$, given by
+\[
+\langle\mathcal Ax, y\rangle = \mathcal B(x,y).
+\]
+Then problem \eqref{eq:BxyFy}, which is equivalent to \eqref{abstractmixed3}-\eqref{abstractmixed4}, reads
+\begin{equation}\label{eq:operatormathcalAF}
+\mathcal Ax=\mathcal F.
+\end{equation}
+In operator notation the conditions \eqref{eq:Bsupsup} and \eqref{eq:Binfsup} can be written in the
+following form
+\begin{equation}\label{eq:operatormathcalAsupinf}
+\underline{C}\|y\|_X\leq\|\mathcal A y\|_{X'}\leq \overline{C}\|y\|_X \quad \forall~y\in X.
+\end{equation}
+
+\begin{lemma}\label{lem:zulehnerrhs}
+Let $f\in V'$ and $g\in P'$. Let $\mathcal F\in X'$ be given by $\mathcal F(v, q)=f(v)+g(q)$. Then
+\[
+\|\mathcal F\|_{X'}^2=\|f\|_{V'}^2+\|g\|_{P'}^2.
+\]
+\end{lemma}
+\begin{proof}
+It holds
+\begin{align*}
+\|\mathcal F\|_{X'}^2&=\sup_{(v,q)\in X}\frac{(f(v)+g(q))^2}{\|(v,q)\|_X^2}=\sup_{(v,q)\in X}\frac{(f(v)+g(q))^2}{\|v\|_V^2+\|q\|_P^2} \\
+&\leq\sup_{(v,q)\in X}\frac{(\|f\|_{V'}\|v\|_{V}+\|g\|_{P'}\|q\|_{P})^2}{\|v\|_V^2+\|q\|_P^2}\leq \|f\|_{V'}^2+\|g\|_{P'}^2.
+\end{align*}
+Since both $V$ and $P$ are Hilbert spaces, by the Riesz-isomorphism, there exist $w\in V$ and $p\in P$ such that
+\[
+f(v)=(w, v)_V \quad \forall~v\in V, \quad  \|f\|_{V'}=\|w\|_{V}, 
+\]
+\[
+g(q)=(p, q)_P \quad \forall~q\in P, \quad \|g\|_{P'}=\|p\|_{P}.
+\]
+Hence
+\[
+\frac{(f(w)+g(p))^2}{\|w\|_V^2+\|p\|_P^2} = \|w\|_{V}^2+\|p\|_{P}^2=\|f\|_{V'}^2+\|g\|_{P'}^2.
+\]
+This end the proof.
+\end{proof}
+
+As a consequence of an estimate of the form \eqref{eq:operatormathcalAsupinf} in $X$ we obtain two simple estimates, one in $V$ and one in $P$.
+\begin{theorem}
+If \eqref{eq:operatormathcalAsupinf} holds for constants $\underline{C}, \overline{C}>0$, then
+\begin{equation}\label{eq:zulehnerinfsup1}
+\underline{C}^2\|v\|_V^2\leq \|Av\|_{V'}^2 + \|Bv\|_{P'}^2 \leq \overline{C}^2\|v\|_V^2\quad \forall~v\in V,
+\end{equation}
+\begin{equation}\label{eq:zulehnerinfsup2}
+\underline{C}^2\|q\|_P^2\leq \|Cq\|_{P'}^2 + \|B'q\|_{V'}^2 \leq \overline{C}^2\|q\|_P^2\quad \forall~q\in P.
+\end{equation}
+\end{theorem}
+\begin{proof}
+For $y=(v, q)$, we have
+\[
+\|\mathcal Ay\|_{X'}=\sup_{(w,r)\in X}\frac{\mathcal B((v,q), (w,r))}{\|(w,r)\|_{X}}
+=\sup_{(w,r)\in X}\frac{a(v,w)+b(w,q)+b(v,r)-c(q,r)}{\|(w,r)\|_{X}}.
+\]
+Since
+\[
+a(v,w)+b(w,q)=\langle Av+B'q , w\rangle, \quad b(v,r)-c(q,r)=\langle Bv-Cq, r\rangle,
+\]
+we obtain from Lemma~\ref{lem:zulehnerrhs} that
+\[
+\|\mathcal Ay\|_{X'}^2 = \|Av+B'q\|_{V'}^2 + \|Bv-Cq\|_{P'}^2.
+\]
+Then the estimates \eqref{eq:zulehnerinfsup1} and \eqref{eq:zulehnerinfsup2} immediately follow from \eqref{eq:operatormathcalAsupinf} for $q=0$ and for $v=0$, respectively.
+\end{proof}
+
+So, \eqref{eq:zulehnerinfsup1} and \eqref{eq:zulehnerinfsup2} are necessary conditions for \eqref{eq:operatormathcalAsupinf}. Next we will show that \eqref{eq:zulehnerinfsup1} and \eqref{eq:zulehnerinfsup2}, not necessarily with the same constants, are also sufficient.
+
+\begin{theorem}
+If there are constants $\underline{C}_v, \overline{C}_v, \underline{C}_p, \overline{C}_p>0$ such that
+\begin{equation*}
+\underline{C}_v^2\|v\|_V^2\leq \|Av\|_{V'}^2 + \|Bv\|_{P'}^2 \leq \overline{C}_v^2\|v\|_V^2\quad \forall~v\in V,
+\end{equation*}
+\begin{equation*}
+\underline{C}_p^2\|q\|_P^2\leq \|Cq\|_{P'}^2 + \|B'q\|_{V'}^2 \leq \overline{C}_p^2\|q\|_P^2\quad \forall~q\in P,
+\end{equation*}
+then there are constants $\underline{C}, \overline{C}>0$ such that
+\[
+\underline{C}\|y\|_X\leq\|\mathcal A y\|_{X'}\leq \overline{C}\|y\|_X \quad \forall~y\in X,
+\]
+where $\underline{C}$ and $\overline{C}>0$ depend only on $\underline{C}_v$, $\overline{C}_v$, $\underline{C}_p$ and $\overline{C}_p$.
+\end{theorem}
+\begin{proof}
+For $y=(v, q)$, we have
+\begin{align*}
+\|\mathcal Ay\|_{X'}^2  & = \|Av+B'q\|_{V'}^2 + \|Bv-Cq\|_{P'}^2 \leq 2(\|Av\|_{V'}^2 + \|B'q\|_{V'}^2 + \|Bv\|_{P'}^2 + \|Cq\|_{P'}^2) \\
+&\leq 2(\overline{C}_v^2\|v\|_V^2 + \overline{C}_p^2\|q\|_P^2)\leq 2\max\{\overline{C}_v^2, \overline{C}_p^2\}\|y\|_X^2,
+\end{align*}
+which proves the upper bound in \eqref{eq:operatormathcalAsupinf} with $\overline{C}^2=2\max\{\overline{C}_v^2, \overline{C}_p^2\}$.
+
+For showing a lower bound, we start with the following estimate based on the triangle inequality in $X'$
+\begin{align*}
+\|\mathcal Ay\|_{X'}  & = \left(\|Av+B'q\|_{V'}^2 + \|Bv-Cq\|_{P'}^2\right)^{1/2} \geq \left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} - \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2} \\
+&=\frac{\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right) - \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)}{\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} + \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2}}
+\end{align*}
+for $y=(v, q)$.
+A second lower bound follows from
+\[
+\|\mathcal Ay\|_{X'}=\sup_{(w,r)\in X}\frac{\mathcal B((v,q), (w,r))}{\|(w,r)\|_{X}}\geq \frac{\mathcal B((v,q), (v,-q))}{\|(v,-q)\|_{X}} = \frac{a(v,v)+c(q, q)}{\|y\|_{X}}.
+\]
+Since
+\[
+a(v,w)^2\leq a(v,v)a(w,w)\leq a(v,v)\|Aw\|_{V'}\|w\|_{V}\leq\overline{C}_va(v,v)\|w\|_{V}^2,
+\]
+we have
+\[
+\|Av\|_{V'}^2=\sup_{w\in V}\frac{a(v,w)^2}{\|w\|_V^2}\leq\overline{C}_va(v,v).
+\]
+Analogously, we obtain
+\[
+\|Cq\|_{P'}^2\leq\overline{C}_pc(q,q).
+\]
+Hence
+\begin{align*}
+a(v,v) + c(q,q)  & \geq \frac{1}{\overline{C}_v}\|Av\|_{V'}^2 + \frac{1}{\overline{C}_p}\|Cq\|_{P'}^2\geq \frac{1}{\max\{\overline{C}_v, \overline{C}_p\}}(\|Av\|_{V'}^2+\|Cq\|_{P'}^2).
+\end{align*}
+With this estimate and
+\begin{align*}
+\|y\|_X&\leq\frac{1}{\min\{\underline{C}_v,\underline{C}_p\}}\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2+\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2} \\
+&\leq\frac{1}{\min\{\underline{C}_v,\underline{C}_p\}}\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} + \frac{1}{\min\{\underline{C}_v,\underline{C}_p\}}\left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2},
+\end{align*}
+we obtain for the second lower bound
+\[
+\|\mathcal Ay\|_{X'}\geq \frac{\min\{\underline{C}_v,\underline{C}_p\}}{\max\{\overline{C}_v, \overline{C}_p\}}\frac{\|Av\|_{V'}^2+\|Cq\|_{P'}^2}{\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} + \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2}}.
+\]
+Taking a weighted sum of the two lower bounds we immediately obtain
+\begin{align*}
+\|\mathcal Ay\|_{X'}&=\frac{\min\{\underline{C}_v,\underline{C}_p\}}{\min\{\underline{C}_v,\underline{C}_p\}+2\max\{\overline{C}_v, \overline{C}_p\}}\|\mathcal Ay\|_{X'}+\frac{2\max\{\overline{C}_v, \overline{C}_p\}}{\min\{\underline{C}_v,\underline{C}_p\}+2\max\{\overline{C}_v, \overline{C}_p\}}\|\mathcal Ay\|_{X'} \\
+&\geq\frac{\min\{\underline{C}_v,\underline{C}_p\}}{\min\{\underline{C}_v,\underline{C}_p\}+2\max\{\overline{C}_v, \overline{C}_p\}}\frac{\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2 + \|Av\|_{V'}^2 + \|Cq\|_{P'}^2}{\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} + \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2}} \\
+&\geq\frac{\min\{\underline{C}_v,\underline{C}_p\}}{\sqrt{2}\min\{\underline{C}_v,\underline{C}_p\}+2\sqrt{2}\max\{\overline{C}_v, \overline{C}_p\}}\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2 + \|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2}.
+\end{align*}
+Hence
+\begin{align*}
+\|\mathcal Ay\|_{X'}&\geq \frac{\min\{\underline{C}_v,\underline{C}_p\}}{\sqrt{2}\min\{\underline{C}_v,\underline{C}_p\}+2\sqrt{2}\max\{\overline{C}_v, \overline{C}_p\}}\left(\underline{C}_v^2\|v\|_V^2+\underline{C}_p^2\|q\|_P^2\right)^{1/2}\\
+&\geq \frac{\left(\min\{\underline{C}_v,\underline{C}_p\}\right)^2}{\sqrt{2}\min\{\underline{C}_v,\underline{C}_p\}+2\sqrt{2}\max\{\overline{C}_v, \overline{C}_p\}}\|y\|_X,
+\end{align*}
+which concludes the proof by choosing $\underline{C}=\dfrac{\left(\min\{\underline{C}_v,\underline{C}_p\}\right)^2}{\sqrt{2}\min\{\underline{C}_v,\underline{C}_p\}+2\sqrt{2}\max\{\overline{C}_v, \overline{C}_p\}}$.
+\end{proof}
+% \begin{proof}
+% For $y=(v, q)$, we have
+% \begin{align*}
+% \|\mathcal Ay\|_{X'}^2  & = \|Av+B'q\|_{V'}^2 + \|Bv-Cq\|_{P'}^2 \leq 2(\|Av\|_{V'}^2 + \|B'q\|_{V'}^2 + \|Bv\|_{P'}^2 + \|Cq\|_{P'}^2) \\
+% &\leq 2(\overline{C}_v^2\|v\|_V^2 + \overline{C}_p^2\|q\|_P^2)\leq 2\max\{\overline{C}_v^2, \overline{C}_p^2\}\|y\|_X^2,
+% \end{align*}
+% which proves the upper bound in \eqref{eq:operatormathcalAsupinf} with $\overline{C}^2=2\max\{\overline{C}_v^2, \overline{C}_p^2\}$.
+
+% For showing a lower bound, we start with the following estimate based on the triangle inequality in $X'$
+% \begin{align*}
+% \|\mathcal Ay\|_{X'}  & = \left(\|Av+B'q\|_{V'}^2 + \|Bv-Cq\|_{P'}^2\right)^{1/2} \geq \left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2} - \left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2} \\
+% &=(\eta-\xi)\|y\|_{X}
+% \end{align*}
+% for $y=(v, q)$ with
+% \[
+% \xi=\frac{\left(\|Av\|_{V'}^2 + \|Cq\|_{P'}^2\right)^{1/2}}{\|(v, q)\|_{X}}, \quad \eta=\frac{\left(\|B'q\|_{V'}^2 + \|Bv\|_{P'}^2\right)^{1/2}}{\|(v, q)\|_{X}}.
+% \]
+% A second lower bound follows from
+% \[
+% \|\mathcal Ay\|_{X'}=\sup_{(w,r)\in X}\frac{\mathcal B((v,q), (w,r))}{\|(w,r)\|_{X}}\geq \frac{\mathcal B((v,q), (v,-q))}{\|(v,-q)\|_{X}} = \frac{a(v,v)+c(q, q)}{\|y\|_{X}}.
+% \]
+% Since
+% \[
+% a(v,w)^2\leq a(v,v)a(w,w)\leq a(v,v)\|Aw\|_{V'}\|w\|_{V}\leq\overline{C}_va(v,v)\|w\|_{V}^2,
+% \]
+% we have
+% \[
+% \|Av\|_{V'}^2=\sup_{w\in V}\frac{a(v,w)^2}{\|w\|_V^2}\leq\overline{C}_va(v,v).
+% \]
+% Analogously, we obtain
+% \[
+% \|Cq\|_{P'}^2\leq\overline{C}_pc(q,q).
+% \]
+% Hence
+% \begin{align*}
+% a(v,v) + c(q,q)  & \geq \frac{1}{\overline{C}_v}\|Av\|_{V'}^2 + \frac{1}{\overline{C}_p}\|Cq\|_{P'}^2\geq \frac{1}{\max\{\overline{C}_v, \overline{C}_p\}}(\|Av\|_{V'}^2+\|Cq\|_{P'}^2)=\frac{\sqrt{2}}{\overline{C}}\xi^2\|(v,q)\|_X^2.
+% \end{align*}
+% With this estimate we obtain for the second lower bound
+% \[
+% \|\mathcal Ay\|_{X'}\geq \frac{\sqrt{2}}{\overline{C}}\xi^2\|y\|_X.
+% \]
+% Taking the maximum of the two lower bounds we immediately obtain
+% \[
+% \|\mathcal Ay\|_{X'}\geq \varphi(\xi, \eta)\|y\|_X \quad\textrm{ with } \varphi(\xi, \eta)=\max\left\{\eta-\xi, \frac{\sqrt{2}}{\overline{C}}\xi^2\right\}.
+% \]
+% Observe that
+% \[
+% 0<\min\{\underline{C}_v^2,\underline{C}_p^2\}\leq \xi^2+\eta^2\leq \max\{\overline{C}_v^2,\overline{C}_p^2\}.
+% \]
+% Let
+% \[
+% \underline{C}=\min\{\varphi(\xi, \eta):  \xi^2+\eta^2\geq \min\{\underline{C}_v^2,\underline{C}_p^2\}, \xi, \eta\geq0\}.
+% \]
+% Since $\underline{C}$ is achieved when $\eta-\xi=\frac{\sqrt{2}}{\overline{C}}\xi^2$ and $\xi^2+\eta^2=\min\{\underline{C}_v^2,\underline{C}_p^2\}$, we have $\underline{C}>0$,
+% %Elementary calculations show that (why?)
+% %\[
+% %\min\{\varphi(\xi, \eta):  \xi^2+\eta^2\geq \min\{\underline{C}_v^2,\underline{C}_p^2\}, \xi, \eta\geq0\}\geq\frac{3-\sqrt{5}}{2\sqrt{2}}\frac{\min\{\underline{C}_v^2,\underline{C}_p^2\}}{\overline{C}}=\underline{C},
+% %\]
+% which concludes the proof.
+% \end{proof}
+
+In the following two lemmas it will be shown that conditions \eqref{eq:zulehnerinfsup1} and \eqref{eq:zulehnerinfsup2} of the
+last theorem can be replaced by two other conditions which will turn out to be easier to work with.
+
+\begin{lemma}
+If there are constants $\underline{\gamma}_v, \overline{\gamma}_v>0$ such that
+\begin{equation}\label{eq:zulehnerinfsup3}
+\underline{\gamma}_v\|v\|_V^2\leq a(v,v)+\|Bv\|_{P'}^2\leq\overline{\gamma}_v\|v\|_V^2\quad\forall~v\in V,
+\end{equation}
+then \eqref{eq:zulehnerinfsup1} is satisfied with constants $\underline{C}_v, \overline{C}_v>0$ that depend only on $\underline{\gamma}_v, \overline{\gamma}_v$.
+
+And, vice versa, if there are constants $\underline{C}_v, \overline{C}_v>0$ such that \eqref{eq:zulehnerinfsup1} is satisfied, then \eqref{eq:zulehnerinfsup3} is satisfied with constants $\underline{\gamma}_v, \overline{\gamma}_v>0$ that depend only on $\underline{C}_v, \overline{C}_v$.
+\end{lemma}
+\begin{proof}
+Assume that \eqref{eq:zulehnerinfsup3} is satisfied. Then we have
+\[
+a(v,w)^2\leq a(v,v)a(w,w)\leq \overline{\gamma}_va(v,v)\|w\|_V^2,
+\]
+which imples
+\[
+\|Av\|_{V'}^2\leq \overline{\gamma}_va(v,v).
+\]
+Therefore
+\[
+\|Av\|_{V'}^2 + \|Bv\|_{P'}^2\leq \overline{\gamma}_va(v,v)+\|Bv\|_{P'}^2\leq \max\{\overline{\gamma}_v, 1\}(a(v,v)+\|Bv\|_{P'}^2)\leq \max\{\overline{\gamma}_v, 1\}\overline{\gamma}_v\|v\|_{V}^2.
+\]
+This shows the upper bound in \eqref{eq:zulehnerinfsup1} for $\overline{C}_v^2=\max\{\overline{\gamma}_v, 1\}\overline{\gamma}_v$. 
+
+For the lower bound observe that, for all $\varepsilon>0$,
+\begin{equation}\label{eq:20200920-1}
+a(v,v)\leq\|Av\|_{V'}\|v\|_V\leq\frac{1}{2\varepsilon}\|Av\|_{V'}^2 + \frac{\varepsilon}{2}\|v\|_V^2,
+\end{equation}
+which imples
+\[
+\underline{\gamma}_v\|v\|_V^2\leq a(v,v)+\|Bv\|_{P'}^2\leq\frac{1}{2\varepsilon}\|Av\|_{V'}^2 + \frac{\varepsilon}{2}\|v\|_V^2+\|Bv\|_{P'}^2,
+\]
+and, therefore,
+\[
+\left(\underline{\gamma}_v-\frac{\varepsilon}{2}\right)\|v\|_V^2 \leq \frac{1}{2\varepsilon}\|Av\|_{V'}^2 + \|Bv\|_{P'}^2 \leq \max\{\frac{1}{2\varepsilon},1\}(\|Av\|_{V'}^2 + \|Bv\|_{P'}^2).
+\]
+For $\varepsilon=\underline{\gamma}_v$, we obtain the lower bound in \eqref{eq:zulehnerinfsup1}  with $\underline{C}_v=\min\{\underline{\gamma}_v,1/2\}\underline{\gamma}_v$.
+
+Now assume that \eqref{eq:zulehnerinfsup1} is satisfied. Then we have (see the proof of the last theorem)
+\[
+\|Av\|_{V'}^2\leq\overline{C}_va(v,v),
+\]
+and, therefore,
+\[
+a(v,v)+\|Bv\|_{P'}^2\geq\overline{C}_v^{-1}\|Av\|_{V'}^2+\|Bv\|_{P'}^2\geq \min\{1, \overline{C}_v^{-1}\}(\|Av\|_{V'}^2+\|Bv\|_{P'}^2)\geq \min\{1, \overline{C}_v^{-1}\}\underline{C}_v^2\|v\|_{V}^2,
+\]
+showing the lower bound in \eqref{eq:zulehnerinfsup3} for $\underline{\gamma}_v=\min\{1, \overline{C}_v^{-1}\}\underline{C}_v^2$.
+
+For the upper bound we use \eqref{eq:20200920-1} for $\varepsilon=1/2$ and obtain
+\[
+a(v, v)+\|Bv\|_{P'}^2\leq \|Av\|_{V'}^2+\frac{1}{4}\|v\|_V^2+\|Bv\|_{P'}^2\leq \left(\overline{C}_v^2+\frac{1}{4}\right)\|v\|_V^2.
+\]
+So, the upper bound in \eqref{eq:20200920-1} is satisfied for $\overline{\gamma}_v=\overline{C}_v^2+1/4$.
+\end{proof}
+
+Completely analogously, we have the following lemma.
+\begin{lemma}
+If there are constants $\underline{\gamma}_p, \overline{\gamma}_p>0$ such that
+\begin{equation}\label{eq:zulehnerinfsup4}
+\underline{\gamma}_p\|q\|_P^2\leq c(q,q)+\|B'q\|_{V'}^2\leq\overline{\gamma}_p\|q\|_P^2\quad\forall~q\in P,
+\end{equation}
+then \eqref{eq:zulehnerinfsup2} is satisfied with constants $\underline{C}_p, \overline{C}_p>0$ that depend only on $\underline{\gamma}_p, \overline{\gamma}_p$.
+
+And, vice versa, if there are constants $\underline{C}_p, \overline{C}_p>0$ such that \eqref{eq:zulehnerinfsup2} is satisfied, then \eqref{eq:zulehnerinfsup4} is satisfied with constants $\underline{\gamma}_p, \overline{\gamma}_p>0$ that depend only on $\underline{C}_p, \overline{C}_p$.
+\end{lemma}
+
+By summarizing the results of the last two theorems and lemmas we finally obtain the following theorem.
+\begin{theorem}
+If there are constants $\underline{\gamma}_v, \overline{\gamma}_v, \underline{\gamma}_p, \overline{\gamma}_p>0$ such that 
+\begin{equation}\label{eq:zulehnerinfsup5}
+\underline{\gamma}_v\|v\|_V^2\leq a(v,v)+\|Bv\|_{P'}^2\leq\overline{\gamma}_v\|v\|_V^2\quad\forall~v\in V,
+\end{equation}
+\begin{equation}\label{eq:zulehnerinfsup6}
+\underline{\gamma}_p\|q\|_P^2\leq c(q,q)+\|B'q\|_{V'}^2\leq\overline{\gamma}_p\|q\|_P^2\quad\forall~q\in P,
+\end{equation}
+then
+\begin{equation}\label{eq:zulehnerinfsup7}
+\underline{C}\|y\|_X\leq \|\mathcal A y\|_{X'}\leq\overline{C}\|y\|_X^2\quad\forall~y\in X
+\end{equation}
+is satisfied with constants $\underline{C}, \overline{C} > 0$ that depend only on $\underline{\gamma}_v, \overline{\gamma}_v, \underline{\gamma}_p, \overline{\gamma}_p$. And, vice versa, if
+the estimates \eqref{eq:zulehnerinfsup7} are satisfied with constants $\underline{C}, \overline{C} > 0$, then the estimates \eqref{eq:zulehnerinfsup5} and \eqref{eq:zulehnerinfsup6} are satisfied with constants
+$\underline{\gamma}_v, \overline{\gamma}_v, \underline{\gamma}_p, \overline{\gamma}_p>0$ that depend only on $\underline{C}, \overline{C}$.
+\end{theorem}
+
+\begin{remark}
+In the case $C=0$ (i.e., $c(q,q)\equiv0$), the lower estimate in condition \eqref{eq:zulehnerinfsup6} has the special form
+\begin{equation}\label{eq:zulehnerinfsup4reduce}
+\underline{\gamma}_p\|q\|_P^2\leq \|B'q\|_{V'}^2\quad\forall~q\in P.
+\end{equation}
+From the lower estimate in \eqref{eq:zulehnerinfsup5} it immediately follows that
+\begin{equation}\label{eq:zulehnerinfsup3reduce}
+\underline{\gamma}_v\|v\|_V^2\leq a(v,v)\quad\forall~v\in \ker B=\{v\in V: Bv=0\}.
+\end{equation}
+On the other hand, from \eqref{eq:zulehnerinfsup4reduce} and \eqref{eq:zulehnerinfsup3reduce} the lower estimate in \eqref{eq:zulehnerinfsup5} easily follows, using
+the fact that \eqref{eq:zulehnerinfsup4reduce} implies
+\[
+\underline{\gamma}_p\|v\|_V^2\leq \|Bv\|_{P'}^2\quad\forall~v\in (\ker B)^{\perp},
+\]
+where $ (\ker B)^{\perp}$ denotes the orthogonal complement of $\ker B$. 
+So we have recovered a classical result by Brezzi \cite{Brezzi1974,BoffiBrezziFortin2013}. Let $a$ and $b$ be bounded bilinear forms and $c\equiv0$. Then problem \eqref{eq:BxyFy} is well posed if and only if $a$ is coercive on $\ker B$ (see \eqref{eq:zulehnerinfsup3reduce}) and the inf-sup condition for $b$ is satisfied (see \eqref{eq:zulehnerinfsup4reduce}).
+\end{remark}
+
+
+

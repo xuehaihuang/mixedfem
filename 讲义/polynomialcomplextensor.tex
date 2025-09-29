@@ -1,0 +1,1596 @@
+% !TEX root = femtensorlecture.tex
+\chapter{Polynomial Complexes for Tensors}
+
+
+
+\section{Vector and tensor operations}
+In this section, we shall survey the notation system for operations for vectors and tensors used in the solid mechanic~\cite{Kelly:Mechanics}. In particular, we shall distinguish operators applied to columns and rows of a matrix. The presentation here follows our recent work~\cite{Chen;Huang:2020Finite,Chen;Huang:2021Finite}. 
+
+\subsection{Matrix-vector products}
+The matrix-vector product $\boldsymbol A\boldsymbol b$ can be interpreted as the inner product of $\boldsymbol b$ with the row vectors of $\boldsymbol A$. We thus define the dot operator
+$\boldsymbol A\cdot \boldsymbol b := \boldsymbol A \boldsymbol b.$ Similarly we can define the row-wise cross product from the right $\boldsymbol A\times \boldsymbol b$. 
+Here rigorously speaking when a column vector $\boldsymbol b$ is treated as a row vector, notation $\boldsymbol b^{\intercal}$ should be used. In most places, however, we will sacrifice this precision for the ease of notation. When the vector is on the left of the matrix, the operation is defined column-wise. For example, $\boldsymbol b \cdot \boldsymbol A : = \boldsymbol b^{\intercal}\boldsymbol A$. For dot products, we will still mainly use the conventional notation, e.g. $\boldsymbol b\cdot \boldsymbol A\cdot \boldsymbol c = \boldsymbol b^{\intercal} \boldsymbol A\boldsymbol c$. But for the cross products, we emphasize again the cross product of a vector from the left is column-wise and from the right is row-wise. The transpose rule still works, i.e. $\boldsymbol b\times \boldsymbol A = -(\boldsymbol A^{\intercal}\times \boldsymbol b )^{\intercal}$. Here again, we mix the usage of column vector $\boldsymbol b$ and row vector $\boldsymbol b^{\intercal}$. 
+
+%Let $\boldsymbol a_i,\boldsymbol a^i$ be the row and column vectors of $\boldsymbol A$, respectively.
+%$$
+%\boldsymbol b\times \boldsymbol A := \begin{pmatrix}
+%\boldsymbol b \times \boldsymbol a_1\\
+%\boldsymbol b \times \boldsymbol a_2\\
+%\boldsymbol b \times \boldsymbol a_3
+%\end{pmatrix}.
+%$$
+%
+%That is
+%\begin{align*}
+%\boldsymbol b\cdot \boldsymbol A &:= \boldsymbol b^{\intercal}\boldsymbol A = (\boldsymbol A^{\intercal}\boldsymbol b)^{\intercal} = (\boldsymbol A^{\intercal}\cdot \boldsymbol b)^{\intercal},\\
+%\boldsymbol b\times \boldsymbol A &:=
+%% \begin{pmatrix}
+%%\boldsymbol a^1 \times \boldsymbol b, \;
+%%\boldsymbol a^2 \times \boldsymbol b, \;
+%%\boldsymbol a^3 \times \boldsymbol b
+%%\end{pmatrix} = 
+%-(\boldsymbol A^{\intercal}\times \boldsymbol b )^{\intercal}.
+%\end{align*}
+%By moving the row operation to the right, it is consistent with the transpose operator. For the transpose of product of two objects, we take transpose of each one, switch their order, and add a negative sign if it is the cross product. 
+
+The ordering of performing the row and column products does not matter which leads to the associative rule of the triple products
+$$
+\boldsymbol b\times \boldsymbol A\times \boldsymbol c := (\boldsymbol b\times \boldsymbol A)\times \boldsymbol c = \boldsymbol b\times (\boldsymbol A\times \boldsymbol c).
+$$
+Similar rules hold for $\boldsymbol b\cdot \boldsymbol A\cdot \boldsymbol c$ and $\boldsymbol b\cdot \boldsymbol A\times \boldsymbol c$ and thus parentheses can be safely skipped when no differentiation is involved. 
+
+For two column vectors $\boldsymbol u, \boldsymbol v$, the tensor product $\boldsymbol u\otimes \boldsymbol v := \boldsymbol u\boldsymbol v^{\intercal}$ is a matrix which is also known as the dyadic product $\boldsymbol u\boldsymbol v: = \boldsymbol u\boldsymbol v^{\intercal}$ with more clean notation (one $^{\intercal}$ is skipped). The row-wise product and column-wise product with another vector will be applied to the neighboring vector:
+\begin{align}
+\label{eq:xuv}
+\boldsymbol x\cdot (\boldsymbol u\boldsymbol v) = (\boldsymbol x\cdot \boldsymbol u) \boldsymbol v^{\intercal}, \quad (\boldsymbol u\boldsymbol v)\cdot \boldsymbol x = \boldsymbol u (\boldsymbol v\cdot \boldsymbol x), \\
+\label{eq:xtimesuv}
+\boldsymbol x\times (\boldsymbol u\boldsymbol v) = (\boldsymbol x\times \boldsymbol u) \boldsymbol v, \quad (\boldsymbol u\boldsymbol v)\times \boldsymbol x = \boldsymbol u (\boldsymbol v\times \boldsymbol x).
+\end{align}
+
+
+\subsection{Differentiation}
+
+We treat Hamilton operator $\nabla = (\partial_1, \partial_2, \partial_3)^{\intercal}$ as a column vector. 
+For a vector function $\boldsymbol  u = (u_1, u_2, u_3)^{\intercal}$, $\curl \boldsymbol  u= \nabla \times \boldsymbol  u$, and $\div \boldsymbol  u = \nabla \cdot \boldsymbol  u$ are standard differential operations. Define $\nabla \boldsymbol  u = \nabla \boldsymbol  u^{\intercal} = (\partial_i u_j)$ which can be understood as the dyadic product of Hamilton operator $\nabla$ and column vector $\boldsymbol  u$.  
+
+
+Apply these matrix-vector operations to the Hamilton operator $\nabla$, we get column-wise differentiation $\nabla \cdot \boldsymbol  A, \nabla \times \boldsymbol  A,$
+and row-wise differentiation
+$\boldsymbol  A\cdot \nabla, \boldsymbol  A\times \nabla.$ Conventionally, the differentiation is applied to the function after the $\nabla$ symbol. So a more conventional notation is
+\begin{align*}
+\boldsymbol  A\cdot \nabla  : = (\nabla \cdot \boldsymbol  A^{\intercal})^{\intercal}, \quad \boldsymbol  A\times \nabla : = - (\nabla \times \boldsymbol  A^{\intercal})^{\intercal}.
+\end{align*}
+By moving the differential operator to the right, the notation is simplified and the transpose rule for matrix-vector products can be formally used. Again the right most column vector is treated as a row vector to make the notation more clean. We introduce the double differential operators as
+\begin{equation*}%\label{eq:twosides}
+\inc \boldsymbol  A : = \nabla \times \boldsymbol  A \times \nabla, \quad \div\div\boldsymbol  A := \nabla\cdot \boldsymbol  A\cdot \nabla.
+\end{equation*}
+As the column and row operations are independent, and no chain rule is needed, the ordering of operations is not important and parentheses is skipped. Parentheses will be added when it is necessary. 
+
+In the literature, differential operators are usually applied row-wisely to tensors. To distinguish with $\nabla$ notation, we define operators in letters as
+\begin{align*}
+\grad \boldsymbol  u &:= \boldsymbol  u \nabla^{\intercal} = (\partial_j u_i ) = (\nabla \boldsymbol  u)^{\intercal},\\
+\curl \boldsymbol  A &: = - \boldsymbol  A\times \nabla = (\nabla \times \boldsymbol  A^{\intercal})^{\intercal},\\
+\div \boldsymbol  A &: = \boldsymbol  A\cdot \nabla = (\nabla \cdot \boldsymbol  A^{\intercal})^{\intercal}.
+\end{align*}
+Note that the transpose operator $^{\intercal}$ is involved for tensors and in particular $\grad \boldsymbol  u \neq \nabla \boldsymbol  u$, $\curl \boldsymbol  A\neq \nabla \times \boldsymbol  A$, $\curl \boldsymbol  A\neq \boldsymbol  A\times \nabla$ and $\div \boldsymbol  A\neq \nabla \cdot \boldsymbol  A$. 
+For symmetric tensors, $\div \boldsymbol  A = \boldsymbol  A\cdot \nabla,$ $\curl \boldsymbol  A = - \boldsymbol  A \times \nabla$. 
+
+%\LC{Then by definition $\nabla \times \boldsymbol  A^{\intercal} \times \nabla = - \curl (\curl \boldsymbol  A)^{\intercal}$. There is a sign difference.}
+
+
+Integration by parts can be applied to row-wise differentiations as well as column-wise ones. For example, we shall frequently use
+\begin{align*}
+(\nabla \times \boldsymbol  \tau, \boldsymbol  \sigma)_K &= (\boldsymbol  \tau, \nabla \times \boldsymbol  \sigma)_{K} + (\boldsymbol  n\times \boldsymbol  \tau, \boldsymbol  \sigma)_{\partial K},\\
+(\boldsymbol  \tau \times \nabla, \boldsymbol  \sigma)_K &= (\boldsymbol  \tau, \boldsymbol  \sigma \times \nabla)_{K} + (\boldsymbol  \tau \times \boldsymbol  n, \boldsymbol  \sigma)_{\partial K}.
+\end{align*}
+Similar formulae hold for $\grad, \curl, \div$ operators. Be careful on the possible sign and transpose when letter differential operators and $\nabla$ operators are mixed together. Chain rules are also better used in the same category of differential operations (row-wise, column-wise or letter operators). 
+
+
+\subsection{Matrix decompositions}
+Denote the space of all  $3\times3$ matrix by $\mathbb{M}$, all symmetric $3\times3$ matrix by $\mathbb{S}$ and all skew-symmetric $3\times3$ matrix by $\mathbb{K}$. 
+%and all trace-free $3\times3$ matrix by $\mathbb{T}$. 
+For any matrix $\boldsymbol  B\in \mathbb M$, we can decompose it into symmetric and skew-symmetric part as
+$$
+\boldsymbol  B = {\rm sym}(\boldsymbol  B) + {\rm skw}(\boldsymbol  B):= \frac{1}{2}(\boldsymbol  B + \boldsymbol  B^{\intercal}) + \frac{1}{2}(\boldsymbol  B - \boldsymbol  B^{\intercal}).
+$$
+We can also decompose it into a direct sum of a trace free matrix and a diagonal matrix as
+\begin{equation}\label{eq:devtr}
+\boldsymbol B = {\rm dev} \boldsymbol B + \frac{1}{3}\tr(\boldsymbol B)\boldsymbol I := (\boldsymbol B - \frac{1}{3}\tr(\boldsymbol B)\boldsymbol I) + \frac{1}{3}\tr(\boldsymbol B)\boldsymbol I.
+\end{equation}
+The symmetric gradient of a vector function $\bs u$ is defined as
+$$
+\defm \boldsymbol  u := \sym \nabla \boldsymbol  u = \frac{1}{2}(\nabla \boldsymbol  u + (\nabla \boldsymbol  u)^{\intercal}) = \frac{1}{2}(\boldsymbol  u\nabla + \nabla \boldsymbol  u) .
+$$
+In the last identity, the dyadic product is used to emphasize the symmetry in notation. In the context of elasticity, it is commonly denoted by $\varepsilon (\bs u)$.
+Define the $\sym\curl$ operator for a matrix $\boldsymbol A$
+$$
+\sym\curl \boldsymbol A := \frac{1}{2}( \nabla \times \boldsymbol A^{\intercal} + (\nabla \times \boldsymbol A^{\intercal})^{\intercal}) = \frac{1}{2}( \nabla \times \boldsymbol A^{\intercal} - \boldsymbol A\times\nabla ).
+$$
+
+We define an isomorphism of $\mathbb R^3$ and the space of skew-symmetric matrices $\mathbb K$ as follows: for a vector $\boldsymbol  \omega =
+( \omega_1, \omega_2, \omega_3)^{\intercal}
+\in \mathbb R^3,$
+\begin{equation*}%\label{eq:mskw}
+\mskw \boldsymbol  \omega :=  
+\begin{pmatrix}
+ 0 & -\omega_3 & \omega_2 \\
+\omega_3 & 0 & - \omega_1\\
+-\omega_2 & \omega_1 & 0
+\end{pmatrix}. %=-\omega\times\boldsymbol I
+\end{equation*}
+Obviously $\mskw: \mathbb R^3 \to \mathbb K$ is a bijection. We define $\vskw: \mathbb M\to \mathbb R^3$ by $\vskw := \mskw^{-1}\circ \skw$. Using these notation, we have the decomposition
+\begin{equation}
+\label{eq:du} \grad \boldsymbol  v =\defm\boldsymbol  v+\frac{1}{2}\mskw(\nabla\times\boldsymbol  v).
+\end{equation}
+
+\subsection{Identities on tensors}
+We shall present identities based on diagram \eqref{BGGdiagram} and refer to~\cite{ArnoldHu2020} for an unified proof. Let $S \boldsymbol  \tau = \boldsymbol  \tau^{\intercal} - \tr(\boldsymbol  \tau) \boldsymbol  I$ and $\iota: \mathbb R\to \mathbb M$ by $\iota v = v \boldsymbol  I$. 
+\begin{equation}\label{BGGdiagram}
+\begin{tikzcd}
+\mathcal C^{\infty}(\mathbb{R})  \arrow{r}{\nabla} &\mathcal C^{\infty}(\mathbb R^3) \arrow{r}{\nabla \times} &\mathcal C^{\infty}(\mathbb R^3) \arrow{r}{\nabla\cdot} & \mathcal C^{\infty}(\mathbb{R})\\
+\mathcal C^{\infty}(\mathbb R^3)\arrow[u,swap,"\cdot \boldsymbol  x"] \arrow{r}{\nabla} \arrow[ur, "\mathrm{id}"]&\mathcal C^{\infty}(\mathbb {M}) \arrow[u,swap,"\cdot \boldsymbol  x"] \arrow[u,swap,"\cdot \boldsymbol  x"] \arrow{r}{\nabla\times } \arrow[ur, "2\vskw"]&\mathcal C^{\infty}(\mathbb{M}) \arrow[u,swap,"\cdot \boldsymbol  x"] \arrow{r}{\nabla\cdot}\arrow[ur, "\tr"] & \mathcal C^{\infty}(\mathbb R^3) \arrow[u,swap,"\cdot \boldsymbol  x"] \\
+\mathcal C^{\infty}(\mathbb R^3)\arrow[u,swap,"\times \boldsymbol  x"]\arrow{r}{\nabla} \arrow[ur,"-\mskw"]&\mathcal C^{\infty}(\mathbb{M}) \arrow[u,swap,"\times \boldsymbol  x"] \arrow{r}{\nabla\times} \arrow[ur, "S"]&\mathcal C^{\infty}(\mathbb{M}) \arrow[u,swap,"\times \boldsymbol  x"] \arrow{r}{\nabla\cdot}\arrow[ur, "2\vskw"] & \mathcal C^{\infty}(\mathbb R^3) \arrow[u,swap,"\times \boldsymbol  x"]\\
+\mathcal C^{\infty}(\mathbb{R})\arrow[u,swap,"\boldsymbol  x"]\arrow{r}{\nabla} \arrow[ur, "\iota"]&\mathcal C^{\infty}(\mathbb R^3) \arrow[u,swap,"\boldsymbol  x"] \arrow{r}{\nabla\times } \arrow[ur, "-\mskw"]&\mathcal C^{\infty}(\mathbb R^3)\arrow[u,swap,"\boldsymbol  x"] \arrow{r}{\nabla\cdot}\arrow[ur, "\mathrm{id}"] & \mathcal C^{\infty}(\mathbb{R}) \arrow[u,swap,"\boldsymbol  x"].
+\end{tikzcd}
+\end{equation}
+
+The north-east diagonal operator is the Poisson bracket $[\dd, \kappa] = \dd((\cdot)\kappa) - (\dd(\cdot))\kappa$ for $\dd = \nabla, \nabla \times, \nabla \cdot$ being applied from the left and the Koszul operator $\kappa = \boldsymbol  x, \times \boldsymbol  x, \cdot \boldsymbol  x$ applied from the right. For example, we have
+\begin{align}
+\label{eq:curlxtau} \nabla \times (\boldsymbol\tau\cdot \boldsymbol  x) - (\nabla\times \boldsymbol  \tau )\cdot \boldsymbol  x &=  2\vskw\boldsymbol\tau,\quad\;\; \text{block } (1,2),\\
+\notag%\label{eq:gradux} 
+\nabla (\boldsymbol  u \times \boldsymbol  x) - (\nabla \boldsymbol  u)\times \boldsymbol  x &= - \mskw \boldsymbol  u, \quad \text{block } (2,1). 
+\end{align}
+The parallelogram formed by the north-east diagonal and the horizontal operators is anticomutative. For example, we will use the following identities:
+\begin{align}
+\label{eq:trcurl}
+\tr (\nabla \times \boldsymbol  \tau) &= - \nabla \cdot 2\vskw(\boldsymbol  \tau), \quad\;\; \text{block } (1,2),\\
+\notag
+2{\rm vskw}\nabla \boldsymbol  u &= - \nabla \times \boldsymbol  u,\\
+%S \nabla \boldsymbol  u &= \nabla\times {\rm mskw}(\boldsymbol  u)\\
+%2{\rm vskw}\nabla\times \boldsymbol  \tau &= - \nabla\cdot S\boldsymbol  \tau\\
+%\notag
+%{\rm mskw}\nabla \phi &= \nabla\times (\phi \boldsymbol  I),\\
+\notag
+\nabla\times \boldsymbol  u &= \nabla\cdot {\rm mskw}(\boldsymbol  u).
+\end{align}
+%\LC{Remove some unused}.
+By taking transpose, we can get similar formulae for row-wise differential operators. By replacing $\partial_i$ by $x_i$, we can get the anticomutativity of the parallelgorms formed by the vertical and the north-east diagonal operators. For example, \eqref{eq:trcurl} becomes
+\begin{equation}\label{eq:trcross}
+\tr (\boldsymbol  \tau \times \bs x) = - 2\vskw(\boldsymbol  \tau)\cdot \bs x.
+\end{equation}
+
+
+We will use the following identities  which can be verified by direct calculation. 
+\begin{align}
+\label{eq:skwgrad}
+{\rm skw}(\grad\boldsymbol u) &= \frac{1}{2} \mskw (\curl\boldsymbol u),\\
+\label{eq:skwcurl}{\rm skw}(\curl\boldsymbol A) &= \frac{1}{2} \mskw\left[\div(\boldsymbol A^{\intercal})-\grad(\tr(\boldsymbol A))\right], \\
+\label{eq:divmskw} 
+\div \mskw \boldsymbol u &= - \curl \boldsymbol u, \\
+\label{eq:divvskw} 2\div\vskw\boldsymbol A &= \tr\curl\boldsymbol A,\\
+\label{eq:curlgrad} \curl (u \boldsymbol I)&=- \mskw \grad(u).
+\end{align}
+More identities involving the matrix operation and differentiation are summarized in~\cite{ArnoldHu2020}; see also~\cite{Chen;Huang:2020Finite,Chen;Huang:2021Finite}.
+
+\subsection{Projections to a plane}
+Given a plane $F$ with normal vector $\boldsymbol  n$, for a vector $\boldsymbol  v\in \mathbb R^3$, we define its projection to plane $F$ 
+$$
+\Pi_F \boldsymbol  v := (\boldsymbol  n\times \boldsymbol  v)\times \boldsymbol  n = \boldsymbol  n\times (\boldsymbol  v\times \boldsymbol  n) = - \boldsymbol  n\times (\boldsymbol  n\times \boldsymbol  v) = (\bs I - \bs n\bs n^{\intercal})\bs v,
+$$
+which is called the tangential component of $\boldsymbol  v$. The vector $$\Pi_F^{\bot}\boldsymbol  v :=\boldsymbol  n\times \boldsymbol  v = (\bs n\times \Pi_F)\bs v$$ is called the tangential trace of $\boldsymbol  v$, which is a rotation of $\Pi_F \boldsymbol  v$ on $F$ ($90^{\circ}$ counter-clockwise with respect to $\boldsymbol  n$). Note that $\Pi_F$ is a $3\times 3$ symmetric matrix.
+% and $(\Pi_F^{\bot})^{\intercal} = - \Pi_F^{\bot}$ is skew-symmetric as $\Pi_F\times \bs n = - \Pi_F^{\bot}$. 
+%
+With a slight abuse of notation, we use $\Pi_F$ to denote the piece-wisely defined projection to the boundary of $K$.
+
+We treat Hamilton operator $\nabla = (\partial_1, \partial_2, \partial_3)^{\intercal}$ as a column vector and define
+$$
+\nabla_F: = \Pi_F \nabla, \quad \nabla_F^{\bot} := \Pi_F^{\bot} \nabla.
+$$
+We have the decomposition
+\begin{equation*}%\label{eq:Hamiltondecomposition}
+\nabla = \nabla_F + \bs n \, \partial_n. 
+\end{equation*}
+
+For a scalar function $v$, 
+\begin{align*}
+\grad_F v : =\nabla_F v &= \Pi_F (\nabla v) = - \boldsymbol  n \times (\boldsymbol  n\times \nabla v), \\
+\curl_F v := \nabla_F^{\bot} v &= \boldsymbol  n \times \nabla v = \boldsymbol  n\times \nabla_F v,
+\end{align*}
+are the surface gradient of $v$ and surface $\curl$, respectively. For a vector function $\boldsymbol  v$, $\nabla_F\cdot \boldsymbol  v$ is the surface divergence:
+%and by definition  = - \nabla_F\cdot (\boldsymbol  n\times \boldsymbol  v)
+$$
+\div_F\boldsymbol  v: = \nabla_F\cdot \boldsymbol  v = \nabla_F\cdot (\Pi_F\boldsymbol  v).
+$$
+By the cyclic invariance of the mix product and the fact $\boldsymbol  n$ is constant, the surface rot operator is
+\begin{equation}\label{eq:rotF}
+{\rm rot}_F \boldsymbol  v := \nabla_F^{\bot}\cdot \boldsymbol  v = (\boldsymbol  n\times \nabla)\cdot \boldsymbol  v = \boldsymbol  n\cdot (\nabla \times \boldsymbol  v),
+\end{equation}
+which is the normal component of $\nabla \times \boldsymbol  v$. 
+The tangential trace of $\nabla \times \boldsymbol  u$ is 
+\begin{equation}\label{eq:tangentialtrace}
+\boldsymbol  n\times (\nabla \times \boldsymbol  v) = \nabla (\boldsymbol  n\cdot \boldsymbol  v) - \partial_n \boldsymbol  v. 
+\end{equation}
+By definition,
+\begin{equation}\label{eq:rotFdivF}
+{\rm rot}_F \boldsymbol  v = - \div_F (\boldsymbol  n\times \boldsymbol  v), \quad
+\div_F \boldsymbol  v = {\rm rot}_F (\boldsymbol  n\times \boldsymbol  v).
+\end{equation}
+
+
+
+
+%We collect surface differential operators below. For a scalar function $v$,
+%$$
+%\nabla_Fv:=\Pi_F(\nabla v)=\boldsymbol  n\times(\nabla v)\times\boldsymbol  n,\quad \curl_Fv:=\boldsymbol  n\times(\nabla v).
+%$$
+%For a vector function $\boldsymbol  v$,
+%\begin{equation}\label{eq:surfdivcurl}
+%\div_F\boldsymbol  v :=\nabla_F\cdot\boldsymbol  v, \quad \text{rot}_F\boldsymbol  v:=(\boldsymbol  n\times \nabla)\cdot\boldsymbol  v = \boldsymbol  n\cdot (\nabla \times \boldsymbol  v).
+%\end{equation}
+
+
+
+When involving tensors, we define, for a vector function $\boldsymbol  v$,
+%We treat $\nabla_F = \Pi_F\nabla$ as a column vector and $\nabla_F^{\bot} = \boldsymbol  n\times \nabla$. 
+\begin{align*}
+&\nabla_F\boldsymbol  v:=\nabla_F\boldsymbol  v^{\intercal} = \Pi_F \nabla \boldsymbol  v^{\intercal}, \quad \grad_F \boldsymbol  v = \boldsymbol  v \nabla_F = (\nabla_F\boldsymbol  v)^{\intercal},\\
+&\nabla_F^{\bot}\boldsymbol  v:=\nabla_F^{\bot}\boldsymbol  v^{\intercal} = \boldsymbol  n \times (\nabla \boldsymbol  v^{\intercal}), \quad \curl_F\boldsymbol  v:=\boldsymbol  v \nabla_F^{\bot} = ( \nabla_F^{\bot}\boldsymbol  v)^{\intercal},\\
+&\defm_{F}\boldsymbol  v:= \sym \nabla_F\boldsymbol  v, \quad \sym\curl_F\boldsymbol  v :=\sym(\curl_F\boldsymbol  v).
+\end{align*}
+For a tensor function $\bs\tau$,
+\begin{align*}
+\div_F\bs\tau:=\bs\tau\cdot\nabla_F = (\nabla_F\cdot \boldsymbol  \tau^{\intercal})^{\intercal},\quad \div_F\div_F\boldsymbol  \tau: = \nabla_F\cdot \bs\tau\cdot\nabla_F,\\
+\text{rot}_F\bs\tau:=\bs\tau\cdot(\boldsymbol  n\times\nabla) = (\nabla_F^{\bot}\cdot \boldsymbol  \tau^{\intercal})^{\intercal} , \quad {\rm rot}_F{\rm rot}_F\boldsymbol  \tau: = \nabla_F^{\bot}\cdot \bs\tau\cdot\nabla_F^{\bot}.
+\end{align*}
+Although we define the surface differentiation through the projection of differentiation of a function defined in space, it can be verified that the definition is intrinsic in the sense that it depends only on the function value on the surface $F$. Namely $\nabla_F v = \nabla_F (v|_{F}), \nabla_F\cdot \bs v = \nabla_F \cdot \Pi_F \bs v, \nabla_F \bs v = \nabla_F(\bs v|_F)$ and thus $\Pi_F$ is sometimes skipped after $\nabla_F$. 
+
+
+
+\section{Three Hilbert complexes for tensors}
+In this section we shall present two Hilbert complexes for tensors: the Hessian complex and the divdiv complex. They are dual to each other. The Hessian complex will be used for the construction of shape function spaces and the divdiv complex for the degrees of freedom. 
+
+Recall that a Hilbert complex is a sequence of Hilbert spaces $\{\mathcal V_i \}$ connected by a sequence of closed densely defined linear operators $\{\dd_i\}$ 
+$$
+0 \stackrel{}{\longrightarrow} \mathcal V_1 \stackrel{\dd_1}{\longrightarrow} \mathcal V_2 \stackrel{\dd_2}{\longrightarrow} \ldots \mathcal V_{n-1}\stackrel{\dd_{n-1}}{\longrightarrow} \mathcal V_n \longrightarrow 0,
+$$
+satisfying the property $\img (\dd_i)\subseteq \ker(\dd_{i+1})$, i.e., $\dd_{i+1}\circ \dd_i = 0$. In this paper, we shall consider domain complexes only, i.e., ${\rm dom}(\dd_i) = \mathcal V_i$. The complex is called an exact sequence if $\img (\dd_i)=  \ker(\dd_{i+1})$ for $i=1, \ldots, n$. We usually skip the first $0$ in the complex and use the embedding operator to indicate $\dd_1$ is injective. We refer to~\cite{Arnold:2018Finite} for background on Hilbert complexes. 
+
+
+\subsection{Hessian complex}
+
+The Hessian complex in three dimensions reads as~\cite{ArnoldHu2020,PaulyZulehner2020}
+\begin{equation}\label{eq:hesscomplex}
+%\resizebox{.9\hsize}{!}{$
+\mathbb P_1(\Omega)\xrightarrow{\subset} H^{2}(\Omega)\xrightarrow{\hess}\boldsymbol H(\curl, \Omega;\mathbb S)\xrightarrow{\curl} \boldsymbol H(\div, \Omega;\mathbb T) \xrightarrow{\div} \boldsymbol L^2(\Omega;\mathbb R^3)\xrightarrow{}0.
+%$}
+\end{equation}
+
+For the completeness we shall prove the exactness following~\cite{PaulyZulehner2020} and refer to~\cite{ArnoldHu2020} for a systematical way of deriving complexes from complexes.  
+
+\begin{lemma}
+Assume $\Omega$ is a bounded Lipschitz domain in $\mathbb R^3$.
+It holds
+\begin{equation}\label{eq:divH1TontoL2}
+\div\boldsymbol H^1(\Omega;\mathbb T)=\boldsymbol L^2(\Omega; \mathbb R^3).
+\end{equation}
+\end{lemma}
+\begin{proof}
+First consider $\boldsymbol v=\nabla w\in\boldsymbol L^2(\Omega; \mathbb R^3)$ with $w\in H^1(\Omega)$. There exists $\boldsymbol\phi\in \boldsymbol H^2(\Omega; \mathbb R^3)$ statisfying $2\div\boldsymbol\phi=-3w$. Take $\boldsymbol\tau=w\boldsymbol I+\curl\mskw\boldsymbol\phi\in\boldsymbol H^1(\Omega;\mathbb M)$. It is obvious that $\div\boldsymbol\tau=\div(w\boldsymbol I)=\boldsymbol v$. It follows from~\eqref{eq:divvskw} that
+\[
+\tr\boldsymbol\tau=3w+\tr\curl\mskw\boldsymbol\phi=3w+2\div\vskw\mskw\boldsymbol\phi=3w+2\div\boldsymbol\phi=0.
+\]
+
+Next consider general $\boldsymbol v\in\boldsymbol L^2(\Omega; \mathbb R^3)$. There exists $\boldsymbol\tau_1\in\boldsymbol H^1(\Omega; \mathbb M)$ satisfying $\div\boldsymbol\tau_1=\boldsymbol v$. Then there exists $\boldsymbol\tau_2\in\boldsymbol H^1(\Omega; \mathbb T)$ satisfying $\div\boldsymbol\tau_2=\frac{1}{3}\nabla(\tr\boldsymbol\tau_1)$. Now take $\boldsymbol\tau=\dev\boldsymbol\tau_1+\boldsymbol\tau_2\in\boldsymbol H^1(\Omega; \mathbb T)$. We have
+\[
+\div\boldsymbol\tau=\div(\dev\boldsymbol\tau_1)+\div\boldsymbol\tau_2=\div(\dev\boldsymbol\tau_1)+\frac{1}{3}\nabla(\tr\boldsymbol\tau_1)=\div\boldsymbol\tau_1=\boldsymbol v.
+\]
+Thus~\eqref{eq:divH1TontoL2} follows.
+\end{proof}
+
+\begin{lemma}
+Assume $\Omega$ is a bounded and topologically trivial Lipschitz domain in $\mathbb R^3$.
+It holds
+\begin{equation}\label{eq:curlH1SontoDivfree}
+\curl\boldsymbol H^1(\Omega;\mathbb S)=\boldsymbol H(\div, \Omega;\mathbb T)\cap\ker(\div).
+\end{equation}
+\end{lemma}
+\begin{proof}
+By \cite[Theorem 1.1]{CostabelMcIntosh2010}, for any $\boldsymbol\tau\in\boldsymbol H(\div, \Omega;\mathbb T)\cap\ker(\div)$, there exists $\boldsymbol \sigma_1 \in\boldsymbol H^1(\Omega;\mathbb M)$  such that
+\[
+\boldsymbol\tau=\curl\boldsymbol\sigma_1.
+\]
+Thanks to~\eqref{eq:divvskw}, we have
+\[
+2\div\vskw\boldsymbol\sigma_1=\tr\curl\boldsymbol\sigma_1=\tr\boldsymbol\tau=0.
+\]
+Hence there exsits $\boldsymbol v\in \boldsymbol H^2(\Omega; \mathbb R^3)$ such that $\vskw\boldsymbol\sigma_1=\frac{1}{2}\curl\boldsymbol v$. Then apply $\mskw$ and use~\eqref{eq:skwgrad} to get 
+\[
+\skw\boldsymbol\sigma_1=\frac{1}{2}\mskw\curl\boldsymbol v=\skw(\grad\boldsymbol v).
+\]
+Taking $\boldsymbol\sigma=\boldsymbol\sigma_1-\grad\boldsymbol v$, we have $\boldsymbol\sigma\in \boldsymbol H^1(\Omega; \mathbb S)$ and $\curl\boldsymbol\sigma=\boldsymbol\tau$.
+\end{proof}
+
+
+\begin{theorem}\label{thm:hessiancomplex}
+Assume $\Omega$  is a bounded and topologically trivial Lipschitz domain in $\mathbb R^3$. Then~\eqref{eq:hesscomplex} is a Hilbert complex and  exact sequence.   
+\end{theorem}
+\begin{proof}
+It is obvious that~\eqref{eq:hesscomplex} is a complex and $H^{2}(\Omega)\cap\ker(\hess)=\mathbb P_1(\Omega)$.
+As results of~\eqref{eq:divH1TontoL2} and~\eqref{eq:curlH1SontoDivfree}, we have
+\[
+\div\boldsymbol H(\div, \Omega;\mathbb T)=\boldsymbol L^2(\Omega; \mathbb R^3),\quad \curl\boldsymbol H(\curl, \Omega;\mathbb S)=\boldsymbol H(\div, \Omega;\mathbb T)\cap\ker(\div).
+\]
+
+We only need to prove $\boldsymbol H(\curl, \Omega;\mathbb S)\cap\ker(\curl)=\hess\,H^2(\Omega)$.
+For any $\boldsymbol\sigma\in\boldsymbol H(\curl, \Omega;\mathbb S)\cap\ker(\curl)$, there exists $\boldsymbol v \in\boldsymbol H^1(\Omega;\mathbb R^3)$ such that
+\[
+\boldsymbol\sigma=\grad\boldsymbol v.
+\]
+Since $\boldsymbol\sigma$ is symmetric, by~\eqref{eq:skwgrad}, we have
+\[
+\mskw(\curl\boldsymbol v)=2\skw(\grad\boldsymbol v)=2\skw(\boldsymbol\sigma)=\boldsymbol0,
+\]
+which means $\curl\boldsymbol v=\boldsymbol0$. Hence there exists $w\in H^2(\Omega)$ that $\boldsymbol v=\nabla w$ and consequently $\boldsymbol\sigma=\hess\,w\in\hess\,H^2(\Omega)$.
+\end{proof}
+
+As a result of the Hessian complex~\eqref{eq:hesscomplex}, we have the Poincar\'e inequality~\cite[the inequality above (14)]{ArnoldHu2020}
+\begin{equation}\label{eq:Poincareieqlity}
+\|\boldsymbol\tau\|_0\lesssim \|\curl \, \boldsymbol\tau\|_0
+\end{equation}
+for any $\boldsymbol\tau\in\boldsymbol H(\curl, \Omega;\mathbb S)$ satisfying
+\[
+(\boldsymbol\tau,\nabla^2w)=0\quad\forall~w\in H^2(\Omega).
+\]
+
+
+When $\Omega\subset\mathbb R^2$,
+the Hessian complex in two dimensions becomes
+\begin{equation*}%\label{eq:hesscomplex2d}
+%\resizebox{.9\hsize}{!}{$
+\mathbb P_1(\Omega)\xrightarrow{\subset} H^{2}(\Omega)\xrightarrow{\hess}\boldsymbol H(\rot, \Omega;\mathbb S)\xrightarrow{\rot}  \boldsymbol L^2(\Omega;\mathbb R^2)\xrightarrow{}0,
+%$}
+\end{equation*}
+which is a rotation of the elasticity complex~\cite{Eastwood2000,ArnoldWinther2002}.
+
+
+\subsection{$\div\div$ complex}
+
+The $\div\div$ complex in three dimensions reads as~\cite{ArnoldHu2020,PaulyZulehner2020}
+\begin{equation}\label{eq:divdivcomplex3d}
+% \resizebox{.91\hsize}{!}{$
+\boldsymbol{RT}\xrightarrow{\subset} \boldsymbol H^1(\Omega;\mathbb R^3)\xrightarrow{\dev\grad}\boldsymbol H(\sym\curl,\Omega;\mathbb T)\xrightarrow{\sym\curl} \boldsymbol H(\div\div, \Omega;\mathbb S) \xrightarrow{\div{\div}} L^2(\Omega)\xrightarrow{}0,
+% $}
+\end{equation}
+where $\boldsymbol{RT}:= \{a\boldsymbol x + \boldsymbol b: a\in \mathbb R, \boldsymbol b \in \mathbb R^3\}$ is the space of shape funcions of the lowest order Raviart-Thomas element~\cite{RaviartThomas1977}.
+For completeness, we prove the exactness of the complex~\eqref{eq:divdivcomplex3d} following~\cite{PaulyZulehner2020}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theorem}\label{thm:divdivcomplex}
+Assume $\Omega$ is a bounded and topologically trivial Lipschitz domain in $\mathbb R^3$. Then~\eqref{eq:divdivcomplex3d} is an exact Hilbert complex.   
+\end{theorem}
+\begin{proof}
+We verify the composition of consecutive operators is vanished from the left to the right. Take a function $\boldsymbol v = a\boldsymbol x + \boldsymbol b\in \bs{RT}$, then $\grad \boldsymbol v = a \boldsymbol I$ and $\dev \boldsymbol I = 0$. For any $\boldsymbol v\in \mathcal C^2(\Omega;\mathbb R^3)$, it holds from~\eqref{eq:curlgrad} that
+\begin{align*}
+\sym\curl\dev\grad\boldsymbol v&=\sym\curl\left(\grad\boldsymbol v-\frac{1}{3}(\div\boldsymbol v) \boldsymbol I\right)=-\frac{1}{3}\sym\curl((\div\boldsymbol v) \boldsymbol I) \\
+&=\frac{1}{3}\sym\mskw(\grad(\div\boldsymbol v))=0.
+\end{align*}
+By the density argument, we get $\sym\curl\dev\grad\boldsymbol H^1(\Omega;\mathbb R^3)=\bs0$. 
+%
+For any $\bs\tau\in\mathcal C^3(\Omega;\mathbb T)$, %it follows from~\eqref{eq:divdivtwosides} that
+\[
+\div\div\sym\curl\bs\tau= \frac{1}{2}\nabla \cdot (\nabla \times \boldsymbol A^{\intercal} - \boldsymbol A\times\nabla )\cdot \nabla =0.
+\]
+Again by the density argument, $\div\div\sym\curl\boldsymbol H(\sym\curl,\Omega;\mathbb T)=0$.
+Thus~\eqref{eq:divdivcomplex3d} is a complex.
+
+We then verify the exactness of~\eqref{eq:divdivcomplex3d} from the right to the left.
+
+\medskip
+\noindent {\em 1. $\div\div\boldsymbol H(\div\div, \Omega;\mathbb S)=L^2(\Omega)$.} 
+
+Recursively applying the exactness of de Rham complex~\eqref{eq:derham}, we can prove $\div\div\boldsymbol H(\div\div, \Omega;\mathbb M)=L^2(\Omega)$ without the symmetry requirement, where the space $\boldsymbol H(\div\div, \Omega;\mathbb M)=\{\boldsymbol \tau \in L^2(\Omega; \mathbb M): \div\div \boldsymbol \tau \in L^2(\Omega)\}$.
+
+Any skew-symmetric $\boldsymbol \tau$ can be written as $\boldsymbol \tau =\mskw\boldsymbol v$ for $\boldsymbol v = \vskw (\boldsymbol \tau)$. Assume $\boldsymbol v\in \mathcal C^2(\Omega; \mathbb R^3)$, it follows from~\eqref{eq:divmskw} that
+\begin{equation}\label{eq:divdivskw0}
+\div{\div}\boldsymbol \tau=\div{\div}\mskw\boldsymbol v= - \div(\curl\boldsymbol v)=0.
+\end{equation}
+Since $\div\div\bs\tau=0$ for any smooth skew-symmetric tensor field $\bs\tau$, we obtain
+$$
+\div\div\boldsymbol H(\div\div, \Omega;\mathbb S)=\div\div\boldsymbol H(\div\div, \Omega;\mathbb M)=L^2(\Omega).
+$$
+
+\medskip
+\noindent {\em 2. $\boldsymbol H(\div\div, \Omega;\mathbb S) \cap\ker(\div\div)=\sym\curl\boldsymbol H(\sym\curl,\Omega;\mathbb T)$, i.e. if $\div\div\boldsymbol \sigma = 0$ and $\bs\sigma\in \boldsymbol H(\div\div, \Omega;\mathbb S)$, then there exists a $\bs\tau\in\boldsymbol H(\sym\curl,\Omega;\mathbb T)$, s.t. $\boldsymbol \sigma = \sym\curl\bs\tau$}. 
+
+Since $\div(\div\boldsymbol \sigma) = 0$, by the exactness of the de Rham complex and identity ~\eqref{eq:divmskw},  there exists $\boldsymbol v \in\boldsymbol L^2(\Omega;\mathbb R^3)$ such that
+\[
+\div\bs\sigma=\curl\boldsymbol v=-\div(\mskw\boldsymbol v).
+\]
+Namely $\div (\boldsymbol \sigma + \mskw\boldsymbol v) = 0$. Again by the exactness of the de Rham complex, there exists $\widetilde{\bs\tau} \in\boldsymbol H^1(\Omega;\mathbb M)$ such that
+\[
+\bs\sigma=-\mskw\boldsymbol v+\curl\widetilde{\bs\tau}.
+\]
+By the symmetry of $\bs\sigma$, we have
+$$
+\bs\sigma=\sym\curl\widetilde{\bs\tau}=\sym\curl(\dev\widetilde{\bs\tau})+\frac{1}{3}\sym\curl\left((\tr\widetilde{\bs\tau})\boldsymbol I\right).
+$$
+From~\eqref{eq:curlgrad} we get
+$$
+\sym\curl\left((\tr\widetilde{\bs\tau})\boldsymbol I\right)=-\sym(\mskw\grad(\tr\widetilde{\bs\tau}))=0,
+$$
+which indicates $\bs\sigma=\sym\curl\bs\tau$ with $\bs\tau=\dev\widetilde{\bs\tau}\in\boldsymbol H^1(\Omega;\mathbb T)$. 
+
+\medskip
+\noindent {\em 3. $\boldsymbol H(\sym\curl,\Omega;\mathbb T)\cap\ker(\sym\curl)=\dev\grad\boldsymbol H^1(\Omega;\mathbb R^3)$, i.e. if $\sym\curl\boldsymbol \tau = \boldsymbol 0$ and $\bs\tau\in \boldsymbol H(\sym\curl,\Omega;\mathbb T)$, then there exists a $\boldsymbol v\in\boldsymbol H^1(\Omega;\mathbb R^3)$, s.t. $\boldsymbol \tau = \dev\grad\boldsymbol v$}. 
+
+
+Since $\sym(\curl\boldsymbol \tau)= \boldsymbol 0$ and $\tr\bs\tau=0$, we have from~\eqref{eq:skwcurl} that
+\[
+\curl\bs\tau=\skw(\curl\bs\tau)=\frac{1}{2}\mskw\left[\div(\bs\tau^{\intercal})-\grad(\tr(\bs\tau))\right]=\frac{1}{2}\mskw(\div(\bs\tau^{\intercal})).
+\]
+Then by~\eqref{eq:divmskw},
+\[
+\curl(\div(\bs\tau^{\intercal}))=-\div(\mskw\div(\bs\tau^{\intercal}))=-2\div(\curl\bs\tau)=\bs0.
+\]
+Thus there exists $w\in H^1(\Omega)$ satsifying $\div(\bs\tau^{\intercal})=2\grad w$, which together with~\eqref{eq:curlgrad} implies
+\[
+\curl\bs\tau=\mskw\grad w=-\curl(w\boldsymbol I).
+\]
+Namely $\curl (\boldsymbol \tau + w\boldsymbol I) = 0$. Hence there exists $\boldsymbol v\in \boldsymbol H^1(\Omega;\mathbb R^3)$ such that $\bs\tau=-w\boldsymbol I+\grad \boldsymbol v$. Noting that $\bs\tau$ is trace-free, we achieve
+\[
+\bs\tau=\dev\bs\tau=\dev\grad \boldsymbol v.
+\]
+
+\medskip
+\noindent {\em 4. $\boldsymbol H^1(\Omega;\mathbb R^3)\cap\ker(\dev\grad)=\bs{RT}$, i.e. if $\dev\grad\boldsymbol v = \boldsymbol 0$ and $\boldsymbol v\in \boldsymbol H^1(\Omega;\mathbb R^3)$, then $\boldsymbol v\in\bs{RT}$}. 
+
+Notice that
+\begin{equation}\label{eq:20210205-1}
+\grad\boldsymbol v =\frac{1}{3}(\div\boldsymbol v)\boldsymbol I.
+\end{equation}
+Apply $\curl$ on both sides of~\eqref{eq:20210205-1} and use~\eqref{eq:curlgrad} to get
+$$
+-\mskw\grad(\div\boldsymbol v)=\curl((\div\boldsymbol v)\boldsymbol I)=3\curl(\grad\boldsymbol v)=\bs0.
+$$
+Hence $\div\boldsymbol v$ is a constant, which combined with~\eqref{eq:20210205-1} implies that $\boldsymbol v$ is a linear function. Assume $\boldsymbol v=\boldsymbol A\boldsymbol x+\boldsymbol b$ with $\boldsymbol A\in\mathbb M$ and $\boldsymbol b\in\mathbb R^3$, then~\eqref{eq:20210205-1} becomes $\boldsymbol A=\frac{1}{3}\tr(\boldsymbol A)\boldsymbol I$, i.e. $\boldsymbol A$ is diagonal and consequently $\boldsymbol v\in\bs{RT}$.
+
+Thus the complex~\eqref{eq:divdivcomplex3d} is exact.
+\end{proof}
+
+When $\Omega\subset\mathbb R^2$,
+the $\div\div$ complex in two dimensions becomes (cf.~\cite{ChenHuang2018})
+\begin{equation*}%\label{eq:divdivcomplex2d}
+%\resizebox{.92\hsize}{!}{$
+\boldsymbol {RT}\xrightarrow{\subset} \boldsymbol H^1(\Omega;\mathbb R^2)\xrightarrow{\sym\curl} \boldsymbol{H}(\div\div,\Omega; \mathbb{S}) \xrightarrow{\div {\div}} L^2(\Omega)\xrightarrow{}0.
+%$}
+\end{equation*}
+
+
+
+\subsection{Elasticity complex}
+
+Let $\Omega$ be a bounded domain in $\mathbb R^3$. The elasticity complex
+\begin{equation}\label{eq:elasticitycomplex}
+\boldsymbol{RM}\stackrel{\subset}{\longrightarrow} \boldsymbol  H^{1} (\Omega;\mathbb R^3) \stackrel{\defm}{\longrightarrow} \boldsymbol  H(\mathrm{inc}, \Omega;\mathbb{S}) \stackrel{\text { inc }}{\longrightarrow} \boldsymbol  H(\operatorname{div}, \Omega; \mathbb{S}) \stackrel{\text { div }}{\longrightarrow} \boldsymbol  L^{2} (\Omega; \mathbb R^3)\rightarrow 0
+\end{equation}
+plays an important role in both theoretical and numerical study of linear elasticity, where $\bs{RM}$ is the space of the linearized rigid body motion, $\defm$ is the symmetric gradient operator, $\boldsymbol   H(\mathrm{inc}, \Omega;\mathbb{S}) $ is the space of symmetric tensor $\boldsymbol  \tau$ s.t. $\inc \boldsymbol  \tau := - \curl (\curl \boldsymbol  \tau)^{\intercal}\in \boldsymbol  L^2(\Omega; \mathbb M)$, and  $\boldsymbol  H(\operatorname{div}, \Omega; \mathbb{S})$ is the space for the symmetric stress tensor $\boldsymbol  \sigma$ with $\div\boldsymbol  \sigma\in \boldsymbol  L^2(\Omega; \mathbb R^3)$.
+
+
+
+\section{Polynomial complexes for tensors in two dimensions}
+
+In this subsection, we shall consider polynomial spaces on a simply connected domain $D$. Without loss of generality, we assume $(0,0) \in D$.
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:divdivcomplexPoly}
+%\resizebox{.9\hsize}{!}{$
+\boldsymbol{RT}\autorightarrow{$\subset$}{} \mathbb P_{k+1}(D;\mathbb R^2)\autorightarrow{$\sym\curl$}{} \mathbb P_k(D;\mathbb S) \autorightarrow{$\div{\div}$}{} \mathbb P_{k-2}(D)\autorightarrow{}{}0
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+For any skew-symmetric $\boldsymbol \tau\in \mathcal C^2(D; \mathbb K)$, it can be written as $\boldsymbol \tau =
+\begin{pmatrix}
+ 0 & \phi\\
+ -\phi & 0
+\end{pmatrix}
+$, then we have $\div\div\boldsymbol \tau= \div\curl\phi = 0$. Hence
+\[
+\div\div\sym\curl \, \mathbb P_{k+1}(D;\mathbb R^2) = \div\div\curl \, \mathbb P_{k+1}(D;\mathbb R^2) = 0,
+\]
+\[
+\div{\div}\, \mathbb P_k(D;\mathbb S)=\div{\div}\, \mathbb P_k(D;\mathbb M)=P_{k-2}(D).
+\]
+Furthermore by direct calculation
+\[
+\dim\mathbb P_k(D;\mathbb S)=\dim \sym\curl \, \mathbb P_{k+1}(D;\mathbb R^2)+\dim \mathbb P_{k-2}(D),
+\]
+thus the complex \eqref{eq:divdivcomplexPoly} is exact.
+\end{proof}
+
+Define operator $\boldsymbol \pi_{RT}: \mathcal C^1(D; \mathbb R^2)\to \boldsymbol{RT}$ as
+\[
+\boldsymbol \pi_{RT}\boldsymbol  v:=\boldsymbol  v(0,0)+\frac{1}{2}(\div\boldsymbol  v)(0,0)\boldsymbol  x.
+\]
+
+%Define operator $\boldsymbol x\boldsymbol x^{\intercal}: \mathbb P_{k-2}(D)\to \mathbb P_k(D;\mathbb S)$ by $\boldsymbol x\boldsymbol x^{\intercal}$
+%Define operator $\boldsymbol x^{\perp}: \mathbb P_k(D;\mathbb S)\to \mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}$ by $\boldsymbol x\boldsymbol x^{\intercal)$
+The following complex is the generalization of the Koszul complex for vector functions. For linear elasticity, it can be constructed based on Poincar\'e operators found in~\cite{ChristiansenHuSande2020}. Here we give a straightforward proof. 
+
+\begin{lemma}
+The polynomial complex
+%\begin{equation}\label{eq:divdivKoszulcomplexPoly}
+%%\resizebox{.9\hsize}{!}{$
+%0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(D) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(D;\mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}\autorightarrow{}{}0
+%\end{equation}
+\begin{equation}\label{eq:divdivKoszulcomplexPoly}
+%\resizebox{.9\hsize}{!}{$
+0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(D) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(D;\mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_{k+1}(D;\mathbb R^2)\autorightarrow{$\boldsymbol \pi_{RT}$}{}\boldsymbol{RT}\autorightarrow{}{}0
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+Since $(\boldsymbol x\boldsymbol x^{\intercal})\boldsymbol x^{\perp}=\boldsymbol  0$ and $\boldsymbol \pi_{RT}(\boldsymbol \tau\boldsymbol x^{\perp})=\boldsymbol 0$ for any $\boldsymbol \tau\in\mathbb P_k(D;\mathbb S)$, thus \eqref{eq:divdivKoszulcomplexPoly} is a complex.
+For any $\boldsymbol \tau\in\mathbb P_k(D;\mathbb S)$ satisfying $\boldsymbol \tau\boldsymbol x^{\perp}=\boldsymbol  0$, there exists $\boldsymbol  v\in \mathbb P_{k-1}(D;\mathbb R^2)$ such that $\boldsymbol \tau=\boldsymbol  v\boldsymbol  x^{\intercal}$. By the symmetry of $\boldsymbol \tau$,
+\[
+\boldsymbol  x(\boldsymbol  v^{\intercal}\boldsymbol x^{\perp})=(\boldsymbol  x\boldsymbol  v^{\intercal})\boldsymbol x^{\perp}=(\boldsymbol  v\boldsymbol  x^{\intercal})^{\intercal}\boldsymbol x^{\perp}=\boldsymbol  v\boldsymbol  x^{\intercal}\boldsymbol x^{\perp}=\boldsymbol 0,
+\]
+which indicates $\boldsymbol  v^{\intercal}\boldsymbol x^{\perp}=0$. Thus there exists $q\in\mathbb P_{k-2}(D)$ satisfying $\boldsymbol  v=q\boldsymbol  x$.
+Hence $\boldsymbol \tau=q\boldsymbol  x\boldsymbol  x^{\intercal}$.
+
+Next we show $\mathbb P_{k+1}(D;\mathbb R^2)\cap\ker(\boldsymbol \pi_{RT})=\mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}$.
+For any $\boldsymbol  v\in\mathbb P_{k+1}(D;\mathbb R^2)\cap\ker(\boldsymbol \pi_{RT})$, since $\boldsymbol  v(0,0)=\boldsymbol 0$, there exist $\boldsymbol \tau_1\in\mathbb P_k(D;\mathbb S)$ and $q\in\mathbb P_k(D)$ such that
+\[
+\boldsymbol  v=\boldsymbol \tau_1\boldsymbol x^{\perp}+\begin{pmatrix}
+0 & -q \\
+q & 0
+\end{pmatrix}\boldsymbol x^{\perp}=\boldsymbol \tau_1\boldsymbol x^{\perp}+q\boldsymbol  x.
+\]
+Noting that $\boldsymbol \pi_{RT}(\boldsymbol \tau_1\boldsymbol x^{\perp})=\boldsymbol 0$, we also have $\boldsymbol \pi_{RT}(q\boldsymbol  x)=\boldsymbol 0$. This means
+\[
+(\div(q\boldsymbol  x))(0,0)=0,\quad \textrm{ i.e. } \quad q(0,0)=0.
+\]
+Thus there exists $\boldsymbol  q_1\in\mathbb P_{k-1}(D;\mathbb R^2)$ such that $q=\boldsymbol  q_1^{\intercal}\boldsymbol x^{\perp}$.
+Now take $\boldsymbol \tau=\boldsymbol \tau_1+2\sym(\boldsymbol  x\boldsymbol  q_1^{\intercal})\in\mathbb P_k(D;\mathbb S)$, then
+\[
+\boldsymbol \tau\boldsymbol x^{\perp}=\boldsymbol \tau_1\boldsymbol x^{\perp}+(\boldsymbol  x\boldsymbol  q_1^{\intercal}+\boldsymbol  q_1\boldsymbol  x^{\intercal})\boldsymbol x^{\perp}=\boldsymbol \tau_1\boldsymbol x^{\perp}+\boldsymbol  x q=\boldsymbol  v.
+\]
+Hence $\mathbb P_{k+1}(D;\mathbb R^2)\cap\ker(\boldsymbol \pi_{RT})=\mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}$ holds.
+
+Apparently the operator $\boldsymbol \pi_{RT}: \mathbb P_{k+1}(D;\mathbb R^2)\to\boldsymbol {RT}$ is surjective as
+$$
+\boldsymbol \pi_{RT}\boldsymbol  v=\boldsymbol  v\quad \forall~\boldsymbol  v\in\boldsymbol{RT}.
+$$
+\end{proof}
+
+Those two complexes \eqref{eq:divdivcomplexPoly} and \eqref{eq:divdivKoszulcomplexPoly} are connected as
+\begin{equation}\label{eq:divdivcomplexPolydouble}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\boldsymbol{RT}\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(D;\mathbb R^2)\; \ar@<0.4ex>[r]^-{\sym\curl}\ar@<0.4ex>[l]^-{\boldsymbol \pi_{RT}}  & \; \mathbb P_k(D;\mathbb S) \ar@<0.4ex>[r]^-{\div{\div}}\; \ar@<0.4ex>[l]^-{\boldsymbol x^{\bot}} & \; \mathbb P_{k-2}(D)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x\boldsymbol x^{\intercal}}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+%$}
+\end{equation}
+Unlike the Koszul complex for vectors functions, we do not have the identity property applied to homogenous polynomials. Fortunately decomposition of polynomial spaces using Koszul and differential operators still holds.
+
+First of all, we have the decomposition
+\[
+\mathbb P_{k+1}(D;\mathbb R^2) = \mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}\oplus\boldsymbol{RT}.
+\]
+
+%\LC{Add the backwards complex using Poincare operators first. Then the following decomposition follows naturally.}
+%
+Let
+\[
+\mathbb C_k(D; \mathbb S):=\sym\curl \, \mathbb P_{k+1}(D;\mathbb R^2),\quad \mathbb C_k^{\oplus}(D; \mathbb S):=\boldsymbol  x\boldsymbol  x^{\intercal}\mathbb P_{k-2}(D).
+\]
+The dimensions are
+\[
+\dim\mathbb C_k(D; \mathbb S)=k^2+5k+3,\quad \dim\mathbb C_k^{\oplus}(D; \mathbb S)=\frac{1}{2}k(k-1).
+\]
+The following decomposition for the polynomial symmetric tensor is indispensable for our construction of div-div conforming finite elements.  
+\begin{lemma}\label{lem:symmpolyspacedirectsum}
+It holds
+\[
+\mathbb P_{k}(D;\mathbb S)=\mathbb C_k(D;\mathbb S)\oplus \mathbb C_k^{\oplus}(D;\mathbb S).
+\]
+And $\div\div: \mathbb C_k^{\oplus}(D;\mathbb S)\to\mathbb P_{k-2}(D;\mathbb R^2)$ is a bijection.
+\end{lemma}
+\begin{proof}
+Assume $q\in\mathbb P_{k-2}(D)$ satisfies $\boldsymbol x\boldsymbol  x^{\intercal}q\in\mathbb C_k(D;\mathbb S)$, which means
+\[
+\div{\div}(\boldsymbol x\boldsymbol  x^{\intercal}q)=0.
+\]
+Since
+$
+{\div}(\boldsymbol x\boldsymbol x^{\intercal}q)=(\div(\boldsymbol  x q)+q)\boldsymbol  x
+$,  we get
+\[
+\div(\boldsymbol  x q)+q=0.
+\]
+Then
+\[
+\div((x_1+x_2)\boldsymbol  x q)=(x_1+x_2)(\div(\boldsymbol  x q)+q)=0,
+\]
+which indicates $q=0$.
+Hence $\mathbb C_k(D;\mathbb S)\cap\mathbb C_k^{\oplus}(D;\mathbb S)=\boldsymbol 0$.
+Therefore we obtain the decomposition by the fact $\dim\mathbb P_{k}(D;\mathbb S)=\dim\mathbb C_k(D;\mathbb S)+\dim\mathbb C_k^{\oplus}(D;\mathbb S)$.
+
+To prove the second result, we shall show a stronger result 
+\begin{equation}\label{eq:divdivk}
+\div\div (\bs x\bs x^{\intercal} q) = (k+3)(k+2) q, \quad q\in \mathbb H_k(D).
+\end{equation}
+By Euler's formula for homogenous polynomial, we obtain $\div(\boldsymbol  x q)=(\boldsymbol x\cdot\nabla)q+2q = (k+2)q$. Then $
+{\div}(\boldsymbol  x\boldsymbol  x^{\intercal}q)=(\div(\boldsymbol x q)+q)\boldsymbol  x = (k+3)q \boldsymbol x.
+$
+Computing $\div$ again and using $\div(\boldsymbol  x q)=(k+2)q$, we obtain \eqref{eq:divdivk}. 
+\end{proof}
+
+\begin{remark}\label{rm:Ek}
+For a vector $\bs x = (x_1, x_2)$, introduce the rotation $\boldsymbol x^{\perp}= (x_2, -x_1)$. For the linear elasticity, we have the decomposition
+\[
+\mathbb P_{k}(D;\mathbb S)=\mathbb E_k(D;\mathbb S)\oplus \mathbb E_k^{\oplus}(D;\mathbb S),
+\]
+where, with $\defm$ being the symmetric gradient operator,
+\[
+\mathbb E_k(D;\mathbb S):=\defm\,\mathbb P_{k+1}(D;\mathbb R^2),\quad \mathbb E_k^{\oplus}(D;\mathbb S):=\boldsymbol  x^{\perp}(\boldsymbol  x^{\perp})^{\intercal}\mathbb P_{k-2}(D).
+\]
+\end{remark}
+
+It is easy to see that
+the polynomial complex
+\begin{equation}\label{eq:hesscomplexPoly}
+%\resizebox{.9\hsize}{!}{$
+\mathbb P_{1}(D)\autorightarrow{$\subset$}{} \mathbb P_{k+1}(D)\autorightarrow{$\nabla^2$}{} \mathbb P_{k-1}(D;\mathbb S) \autorightarrow{${\rot}$}{} \mathbb P_{k-2}(D;\mathbb R^2)\autorightarrow{}{}0
+\end{equation}
+is exact, which the dual complex of the polynomial complex \eqref{eq:divdivcomplexPoly}.
+
+Define operator $\pi_{1}: \mathcal C^1(D)\to \mathbb P_{1}(D)$ as
+\[
+\pi_{1}v:=v(0,0)+\boldsymbol  x^{\intercal}(\nabla v)(0,0).
+\]
+
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:hessKoszulcomplexPoly}
+% \resizebox{.9\hsize}{!}{$
+\boldsymbol{0}\autorightarrow{$\subset$}{} \mathbb P_{k-2}(D;\mathbb R^2)\autorightarrow{$\sym(\boldsymbol x^{\perp}\otimes\bs v)$}{} \mathbb P_{k-1}(D;\mathbb S) \autorightarrow{$\boldsymbol x^{\intercal}\boldsymbol \tau\boldsymbol x$}{} \mathbb P_{k+1}(D)\autorightarrow{$\pi_1$}{}\mathbb P_{1}(D)\autorightarrow{}{}0
+% $}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+It is easy to check that $\boldsymbol x^{\intercal}\mathbb P_{k-1}(D;\mathbb S)\boldsymbol x=\mathbb P_{k+1}(D)\cap\ker(\pi_1)$, and
+\[
+\dim\boldsymbol x^{\intercal}\mathbb P_{k-1}(D;\mathbb S)\boldsymbol x=\dim\mathbb P_{k+1}(D)-3=\frac{1}{2}(k^2+5k).
+\]
+Noting that
+\[
+\dim\sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2))=\dim\mathbb P_{k-2}(D;\mathbb R^2)=k^2-k,
+\]
+we get
+\[
+\dim\sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2))+\dim\boldsymbol x^{\intercal}\mathbb P_{k-1}(D;\mathbb S)\boldsymbol x=\dim\mathbb P_{k-1}(D;\mathbb S).
+\]
+ Hence the complex \eqref{eq:hessKoszulcomplexPoly} is exact. 
+\end{proof}
+
+\begin{lemma}\label{lem:rot}%\label{lem:symmpolyspacedirectsum}
+It holds
+\begin{equation}\label{eq:polydecompsymx}
+\mathbb P_{k-1}(D;\mathbb S)=\nabla^2\mathbb P_{k+1}(D)\oplus \sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2)).
+\end{equation}
+And $\rot: \sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2)) \to  \mathbb P_{k-2}(D;\mathbb R^2)$ is a bijection.
+\end{lemma}
+\begin{proof}
+Due to the fact
+\[
+\dim\mathbb P_{k-1}(D;\mathbb S)=\dim\nabla^2\mathbb P_{k+1}(D) + \dim\sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2)),
+\] 
+it is sufficient to prove $\nabla^2\mathbb P_{k+1}(D)\cap \sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2))=\bs0$ for \eqref{eq:polydecompsymx}. For any $q\in\mathbb P_{k+1}(D)$ satisfying $\nabla^2q\in\sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2))$, it holds
+\[
+(\bs x\cdot\nabla)^2q=\boldsymbol x^{\intercal}(\nabla^2q)\boldsymbol x=0.
+\]
+Hence $q\in \mathbb P_{1}(D)$, which yields the decomposition \eqref{eq:polydecompsymx}. 
+
+On the other hand, it follows from the direct sum of \eqref{eq:polydecompsymx} that $\rot: \sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2)) \to  \mathbb P_{k-2}(D;\mathbb R^2)$ is injective.
+Furthermore, we get from the complex~\eqref{eq:hesscomplexPoly} that
+\[
+\rot\sym(\boldsymbol x^{\perp}\otimes\mathbb P_{k-2}(D;\mathbb R^2)) =\rot\mathbb P_{k-1}(D;\mathbb S)=\mathbb P_{k-2}(D;\mathbb R^2).
+\]
+This ends the proof.
+\end{proof}
+
+\section{Polynomial Hessian complexes in three dimensions}
+
+Let $\mathbb H_k(D):=\mathbb P_k(D)/\mathbb P_{k-1}(D)$ be the space of homogeneous polynomials of degree $k$. 
+By the Euler's formula, for an integer $k\geq 0$,
+\begin{equation}\label{eq:homogeneouspolyprop}
+\boldsymbol x\cdot\nabla q=kq\quad\forall~q\in\mathbb H_k(D).
+\end{equation}
+Due to~\eqref{eq:homogeneouspolyprop}, for any $q\in\mathbb P_k(D)$ satisfying $\boldsymbol x\cdot\nabla q+q=0$, we have $q=0$.
+And
+\begin{align}\label{eq:radialderivativeprop}
+\mathbb P_k(D)\cap\ker(\boldsymbol x\cdot\nabla) & =\mathbb P_0(D),\\
+\label{eq:radialderivativeprop1}
+\mathbb P_k(D)\cap\ker(\boldsymbol x\cdot\nabla +\ell) &=0
+\end{align}
+for any positive number $\ell$.
+
+
+\begin{lemma}\label{lem:divtracetensorsurjective}
+The operator $\div: \dev(\mathbb P_{k}(D;\mathbb R^3)\boldsymbol x^{\intercal})\to \mathbb P_{k}(D;\mathbb R^3)$ is bijective.
+\end{lemma}
+\begin{proof}
+Since $\div\dev(\mathbb P_{k}(D;\mathbb R^3)\boldsymbol x^{\intercal})\subseteq\mathbb P_{k}(D;\mathbb R^3)$ and 
+$$\dim\dev(\mathbb P_{k}(D;\mathbb R^3)\boldsymbol x^{\intercal})=\dim\mathbb P_{k}(D;\mathbb R^3),$$
+it sufficies to show that $\div: \dev(\mathbb P_{k}(D;\mathbb R^3)\boldsymbol x^{\intercal})\to \mathbb P_{k}(D;\mathbb R^3)$ is injective.
+
+For any $\boldsymbol q\in\mathbb P_{k}(D;\mathbb R^3)$ satisfying $\div\dev(\boldsymbol q\boldsymbol x^{\intercal})=0$, we have
+\begin{equation}\label{eq:20200514}
+\div(\boldsymbol q\boldsymbol x^{\intercal})-\frac{1}{3}\nabla(\boldsymbol x^{\intercal}\boldsymbol q)=\div(\dev(\boldsymbol q\boldsymbol x^{\intercal}))=\boldsymbol 0.
+\end{equation}
+Since $\boldsymbol x^{\intercal}\div(\boldsymbol q\boldsymbol x^{\intercal})=(\boldsymbol x\cdot\nabla)(\boldsymbol x^{\intercal}\boldsymbol q)+2\boldsymbol x^{\intercal}\boldsymbol q$, we obtain
+\[
+\left(\boldsymbol x\cdot\nabla+\frac{5}{3}\right)(\boldsymbol x^{\intercal}\boldsymbol q)=\boldsymbol x^{\intercal}\left(\div(\boldsymbol q\boldsymbol x^{\intercal}) -\frac{1}{3}\nabla(\boldsymbol x^{\intercal}\boldsymbol q)\right)=0.
+\]
+By~\eqref{eq:radialderivativeprop1}, we have $\boldsymbol x^{\intercal}\boldsymbol q=0$. In turn, it follows from~\eqref{eq:20200514} that $(\boldsymbol x\cdot\nabla+3)\boldsymbol q=\div(\boldsymbol q\boldsymbol x^{\intercal})=\boldsymbol 0$, which together with~\eqref{eq:radialderivativeprop1} gives $\boldsymbol q=\boldsymbol 0$.
+\end{proof}
+
+\begin{lemma}
+For $k\in \mathbb N, k\geq 2$, the polynomial Hessian complex
+\begin{equation}\label{eq:hesscomplex3dPoly}
+%\resizebox{.91\hsize}{!}{$
+\mathbb P_1(D)\xrightarrow{\subset} \mathbb P_{k+2}(D)\xrightarrow{\hess}\mathbb P_{k}(D;\mathbb S)\xrightarrow{\curl} \mathbb P_{k-1}(D;\mathbb T) \xrightarrow{\div} \mathbb P_{k-2}(D;\mathbb R^3)\xrightarrow{}0
+%$}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+It is obvious $\nabla^2(\mathbb P_{k+2}(D))\subseteq \mathbb P_{k}(D;\mathbb S)\cap \ker(\curl)$. By identity~\eqref{eq:divvskw},
+$$\tr(\curl\boldsymbol\tau)=2\div(\vskw\boldsymbol\tau)\quad\forall~\boldsymbol\tau\in\boldsymbol H^1(D;\mathbb M).$$
+Hence we have $\curl (\mathbb P_{k}(D;\mathbb S))\subseteq \mathbb P_{k-1}(D;\mathbb T) \cap \ker(\div)$. Therefore~\eqref{eq:hesscomplex3dPoly} is a complex.
+
+We then verify this complex is exact. By the polynomial version of de Rham complex~\eqref{eq:deRhamcomplex3dPoly}, we have $\hess\,\mathbb P_{k+2}(D)=\mathbb P_{k}(D;\mathbb S)\cap\ker(\curl)$, and
+\[
+\dim\curl\mathbb P_{k}(D;\mathbb S)=\dim\mathbb P_{k}(D;\mathbb S)-\dim\hess\,\mathbb P_{k+2}(D)=\frac{1}{6}k(k+1)(5k+19).
+\]
+Thanks to Lemma~\ref{lem:divtracetensorsurjective}, we get $\div\mathbb P_{k-1}(D;\mathbb T)=\mathbb P_{k-2}(D;\mathbb R^3)$. And then
+\[
+% \resizebox{.99\hsize}{!}{$
+\dim(\mathbb P_{k-1}(D;\mathbb T)\cap\ker(\div))=\dim\mathbb P_{k-1}(D;\mathbb T)-\dim\mathbb P_{k-2}(D;\mathbb R^3)=\dim\curl\mathbb P_{k}(D;\mathbb S),
+% $}
+\]
+which means $\mathbb P_{k-1}(D;\mathbb T)\cap\ker(\div)=\curl\mathbb P_{k}(D;\mathbb S)$.
+Therefore the complex~\eqref{eq:hesscomplex3dPoly} is exact.
+\end{proof}
+
+Define operator $\pi_{1}: \mathcal C^1(D)\to\mathbb P_{1}(D)$ as
+\[
+\pi_{1}v:=v(0,0,0)+\boldsymbol x^{\intercal}(\nabla v)(0,0,0).
+\]
+It is exactly the first order Taylor polynomial of $v$ at $(0,0,0)$. 
+Obviously
+\begin{equation}\label{eq:pi1prop}
+\pi_{1}v=v\quad \forall~v\in\mathbb P_{1}(D).
+\end{equation}
+
+We present the following Koszul-type complex associated to the Hessian complex.
+\begin{lemma}
+For $k\in \mathbb N, k\geq 2$, the polynomial complex
+\begin{equation}\label{eq:hessKoszulcomplex3dPoly}
+\resizebox{.91\hsize}{!}{$
+0\xrightarrow{\subset}\mathbb P_{k-2}(D;\mathbb R^3) \xrightarrow{\dev(\boldsymbol v\boldsymbol x^{\intercal})} \mathbb P_{k-1}(D;\mathbb T) \xrightarrow{\sym(\boldsymbol\tau\times\boldsymbol x)} \mathbb P_{k}(D;\mathbb S)\xrightarrow{\boldsymbol x^{\intercal}\boldsymbol\tau\boldsymbol x} \mathbb P_{k+2}(D)\xrightarrow{\pi_1}\mathbb P_{1}(D)
+$}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+For any $\boldsymbol v\in\mathbb P_{k-2}(D;\mathbb R^3)$, it follows
+\[
+\sym((\dev(\boldsymbol v\boldsymbol x^{\intercal}))\times\boldsymbol x)=\sym((\boldsymbol v\boldsymbol x^{\intercal})\times\boldsymbol x)-\frac{1}{3}(\boldsymbol x^{\intercal}\boldsymbol v)\sym(\boldsymbol I\times\boldsymbol x)=\boldsymbol0.
+\]
+For any $\boldsymbol \tau\in\mathbb P_{k-1}(D;\mathbb T)$, we have
+\[
+\boldsymbol x^{\intercal}(\sym(\boldsymbol\tau\times\boldsymbol x))\boldsymbol x=\boldsymbol x^{\intercal}(\boldsymbol\tau\times\boldsymbol x)\boldsymbol x=0.
+\]
+It is trivial that $\pi_1(\boldsymbol x^{\intercal}\boldsymbol\tau\boldsymbol x)=0$ for any $\boldsymbol\tau\in\mathbb P_{k}(D;\mathbb S)$. Thus~\eqref{eq:hessKoszulcomplex3dPoly} is a complex.
+
+Next we prove that the complex~\eqref{eq:hessKoszulcomplex3dPoly} is exact.
+By the Taylor's theorem, we get $\mathbb P_{k+2}(D)\cap\ker(\pi_1)=\boldsymbol x^{\intercal}\mathbb P_{k}(D;\mathbb S)\boldsymbol x$, and
+\[
+\dim\boldsymbol x^{\intercal}\mathbb P_{k}(D;\mathbb S)\boldsymbol x=\dim\mathbb P_{k+2}(D)-4=\frac{1}{6}(k+5)(k+4)(k+3)-4.
+\]
+
+For any $\boldsymbol\tau\in\mathbb P_{k}(D;\mathbb S)$ satisfying $\boldsymbol x^{\intercal}\boldsymbol\tau\boldsymbol x=0$, there exists $\boldsymbol q\in\mathbb P_{k-1}(D;\mathbb R^3)$ such that $\boldsymbol\tau\boldsymbol x=\boldsymbol q\times \boldsymbol x=(\mskw\boldsymbol q) \boldsymbol x$, that is $(\boldsymbol\tau-\mskw\boldsymbol q)\boldsymbol x=\boldsymbol 0$. As a result, there exists $\boldsymbol\varsigma\in\mathbb P_{k}(D;\mathbb M)$ such that
+\[
+\boldsymbol\tau=\mskw\boldsymbol q+\boldsymbol\varsigma\times\boldsymbol x.
+\]
+From the symmetry of $\boldsymbol\tau$, we obtain
+\[
+\boldsymbol\tau=\sym(\mskw\boldsymbol q+\boldsymbol\varsigma\times\boldsymbol x)=\sym(\boldsymbol\varsigma\times\boldsymbol x)=\sym(\dev\boldsymbol\varsigma\times\boldsymbol x)\in\sym(\mathbb P_{k-1}(D;\mathbb T)\times\boldsymbol x).
+\]
+Hence
+\begin{equation}\label{eq:dimsymx}
+\dim\sym(\mathbb P_{k-1}(D;\mathbb T)\times\boldsymbol x)=\mathbb P_{k}(D;\mathbb S)-\dim\boldsymbol x^{\intercal}\mathbb P_{k}(D;\mathbb S)\boldsymbol x=\frac{1}{6}k(k+1)(5k+19).
+\end{equation}
+
+Since $\dim\dev(\mathbb P_{k-2}(D;\mathbb R^3)\boldsymbol x^{\intercal})=\dim\mathbb P_{k-2}(D;\mathbb R^3)$,
+we have
+\[
+\dim\mathbb P_{k-1}(D;\mathbb T)=\dim\dev(\mathbb P_{k-2}(D;\mathbb R^3)\boldsymbol x^{\intercal})+\dim\sym(\mathbb P_{k-1}(D;\mathbb T)\times\boldsymbol x).
+\]
+Thus the complex~\eqref{eq:hessKoszulcomplex3dPoly} is exact.
+\end{proof}
+
+Combining the two complexes~\eqref{eq:hesscomplex3dPoly} and~\eqref{eq:hessKoszulcomplex3dPoly} yields
+\begin{equation}\label{eq:hesscomplex3dPolydouble}
+\resizebox{.91\hsize}{!}{$
+\xymatrix{
+\mathbb P_1(D)\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k+2}(D)\ar@<0.4ex>[r]^-{\hess}\ar@<0.4ex>[l]^-{\pi_{1}} & \mathbb P_{k}(D;\mathbb S)\ar@<0.4ex>[r]^-{\curl}\ar@<0.4ex>[l]^-{\boldsymbol x^{\intercal}\boldsymbol\tau\boldsymbol x}  & \mathbb P_{k-1}(D;\mathbb T) \ar@<0.4ex>[r]^-{\div}\ar@<0.4ex>[l]^-{\sym(\boldsymbol\tau\times\boldsymbol x)} & \mathbb P_{k-2}(D;\mathbb R^3)  \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\dev(\boldsymbol v\boldsymbol x^{\intercal})}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+$}
+\end{equation}
+Unlike the Koszul complex for vectors functions, we do not have the identity property applied to homogenous polynomials. Fortunately decomposition of polynomial spaces using Koszul and differential operators still holds.
+
+It follows from~\eqref{eq:pi1prop} and the complex~\eqref{eq:hessKoszulcomplex3dPoly} that
+\begin{equation}\label{eq:hesspolyspacedecomp1}
+\mathbb P_{k+2}(D)=\boldsymbol x^{\intercal}\mathbb P_{k}(D;\mathbb S)\boldsymbol x\oplus\mathbb P_1(D), \quad k\geq 0.
+\end{equation}
+Then we give the following decompositions for the polynomial tensor spaces $\mathbb P_{k}(D;\mathbb S)$ and $\mathbb P_{k-1}(D;\mathbb T)$. Again one subspace is the range space of a differential operator in the Hessian complex from left-to-right and another is the range space in the Koszul type complex from right-to-left.
+
+\begin{lemma}
+For $k\in \mathbb N$, we have the decompositions
+\begin{align}\label{eq:hesspolyspacedecomp2}
+\mathbb P_{k}(D;\mathbb S) &=\hess\, \mathbb P_{k+2}(D)\oplus\sym(\mathbb P_{k-1}(D;\mathbb T)\times\boldsymbol x) & k\geq 1,\\
+\label{eq:hesspolyspacedecomp3}
+\mathbb P_{k-1}(D;\mathbb T) &=\curl \, \mathbb P_{k}(D;\mathbb S)\oplus\dev(\mathbb P_{k-2}(D;\mathbb R^3)\boldsymbol x^{\intercal}) & k\geq 2.
+\end{align}
+\end{lemma}
+\begin{proof}
+Noting that the dimension of space in the left hand side is the summation of the dimension of two subspaces in the right hand side in~\eqref{eq:hesspolyspacedecomp2} and~\eqref{eq:hesspolyspacedecomp3}, we only need to prove the sum is direct. The direct sum of~\eqref{eq:hesspolyspacedecomp3} follows from Lemma~\ref{lem:divtracetensorsurjective}. We then focus on \eqref{eq:hesspolyspacedecomp2}.
+
+For any $\boldsymbol\tau=\nabla^2q$ with $q\in\mathbb P_{k+2}(D)$ satisfying $\boldsymbol\tau\in\sym(\mathbb P_{k-1}(D;\mathbb T)\times\boldsymbol x)$, it follows from the fact $(\boldsymbol x\cdot\nabla)\boldsymbol x=\boldsymbol x$ that
+\[
+(\boldsymbol x\cdot\nabla)(\boldsymbol x\cdot\nabla q-q)=(\boldsymbol x\cdot\nabla)(\boldsymbol x\cdot\nabla q)-\boldsymbol x\cdot\nabla q=\boldsymbol x^{\intercal}((\boldsymbol x\cdot\nabla)\nabla q)=\boldsymbol x^{\intercal}(\nabla^2q)\boldsymbol x=0.
+\]
+Applying~\eqref{eq:radialderivativeprop} to get $\boldsymbol x\cdot\nabla q-q\in\mathbb P_0(K)$, which together with~\eqref{eq:homogeneouspolyprop} gives $q\in\mathbb P_{1}(D)$. Thus the decomposition~\eqref{eq:hesspolyspacedecomp2} holds.
+\end{proof}
+
+When $D\subset\mathbb R^2$,
+the Hessian polynomial complex in two dimensions
+\begin{equation}\label{eq:hesscomplex2dPoly}
+%\resizebox{.9\hsize}{!}{$
+\mathbb P_{1}(D)\xrightarrow{\subset} \mathbb P_{k+2}(D)\xrightarrow{\hess} \mathbb P_{k}(D;\mathbb S) \xrightarrow{{\rot}} \mathbb P_{k-1}(D;\mathbb R^2)\xrightarrow{}0
+\end{equation}
+has been proved in~\cite{ChenHuang2020}, which is a rotation of the elasticity polynomial complex~\cite{ArnoldWinther2002}.
+
+
+\section{Polynomial divdiv complexes in three dimensions}\label{sec:polycomplex}
+
+In this section, we shall consider the divdiv complex and establish two related polynomial complexes. We assume $\Omega \subset \mathbb R^3$ is a bounded and Lipschitz domain, which is topologically trivial in the sense that it is homeomorphic to a ball. Without loss of generality, we also assume $(0,0,0) \in \Omega$. 
+
+% Recall that a Hilbert complex is a sequence of Hilbert spaces connected by a sequence of linear operators satisfying the property: the composition of two consecutive operators is vanished. A Hilbert complex is exact means the range of each map is the kernel of the succeeding map. As $\Omega$ is topologically trivial, the following de Rham Complex of $\Omega$ is exact
+% \begin{equation}\label{eq:derham}
+% 0\xrightarrow{} H^1(\Omega)\xrightarrow{\grad}\boldsymbol H(\curl;\Omega)\xrightarrow{\curl}\boldsymbol H(\div;\Omega)\xrightarrow{\div}L^2(\Omega) \xrightarrow{}0.
+% \end{equation}
+% We will abbreviate a Hilbert complex as a complex. 
+
+\subsection{A polynomial divdiv complex}
+% Given a bounded domain $G\subset\mathbb{R}^{3}$ and a
+% non-negative integer $m$, 
+% let $\mathbb P_m(G)$ stand for the set of all polynomials in $G$ with the total degree no more than $m$, and $\mathbb P_m(G; \mathbb{X})$ with $\mathbb X$ being $\mathbb{M}, \mathbb{S}, \mathbb{K}, \mathbb{T}$ or $\mathbb{R}^3$ denote the tensor or vector version. 
+Recall that $\dim \mathbb P_{k}(D) = { k + 3 \choose 3}$, $\dim \mathbb M = 9, \dim \mathbb S = 6, \dim \mathbb K = 3$ and $\dim \mathbb T = 8$. For a linear operator $T$ defined on a finite dimensional linear space $V$, we have the relation
+\begin{equation*}%\label{eq:dim}
+\dim V = \dim \ker(T) + \dim \img(T),
+\end{equation*}
+which can be used to count $\dim \img(T)$ provided the space $\ker(T)$ is identified and vice verse. 
+
+% The polynomial de Rham complex is
+% \begin{equation}\label{eq:deRhamcomplex3dPoly}
+% %\resizebox{.9\hsize}{!}{$
+% \mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(\Omega)\xrightarrow{\grad} \mathbb P_{k}(\Omega;\mathbb R^3)\xrightarrow{\curl}\mathbb P_{k-1}(\Omega;\mathbb R^3) \xrightarrow{\div} \mathbb P_{k-2}(\Omega)\xrightarrow{}0.
+% %$}
+% \end{equation}
+% As $\Omega$ is topologically trivial, complex~\eqref{eq:deRhamcomplex3dPoly} is also exact, i.e., the range of each map is the kernel of the succeeding map. 
+
+\begin{lemma}
+The polynomial complex
+\begin{equation}\label{eq:divdivcomplex3dPoly}
+% \resizebox{.92\hsize}{!}{$
+\boldsymbol{RT}\xrightarrow{\subset} \mathbb P_{k+2}(D; \mathbb R^3)\xrightarrow{\dev\grad}\mathbb P_{k+1}(D; \mathbb T)\xrightarrow{\sym\curl} \mathbb P_k(D; \mathbb S) \xrightarrow{\div{\div}} \mathbb P_{k-2}(D)\xrightarrow{}0
+% $}
+\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+Clearly~\eqref{eq:divdivcomplex3dPoly} is a complex due to Theorem~\ref{thm:divdivcomplex}.
+We then verify the exactness.
+
+\medskip
+\noindent {\em 1. $\mathbb P_{k+2}(D; \mathbb R^3) \cap\ker(\dev\grad)=\bs{RT}$.} By the exactness of the complex~\eqref{eq:divdivcomplex3d}, 
+\[
+\bs{RT}\subseteq\mathbb P_{k+2}(D; \mathbb R^3) \cap\ker(\dev\grad)\subseteq\boldsymbol H^1(D;\mathbb R^3) \cap\ker(\dev\grad)=\bs{RT}.
+\]
+
+\medskip
+\noindent {\em 2. $\mathbb P_{k+1}(D; \mathbb T)\cap\ker(\sym\curl)=\dev\grad\mathbb P_{k+2}(D;\mathbb R^3)$, i.e. if $\sym\curl\boldsymbol \tau = 0$ and $\boldsymbol\tau\in\mathbb P_{k+1}(D; \mathbb T)$, then there exists a $\boldsymbol v\in\mathbb P_{k+2}(D;\mathbb R^3)$, s.t. $\bs\tau =\dev\grad\boldsymbol v$}. 
+
+
+% For any $\boldsymbol q\in\mathbb P_{k+2}(D; \mathbb R^3)\cap\ker(\dev\grad)$, we have $\grad\boldsymbol q=\frac{1}{3}(\div\boldsymbol q)\boldsymbol I$. Hence it follows from~\eqref{eq:curlgrad} that 
+% \[
+% -\mskw(\grad\div\boldsymbol q)=\curl((\div\boldsymbol q)\boldsymbol I)=3\curl(\grad\boldsymbol q)=0,
+% \]
+% which means $\div\boldsymbol q\in \mathbb P_{0}(D)$ and $\boldsymbol q\in \mathbb P_{1}(D; \mathbb R^3)$. We conclude $\boldsymbol q\in \boldsymbol{RT}$ from the fact that $\grad\boldsymbol q$ is the identity matrix multiplied by a constant.
+By $\sym\curl\boldsymbol \tau = 0$, there exists $\boldsymbol v\in\boldsymbol H^1(D; \mathbb R^3)$ satisfying $\boldsymbol\tau=\dev\grad\boldsymbol v$, i.e. $\boldsymbol\tau=\grad\boldsymbol v-\frac{1}{3}(\div\boldsymbol v)\boldsymbol I$. Then we get from~\eqref{eq:curlgrad} that
+\[
+\mskw(\grad\div\boldsymbol v)=-\curl((\div\boldsymbol v)\boldsymbol I)=3\curl(\boldsymbol\tau-\grad\boldsymbol v)=3\curl\boldsymbol\tau, %\in\mathbb P_{k}(D; \mathbb K),
+\]
+which implies $\grad\div\boldsymbol v=3\vskw(\curl\boldsymbol\tau)\in\mathbb P_{k}(D; \mathbb R^3)$. Hence
+$\div\boldsymbol v\in\mathbb P_{k+1}(D)$. And thus $\grad\boldsymbol v=\boldsymbol\tau+\frac{1}{3}(\div\boldsymbol v)\boldsymbol I\in\mathbb P_{k+1}(D; \mathbb M)$. As a result $\boldsymbol v\in\mathbb P_{k+2}(D; \mathbb R^3)$. 
+
+\medskip
+\noindent {\em 3. $\div\div\mathbb P_k(D;\mathbb S)=\mathbb P_{k-2}(D)$.} 
+Recursively applying the exactness of de Rham complex~\eqref{eq:deRhamcomplex3dPoly}, we can prove $\div\div\mathbb P_k(D; \mathbb M)=\mathbb P_{k-2}(D)$. 
+Then from~\eqref{eq:divdivskw0} we have that
+\[
+\div{\div}\, \mathbb P_k(D; \mathbb S)=\div{\div}\, \mathbb P_k(D; \mathbb M)=\mathbb P_{k-2}(D).
+\]
+
+\medskip
+\noindent {\em 4. $\mathbb P_k(D; \mathbb S) \cap\ker(\div\div)=\sym\curl\mathbb P_{k+1}(D;\mathbb T)$}. 
+
+Obviously $\sym\curl\mathbb P_{k+1}(D;\mathbb T) \subseteq (\mathbb P_k(D; \mathbb S) \cap\ker(\div\div))$.
+Then it suffices to show the dimensions of these two subspaces are equal. Recall that for a linear operator $T$ defined on a finite dimensional linear space $V$, we have the relation
+\begin{equation}\label{eq:dim}
+\dim V = \dim \ker(T) + \dim \img(T). 
+\end{equation}
+
+As $\div\div: \mathbb P_k(D; \mathbb S)\to\mathbb P_{k-2}(D)$ is surjective by step 3, using~\eqref{eq:dim}, we have
+\begin{align}
+\dim\mathbb P_k(D; \mathbb S)\cap\ker(\div{\div})&=\dim\mathbb P_k(D; \mathbb S)-\dim\mathbb P_{k-2}(D) \notag\\
+& = 6 { k + 3 \choose 3} - { k + 1 \choose 3} \notag\\
+&= \frac{1}{6}(5k^3+36k^2+67k+36). \label{eq:20200507-2} %(k+3)(k+2)(k+1)-\frac{1}{6}(k+1)k(k-1)
+\end{align}
+Thank to results in steps 1 and 2, we can count the dimension of $\sym\curl \, \mathbb P_{k+1}(D; \mathbb T)$
+\begin{align}
+\dim\sym\curl \, \mathbb P_{k+1}(D; \mathbb T) &= \dim\mathbb P_{k+1}(D; \mathbb T)-\dim\dev\grad\mathbb P_{k+2}(D; \mathbb R^3) \notag\\
+& = \dim\mathbb P_{k+1}(D; \mathbb T)-(\dim \mathbb P_{k+2}(D; \mathbb R^3) - \dim \bs{RT}) \notag\\
+& = 8 { k + 4 \choose 3} - 3{ k + 5 \choose 3} + 4 \notag\\
+&= \frac{1}{6}(5k^3+36k^2+67k+36). \label{eq:20200507-3}
+\end{align}
+We conclude that $\mathbb P_k(D; \mathbb S)\cap\ker(\div{\div})=\sym\curl \, \mathbb P_{k+1}(D; \mathbb T)$ as the dimensions matches, cf.~\eqref{eq:20200507-2} and~\eqref{eq:20200507-3}.
+
+Therefore the complex~\eqref{eq:divdivcomplex3dPoly} is exact.
+\end{proof}
+%
+
+\subsection{A Koszul complex}
+The Koszul complex corresponding to the de Rham complex~\eqref{eq:deRhamcomplex3dPoly} is
+\begin{equation}\label{eq:Koszul}
+%\mathbb R \stackrel{\boldsymbol  v(\bs0)}{\longleftarrow} \mathbb P_{k+1}(D) \stackrel{\boldsymbol  x\cdot}{\longleftarrow} \mathbb P_{k}(D;\mathbb R^3)\stackrel{\boldsymbol  x\times}{\longleftarrow} \mathbb P_{k-1}(D;\mathbb R^3)\stackrel{\boldsymbol  x}{\longleftarrow} \mathbb P_{k-2}(D) \longleftarrow 0.
+0
+\xrightarrow{}
+\mathbb P_{k-2}(D) 
+\xrightarrow{\boldsymbol x}
+\mathbb P_{k-1}(D;\mathbb R^3)
+\xrightarrow{\times \boldsymbol  x}
+\mathbb P_{k}(D;\mathbb R^3)
+\xrightarrow{\cdot \boldsymbol  x} \mathbb P_{k+1}(D) \xrightarrow{} 0,
+\end{equation}
+where the operators are appended to the right of the polynomial, i.e. $v \boldsymbol x$, $\boldsymbol v\times \boldsymbol x $, or $\boldsymbol v\cdot \boldsymbol x$. 
+The following complex is a generalization of the Koszul complex~\eqref{eq:Koszul} to the divdiv complex~\eqref{eq:divdivcomplex3dPoly}, where operator $\boldsymbol \pi_{RT}: \mathcal C^1(D; \mathbb R^3)\to \boldsymbol{RT}$ is defined as
+\[
+\boldsymbol \pi_{RT}\boldsymbol  v:=\boldsymbol  v(0,0,0)+\frac{1}{3}(\div\boldsymbol  v)(0,0,0)\boldsymbol  x,
+\]
+and other operators are appended to the right of the polynomial, i.e., $p \boldsymbol x\boldsymbol x^{\intercal}$, $\boldsymbol \tau\times \boldsymbol x $, or $\boldsymbol \tau\cdot \boldsymbol x$. The Koszul operator $\boldsymbol x\boldsymbol x^{\intercal}$ can be constructed based on Poincar\'e operators constructed in~\cite{ChristiansenHuSande2020}, but others are simpler. 
+
+\begin{lemma}\label{lem:Koszul}
+The following polynomial sequence
+%\begin{equation}\label{eq:divdivKoszulcomplexPoly}
+%%\resizebox{.9\hsize}{!}{$
+%0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(D) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(D; \mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_k(D; \mathbb S)\boldsymbol x^{\perp}\autorightarrow{}{}0
+%\end{equation}
+\begin{equation}\label{eq:divdivKoszulcomplex3dPoly}
+% \resizebox{.922\hsize}{!}{$
+0\xrightarrow{\subset}\mathbb P_{k-2}(D) \xrightarrow{\boldsymbol x\boldsymbol x^{\intercal}} \mathbb P_k(D; \mathbb S) \xrightarrow{\times\boldsymbol x} \mathbb P_{k+1}(D; \mathbb T)\xrightarrow{\cdot\boldsymbol x} \mathbb P_{k+2}(D; \mathbb R^3)\xrightarrow{\boldsymbol \pi_{RT}}\boldsymbol{RT}\xrightarrow{}0
+% $}
+\end{equation}
+is an exact Hilbert complex.
+\end{lemma}
+\begin{proof}
+In the sequence~\eqref{eq:divdivKoszulcomplex3dPoly} only the mapping $\mathbb P_k(D; \mathbb S) \stackrel{\times \boldsymbol x}{\longrightarrow}  \mathbb P_{k+1}(D; \mathbb T)$ is less obvious, which can be justified by the identity~\eqref{eq:trcross}. 
+
+To verify~\eqref{eq:divdivKoszulcomplex3dPoly} is a complex, we use the product rule~\eqref{eq:xuv}-\eqref{eq:xtimesuv}:
+$$
+p \boldsymbol x\boldsymbol x^{\intercal} \times \boldsymbol x = p \boldsymbol x(\boldsymbol x \times \boldsymbol x )^{\intercal} = 0, \quad (\boldsymbol\tau\times\boldsymbol x)\cdot \boldsymbol x = 0.
+$$
+To verify $\boldsymbol \pi_{RT}(\boldsymbol \tau \cdot \boldsymbol x) = 0$ for $\boldsymbol \tau \in \mathbb P_{k+1}(D; \mathbb T)$, we use the formulae
+\begin{equation}\label{eq:divtaux}
+\div(\boldsymbol \tau\cdot \boldsymbol x)=\div(\boldsymbol\tau^{\intercal})\cdot \boldsymbol x + \tr\boldsymbol\tau = \boldsymbol x^{\intercal}\div(\boldsymbol\tau^{\intercal}),
+\end{equation}
+and therefore evaluating at $\boldsymbol 0$ is zero. 
+
+%$$\tr(\boldsymbol\tau\times\boldsymbol x)=-2\boldsymbol x\cdot\vskw\boldsymbol\tau\quad\forall~\boldsymbol\tau\in\boldsymbol L^2(D; \mathbb M),$$
+% ~\eqref{eq:divdivKoszulcomplex3dPoly} is a complex.
+
+We then verify the exactness from right-to-left.
+
+\medskip
+\noindent {\em 1. $\boldsymbol\pi_{RT}\mathbb P_{k+2}(D; \mathbb R^3)=\boldsymbol{RT}$.} 
+
+It is straightforward to verify
+\begin{equation}\label{eq:piRTprop}
+\boldsymbol \pi_{RT}\boldsymbol  v=\boldsymbol  v\quad \forall~\boldsymbol  v\in\boldsymbol{RT}.
+\end{equation}
+Namely $\boldsymbol \pi_{RT}$ is a projector. Consequently, the operator $\boldsymbol \pi_{RT}: \mathbb P_{k+2}(D; \mathbb R^3)\to\boldsymbol {RT}$ is surjective as $\boldsymbol {RT}\subset \mathbb P_{1}(D; \mathbb R^3)$. 
+
+\medskip
+\noindent {\em 2. $\mathbb P_{k+2}(D; \mathbb R^3)\cap\ker(\boldsymbol \pi_{RT})=\mathbb P_{k+1}(D; \mathbb T)\cdot\boldsymbol x$, i.e. if $\boldsymbol\pi_{RT}\boldsymbol v=\boldsymbol0$ and $\boldsymbol v\in\mathbb P_{k+2}(D; \mathbb R^3)$, then there exists a $\bs\tau\in\mathbb P_{k+1}(D; \mathbb T)$, s.t. $\boldsymbol v =\bs\tau\cdot\boldsymbol x$}. 
+
+Since $\boldsymbol  v(0,0,0)=\boldsymbol 0$, by the fundamental theorem of calculus, $$\boldsymbol v = \left (\int_0^1 \grad \boldsymbol v( t \boldsymbol x) \dd t \right )\boldsymbol x.$$ Using the decomposition~\eqref{eq:devtr}, we conclude that there exist $\boldsymbol \tau_1\in\mathbb P_{k+1}(D; \mathbb T)$ and $q\in\mathbb P_{k+1}(D)$ such that
+$\boldsymbol  v=\boldsymbol \tau_1\boldsymbol x+q\boldsymbol x$. 
+Again by~\eqref{eq:divtaux}, we have
+$$
+\boldsymbol\pi_{RT}(q\boldsymbol x)=\boldsymbol\pi_{RT}\boldsymbol v-\boldsymbol\pi_{RT}(\boldsymbol \tau_1\boldsymbol x)=\boldsymbol 0,
+$$
+which indicates $(\div(q\boldsymbol  x))(0,0,0)=0$. As $\div(q\boldsymbol  x )=(\boldsymbol x\cdot\nabla)q+3q$, we conclude $q(0,0,0)=0$. Again using the fundamental theorem of calculus to conclude that there exists $\boldsymbol  q_1\in\mathbb P_{k}(D; \mathbb R^3)$ such that $q=\boldsymbol  q_1^{\intercal}\boldsymbol x$.
+Taking $\boldsymbol \tau=\boldsymbol \tau_1+\frac{3}{2}\boldsymbol  x\boldsymbol  q_1^{\intercal}-\frac{1}{2}\boldsymbol  q_1^{\intercal}\boldsymbol  x\boldsymbol  I\in\mathbb P_{k+1}(D; \mathbb T)$, we get
+\[
+\boldsymbol \tau\boldsymbol x=\boldsymbol \tau_1\boldsymbol x+\boldsymbol  x\boldsymbol  q_1^{\intercal}\boldsymbol x=\boldsymbol \tau_1\boldsymbol x+q\boldsymbol x=\boldsymbol  v.
+\]
+%Hence $\mathbb P_{k+2}(D; \mathbb R^3)\cap\ker(\boldsymbol \pi_{RT})=\mathbb P_{k+1}(D; \mathbb T)\boldsymbol x$ holds.
+
+\medskip
+\noindent {\em 3. $\mathbb P_k(D; \mathbb S)\cap\ker((\cdot)\times\boldsymbol x)=\mathbb P_{k-2}(D)\boldsymbol x\boldsymbol  x^{\intercal}$, i.e. if $\boldsymbol \tau\times\boldsymbol x=\boldsymbol 0$ and $\boldsymbol \tau\in\mathbb P_k(D; \mathbb S)$, then there exists a $q\in\mathbb P_{k-2}(D)$, s.t. $\boldsymbol \tau=q\boldsymbol x\boldsymbol  x^{\intercal}$}. 
+ 
+Thanks to $\boldsymbol \tau\times\boldsymbol x=\boldsymbol 0$, there exists $\boldsymbol v\in \mathbb P_{k-1}(D; \mathbb R^3)$ such that $\boldsymbol \tau=\boldsymbol  v\boldsymbol  x^{\intercal}$. By the symmetry of $\boldsymbol \tau$, it follows
+\[
+(\boldsymbol x\boldsymbol v^{\intercal})\times\boldsymbol x=(\boldsymbol  v\boldsymbol  x^{\intercal})^{\intercal}\times\boldsymbol x=\boldsymbol \tau\times\boldsymbol x=\boldsymbol 0,
+\]
+which indicates $\boldsymbol v\times\boldsymbol x=\boldsymbol 0$. Then there exists $q\in\mathbb P_{k-2}(D)$ satisfying $\boldsymbol  v=q\boldsymbol  x$.
+Hence $\boldsymbol \tau=q\boldsymbol x\boldsymbol  x^{\intercal}$. 
+%Therefore $\mathbb P_k(D; \mathbb S)\cap\ker(\times\boldsymbol x)=\mathbb P_{k-2}(D)\boldsymbol x\boldsymbol  x^{\intercal}$. 
+
+\medskip
+\noindent {\em 4. $\mathbb P_{k+1}(D; \mathbb T)\cap\ker((\cdot)\cdot\boldsymbol x)=\mathbb P_k(D; \mathbb S)\times\boldsymbol x$.} 
+
+It follows from steps 1 and 2 that
+\begin{align}
+\dim(\mathbb P_{k+1}(D; \mathbb T)\cap\ker((\cdot)\cdot\boldsymbol x)) &= \dim\mathbb P_{k+1}(D; \mathbb T)-\dim(\mathbb P_{k+1}(D; \mathbb T)\boldsymbol x) \notag\\
+&= \dim\mathbb P_{k+1}(D; \mathbb T)-\dim (\mathbb P_{k+2}(D; \mathbb R^3)\cap\ker(\boldsymbol \pi_{RT})) \notag\\
+&= \dim\mathbb P_{k+1}(D; \mathbb T)-\dim \mathbb P_{k+2}(D; \mathbb R^3)+4 \notag\\
+&=\frac{1}{6}(5k^3+36k^2+67k+36). \label{eq:20200508}
+\end{align}
+And by step 3,
+\begin{align*}
+\dim(\mathbb P_k(D; \mathbb S)\times\boldsymbol x)&=\dim\mathbb P_k(D; \mathbb S)-\dim(\mathbb P_k(D; \mathbb S)\cap\ker((\cdot)\times\boldsymbol x)) \\
+&=\dim\mathbb P_k(D; \mathbb S)-\dim(\mathbb P_{k-2}(D)\boldsymbol x\boldsymbol  x^{\intercal}) \\
+&=\frac{1}{6}(5k^3+36k^2+67k+36),
+\end{align*}
+which together with~\eqref{eq:20200508} implies $\mathbb P_{k+1}(D; \mathbb T)\cap\ker((\cdot)\cdot\boldsymbol x)=\mathbb P_k(D; \mathbb S)\times\boldsymbol x$.
+
+Therefore the complex~\eqref{eq:divdivKoszulcomplex3dPoly} is exact.
+\end{proof}
+
+\subsection{Decomposition of polynomial tensors}
+Those two complexes~\eqref{eq:divdivcomplex3dPoly} and~\eqref{eq:divdivKoszulcomplex3dPoly} can be combined into one double direction complex
+\begin{equation*}%\label{eq:divdivcomplex3dPolydouble}
+\resizebox{.92\hsize}{!}{$
+\xymatrix{
+\boldsymbol{RT}\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k+2}(D; \mathbb R^3)\ar@<0.4ex>[r]^-{\dev\grad}\ar@<0.4ex>[l]^-{\boldsymbol \pi_{RT}} & \mathbb P_{k+1}(D; \mathbb T)\ar@<0.4ex>[r]^-{\sym\curl}\ar@<0.4ex>[l]^-{\cdot\boldsymbol x}  & \mathbb P_k(D; \mathbb S) \ar@<0.4ex>[r]^-{\div{\div}}\ar@<0.4ex>[l]^-{\times\boldsymbol x} & \mathbb P_{k-2}(D)  \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x\boldsymbol x^{\intercal}}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+$}
+\end{equation*}
+Unlike the Koszul complex for vectors functions, we do not have the identity property applied to homogenous polynomials. Fortunately decomposition of polynomial spaces using Koszul and differential operators still holds.
+
+% Let $\mathbb H_k(D):=\mathbb P_k(D)/\mathbb P_{k-1}(D)$ be the space of homogeneous polynomials of degree $k$. Then by Euler's formula
+% \begin{equation}\label{eq:homogeneouspolyprop}
+% \boldsymbol x\cdot\nabla q=kq\quad\forall~q\in\mathbb H_k(D).
+% \end{equation}
+% %Thus we have for any positive integer $\ell$ that
+% Due to~\eqref{eq:homogeneouspolyprop}, we have
+% %for any $q\in\mathbb P_k(D)$ satisfying $\boldsymbol x\cdot\nabla q+q=0$, we have $q=0$.And
+% \begin{align}\label{eq:radialderivativeprop}
+% \mathbb P_k(D)\cap\ker(\boldsymbol x\cdot\nabla) & =\mathbb P_0(D),\\
+% \label{eq:radialderivativeprop1}
+% \mathbb P_k(D)\cap\ker(\boldsymbol x\cdot\nabla +\ell) &=0
+% \end{align}
+% for any positive number $\ell$.
+
+It follows from~\eqref{eq:piRTprop} and the complex~\eqref{eq:divdivKoszulcomplex3dPoly} that
+\[
+\mathbb P_{k+2}(D; \mathbb R^3)= \mathbb P_{k+1}(D; \mathbb T)\boldsymbol x\oplus\boldsymbol{RT}.
+\]
+We then move to the space $\mathbb P_{k+1}(D; \mathbb T)$.
+\begin{lemma}
+We have the decomposition
+\begin{equation}\label{eq:polyspacedecomp2}
+\mathbb P_{k+1}(D; \mathbb T) = (\mathbb P_k(D; \mathbb S)\times\boldsymbol x)\oplus\dev\grad\mathbb P_{k+2}(D; \mathbb R^3).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let us count the dimension. 
+$$
+\dim \mathbb P_{k+1}(D; \mathbb T) = 8 { k + 4 \choose 3},
+$$
+while by the exactness of the Koszul complex~\eqref{eq:divdivKoszulcomplex3dPoly}
+\begin{align*}
+\dim \mathbb P_k(D; \mathbb S)\times\boldsymbol x &= \dim \mathbb P_k(D; \mathbb S) - \boldsymbol x\boldsymbol x^{\intercal} \mathbb P_{k-2}(D) \\
+&= 6 { k + 3 \choose 3} -  { k + 1 \choose 3}, \\
+\dim \dev\grad\mathbb P_{k+2}(D; \mathbb R^3) &= \dim \mathbb P_{k+2}(D; \mathbb R^3) - \ker(\dev\grad)\\
+& = 3 { k + 5 \choose 3} - 4. 
+\end{align*} 
+By direct computation, the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in~\eqref{eq:polyspacedecomp2}. So we only need to prove that the sum in~\eqref{eq:polyspacedecomp2} is a direct sum.
+
+Take $\bs\tau=\dev\grad\boldsymbol q$  for some $\boldsymbol q\in\mathbb P_{k+2}(D; \mathbb R^3)$, and also assume $\boldsymbol \tau\in\mathbb P_k(D; \mathbb S)\times\boldsymbol x$. We have $\bs\tau\cdot\boldsymbol x=(\dev\grad\boldsymbol q)\cdot\boldsymbol x=\boldsymbol 0$, that is
+\begin{equation}\label{eq:20210206}
+(\grad\boldsymbol q)\cdot\boldsymbol x=\frac{1}{3}(\div\boldsymbol q)\boldsymbol x.
+\end{equation}
+Since $\div((\grad\boldsymbol q)\cdot\boldsymbol x)=(1+\boldsymbol x\cdot\grad)\div\boldsymbol q$, applying the divergence operator $\div$ on both side of~\eqref{eq:20210206} gives
+$$
+(1+\boldsymbol x\cdot\grad)\div\boldsymbol q=\frac{1}{3}(3+\boldsymbol x\cdot\grad)\div\boldsymbol q.
+$$
+Hence $(\boldsymbol x\cdot\grad)\div\boldsymbol q=0$, which together with~\eqref{eq:radialderivativeprop} indicates $\div\boldsymbol q\in\mathbb P_{0}(D)$. Due to~\eqref{eq:20210206}, $(\grad\boldsymbol q)\cdot\boldsymbol x$ is a linear function. It follows from ~\eqref{eq:homogeneouspolyprop} that $\boldsymbol q\in\mathbb P_1(D)$ and  $\bs\tau=\dev\grad\boldsymbol q\in\mathbb P_{0}(D;\mathbb T)$, which together with $\bs\tau\cdot\boldsymbol x=\bs0$ implies $\bs\tau=\bs0$. %This ends the proof.
+\end{proof}
+
+Finally we present a decomposition of space $\mathbb P_{k}(D; \mathbb S)$.
+Let
+\[
+\mathbb C_k(D; \mathbb S):=\sym \curl \, \mathbb  P_{k+1}(D; \mathbb T),\quad \mathbb C_k^{\oplus}(D; \mathbb S):=\boldsymbol  x\boldsymbol  x^{\intercal}\mathbb P_{k-2}(D).
+\]
+Their dimensions are
+\begin{equation}\label{eq:dimC}
+\dim\mathbb C_k(D; \mathbb S)=\frac{1}{6}(5k^3+36k^2+67k+36),\quad \dim\mathbb C_k^{\oplus}(D; \mathbb S)=\frac{1}{6}(k^3-k).
+\end{equation}
+The calculation of $\dim\mathbb C_k^{\oplus}(D; \mathbb S)$ is easy and $\dim\mathbb C_k(D; \mathbb S)$ is detailed in~\eqref{eq:20200507-3}. 
+
+\begin{lemma}\label{lem:symmpolyspacedirectsum}
+We have
+\begin{enumerate}[\rm (i)]
+\item $\displaystyle \div\div (\boldsymbol x\boldsymbol x^{\intercal} q) = (k+4)(k+3) q$ for any $q\in \mathbb H_k(D).$
+
+\medskip
+\item $\div\div: \mathbb C_k^{\oplus}(D; \mathbb S)\to\mathbb P_{k-2}(D)$ is a bijection.
+
+\medskip
+ \item
+$\displaystyle
+\mathbb P_{k}(D; \mathbb S)=\mathbb C_k(D; \mathbb S)\oplus \mathbb C_k^{\oplus}(D; \mathbb S).
+$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Since
+$
+{\div}(\boldsymbol  x\boldsymbol  x^{\intercal}q)=(\div(\boldsymbol  x q)+q)\boldsymbol  x
+$ and $\div(\boldsymbol  x q)=(\boldsymbol x\cdot\nabla)q+3q$,  we get
+\begin{equation}\label{eq:20200512}
+\div\div (\boldsymbol x\boldsymbol x^{\intercal} q)=\div(((\boldsymbol x\cdot\nabla+4)q)\boldsymbol x)=(\boldsymbol x\cdot\nabla+3)(\boldsymbol x\cdot\nabla+4)q.
+\end{equation}
+Hence property (i) follows from~\eqref{eq:homogeneouspolyprop}.
+Property (ii) is obtained by writing $\mathbb P_{k-2}(D) = \bigoplus_{i=0}^{k-2} \mathbb H_i(D)$.
+Now we prove property (iii). 
+First the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in (iii).
+Assume $q\in\mathbb P_{k-2}(D)$ satisfies $\boldsymbol x\boldsymbol  x^{\intercal}q\in\mathbb C_k(D; \mathbb S)$, which means
+\[
+\div{\div}(\boldsymbol  x\boldsymbol  x^{\intercal}q)=0.
+\]
+Thus $q=0$ from~\eqref{eq:20200512} and~\eqref{eq:radialderivativeprop1} and consequently property (iii) holds.
+\end{proof}
+
+For the simplification of the degree of freedoms, we need another decomposition of the symmetric tensor polynomial space, which can be derived from the polynomial Hessian complex 
+\begin{equation}\label{eq:hesscomplex3dPolydouble}
+\resizebox{.91\hsize}{!}{$
+\xymatrix{
+\mathbb P_1(D)\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k+2}(D)\ar@<0.4ex>[r]^-{\hess}\ar@<0.4ex>[l]^-{\pi_{1}v} & \mathbb P_{k}(D;\mathbb S)\ar@<0.4ex>[r]^-{\curl}\ar@<0.4ex>[l]^-{\boldsymbol x^{\intercal}\boldsymbol\tau\boldsymbol x}  & \mathbb P_{k-1}(D;\mathbb T) \ar@<0.4ex>[r]^-{{\div}}\ar@<0.4ex>[l]^-{\sym(\boldsymbol\tau\times\boldsymbol x)} & \mathbb P_{k-2}(D;\mathbb R^3)  \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\dev(\boldsymbol v\boldsymbol x^{\intercal})}
+& 0 \ar@<0.4ex>[l]^-{\supset} },
+$}
+\end{equation}
+where $\pi_{1}v:=v(0,0,0)+\boldsymbol  x^{\intercal}(\nabla v)(0,0,0).$
+A proof of the exactness of~\eqref{eq:hesscomplex3dPolydouble} is similar to that of Lemma~\ref{lem:Koszul} and can be found in~\cite{Chen;Huang:2020Discrete}. 
+Based on~\eqref{eq:hesscomplex3dPolydouble}, we have the following decomposition of symmetric polynomial tensors. 
+
+% \begin{lemma}\label{lem:PkS}
+% It holds
+%  \begin{equation}\label{eq:hesspolyspacedecomp2}
+% \mathbb P_{k}(D; \mathbb S) = \nabla^2 \mathbb P_{k+2}(D)\oplus\sym(\mathbb P_{k-1}(D; \mathbb T)\times\boldsymbol x).
+% \end{equation}
+% \end{lemma}
+% \begin{proof}
+% Obviously the space on the right is contained in the space on the left. We then count the dimensions of spaces on both sides:
+% \begin{align}
+% \dim \mathbb P_{k}(D; \mathbb S) &= 6 {k+3 \choose 3} = (k+3)(k+2)(k+1), \notag\\
+% \dim \nabla^2 \mathbb P_{k+2}(D) &= \dim \mathbb P_{k+2}(D)  - \dim \mathbb P_1(D) = {k+5 \choose 3} - 4, \notag\\
+% \dim \sym(\mathbb P_{k-1}(D; \mathbb T)\times\boldsymbol x) & = \dim \mathbb P_{k-1}(D; \mathbb T) - \dim \mathbb P_{k-2}(D;\mathbb R^3) \notag \\
+% & = 8  {k+2 \choose 3} - 3 {k+1 \choose 3} = \frac{1}{6} (k + 1) k (5 k + 19) \label{eq:dimsymx}.
+% \end{align}
+% Then by direct calculation, 
+% $$
+% \dim \nabla^2 \mathbb P_{k+2}(D) + \dim \sym(\mathbb P_{k-1}(D; \mathbb T)\times\boldsymbol x) = \dim \mathbb P_{k}(D; \mathbb S) = k^3+6k^2+11k+6.
+% $$
+% We only need to prove that the sum is direct.
+
+% For any $\boldsymbol\tau=\nabla^2q$ with $q\in\mathbb P_{k+2}(D)$ satisfying $\boldsymbol\tau\in\sym(\mathbb P_{k-1}(D; \mathbb T)\times\boldsymbol x)$, it follows $(\boldsymbol x\cdot\nabla)((\boldsymbol x\cdot\nabla)q-q)=\boldsymbol x^{\intercal}(\nabla^2q)\boldsymbol x=0$. Applying~\eqref{eq:radialderivativeprop} and~\eqref{eq:homogeneouspolyprop}, we get $q\in\mathbb P_{1}(D)$ and $\nabla^2q = 0$. Thus the decomposition~\eqref{eq:hesspolyspacedecomp2} holds.
+% \end{proof}
+
+Similarly for a two dimensional domain $F\subset \mathbb R^2$, we have the following divdiv polynomial complex and its Koszul complex
+\begin{equation}\label{eq:divdivcomplexPolydouble2D}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\boldsymbol{RT}\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(F;\mathbb R^2)\; \ar@<0.4ex>[r]^-{\sym\curl_F}\ar@<0.4ex>[l]^-{\boldsymbol \pi_{RT}}  & \; \mathbb P_k(F;\mathbb S) \ar@<0.4ex>[r]^-{\div _F {\div}_F}\; \ar@<0.4ex>[l]^-{\cdot\boldsymbol x^{\bot}} & \; \mathbb P_{k-2}(F)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\boldsymbol x\boldsymbol x^{\intercal}}
+& 0 \ar@<0.4ex>[l]^-{\supset} },
+%$}
+\end{equation}
+where $\boldsymbol \pi_{RT}\boldsymbol  v:=\boldsymbol  v(0,0)+\frac{1}{2}(\div\boldsymbol  v)(0,0)\boldsymbol  x$, $\boldsymbol x^{\bot} = (x_2, - x_1)^{\intercal}$ is the rotation of $\boldsymbol x = (x_1, x_2)^{\intercal}$. A two dimensional Hessian polynomial complex and its Koszul complex are
+\begin{equation}\label{eq:hessiancomplexPolydouble2D}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\mathbb P_1(F)\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(F)\; \ar@<0.4ex>[r]^-{\nabla^2_F}\ar@<0.4ex>[l]^-{\pi_1}  & \; \mathbb P_k(F;\mathbb S) \ar@<0.4ex>[r]^-{{\rm rot}_F}\; \ar@<0.4ex>[l]^-{\boldsymbol x^{\intercal}\boldsymbol \tau\boldsymbol x} & \; \mathbb P_{k-2}(F)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\sym(\boldsymbol x^{\bot}\boldsymbol v^{\intercal})}
+& 0 \ar@<0.4ex>[l]^-{\supset} },
+%$}
+\end{equation}
+where $\pi_{1}v:=v(0,0)+\boldsymbol  x^{\intercal}(\nabla v)(0,0).$ Verification of the exactness of these two complexes and corresponding space decompositions can be found in~\cite{ChenHuang2020}.
+
+
+
+\section{Polynomial elasticity complexes in three dimensions}
+
+In this section we consider polynomial elasticity complexes on a bounded and topologically trivial domain $D\subset \mathbb R^3$ in this section.
+%We refer to~\cite{Chen;Huang:2020Finite} for the divdiv polynomial complex.
+Without loss of generality, we assume $(0,0,0) \in D$ which can be easily satisfied by changing of variable $\boldsymbol  x - \boldsymbol  x_c$ with an arbitrary $\boldsymbol  x_c\in D$ for polynomials in $D$.  
+
+% Given %a bounded domain $G\subset\mathbb{R}^{3}$ and 
+% a non-negative integer $k$, 
+% let $\mathbb P_k(D)$ stand for the set of all polynomials in $D$ with the total degree no more than $k$, and $\mathbb P_k(D; \mathbb{X})$ denote the tensor or vector version for $\mathbb X = \mathbb S,\mathbb K, \mathbb M$, or $\mathbb R^3$. Similar notation will be applied to a two dimensional face $F$ and one dimensional edge $e$.
+%Let $\mathbb H_k(D):=\mathbb P_k(D)/\mathbb P_{k-1}(D)$ be the space of homogeneous polynomials of degree $k$. 
+
+% Recall that $\dim \mathbb P_{k}(D) = { k + d \choose d}$ for a $d$-dimensional domain $D$, $\dim \mathbb M = 9, \dim \mathbb S = 6,$ and $\dim \mathbb K = 3$. 
+% We list a useful result in~\cite{Chen;Huang:2020Finite}
+% \begin{equation}
+% \label{eq:radialderivativeprop1}
+% \mathbb P_k(D)\cap\ker(\ell+\boldsymbol x\cdot\nabla) =0
+% \end{equation}
+% for any positive number $\ell$.
+
+\subsection{Polynomial elasticity complex}
+% The polynomial de Rham complex is
+% \begin{equation}\label{eq:deRhamcomplex3dPoly}
+% \resizebox{.9\hsize}{!}{$
+% \mathbb R\autorightarrow{$\subset$}{} \mathbb P_{k+1}(D)\autorightarrow{$\nabla$}{} \mathbb P_{k}(D;\mathbb R^3)\autorightarrow{$\nabla \times$}{}\mathbb P_{k-2}(D;\mathbb R^3) \autorightarrow{$\nabla\cdot$}{} \mathbb P_{k-3}(D)\autorightarrow{}{}0
+% $}.
+% \end{equation}
+% As $D$ is topologically trivial, complex \eqref{eq:deRhamcomplex3dPoly} is also exact, which means the range of each map is the kernel of the succeeding map. 
+
+\begin{lemma}\label{lem:divsymtensoronto}
+ $\div: \sym (\boldsymbol  x \mathbb P_{k-3}(D;\mathbb R^3)) \to \mathbb P_{k-3}(D;\mathbb R^3)$ is bijective.
+\end{lemma}
+\begin{proof}
+As $\div(\sym (\boldsymbol  x \mathbb P_{k-3}(D;\mathbb R^3))) \subseteq \mathbb P_{k-3}(D;\mathbb R^3)$ and $\dim\sym (\boldsymbol  x \mathbb P_{k-3}(D;\mathbb R^3))=\dim\mathbb P_{k-3}(D;\mathbb R^3)$, it is sufficient to prove $\sym (\boldsymbol  x \mathbb P_{k-3}(D;\mathbb R^3))\cap\ker(\div)=\{\bs0\}$. That is: for any $\boldsymbol q\in\mathbb P_{k-3}(D;\mathbb R^3)$ satisfying $\div\sym(\boldsymbol  x \boldsymbol q^{\intercal})=\boldsymbol0$, we are going to prove $\boldsymbol q =\boldsymbol 0$. 
+
+%As $\sym(\boldsymbol  x \boldsymbol q)$ is symmetry, we also have $\div\sym(\boldsymbol  x \boldsymbol q)=0$. 
+By direct computation,
+\begin{align*}
+\div (\boldsymbol  q\boldsymbol  x^{\intercal}) &= (\div \boldsymbol  x) \boldsymbol  q +  (\grad \boldsymbol  q) \cdot \boldsymbol  x = 3\boldsymbol  q + (\grad \boldsymbol  q) \cdot \boldsymbol  x,\\
+\div (\boldsymbol  x\boldsymbol  q^{\intercal}) & = (\div \boldsymbol  q) \boldsymbol  x + (\grad \boldsymbol  x)\cdot \boldsymbol  q = \boldsymbol  q + (\div \boldsymbol  q) \boldsymbol  x, \\
+2\div \sym(\boldsymbol x\boldsymbol q^{\intercal}) & = 4\boldsymbol  q + (\grad \boldsymbol  q) \cdot \boldsymbol  x + (\div \boldsymbol  q) \boldsymbol  x.
+\end{align*}
+It follows from $\div \sym(\boldsymbol  x\boldsymbol q)=\boldsymbol 0$ that 
+\begin{equation}\label{eq:divsymxq}
+4\boldsymbol  q + (\grad \boldsymbol  q) \cdot \boldsymbol  x = - (\div \boldsymbol  q) \boldsymbol  x.
+\end{equation}
+Since $\div((\grad \boldsymbol  q) \cdot \boldsymbol  x)=(1+\boldsymbol  x\cdot\grad)\div\boldsymbol  q$,
+applying the divergence operator $\div$ on both side of \eqref{eq:divsymxq} yields
+$$
+(5+\boldsymbol  x\cdot\grad)\div\boldsymbol  q=-(3+\boldsymbol  x\cdot\grad)\div\boldsymbol  q.
+$$
+Hence we acquire from \eqref{eq:radialderivativeprop1} that $\div\boldsymbol  q=0$, and \eqref{eq:divsymxq} reduces to
+\[
+4\boldsymbol  q + (\grad \boldsymbol  q) \cdot \boldsymbol  x =\bs0 \quad \forall~\boldsymbol  x\in D.
+\]
+Applying \eqref{eq:radialderivativeprop1} again gives $\boldsymbol q=\boldsymbol 0$. %by evaluating $\boldsymbol  x = \boldsymbol  0\in D$.
+\end{proof}
+
+Recall that the linearized rigid body motion is 
+\begin{equation}\label{eq:RM}
+\bs{RM} = \{\boldsymbol  a \times \boldsymbol  x + \boldsymbol  b: \boldsymbol  a, \boldsymbol  b\in \mathbb R^3\} = \{\boldsymbol  N \boldsymbol  x + \boldsymbol  b: \boldsymbol  N\in \mathbb K, \boldsymbol  b\in \mathbb R^3\}.
+\end{equation}
+
+\begin{lemma}\label{lm:polycomplex}
+The polynomial sequence
+\begin{equation}\label{eq:elascomplex3dPoly}
+% \resizebox{.9\hsize}{!}{$
+\boldsymbol{RM}\autorightarrow{$\subset$}{} \mathbb P_{k+1}(D;\mathbb R^3)\autorightarrow{$\defm$}{} \mathbb P_{k}(D;\mathbb S)\autorightarrow{$\inc$}{}\mathbb P_{k-2}(D;\mathbb S) \autorightarrow{$\div$}{} \mathbb P_{k-3}(D;\mathbb R^3)\autorightarrow{}{}0
+% $}
+\end{equation}
+is an exact complex.
+\end{lemma}
+\begin{proof}
+Verification of \eqref{eq:elascomplex3dPoly} being a complex is straightforward using our notation system:
+$$
+\nabla \times (\nabla \boldsymbol  u + \boldsymbol  u\nabla)\times \nabla = 0, \quad (\nabla \times \boldsymbol  \tau\times \nabla)\cdot\nabla = 0.
+$$
+
+
+We then verify the exactness. 
+
+\medskip
+\noindent {\em 1. If $\defm (\boldsymbol  v) = 0$, then $\boldsymbol  v\in \bs{RM}$.} This is well-known and can be found in e.g.~\cite{Ciarlet:2010inequality}. 
+
+\medskip
+
+\noindent{\em 2. $\defm\mathbb P_{k+1}(D;\mathbb R^3)=\mathbb P_{k}(D;\mathbb S)\cap\ker(\inc)$, i.e. if $\inc(\boldsymbol  \tau) = 0$ and $\boldsymbol  \tau\in \mathbb P_{k}(D;\mathbb S)$, then there exists a $\boldsymbol  v\in \mathbb P_{k+1}(D;\mathbb R^3)$, s.t. $\boldsymbol  \tau = \defm \boldsymbol  v$}. 
+
+As $\nabla \times (\boldsymbol  \tau \times \nabla) = 0$, we apply the exactness of de Rham complex \eqref{eq:deRhamcomplex3dPoly} to each column of $\boldsymbol  \tau \times \nabla$ to conclude there exists $\boldsymbol q\in\mathbb P_{k}(D;\mathbb R^3)$ such that $
+\boldsymbol  \tau \times \nabla=\nabla\boldsymbol q.$ As $\boldsymbol  \tau$ is symmetric, taking transpose, we get
+$$
+ - \nabla \times \boldsymbol  \tau = \boldsymbol  q\nabla. 
+$$
+And use \eqref{eq:trcurl} to conclude
+$$
+\nabla\cdot \boldsymbol  q = \tr (\nabla \boldsymbol  q) =\tr ( \boldsymbol  \tau \times \nabla) = - \tr (\nabla \times \boldsymbol  \tau) = \nabla \cdot 2\vskw(\boldsymbol  \tau) = 0.
+$$
+Hence there exists $\boldsymbol q_1\in\mathbb P_{k+1}(D;\mathbb R^3)$ such that
+\[
+\boldsymbol q=\nabla \times \boldsymbol q_1,
+\]
+which implies
+\[
+-\nabla \times \boldsymbol  \tau = \boldsymbol  q \nabla =  (\nabla \times \boldsymbol  q_1) \nabla = \nabla \times ( \boldsymbol  q_1 \nabla). 
+\]
+i.e. $\nabla \times (\boldsymbol \tau + \boldsymbol q_1\nabla)=0$. Then there exists $\boldsymbol q_2\in\mathbb P_{k+1}(D;\mathbb R^3)$ such that
+\[
+\boldsymbol \tau + \boldsymbol q_1 \nabla = \nabla\boldsymbol q_2.
+\]
+Then, as $\boldsymbol  \tau$ is symmetric,
+$$\boldsymbol \tau=\sym\boldsymbol \tau=\sym(\nabla\boldsymbol q_2 - \boldsymbol q_1 \nabla )=\defm(\boldsymbol q_2 - \boldsymbol q_1)\in\defm\mathbb P_{k+1}(D;\mathbb R^3).$$
+
+% \textcolor{gray}{\LC{for de Rham complex, the vector is understood as column vectors. Also try to use $\nabla$ consistently.}
+% As $(\nabla \times \boldsymbol  \tau) \times \nabla = \bs0$, we apply the exactness of \eqref{eq:deRhamcomplex3dPoly} to each row  of $\nabla \times \boldsymbol  \tau$ to conclude there exists $\boldsymbol q\in\mathbb P_{k}(D;\mathbb R^3)$ such that
+% \[
+% \nabla \times \boldsymbol  \tau=\grad\boldsymbol q.
+% \]
+% For symmetric $\boldsymbol\tau$, using \eqref{eq:trcurl},
+% $$
+% \nabla\cdot \boldsymbol  q = \tr (\grad \boldsymbol  q) = \tr (\nabla \times \boldsymbol  \tau) = -\nabla \cdot 2\vskw(\boldsymbol  \tau) = 0.
+% $$
+% Hence there exists $\boldsymbol q_1\in\mathbb P_{k+1}(D;\mathbb R^3)$ such that
+% \[
+% \boldsymbol q=\nabla \times \boldsymbol q_1,
+% \]
+% which implies
+% \[
+% \grad \boldsymbol  q = \grad (\nabla \times \boldsymbol  q_1) = \nabla \times (\grad \boldsymbol  q_1) = \nabla \times \boldsymbol  \tau. 
+% \]
+% i.e. $\nabla \times (\boldsymbol \tau - \grad\boldsymbol q_1)=\bs0$. Then there exists $\boldsymbol q_2\in\mathbb P_{k+1}(D;\mathbb R^3)$ such that
+% \[
+% \boldsymbol \tau - \grad\boldsymbol q_1 = \nabla\boldsymbol q_2.
+% \]
+% Then $$\boldsymbol \tau=\sym\boldsymbol \tau=\sym(\grad\boldsymbol q_1 +\nabla\boldsymbol q_2)=\defm(\boldsymbol q_1+\boldsymbol q_2)\in\defm\mathbb P_{k+1}(D;\mathbb R^3).$$
+% }
+\medskip
+
+\noindent{\em 3. $\div\mathbb P_{k-2}(D;\mathbb S)=\mathbb P_{k-3}(D;\mathbb R^3)$ holds from Lemma~\ref{lem:divsymtensoronto}.} 
+
+\medskip
+
+\noindent{\em 4. $\inc\mathbb P_{k}(D;\mathbb S)=\mathbb P_{k-2}(D;\mathbb S)\cap\ker(\div)$.}
+
+Obviously $\inc\mathbb P_{k}(D;\mathbb S)\subseteq\mathbb P_{k-2}(D;\mathbb S)\cap\ker(\div)$. 
+As $\div$ is surjective shown in Step 3, by \eqref{eq:dim},
+$$
+\dim\mathbb P_{k-2}(D;\mathbb S)\cap\ker(\div)=\dim\mathbb P_{k-2}(D;\mathbb S)-\dim\mathbb P_{k-3}(D;\mathbb R^3)=\frac{1}{2}(k+4)(k^2-k).
+$$
+By results in Step 1 and 2, we count the dimension
+\begin{align*}
+\dim (\inc \mathbb P_{k}(D; \mathbb S)) &= \dim (\mathbb P_{k}(D; \mathbb S)) - \dim (\defm \mathbb P_{k+1}(D; \mathbb R^3)) \\
+&= \dim (\mathbb P_{k}(D; \mathbb S)) - \dim (\mathbb P_{k+1}(D; \mathbb R^3)) + \dim \bs{RM} \\
+& = \frac{1}{2}(k+4)(k^2-k).
+\end{align*}
+%
+%
+%By direct computation, we have
+%$$
+%\dim(\inc\mathbb P_{k}(D;\mathbb S))=\dim\mathbb P_{k}(D;\mathbb S)-\dim(\defm\mathbb P_{k+1}(D;\mathbb R^3)) ,
+%$$
+Then the desired result follows. 
+\end{proof}
+
+\subsection{Koszul elasticity complex}
+
+Define operator $\boldsymbol \pi_{RM}: \mathcal C^1(D; \mathbb R^3)\to \boldsymbol{RM}$ as
+\[
+\boldsymbol \pi_{RM}\boldsymbol  v:=\boldsymbol  v(0,0,0)+\frac{1}{2}(\curl\boldsymbol  v)(0,0,0)\times\boldsymbol  x.
+\]
+By direct calculation $\nabla \times (\boldsymbol  a \times \boldsymbol  x) = 2\boldsymbol  a$ and definition of $\bs{RM}$ cf. \eqref{eq:RM}, it holds
+\begin{equation}\label{eq:piRMprop}
+\boldsymbol \pi_{RM}\boldsymbol  v=\boldsymbol  v\quad \forall~\boldsymbol  v\in\boldsymbol{RM}.
+\end{equation}
+
+%Define operator $\boldsymbol x\boldsymbol x^{\intercal}: \mathbb P_{k-2}(D)\to \mathbb P_k(D;\mathbb S)$ by $\boldsymbol x\boldsymbol x^{\intercal}$
+%Define operator $\boldsymbol x^{\perp}: \mathbb P_k(D;\mathbb S)\to \mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}$ by $\boldsymbol x\boldsymbol x^{\intercal)$
+\begin{lemma}
+The following polynomial and operators sequences 
+%\begin{equation}\label{eq:divdivKoszulcomplexPoly}
+%%\resizebox{.9\hsize}{!}{$
+%0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(D) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(D;\mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_k(D;\mathbb S)\boldsymbol x^{\perp}\autorightarrow{}{}0
+%\end{equation}
+\begin{equation}\label{eq:elas3dKoszulcomplexPoly}
+\resizebox{0.92\hsize}{!}{$
+0\stackrel{\subset}{\longrightarrow}\mathbb P_{k-3}(D;\mathbb R^3) \stackrel{\sym(\boldsymbol v \boldsymbol x^{\intercal})}{\longrightarrow}
+\mathbb P_{k-2}(D;\mathbb S) \stackrel{\boldsymbol x\times \boldsymbol\tau \times \boldsymbol x}{\longrightarrow}
+\mathbb P_k(D;\mathbb S) \stackrel{\boldsymbol\tau\cdot \boldsymbol x}{\longrightarrow}
+\mathbb P_{k+1}(D;\mathbb R^3)\stackrel{\boldsymbol \pi_{RM}}{\longrightarrow}\boldsymbol{RM}
+\stackrel{}{\longrightarrow}0
+$}
+\end{equation}
+is a complex and is exact.
+\end{lemma}
+\begin{proof}
+It is similar to the proof of Lemma \ref{lm:polycomplex} and symbolically replace $\nabla = (\partial_1, \partial_2, \partial_3)^{\intercal}$ by $\boldsymbol  x = (\boldsymbol  x_1, \boldsymbol  x_2, \boldsymbol  x_3)^{\intercal}$. 
+We first verify \eqref{eq:elas3dKoszulcomplexPoly} is a complex. For any $\boldsymbol v\in\mathbb P_{k-3}(D;\mathbb R^3)$ and $\boldsymbol\tau\in\mathbb P_{k-2}(D;\mathbb S)$, we have
+\begin{align*}
+\boldsymbol x\times \sym(\boldsymbol v\boldsymbol x^{\intercal})\times \boldsymbol x &=\frac{1}{2}\boldsymbol x\times(\boldsymbol x\boldsymbol v^{\intercal} + \boldsymbol  v\boldsymbol  x^{\intercal})\times \boldsymbol  x=\boldsymbol0,\\
+(\boldsymbol x\times\boldsymbol\tau \times \boldsymbol  x)\cdot \boldsymbol  x &=\boldsymbol 0.
+\end{align*}
+As $\boldsymbol\tau\in\mathbb P_{k}(D;\mathbb S)$, \eqref{eq:curlxtau} implies
+$\nabla \times( \boldsymbol  \tau\cdot \boldsymbol  x) =(\nabla\times \boldsymbol\tau )\cdot \boldsymbol  x,$
+we get
+$\boldsymbol \pi_{RM}(\boldsymbol\tau\cdot \boldsymbol  x)= \boldsymbol  0.$
+Thus \eqref{eq:elas3dKoszulcomplexPoly} is a complex.
+
+We now verify the exactness.  
+
+\medskip
+\noindent{\em 1. If $\boldsymbol x\times\boldsymbol\tau \times \boldsymbol x=\boldsymbol  0$ and $\boldsymbol  \tau \in \mathbb P_{k-2}(D; \mathbb S)$, then $\boldsymbol  \tau = \sym (\boldsymbol  v\boldsymbol  x^{\intercal})$ for some $\boldsymbol  v\in \mathbb P_{k-3}(D;\mathbb R^3)$.}
+
+For any $\boldsymbol \tau\in\mathbb P_{k-2}(D;\mathbb S)$ satisfying $\boldsymbol x\times(\boldsymbol\tau \times \boldsymbol x)=\boldsymbol  0$, by the exactness of Koszul complex \eqref{eq:Koszul}, there exists $\widetilde{\boldsymbol v}\in \mathbb P_{k-2}(D;\mathbb R^3)$ such that $\boldsymbol\tau \times \boldsymbol x=\boldsymbol x\widetilde{\boldsymbol v}$.
+By \eqref{eq:trcross}, as $\bs \tau$ is symmetric, $\boldsymbol\tau \times \boldsymbol x$ is trace-free. Then it follows $\widetilde{\boldsymbol v}\cdot \boldsymbol  x = \tr(\boldsymbol  x\widetilde{\boldsymbol v} ) = \tr (\boldsymbol  \tau \times \boldsymbol  x) = 0$. Then there exists $\boldsymbol  v_1\in\mathbb P_{k-3}(D;\mathbb R^3)$ such that $\widetilde{\boldsymbol v}=\boldsymbol  v_1\times \boldsymbol x$. As a result, we have
+$$
+(\boldsymbol\tau-\boldsymbol x\boldsymbol  v_1)\times \boldsymbol x=\boldsymbol\tau \times \boldsymbol x-\boldsymbol x(\boldsymbol  v_1\times \boldsymbol x)= \boldsymbol\tau \times \boldsymbol x-\boldsymbol x \widetilde{\boldsymbol v} = 0.
+$$
+Again there exists $\boldsymbol v_2\in \mathbb P_{k-3}(D;\mathbb R^3)$ such that $\boldsymbol\tau=\boldsymbol x\boldsymbol v_1+\boldsymbol v_2\boldsymbol x$. By the symmetry of $\boldsymbol\tau$, it holds $\boldsymbol\tau=\sym(\boldsymbol  x(\boldsymbol v_1+\boldsymbol v_2))$. 
+
+\medskip
+\noindent{\em 2. If $\boldsymbol  \tau\cdot \boldsymbol  x = 0$ and $\boldsymbol  \tau \in \mathbb P_k(D;\mathbb S)$, then $\boldsymbol  \tau = \boldsymbol  x\times \bs\sigma \times \boldsymbol  x$ for some $\bs\sigma \in \mathbb P_{k-2}(D;\mathbb S)$.}
+
+For any $\boldsymbol \tau\in\mathbb P_k(D;\mathbb S)$ satisfying $\boldsymbol \tau\cdot \boldsymbol x=\boldsymbol  0$, by the exactness of Koszul complex \eqref{eq:Koszul}, there exists $\boldsymbol \tau_1\in \mathbb P_{k-1}(D;\mathbb M)$ such that $\boldsymbol\tau=\boldsymbol\tau_1\times\boldsymbol x$. By the symmetry of $\boldsymbol \tau$, it holds
+\[
+(\boldsymbol  x\cdot \boldsymbol  \tau_1)\times\boldsymbol x= \boldsymbol  x\cdot (\boldsymbol  \tau_1\times\boldsymbol x)
+=\boldsymbol  x\cdot \boldsymbol\tau=(\boldsymbol\tau\cdot \boldsymbol x)^{\intercal}= \boldsymbol0.
+\]
+Thus there exists $q\in\mathbb P_{k-1}(D)$ satisfying $\boldsymbol  x\cdot \boldsymbol  \tau_1=q\boldsymbol x$, i.e. $\boldsymbol  x\cdot (\boldsymbol\tau_1 -q\boldsymbol I)=\boldsymbol 0$. Again there exists $\boldsymbol\tau_2\in\mathbb P_{k-2}(D;\mathbb M)$ satisfying $\boldsymbol\tau_1=q\boldsymbol I + \boldsymbol x\times \boldsymbol\tau_2$. Hence
+\[
+\boldsymbol\tau=q\boldsymbol I\times\boldsymbol x + \boldsymbol x\times  \boldsymbol\tau_2 \times \boldsymbol x.
+\]
+It follows from the symmetry of $\boldsymbol\tau$ that
+\begin{align*}
+\boldsymbol\tau&=\sym\boldsymbol\tau=\sym(q\boldsymbol I\times\boldsymbol x + \boldsymbol x\times  \boldsymbol\tau_2 \times \boldsymbol x)= \sym(\boldsymbol x\times \boldsymbol\tau_2 \times \boldsymbol x) =\boldsymbol x\times\sym\boldsymbol\tau_2 \boldsymbol  \times \boldsymbol  x.
+\end{align*}
+Here we use the fact that $\boldsymbol x\times\skw\boldsymbol\tau_2\times \boldsymbol  x \in\mathbb P_{k}(D;\mathbb K)$.
+
+\medskip
+\noindent {\rm 3. $\mathbb P_{k}(D;\mathbb S) \cdot \boldsymbol  x = \mathbb P_{k+1}(D;\mathbb R^3)\cap \ker(\pi_{RM})$.}
+
+As a result of step 1,
+\begin{align*}
+\dim(\boldsymbol x\times\mathbb P_{k-2}(D;\mathbb S)\times \boldsymbol  x)=\dim\mathbb P_{k-2}(D;\mathbb S)-\dim\mathbb P_{k-3}(D;\mathbb R^3) =\frac{1}{2}k(k-1)(k+4). 
+\end{align*}
+Then we get from step 2 that 
+\begin{align}
+\dim(\mathbb P_{k}(D;\mathbb S)\cdot \boldsymbol x)&=\dim\mathbb P_{k}(D;\mathbb S)-\dim(\boldsymbol x\times\mathbb P_{k-2}(D;\mathbb S) \times \boldsymbol  x)\notag\\
+&=(k+3)(k+2)(k+1)-\frac{1}{2}k(k-1)(k+4) \notag\\
+&=\frac{1}{2}(k+4)(k+3)(k+2)-6. \label{eq:20200506-2}
+\end{align}
+It follows from \eqref{eq:piRMprop} that $\boldsymbol \pi_{RM}\mathbb P_{k+1}(D;\mathbb R^3)=\boldsymbol{RM}$, and by \eqref{eq:20200506-2},
+\[
+\dim(\mathbb P_{k}(D;\mathbb S)\cdot \boldsymbol x)+\dim\boldsymbol{RM}=\dim\mathbb P_{k+1}(D;\mathbb R^3).
+\]
+Therefore the complex \eqref{eq:elas3dKoszulcomplexPoly} is exact.
+\end{proof}
+
+\begin{remark}
+ Another Koszul elasticity complex is constructed in~\cite[Section~3.2]{ChristiansenHuSande2020} by using different Koszul operators which satisfies homotopy identities. Ours is simpler and sufficient to derive the required decomposition.    
+\end{remark}
+%
+%except the middle one $\boldsymbol x\times\boldsymbol\tau \times \boldsymbol x$. The Koszul operators in~\cite{ChristiansenHuSande2020} 
+
+\subsection{Decomposition of polynomial tensor spaces}
+
+Combining the two complexes \eqref{eq:elascomplex3dPoly} and \eqref{eq:elas3dKoszulcomplexPoly} yields
+\begin{equation}\label{eq:elascomplex3dPolydouble}
+% \resizebox{.92\hsize}{!}{$
+\xymatrix{
+\boldsymbol{RM}\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k+1}(D;\mathbb R^3)\ar@<0.4ex>[r]^-{\defm}\ar@<0.4ex>[l]^-{\pi_{RM}} & \mathbb P_{k}(D;\mathbb S)\ar@<0.4ex>[r]^-{\inc}\ar@<0.4ex>[l]^-{\boldsymbol\tau\cdot \boldsymbol x}  & \mathbb P_{k-2}(D;\mathbb S) \ar@<0.4ex>[r]^-{{\div}}\ar@<0.4ex>[l]^-{\boldsymbol x\times\boldsymbol\tau \times \boldsymbol x} & \mathbb P_{k-3}(D;\mathbb R^3)  \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\sym(\boldsymbol v \boldsymbol x^{\intercal})}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+% $}
+\end{equation}
+Although no homotopy identity, from \eqref{eq:elascomplex3dPolydouble}, we can derive the following space decompositions which play an vital role in the design of degree of freedoms. 
+\begin{lemma}
+We have the following space decompositions
+\begin{align}
+\label{eq:polydecomp0}
+\mathbb P_{k+1}(D;\mathbb R^3)&=(\mathbb P_k(D;\mathbb S)\cdot \boldsymbol x)\oplus\boldsymbol{RM},\\
+\label{eq:polydecomp1}
+\mathbb P_k(D;\mathbb S ) &=\defm\mathbb P_{k+1}(D;\mathbb R^3)\oplus(\boldsymbol x\times\mathbb P_{k-2}(D;\mathbb S)\times \boldsymbol  x),\\
+\label{eq:polydecomp2}
+\mathbb P_{k-2}(D;\mathbb S)&=\inc \mathbb P_k(D;\mathbb S)\oplus \sym(\mathbb P_{k-3}(D;\mathbb R^3)\boldsymbol  x).
+\end{align}
+\end{lemma}
+\begin{proof}
+The decomposition \eqref{eq:polydecomp0} is trivial by the exactness of \eqref{eq:elas3dKoszulcomplexPoly}. 
+
+For any $\boldsymbol q\in\mathbb P_{k+1}(D;\mathbb R^3)$ satisfying $\defm\boldsymbol q\in\boldsymbol x\times\mathbb P_{k-2}(D;\mathbb S)\times \boldsymbol  x$, we have
+\[
+(\nabla\boldsymbol q+(\nabla\boldsymbol q)^{\intercal})\cdot \boldsymbol x=2(\defm\boldsymbol q)\cdot\boldsymbol x=\boldsymbol 0.
+\]
+Since $(\nabla\boldsymbol q)\boldsymbol x=\nabla(\boldsymbol x^{\intercal}\boldsymbol q)-\boldsymbol q$, we get
+\begin{equation}\label{eq:20200509}
+(\nabla\boldsymbol q)^{\intercal}\cdot\boldsymbol  x + \nabla(\boldsymbol x^{\intercal}\boldsymbol q)=\boldsymbol q.
+\end{equation}
+Noting that
+\[
+\boldsymbol x\cdot(\nabla\boldsymbol q)^{\intercal}\cdot\boldsymbol  x=\boldsymbol x\cdot(\defm\boldsymbol q)\cdot\boldsymbol  x=0,
+\]
+we obtain from \eqref{eq:20200509} that
+\[
+(\boldsymbol x\cdot\nabla)(\boldsymbol x^{\intercal}\boldsymbol q)=\boldsymbol x^{\intercal}\boldsymbol q.
+\]
+Hence $\boldsymbol x^{\intercal}\boldsymbol q$ is a linear function. In turn, it follows from \eqref{eq:20200509} that $\boldsymbol q\in\mathbb P_{1}(D;\mathbb R^3)$, which together with the fact $\boldsymbol x^{\intercal}\boldsymbol q$ is linear implies $\boldsymbol q\in\boldsymbol{RM}$. Thus \eqref{eq:polydecomp1} follows from the fact that the dimensions on two sides of \eqref{eq:polydecomp1} coincide.
+
+By Lemma~\ref{lem:divsymtensoronto}, the sum in \eqref{eq:polydecomp2} is a direct sum. Thus the decomposition \eqref{eq:polydecomp2} follows.
+\end{proof}
+
+\subsection{Polynomial complexes in two dimensions}
+We have similar polynomial complexes in two dimensions. Here we collect some which will appear as the trace complex on face $F$ of a polyhedron. Let $\boldsymbol  n$ be a normal vector of $F$. For $\boldsymbol  x\in F$, denote by $\boldsymbol  x^{\bot} = \boldsymbol  n\times \boldsymbol  x$. 
+Set $\boldsymbol{RT}:=\mathbb P_0(F;\mathbb R^2)+\boldsymbol  x\mathbb P_0(F)$.
+For a scalar function $v$,
+%And define $\pi_1:\mathcal C^1(F)\to\mathbb P_1(F)$
+%as
+$$
+\pi_1v:=v(0,0)+\boldsymbol  x\cdot\nabla_Fv(0,0).
+$$
+Again, here without loss of generality, we assume $(0,0)\in F$ and in general the $\boldsymbol  x$ in the results presented below can be replaced by $\boldsymbol  x - \boldsymbol  x_c$ with an arbitrary $\boldsymbol  x_c\in F$.  
+
+The following $\div\div$ polynomial complexes has been established in~\cite{ChenHuang2020}:
+\begin{equation}\label{eq:divdivcomplexPolydouble}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\boldsymbol{RT}\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+1}(F;\mathbb R^2)\; \ar@<0.4ex>[r]^-{\sym\curl_F}\ar@<0.4ex>[l]^-{\boldsymbol x}  & \; \mathbb P_k(F;\mathbb S) \ar@<0.4ex>[r]^-{\div_F{\div}_F}\; \ar@<0.4ex>[l]^-{\boldsymbol  \tau\cdot \boldsymbol x^{\bot}} & \; \mathbb P_{k-2}(F)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{ \boldsymbol x \boldsymbol x^{\intercal}v}
+& 0 \ar@<0.4ex>[l]^-{\supset} },
+%$}
+\end{equation}
+which implies the following decomposition
+\begin{itemize}
+ \item $\mathbb P_{k+2}(F; \mathbb R^2)= (\mathbb P_{k+1}(F; \mathbb S)\cdot\boldsymbol x^{\bot})\oplus\boldsymbol{RT}.$
+ \smallskip 
+ \item $\displaystyle
+\mathbb P_{k}(F; \mathbb S)=\sym\curl_F \, \mathbb P_{k+1}(F; \mathbb R^2) \oplus \mathbb P_{k-2}(F)\boldsymbol  x\boldsymbol  x^{\intercal}.
+$
+
+ \smallskip
+ \item $\div_F\div_F: \mathbb P_{k-2}(F)\boldsymbol  x\boldsymbol  x^{\intercal}\to\mathbb P_{k-2}(F)$ is a bijection.
+\end{itemize}
+%
+The following two dimensional Hessian polynomial complex and its Koszul complex can be also found in~\cite[Section 3.1]{ChenHuang2020}
+%adapted from the three dimension version established in~\cite{Chen;Huang:2020Discrete}
+\begin{equation}\label{eq:hessiancomplexPolydouble}
+%\resizebox{.93\hsize}{!}{$
+\xymatrix{
+\mathbb P_1(F)\ar@<0.4ex>[r]^-{\subset} & \; \mathbb P_{k+2}(F)\; \ar@<0.4ex>[r]^-{\nabla_F^2}\ar@<0.4ex>[l]^-{\pi_1}  & \; \mathbb P_k(F;\mathbb S) \ar@<0.4ex>[r]^-{\rot_F}\; \ar@<0.4ex>[l]^-{\boldsymbol  x\cdot \boldsymbol  \tau \cdot \boldsymbol x} & \; \mathbb P_{k-1}(F; \mathbb R^2)  \; \ar@<0.4ex>[r]^-{} \ar@<0.4ex>[l]^-{\sym(\boldsymbol  x^{\perp}\boldsymbol  v )}
+& 0 \ar@<0.4ex>[l]^-{\supset} }.
+%$}
+\end{equation}
+The implied decompositions are
+\begin{itemize}
+ \item $\mathbb P_{k+2}(F)= (\boldsymbol x\cdot\mathbb P_{k}(F; \mathbb S) \cdot \boldsymbol  x) \oplus\mathbb P_1(F).$
+ \smallskip 
+ \item $\displaystyle
+\mathbb P_{k}(F; \mathbb S)=\nabla_F^2 \, \mathbb P_{k+2}(F) \oplus \sym (\boldsymbol x^{\perp}\mathbb P_{k-1}(F; \mathbb R^2)).
+$
+
+ \smallskip
+ \item $ \rot_F: \sym (\boldsymbol x^{\perp}\mathbb P_{k-1}(F; \mathbb R^2))\to\mathbb P_{k-1}(F; \mathbb R^2)$ is a bijection.
+\end{itemize}
+%Its rotated version is the two dimensional elasticity complex 
+

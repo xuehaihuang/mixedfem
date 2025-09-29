@@ -1,0 +1,173 @@
+%!TEX program  = xelatex
+% ----------------------------------------------------------------
+% Book Class (This is a LaTeX2e document)  ***********************
+% ----------------------------------------------------------------
+\documentclass[10pt]{book}
+%\documentclass{amsbook}
+\textwidth 6in
+\topmargin -0.5in
+\textheight 9in
+\oddsidemargin 0in
+\evensidemargin 0in
+
+\usepackage{fontspec}
+%\setCJKmainfont{Songti SC Regular}
+%\setmainfont{Kaiti SC Regular}
+\setsansfont{Songti SC Regular}
+\setmainfont{Songti SC Regular}
+%\setmainfont{Times New Roman}
+\usepackage{ctexcap}
+\usepackage{enumerate}
+
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm, amssymb, mathrsfs, stmaryrd}
+\usepackage{amsfonts}
+\usepackage{chemarrow}
+%\usepackage[pdftex,bookmarksnumbered,bookmarksopen,colorlinks,linkcolor=red,anchorcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=cyan,
+}
+
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{tikz,tikz-cd}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+
+
+\usepackage{enumerate}
+\usepackage{galois}% for \comp
+
+\usepackage[titletoc,toc,page]{appendix}
+
+\usepackage{mathtools} % loads amsmath and some very useful complements
+\usepackage[hyperpageref]{backref}
+
+
+% THEOREMS -------------------------------------------------------
+% \newtheorem{thm}{Theorem}[chapter]
+% \newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{lem}[thm]{Lemma}
+% \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma}[theorem]{引理}
+% \newtheorem{prop}[Theorem]{Proposition}
+% \theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+%\theoremstyle{remark}
+% \newtheorem{rem}[thm]{Remark}
+% \newtheorem{remark}[theorem]{Remark}
+\newtheorem{remark}[theorem]{注}
+\newtheorem{exm}{Example}[chapter]
+\newtheorem{exe}{Exercise}[chapter]
+\renewcommand{\proofname}{证明}
+\newenvironment{prf}{\par\noindent\textbf{证明}:}{}
+
+\newtheorem{formula}[theorem]{Formula}
+
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs }{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+
+\DeclareMathOperator*{\img}{img}
+% \DeclareMathOperator*{\span}{span}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\DeclareMathOperator*{\var}{Var}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+\newcommand{\mspn}{\operatorname{mspn}}
+\newcommand{\mskw}{\operatorname{mskw}}
+\newcommand{\vskw}{\operatorname{vskw}}
+\newcommand{\vspn}{\operatorname{vspn}}
+\newcommand{\defm}{\operatorname{def}}
+\newcommand{\hess}{\operatorname{hess}}
+\newcommand{\inc}{\operatorname{inc}}
+\newcommand{\Oplus}{\ensuremath{\vcenter{\hbox{\scalebox{1.5}{$\oplus$}}}}}
+% \newcommand{\span}{\rm span}
+
+\newcommand{\XH}[1]{\textcolor{cyan}{#1}}
+
+
+% \numberwithin{equation}{section}
+
+% ----------------------------------------------------------------
+\begin{document}
+
+% \title{Lecture Notes on Finite Element Method}
+\title{混合有限元方法}
+\author{黄学海  \\{\small 上海财经大学}
+\\{\small E-mail: huang.xuehai@sufe.edu.cn }
+\\
+\\
+\\
+\\
+%2020-2021学年秋\\%16信息与计算
+ }
+
+\date{}
+\vskip 0.5cm
+\maketitle
+
+
+\cleardoublepage
+%\renewcommand\contentsname{目录}
+%\pdfbookmark[1]{目录}{anchor name}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+
+
+% \input{infsupOperator}
+
+\input{mixedvar}
+
+\input{deRhamComplex}
+
+\input{femdeRhamComplex}
+
+\input{poissonmfem}
+
+\input{stokesmfem}
+
+\input{biharmonicequation}
+
+\input{polynomialcomplextensor}
+
+\input{femdivdivComplex2d}
+
+\input{femdivdivComplex}
+
+
+\begin{appendices}
+% \renewcommand{\thechapter}{\Alph{chapter}.}
+
+% \input{directsumdecomposition}
+
+% \input{korninequalities}
+
+\input{operatortheory}
+\input{sobolevspace}
+\input{complexapplication}
+
+\end{appendices}
+
+\bibliographystyle{abbrv}
+\bibliography{refs}
+\end{document}
+% ----------------------------------------------------------------

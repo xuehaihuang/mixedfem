@@ -1,0 +1,719 @@
+% !TEX root = lecture.tex
+\chapter{重调和方程混合元方法}
+
+The biharmonic equation with homogenous Dirichlet
+boundary condition is given by
+\begin{equation}\label{eq:biharmonic}
+\begin{cases}
+\Delta^2u=f\quad \textrm{in }\Omega, \\
+u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
+\end{cases}
+\end{equation}
+The biharmonic equation
+\eqref{eq:biharmonic} arises in areas of continuum mechanics, including linear elasticity theory and the solution of Stokes flows.
+In two dimensionas, the above problem is the Kirchhoff model describing the deflection of an elastic thin plate subject to a vertical
+load $f$ \cite{FengShi1996,Reddy2006}.
+
+Let $f\in H^{-2}(\Omega)$. The variational problem for the biharmonic equation
+\eqref{eq:biharmonic} is to find $u\in H_0^2(\Omega)$ satisfying
+\begin{equation}\label{eq:biharmonicvariatonalform}
+a(u, v)=\langle f, v\rangle \quad\forall~v\in H_0^2(\Omega),
+\end{equation}
+where $a(u, v):=(\nabla^2u, \nabla^2v)$.
+The variational problem~\eqref{eq:biharmonicvariatonalform} is wellposed since
+\[
+\|v\|_2\lesssim |v|_2\quad\forall~v\in H_0^2(\Omega).
+\]
+
+By the elliptic regularity theory for non-smooth domains (cf. \cite{BlumRannacher1980,Grisvard1985,Dauge1988,Grisvard1992}), there exists $\alpha\in (\frac{1}{2}, 1]$ such that for $f\in H^{-2+\alpha}(\Omega)$, the solution $u$ of problem~\eqref{eq:biharmonicvariatonalform}
+belongs to $H^{2+\alpha}(\Omega)$ and
+\[
+\|u\|_{H^{2+\alpha}(\Omega)}\lesssim \|f\|_{H^{-2+\alpha}(\Omega)}.
+\]
+When $\Omega$ is convex, we can take $\alpha=1$, i.e.,
+\[
+\|u\|_{H^{3}(\Omega)}\lesssim \|f\|_{H^{-1}(\Omega)}.
+\]
+
+
+
+
+
+\section{Hellan-Herrmann-Johnson Mixed Method}
+
+In this section, assume $f\in H^{-1}(\Omega)$.
+Introducing $\bs\sigma:=-\nabla^2 u$, rewrite the biharmonic equation \eqref{eq:biharmonic}
+\begin{equation}\label{eq:biharmonic2variables}
+\begin{cases}
+\bs\sigma =-\nabla^2 u\qquad\;\;\; \textrm{in }\Omega, \\
+\div\div\bs\sigma=-f\quad \textrm{in }\Omega, \\
+u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
+\end{cases}
+\end{equation}
+Define the Hilbert space (cf. \cite{PechsteinSchoberl2011})
+\[
+\boldsymbol{H}^{-1}(\div{\div },\Omega; \mathbb{S}):=\{\boldsymbol{\tau}\in \boldsymbol{L}^{2}(\Omega; \mathbb{S}): \div \div\boldsymbol{\tau}\in H^{-1}(\Omega)\}
+\]
+with squared norm $
+\|\boldsymbol{\tau}\|_{\boldsymbol{H}^{-1}(\div\div)}^2:=\|\boldsymbol{\tau}\|_{0}^2+\|\div \div\boldsymbol{\tau}\|_{-1}^2
+$.
+
+The Hellan-Herrmann-Johnson (HHJ) mixed formulation~\cite{KrendlRafetsederZulehner2016,Hellan1967,Herrmann1967,Johnson1973} of the biharmonic equation \eqref{eq:biharmonic2variables} in two dimensions is to find $(\boldsymbol{\sigma} , u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ such that
+\begin{align}
+a(\boldsymbol\sigma, \boldsymbol\tau)+ b(\boldsymbol\tau, u) & =0 \quad\quad\quad\;\; \forall~\boldsymbol\tau\in\boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S}), \label{eq:hhjmixedformulation1}\\
+b(\boldsymbol\sigma, v) & =-\langle f, v\rangle  \quad \forall~v\in H_0^1(\Omega). \label{eq:hhjmixedformulation2}
+\end{align}
+where
+\[
+a(\boldsymbol\sigma, \boldsymbol\tau):=(\boldsymbol\sigma, \boldsymbol\tau),\quad b(\boldsymbol\tau, v):=\langle \div\div\boldsymbol\tau, v\rangle.
+\]
+
+Obviously
+\[
+a(\boldsymbol\sigma, \boldsymbol\tau)\leq\|\boldsymbol\sigma\|_0\|\boldsymbol\tau\|_0\leq\|\boldsymbol\sigma\|_{\boldsymbol{H}^{-1}(\div\div)}\|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)} \quad\forall~\boldsymbol\sigma, \boldsymbol\tau\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S}),
+\]
+\[
+b(\boldsymbol\tau, v)\leq\|\div\div\boldsymbol\tau\|_{-1}|v|_1\leq \|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)}|v|_1 \quad\forall~\boldsymbol\tau\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S}), v\in H_0^1(\Omega).
+\]
+Define $B: \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\to H^{-1}(\Omega)$ by
+\[
+\langle B\bs\tau, v\rangle=b(\bs\tau, v)=\langle \div\div\boldsymbol\tau, v\rangle.
+\]
+Since $\ker B=\{\boldsymbol{\tau}\in \boldsymbol{L}^{2}(\Omega; \mathbb{S}): \div\div\boldsymbol{\tau}=0\}$, we have the coercivity on the kernel $\ker B$
+\[
+a(\boldsymbol\tau, \boldsymbol\tau)=\|\boldsymbol\tau\|_0^2=\|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)}^2\quad\forall~\boldsymbol\tau\in\ker B.
+\]
+
+Given a scalar function $v$, we can embed it into the symmetric tensor space as $\iota (v) = v \boldsymbol I_{2\times 2}$. Following the proofs in \cite{BoffiBrezziFortin2013,BrezziRaviart1977}, we can see that for $v\in H_0^1(\Omega)$,
+\[
+b(-\iota(v), v)=-\langle \div\div(\iota(v)), v\rangle=-\langle \Delta v, v\rangle=|v|_1^2,
+\]
+\[
+\|-\iota(v)\|_{\boldsymbol{H}^{-1}(\div\div)}^2=\|\iota(v)\|_0^2+|v|_1^2\lesssim |v|_1^2.
+\]
+Therefore we obtain the following inf-sup condition
+\[
+\sup_{\bs\tau\in\boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})}\frac{b(\boldsymbol\tau, v)}{\|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)}}\geq\frac{b(-\iota(v), v)}{\|-\iota(v)\|_{\boldsymbol{H}^{-1}(\div\div)}}\gtrsim |v|_1.
+\]
+
+Then by the Brezzi Theory, the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2} is well-posed.
+
+\begin{lemma}[Corollary 2.3 in \cite{KrendlRafetsederZulehner2016}]
+The problem \eqref{eq:biharmonicvariatonalform} and the mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2} are fully equivalent, i.e., if $u\in H_0^2(\Omega)$ solves problem \eqref{eq:biharmonicvariatonalform}, then $\bs\sigma=-\nabla^2 u\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})$ and $(\bs\sigma, u)$ solves the mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}. And, vice versa, if $(\bs\sigma, u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ solves the mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, then $u\in H_0^2(\Omega)$ and $u$ solves problem \eqref{eq:biharmonicvariatonalform}.
+\end{lemma}
+\begin{proof}
+Both problems are uniquely solvable. Therefore, it suffices to show that $(\bs\sigma, u)$ with $\bs\sigma=-\nabla^2 u$ solves the mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, if $u$ solves problem \eqref{eq:biharmonicvariatonalform}. Assume $u\in H_0^2(\Omega)$ is the solution of problem \eqref{eq:biharmonicvariatonalform}.
+Then, obviously, $\bs\sigma\in\boldsymbol{L}^{2}(\Omega; \mathbb{S})$ and
+\[
+(\bs\sigma, \nabla^2v)=-\langle f, v\rangle\quad\forall~v\in H_0^2(\Omega),
+\]
+which implies that $\div\div\bs\sigma=-f\in H^{-1}(\Omega)$ in the distributional sense. Therefore, $\bs\sigma\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})$ and \eqref{eq:hhjmixedformulation2} immediately follows.
+
+By the definition of $\div\div\bs\tau$ in the distributional sense we have
+\[
+\langle \div\div\boldsymbol\tau, v\rangle=(\boldsymbol\tau, \nabla^2v)\quad\forall~v\in C_0^{\infty}(\Omega).
+\]
+Since $C_0^{\infty}(\Omega)$ is dense in $H_0^2(\Omega)$, it follows for $v=u$ that
+\[
+\langle \div\div\boldsymbol\tau, u\rangle=(\boldsymbol\tau, \nabla^2u)=-(\boldsymbol\tau, \bs\sigma),
+\]
+which shows \eqref{eq:hhjmixedformulation1}.
+\end{proof}
+
+Let
+\[
+H_{n,0}^{1/2}(\Gamma):=\{\partial_{n}\varphi: \varphi\in H^2(\Omega)\cap H_0^1(\Omega)\},
+\]
+which is equipped with norm
+\[
+\|q\|_{H_{n,0}^{1/2}(\Gamma)}:=\inf_{\varphi\in H^2(\Omega)\cap H_0^1(\Omega), \partial_{n}\varphi=q}\|\varphi\|_{H^2(\Omega)}.
+\]
+Define
+\[
+H_{n}^{-1/2}(\Gamma):=\left(H_{n,0}^{1/2}(\Gamma)\right)'.
+\]
+\begin{lemma}[Theorem 3.34 in \cite{Sinwel2009}]
+Let $\Omega\subset\mathbb R^n$ with $n=2,3$ be a bounded domain with smooth or Lipschitz boundary
+$\Gamma=\partial\Omega$.
+\begin{enumerate}[(a)]
+\item The trace operator $\bs\tau\in\boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\to (\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n})|_{\Gamma}\in H_{n}^{-1/2}(\Gamma)$ is surjective.
+It holds
+\[
+\|\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\|_{H_{n}^{-1/2}(\Gamma)}\lesssim \|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)}\quad\forall~\boldsymbol\tau\in\boldsymbol{H}^{-1}(\div\div).
+\]
+\item For any $g\in H_{n}^{-1/2}(\Gamma)$, there exists some $\boldsymbol\tau\in\boldsymbol{H}^{-1}(\div\div)$ such that
+\[
+(\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n})|_{\Gamma}=g\quad\textrm{and}\quad \|\boldsymbol\tau\|_{\boldsymbol{H}^{-1}(\div\div)}\lesssim \|g\|_{H_{n}^{-1/2}(\Gamma)}.
+\]
+\end{enumerate}
+\end{lemma}
+
+
+\begin{lemma}[Theorem 2.1 in \cite{PechsteinSchoberl2011} and Theorem 3.36 in \cite{Sinwel2009}]\label{lem:Hdivdivcontinuous}
+Let $\Omega$, $\Omega_1$ and $\Omega_2$ are three open and bounded domains in $\mathbb R^n$. Suppose
+$\bar{\Omega}=\bar{\Omega}_1\cup \bar{\Omega}_2$ and $\Omega_1\cap \Omega_2=\varnothing$. Let $\bs\tau\in \bs L^2(\Omega;\mathbb S)$ satisfy $\bs\tau|_{\Omega_1}\in \bs{C}^{0}(\bar{\Omega}_1;\mathbb S)\cap \bs{H}^1(\Omega_1;\mathbb S)$, $\bs\tau|_{\Omega_2}\in \bs{C}^{0}(\bar{\Omega}_2;\mathbb S)\cap \bs{H}^1(\Omega_2;\mathbb S)$, $\boldsymbol{t}^{\intercal}(\bs\tau|_{\Omega_1})\boldsymbol{n}\in H^{1/2}(\partial\Omega_1)$ and $\boldsymbol{t}^{\intercal}(\bs\tau|_{\Omega_2})\boldsymbol{n}\in H^{1/2}(\partial\Omega_2)$.
+If the normal-normal component $\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}$ is continuous across the interface $\partial\Omega_1\cap\partial\Omega_2$, then $\bs\tau\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})$.
+\end{lemma}
+\begin{remark}
+The condition $\boldsymbol{t}^{\intercal}(\bs\tau|_{\Omega_1})\boldsymbol{n}\in H^{1/2}(\partial\Omega_1)$ is an inner-elemental continuity
+constraint for the tangential stress vector $\boldsymbol{t}^{\intercal}(\bs\tau|_{\Omega_1})\boldsymbol{n}$ at vertices in 2D and at edges in 3D.
+If we slightly weaken the regularity, the constraint disappears, and much simpler
+elements can be used.
+\end{remark}
+
+\subsection{HHJ method}
+By Lemma~\ref{lem:Hdivdivcontinuous}, it is natural to find the approximation of the moment $\bs\sigma$ in the finite-dimensional subspace of
+\[
+\Sigma^{\div\div}:=\{\bs\tau\in\bs L^2(\Omega;\mathbb S):\bs\tau\in \bs H^1(K;\mathbb S)\quad\forall~K\in\mathcal T_h\textrm{ and }\llbracket \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\rrbracket|_e=0\textrm{ for each } e\in\mathcal E_h^i\}.
+\]
+For any $\bs\tau\in\Sigma^{\div\div}$ and $v\in C_0^{\infty}(\Omega)$, we have
+\begin{align*}
+\langle \div\div\boldsymbol\tau, v\rangle&=(\boldsymbol\tau, \nabla^2v)=-\sum_{K\in\mathcal T_h}(\div\boldsymbol\tau, \nabla v)_K+\sum_{K\in\mathcal T_h}(\boldsymbol\tau\boldsymbol{n}, \nabla v)_{\partial K} \\
+&=-\sum_{K\in\mathcal T_h}(\div\boldsymbol\tau, \nabla v)_K+\sum_{K\in\mathcal T_h}(\boldsymbol{t}^{\intercal}\bs\tau\boldsymbol{n}, \partial_t v)_{\partial K}+\sum_{K\in\mathcal T_h}(\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}, \partial_{n} v)_{\partial K}  \\
+&=-\sum_{K\in\mathcal T_h}(\div\boldsymbol\tau, \nabla v)_K+\sum_{K\in\mathcal T_h}(\boldsymbol{t}^{\intercal}\bs\tau\boldsymbol{n}, \partial_t v)_{\partial K}.
+\end{align*}
+
+Define finite element spaces
+\begin{align*}
+&\Sigma_h^{\div\div}:=\{\bs\tau\in\bs L^2(\Omega;\mathbb S):\bs\tau\in \mathbb P_{k-1}(K;\mathbb S)\quad\forall~K\in\mathcal T_h\textrm{ and }\llbracket \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\rrbracket|_e=0\textrm{ for each } e\in\mathcal E_h^i\},
+\\
+&V_h:=\left\{v\in H_0^1(\Omega): v|_K\in \mathbb P_{k}(K)\quad\forall~K\in\mathcal T_h\right\}
+\end{align*}
+with $k\geq1$. Given $K\in\mathcal T_h$, the local degrees of freedom of the space $\boldsymbol\Sigma_h$ are
+\begin{itemize}
+\item $\int_e(\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n})v\dd s\quad\forall~v\in \mathbb P_{k-1}(e), e\in\mathcal E_h(K)$;
+\item $\int_K\bs\tau:\bs\varsigma\dx\quad\forall~\bs\varsigma\in \mathbb P_{k-2}(K, \mathbb S)$.
+\end{itemize}
+The local degrees of freedom of the space $V_h$ are
+\begin{itemize}
+\item $w(p)$ for each vertex $p$ of $K$;
+\item $\int_ewv\dd s\quad\forall~v\in \mathbb P_{k-2}(e), e\in\mathcal E_h(K)$;
+\item $\int_Kwv\dx\quad\forall~v\in \mathbb P_{k-3}(K)$.
+\end{itemize}
+The basis functions for symmetric tensors %corresponding to the degrees of freedom 
+are
+\begin{itemize}
+\item Corresponding to the degrees of freedom on edge with vertices $p_i$ and $p_j$: 
+$$
+\lambda_i^{\ell}\lambda_j^{k-1-\ell}\sym(\boldsymbol{t}_i\otimes\boldsymbol{t}_j) \textrm{ for } \ell=0,1,\cdots, k-1;
+$$
+\item Corresponding to the interior degrees of freedom: 
+$$
+\lambda_1^{\alpha_1}\lambda_2^{\alpha_2}\lambda_3^{\alpha_3}\lambda_{\ell}\sym(\boldsymbol{t}_i\otimes \boldsymbol{t}_j) \textrm{ with } \alpha_1+\alpha_2+\alpha_3=k-2,
+$$
+where $(ij\ell)$ is a circular permutation of $(123)$.
+\end{itemize}
+
+The Hellan-Herrmann-Johnson mixed method for the mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2} is to find
+$(\boldsymbol{\sigma}_h, u_h)\in \Sigma_h^{\div\div}\times V_h$ such that
+\begin{align}
+a(\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, u_h) & =0 \quad\quad\quad\quad \forall~\boldsymbol\tau_h\in\Sigma_h^{\div\div}, \label{eq:hhjmfem1}\\
+b_h(\boldsymbol\sigma_h, v_h) & =-\langle f, v_h\rangle  \quad \forall~v_h\in V_h, \label{eq:hhjmfem2}
+\end{align}
+where
+\[
+b_h(\boldsymbol\sigma_h, v_h):=-\sum_{K\in\mathcal T_h}(\div\boldsymbol\sigma_h, \nabla v_h)_K+\sum_{K\in\mathcal T_h}(\boldsymbol{t}^{\intercal}\boldsymbol\sigma_h\boldsymbol{n}, \partial_t v_h)_{\partial K}.
+\]
+Applying integration by parts, it holds
+\[
+b_h(\boldsymbol\sigma_h, v_h)=\sum_{K\in\mathcal T_h}(\boldsymbol\sigma_h, \nabla^2v_h)_K-\sum_{K\in\mathcal T_h}(\boldsymbol{n}^{\intercal}\boldsymbol\sigma_h\boldsymbol{n}, \partial_{n} v_h)_{\partial K}.
+\]
+
+Introduce mesh dependent norms
+\begin{align*}
+\|\boldsymbol{\tau}\|_{0,h}^2&:=\|\boldsymbol{\tau}\|_0^2+\sum_{e\in\mathcal{E}_h}h_e\|\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\|_{0,e}^2\quad\forall~\bs\tau\in\Sigma^{\div\div},\\
+\|v\|_{2,h}^2&:=\sum_{K\in\mathcal{T}_h}|v|_{2,K}^2+\sum_{e\in\mathcal{E}_h}h_e^{-1}\|\llbracket\partial_{n_e}v\rrbracket\|_{0,e}^2\quad\forall~v\in V:=H^2(\mathcal T_h)\cap H_0^1(\Omega).
+\end{align*}
+
+To derive the error estimates of the HHJ mixed method \eqref{eq:hhjmfem1}-\eqref{eq:hhjmfem2},  we need some interpolation operators. First, define $I_h^{\div\div}: \Sigma^{\div\div}\to \Sigma_h^{\div\div}$ in the following way (cf. \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980,Comodi1989,BoffiBrezziFortin2013}): given $\boldsymbol{\tau}\in\Sigma^{\div\div}$, for any element $K\in \mathcal{T}_h$ and any edge $e$ of $K$,
+\[
+\int_e\boldsymbol{n}^{\intercal}(\boldsymbol{\tau}-I_h^{\div\div}\boldsymbol{\tau})\boldsymbol{n}\,q\dd s=0 \quad \forall~q\in \mathbb P_{k-1}(e),
+\]
+\[
+\int_K(\boldsymbol{\tau}-I_h^{\div\div}\boldsymbol{\tau}):\boldsymbol{\varsigma}\dx=0 \quad \forall~\boldsymbol{\varsigma}\in \mathbb{P}_{k-2}(K, \mathbb{S}).
+\]
+It admits (cf. \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980,Comodi1989,BoffiBrezziFortin2013})
+\begin{equation}\label{eq:bpi}
+b_h(\boldsymbol{\tau}-I_h^{\div\div}\boldsymbol{\tau}, v_h)=0 \quad \forall~\boldsymbol{\tau}\in \Sigma^{\div\div}, v_h\in V_h.
+\end{equation}
+Next, define $P_h: V\to V_h$ in the following way (cf. \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980,Comodi1989,Stenberg1991}) : given $w\in V$, for any element $K\in \mathcal{T}_h$, any vertex $p$ of $K$ and any edge $e$ of $K$,
+\[
+P_hw(p)=w(p),
+\]
+\[
+\int_e(w-P_hw)v\dd s=0 \quad \forall~v\in \mathbb P_{k-2}(e),
+\]
+\[
+\int_K(w-P_hw)v\dx=0 \quad \forall~v\in \mathbb P_{k-3}(K).
+\]
+According to the definition of $P_h$,
+we have~(cf. \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980,Comodi1989,BoffiBrezziFortin2013})
+\begin{equation}\label{eq:bp0}
+b_h(\boldsymbol{\tau}_h, v-P_hv)=0 \quad \forall~ \boldsymbol{\tau}_h\in \Sigma_h^{\div\div}, v\in V.
+\end{equation}
+The error estimates for interpolation operators $I_h^{\div\div}$ and $P_h$ are summarized in the following lemma(cf. \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980,Comodi1989,Stenberg1991}).
+\begin{lemma}\label{lem:hhjinterpolation}
+For all $v\in H^{m+3}(K)$, $\boldsymbol{\tau}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ with $m$ a non-negative integer and
+all $K\in\mathcal{T}_h$, we have the estimates
+\begin{align*}
+\left\|\boldsymbol{\tau}-I_h^{\div\div}\boldsymbol{\tau}\right\|_{0,K}+h_K^{1/2}\left|\boldsymbol{\tau}-I_h^{\div\div}\boldsymbol{\tau}\right|_{0,\partial K} &\lesssim
+h_K^{\min\{m+1,k\}}|\boldsymbol{\tau}|_{m+1,K}, \\
+\|v-P_hv\|_{0,K}+h_K\left|v-P_hv\right|_{1,K}+h_K^2\left|v-P_hv\right|_{2,K}\qquad\;\;\;&
+ \\
+ +h_K^{3/2}\left\|\boldsymbol{\nabla}(v-P_hv)\right\|_{0,\partial K} &\lesssim
+h^{\min\{m+2,k\}+1}_K|v|_{m+3,K}.
+\end{align*}
+\end{lemma}
+
+\begin{lemma}[Lemma~4.2 in \cite{HuangHuangXu2011}]
+There holds the following inf-sup condition
+\begin{equation}\label{eq:HHJinfsup}
+\|v_h\|_{2,h}\lesssim \sup_{\bs\tau_h\in\Sigma_h^{\div\div}}\frac{b_h(\bs\tau_h, v_h)}{\|\bs\tau_h\|_{0,h}}\quad\forall~v_h\in V_h.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\bs\tau_h\in\Sigma_h^{\div\div}$ such that for any $K\in\mathcal T_h$ and $e\in\mathcal E_h$,
+\begin{align*}
+\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}&=\frac{-1}{h_e}\llbracket\partial_{n_e}v_h\rrbracket\quad\textrm{ on  } e,
+\\
+\int_K\bs\tau_h:\bs\varsigma\dx&=\int_K\nabla^2v_h:\bs\varsigma\dx\quad\forall~\bs\varsigma\in \mathbb P_{k-2}(K;\mathbb S).
+\end{align*}
+It follows from the scaling argument
+\begin{equation}\label{eq:temp20180429-1}
+\|\bs\tau_h\|_{0,h}\lesssim \|v_h\|_{2,h}.
+\end{equation}
+And we also have
+\[
+b_h(\bs\tau_h, v_h)=\sum_{K\in\mathcal T_h}(\boldsymbol\tau_h, \nabla^2v_h)_K+\sum_{K\in\mathcal T_h}(\boldsymbol{n}^{\intercal}\bs\tau_h\boldsymbol{n}, \partial_{n} v_h)_{\partial K}=\|v_h\|_{2,h}^2,
+\]
+which together with \eqref{eq:temp20180429-1} implies \eqref{eq:HHJinfsup}.
+\end{proof}
+
+Apparently both the bilinear forms $a(\cdot, \cdot)$ and $b_h(\cdot, \cdot)$ are continuous with respect to the
+mesh dependent norms $\|\cdot\|_{0,h}$ and $\|\cdot\|_{2,h}$. And by the inverse inequality, we have
+\[
+\|\bs\tau_h\|_{0,h}^2\lesssim \|\bs\tau_h\|_0^2=a(\bs\tau_h,\bs\tau_h)\quad\forall~\bs\tau_h\in\Sigma_h^{\div\div}.
+\]
+Then
+by Brezzi's theory, we have the following inf-sup condition
+\begin{equation}\label{eq:HHJinfsup2}
+\|\widetilde{\bs\sigma}_h\|_{0,h}+\|\widetilde{u}_h\|_{2,h}\lesssim \sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(\widetilde{\boldsymbol\sigma}_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, \widetilde{u}_h)+b_h(\widetilde{\boldsymbol\sigma}_h, v_h)}{\|\bs\tau_h\|_{0,h}+\|v_h\|_{2,h}}
+\end{equation}
+for any $\widetilde{\bs\sigma}_h\in\Sigma_h^{\div\div}$ and $\widetilde{u}_h\in V_h$.
+
+The well-posedness of the HHJ mixed method \eqref{eq:hhjmfem1}-\eqref{eq:hhjmfem2} follows from the inf-sup condition \eqref{eq:HHJinfsup2}.
+
+\begin{theorem}
+Let $(\boldsymbol{\sigma} , u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ be the solution of the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, and $(\boldsymbol{\sigma}_h, u_h)\in\Sigma_h^{\div\div}\times V_h$ be the HHJ mixed finite element method \eqref{eq:hhjmfem1}-\eqref{eq:hhjmfem2}.
+Assume $\boldsymbol{\sigma}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ and $u\in H^{m+3}(\Omega)$ for
+some non-negative integer $m$.
+Then
+\begin{equation}\label{eq:hhjenergyerror}
+\|\bs\sigma-\bs\sigma_h\|_{0,h}+\|P_hu-u_h\|_{2,h}\lesssim h^{\min\{m+1,k\}}\|\bs\sigma\|_{m+1},%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+\end{equation}
+\[
+\|u-u_h\|_{2,h}\lesssim h^{\min\{m+1,k-1\}}\|u\|_{m+3}.%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+\]
+\end{theorem}
+\begin{proof}
+Using integration by parts, we get from problem \eqref{eq:biharmonic2variables}
+\begin{align*}
+a(\boldsymbol\sigma, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, u) & =0 \quad\quad\quad\quad \forall~\boldsymbol\tau_h\in\Sigma_h^{\div\div}, \\
+b_h(\boldsymbol\sigma, v_h) & =-\langle f, v_h\rangle  \quad \forall~v_h\in V_h.
+\end{align*}
+Subtracting \eqref{eq:hhjmfem1} and \eqref{eq:hhjmfem2} from the last two inequalities, we achieve the following orthogonality
+\begin{align}
+a(\boldsymbol\sigma-\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, u-u_h) & =0 \quad\quad \forall~\boldsymbol\tau_h\in\Sigma_h^{\div\div}, \label{eq:temp20180502-1}\\
+b_h(\boldsymbol\sigma-\boldsymbol\sigma_h, v_h) & =0  \quad\quad \forall~v_h\in V_h. \label{eq:temp20180502-2}
+\end{align}
+Then from \eqref{eq:bpi} and \eqref{eq:bp0}, it holds for any $\boldsymbol\tau_h\in\Sigma_h^{\div\div}$ and $v_h\in V_h$
+\begin{align*}
+&\,a(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, P_hu-u_h)+ b_h(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma_h, v_h)  \\
+=&\,a(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, P_hu-u)+ b_h(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma, v_h) \\
+=&\,a(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma, \boldsymbol\tau_h).
+\end{align*}
+Taking $\widetilde{\bs\sigma}_h=I_h^{\div\div}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h$ and $\widetilde{u}_h=P_hu-u_h$ in \eqref{eq:HHJinfsup2},
+we have
+\begin{align*}
+&\,\|I_h^{\div\div}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}+\|P_hu-u_h\|_{2,h}\\
+\lesssim&\, \sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, P_hu-u_h)+ b_h(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma_h, v_h)}{\|\bs\tau_h\|_{0,h}+\|v_h\|_{2,h}} \\
+\lesssim &\,\sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(I_h^{\div\div}\boldsymbol\sigma-\boldsymbol\sigma, \boldsymbol\tau_h)}{\|\bs\tau_h\|_{0,h}+\|v_h\|_{2,h}}\lesssim \|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_0,
+\end{align*}
+which combined with the triangle inequality gives
+\[
+\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}+\|P_hu-u_h\|_{2,h}\lesssim \|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_{0,h}.
+\]
+Finally we ends the proof by applying Lemma~\ref{lem:hhjinterpolation}.
+\end{proof}
+
+
+To derive the error estimate of $|u-u_h|_{1}$, we present the second discrete inf-sup condition. Define $(\div\div)_h:\Sigma_h^{\div\div}\to V_h$ by
+$$
+((\div\div)_h\boldsymbol{\tau}_h, v_h)=b_h(\bs\tau_h, v_h).
+$$
+Then equip space $\Sigma_h^{\div\div}$ with the squared mesh-dependent norm
+$$
+\|\boldsymbol{\tau}_h\|_{H_h^{-1}(\div\div)}^2:=\|\boldsymbol{\tau}_h\|_{0}^2+ \|(\div\div)_h\boldsymbol{\tau}_h\|_{-1,h}^2\quad\textrm{ with } \|w\|_{-1,h}:=\sup_{v_h\in V_h}\frac{(w, v_h)}{|v_h|_1}.
+$$
+By \eqref{eq:bpi} and \eqref{eq:temp20180502-2}, we have
+$$
+(\div\div)_h(I_h^{\div\div}\sigma)=(\div\div)_h\sigma=(\div\div)_h\sigma_h.
+$$
+
+\begin{lemma}
+We have $(\div\div)_h\Sigma_h^{\div\div}=V_h$, and
+the discrete inf-sup condition
+\begin{equation}\label{eq:HHJdiscreteinfsup2}
+\|v_h\|_{1}\lesssim \sup_{\bs\tau_h\in\Sigma_h^{\div\div}}\frac{b_h(\bs\tau_h, v_h)}{\|\bs\tau_h\|_{H_h^{-1}(\div\div)}}\quad\forall~v_h\in V_h.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $v_h\in V_h$, set $\bs\tau_h=-I_h^{\div\div}(v_hI)$. By \eqref{eq:bpi},
+$$
+b_h(\bs\tau_h, v_h)=-b_h(v_hI, v_h)=|v_h|_1^2.
+$$
+And
+$$
+\|\boldsymbol{\tau}_h\|_{H_h^{-1}(\div\div)}\lesssim\|\boldsymbol{\tau}_h\|_{0}+  \sup_{v_h\in V_h}\frac{b_h(\bs\tau_h, v_h)}{|v_h|_1}\lesssim |v_h|_1.
+$$
+Thus the discrete inf-sup condition \eqref{eq:HHJdiscreteinfsup2} holds. Combine the discrete inf-sup condition \eqref{eq:HHJdiscreteinfsup2} and the fact $(\div\div)_h\Sigma_h^{\div\div}\subseteq V_h$ to get $(\div\div)_h\Sigma_h^{\div\div}=V_h$.
+\end{proof}
+
+Both the bilinear forms $a(\cdot, \cdot)$ and $b_h(\cdot, \cdot)$ are continuous with respect to norms $\|\cdot\|_{H_h^{-1}(\div\div)}$ and $|\cdot|_{1}$. And by the inverse inequality, we have
+\[
+\|\bs\tau_h\|_{H_h^{-1}(\div\div)}^2=\|\bs\tau_h\|_0^2=a(\bs\tau_h,\bs\tau_h)\quad\forall~\bs\tau_h\in\Sigma_h^{\div\div}\ker((\div\div)_h).
+\]
+Then
+by Brezzi's theory, we have the following inf-sup condition
+\begin{equation}\label{eq:HHJinfsup3}
+\|\widetilde{\bs\sigma}_h\|_{H_h^{-1}(\div\div)}+|\widetilde{u}_h|_{1}\lesssim \sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(\widetilde{\boldsymbol\sigma}_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, \widetilde{u}_h)+b_h(\widetilde{\boldsymbol\sigma}_h, v_h)}{\|\bs\tau_h\|_{H_h^{-1}(\div\div)}+|v_h|_{1}}
+\end{equation}
+for any $\widetilde{\bs\sigma}_h\in\Sigma_h^{\div\div}$ and $\widetilde{u}_h\in V_h$.
+
+
+\begin{theorem}
+Let $(\boldsymbol{\sigma} , u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ be the solution of the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, and $(\boldsymbol{\sigma}_h, u_h)\in\Sigma_h^{\div\div}\times V_h$ be the HHJ mixed finite element method \eqref{eq:hhjmfem1}-\eqref{eq:hhjmfem2}.
+Assume $\boldsymbol{\sigma}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ and $u\in H^{m+3}(\Omega)$ for
+some non-negative integer $m$.
+Then
+% \begin{equation*}%\label{eq:hhjenergyerror2}
+% \|\bs\sigma-\bs\sigma_h\|_{H_h^{-1}(\div\div)}\lesssim h^{\min\{m+1,k\}}\|\bs\sigma\|_{m+1},%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+% \end{equation*}
+\[
+|u-u_h|_{1}\lesssim h^{\min\{m+1,k\}}\|u\|_{m+3}.%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+\]
+\end{theorem}
+\begin{proof}
+Taking $\widetilde{\bs\sigma}_h=\boldsymbol{\Pi}_h\boldsymbol{\sigma}-\boldsymbol{\sigma}_h$ and $\widetilde{u}_h=P_hu-u_h$ in \eqref{eq:HHJinfsup3},
+we have
+\begin{align*}
+&\,\|\boldsymbol{\Pi}_h\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{H_h^{-1}(\div\div)}+|P_hu-u_h|_{1}\\
+\lesssim&\, \sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(\boldsymbol{\Pi}_h\boldsymbol\sigma-\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h, P_hu-u_h)+ b_h(\boldsymbol{\Pi}_h\boldsymbol\sigma-\boldsymbol\sigma_h, v_h)}{\|\bs\tau_h\|_{H_h^{-1}(\div\div)}+|v_h|_{1}} \\
+\lesssim &\,\sup_{\bs\tau_h\in\Sigma_h^{\div\div}, v_h\in V_h}\frac{a(\boldsymbol{\Pi}_h\boldsymbol\sigma-\boldsymbol\sigma, \boldsymbol\tau_h)}{\|\bs\tau_h\|_{H_h^{-1}(\div\div)}+|v_h|_{1}}\lesssim \|\boldsymbol\sigma-\boldsymbol{\Pi}_h\boldsymbol\sigma\|_0,
+\end{align*}
+which combined with the triangle inequality gives
+\[
+\|\bs\sigma-\bs\sigma_h\|_{0}+|P_hu-u_h|_{1}\lesssim \|\boldsymbol\sigma-\boldsymbol{\Pi}_h\boldsymbol\sigma\|_{0,h}.
+\]
+Finally we end the proof by applying Lemma~\ref{lem:hhjinterpolation}.
+\end{proof}
+
+
+Using the usual duality argument, we can additionally derive a superconvergent error estimate between $u_h$ and $P_hu$ in $H^1$ norm.
+Let $(\widetilde{\boldsymbol{\sigma}},\widetilde{u})$ be the solution of the
+auxiliary problem:
+\begin{equation}\label{eq:hhjdual1}
+\left\{
+\begin{array}{ll}
+\widetilde{\boldsymbol{\sigma}}=-\nabla^2\widetilde{u} & \text{in}\ \Omega, \\
+\div\div\widetilde{\boldsymbol{\sigma}}
+=\Delta(P_hu-u_h) & \text{in}\ \Omega, \\
+\widetilde{u}=\partial_{n}\widetilde{u}=0 & \text{on}\ \partial
+\Omega.
+\end{array}
+\right.
+\end{equation}
+Since $\triangle(P_hu-u_h)\not\in
+L^2(\Omega)$,
+the second equation of \eqref{eq:hhjdual1} is interpreted by the following
+relation
+\begin{equation}
+\int_\Omega (\div\widetilde{\boldsymbol{\sigma}})\cdot
+\nabla v\dx=\int_\Omega \nabla(P_hu-u_h)\cdot
+\nabla v\dx\quad \forall\,v\in H^1_0(\Omega).
+\label{hhjdual2}
+\end{equation}
+We assume that
+$\widetilde{u}\in H^3(\Omega)\cap H_0^2(\Omega)$ with
+the bound
+\begin{equation}
+\label{hhjregularity}
+\|\widetilde{\boldsymbol{\sigma}}\|_{1}+\|\widetilde{u}\|_{3}\lesssim |P_hu-u_h|_{1}.
+\end{equation}
+When $\Omega$ is a convex bounded polygonal domain, the regularity result \eqref{hhjregularity} has been obtained in \cite{Dauge1988,Grisvard1992}.
+
+\begin{theorem}
+Let $(\boldsymbol{\sigma} , u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ be the solution of the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, and $(\boldsymbol{\sigma}_h, u_h)\in \Sigma_h^{\div\div}\times V_h$ be the HHJ mixed finite element method \eqref{eq:hhjmfem1}-\eqref{eq:hhjmfem2}.
+Assume the regularity condition \eqref{hhjregularity} holds, $\boldsymbol{\sigma}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ and $u\in H^{m+3}(\Omega)$ for
+some non-negative integer $m$.
+Then
+\begin{equation}\label{eq:hhjH1supererror}
+|P_hu-u_h|_{1}\lesssim h^{\min\{m+1,k\}+1}(\|\bs\sigma\|_{m+1}+\delta_{k1}\|f\|_0).%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+\end{equation}
+% \[
+% |u-u_h|_{1}\lesssim h^{\min\{m+1,k\}}(h\|\bs\sigma\|_{m+1}+\|u\|_{m+2}+\delta_{k1}h\|f\|_0).%(\|\bs\sigma\|_{m+1}+\|u\|_{m+3}).
+% \]
+\end{theorem}
+\begin{proof}
+Taking $v=P_hu-u_h$ in \eqref{hhjdual2}, we get from \eqref{eq:bpi}-\eqref{eq:bp0} and \eqref{eq:temp20180502-1}
+\begin{align*}
+|P_hu-u_h|_1^2&=(\div\widetilde{\boldsymbol{\sigma}}, \nabla(P_hu-u_h))=-b_h(\widetilde{\boldsymbol{\sigma}}, P_hu-u_h)\\
+&=-b_h(I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}, P_hu-u_h)=-b_h(I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}, u-u_h) \\
+&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}).
+\end{align*}
+Using \eqref{eq:hhjdual1}, \eqref{eq:temp20180502-2} and \eqref{eq:bp0}, it holds
+\begin{align*}
+a(\boldsymbol\sigma-\boldsymbol\sigma_h, \widetilde{\boldsymbol{\sigma}})&=-a(\boldsymbol\sigma-\boldsymbol\sigma_h, \nabla^2\widetilde{u})=-(\boldsymbol\sigma-\boldsymbol\sigma_h, \nabla^2\widetilde{u})\\
+&=-b_h(\boldsymbol\sigma-\boldsymbol\sigma_h, \widetilde{u})=-b_h(\boldsymbol\sigma-\boldsymbol\sigma_h, \widetilde{u}-P_h\widetilde{u}) \\
+&=-b_h(\boldsymbol\sigma, \widetilde{u}-P_h\widetilde{u}).
+\end{align*}
+Hence
+\begin{align}
+|P_hu-u_h|_1^2&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}})=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}})+a(\boldsymbol\sigma-\boldsymbol\sigma_h, \widetilde{\boldsymbol{\sigma}}) \notag\\
+&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}})-b_h(\boldsymbol\sigma, \widetilde{u}-P_h\widetilde{u}).\label{eq:temp20180502-3}
+\end{align}
+
+If $k=1$, we acquire from \eqref{eq:temp20180502-3}, \eqref{eq:hhjmixedformulation2}, Lemma~\ref{lem:hhjinterpolation} and \eqref{eq:hhjenergyerror}
+\begin{align*}
+|P_hu-u_h|_1^2&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}})+(f, \widetilde{u}-P_h\widetilde{u}) \\
+&\lesssim \|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0\|I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}}\|_0 + \|f\|_0\|\widetilde{u}-P_h\widetilde{u}\|_0
+\\
+&\lesssim h\|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0\|\widetilde{\boldsymbol{\sigma}}\|_1 +h^2\|f\|_0\|\widetilde{u}\|_2\lesssim (h\|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0+h^2\|f\|_0)(\|\widetilde{\boldsymbol{\sigma}}\|_1 +\|\widetilde{u}\|_2) \\
+&\lesssim h^2(\|\boldsymbol\sigma\|_1+\|f\|_0)(\|\widetilde{\boldsymbol{\sigma}}\|_1 +\|\widetilde{u}\|_2)
+\end{align*}
+Then it follows from \eqref{hhjregularity}
+\[
+|P_hu-u_h|_1\lesssim h^2(\|\boldsymbol\sigma\|_1+\|f\|_0).
+\]
+
+If $k\geq2$, we get from \eqref{eq:temp20180502-3}, \eqref{eq:bp0}, Lemma~\ref{lem:hhjinterpolation},
+\begin{align*}
+|P_hu-u_h|_1^2&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}})-b_h(\boldsymbol\sigma, \widetilde{u}-P_h\widetilde{u}) \\
+&=a(\boldsymbol\sigma-\boldsymbol\sigma_h, I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}})-b_h(\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma, \widetilde{u}-P_h\widetilde{u}) \\
+&\lesssim \|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0\|I_h^{\div\div}\widetilde{\boldsymbol{\sigma}}-\widetilde{\boldsymbol{\sigma}}\|_0+\|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_{0,h}\|\widetilde{u}-P_h\widetilde{u}\|_{2,h} \\
+&\lesssim h\|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0\|\widetilde{\boldsymbol{\sigma}}\|_1+h\|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_{0,h}\|\widetilde{u}\|_{3} \\
+&\lesssim h(\|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0+\|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_{0,h})(\|\widetilde{\boldsymbol{\sigma}}\|_1+\|\widetilde{u}\|_{3}).
+\end{align*}
+Then it follows from \eqref{hhjregularity} and \eqref{eq:hhjenergyerror}
+\begin{align*}
+|P_hu-u_h|_1\lesssim h(\|\boldsymbol\sigma-\boldsymbol\sigma_h\|_0+\|\boldsymbol\sigma-I_h^{\div\div}\boldsymbol\sigma\|_{0,h})\lesssim h^{\min\{m+1,k\}+1}\|\bs\sigma\|_{m+1}.
+\end{align*}
+\end{proof}
+
+
+\subsection{Postprocessing}
+We will construct a new superconvergent approximation to deflection $u$ in virtue of the optimal result of moment in \eqref{eq:hhjenergyerror} and the superconvergent result \eqref{eq:hhjH1supererror} in this section. For any integer $l\geq1$,
+let $I_h^{l}$ be the Lagrange interpolation operator onto the element-wise $l$-th Lagrange element space (cf. \cite{Ciarlet1978,BrennerScott2008}) with respect to $\mathcal{T}_h$. Denote
+\[
+V_h^{\ast}:=\left\{v\in L^2(\Omega): v|_K\in \mathbb P_{k+1}(K)\quad \forall\,K\in\mathcal
+{T}_h\right\}.
+\]
+With this space, define a new approximation $u_h^{\ast}\in V_h^{\ast}$ to $u$ piecewisely as a solution of the following problem: for any $K\in\mathcal{T}_h$,
+\begin{equation}\label{eq:postprocess1}
+u_h^{\ast}(\texttt{v}_i)=u_h(\texttt{v}_i) \textrm{ for } i=1,2,3,
+\end{equation}
+\begin{align}
+\int_K\nabla^2u_h^{\ast}:\nabla^2v\dx=-\int_K\boldsymbol{\sigma}_h:\nabla^2v\dx \label{eq:postprocess2}
+\end{align}
+for any $v\in \mathbb P_{k+1}(K)$ with $v(\texttt{v}_i)=0~(i=1,2,3)$,
+where $\{\texttt{v}_i\}_{i=1}^3$ are three vertices of $K$.
+By \eqref{eq:postprocess1} and error estimate of $I_h^1$, we have
+\begin{equation}\label{eq:postproestimate1}
+|I_h^1(I_h^{k+1}u-u_h^{\ast})|_{1}=|I_h^1(P_hu-u_h)|_{1}\lesssim |P_hu-u_h|_{1}.
+\end{equation}
+Denote $z:=(I-I_h^1)(I_h^{k+1}u-u_h^{\ast})$. It is easy to see that $I_h^1z=0$, $z\in V_h^{\ast}$, and $z(\texttt{v})=0$ for each vertex $\texttt{v}$ of triangulation $\mathcal{T}_h$. Thus we have from error estimate of $I_h^1$ that
+\begin{equation}\label{eq:z1}
+\|z\|_{0, K}+h_K|z|_{1,K}=\|z-I_h^1z\|_{0, K}+h_K|z-I_h^1z|_{1,K}\lesssim h_K^2|z|_{2,K}.
+\end{equation}
+
+\begin{theorem}\label{thm:uuhstar1}
+Assume the regularity condition \eqref{hhjregularity} holds, $\boldsymbol{\sigma}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ and $u\in H^{m+3}(\Omega)$ for
+some non-negative integer $m$. Then
+\[
+|u-u_h^{\ast}|_{1,h}\lesssim h^{\min\{m+1,k\}+1}(\|\boldsymbol{\sigma}\|_{m+1}+\|u\|_{m+3}+\delta_{k1}\|f\|_0).
+\]
+\end{theorem}
+\begin{proof}
+From \eqref{eq:postprocess2} with $v=z$ and the first equation of problem~\eqref{eq:biharmonic2variables}, it follows that
+\[
+\int_K\nabla^2(u-u_h^{\ast}):\nabla^2z\dx=-\int_K(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h):\nabla^2z\dx.
+\]
+Noting the definition of $z$, we have
+\begin{align*}
+&\int_K\nabla^2z:\nabla^2z\dx \\
+=&\int_K\nabla^2(I_h^{k+1}u-u_h^{\ast}):\nabla^2z\dx \\
+=&\int_K\nabla^2(I_h^{k+1}u-u):\nabla^2z\dx+\int_K\nabla^2(u-u_h^{\ast}):\nabla^2z\dx \\
+=&\int_K\nabla^2(I_h^{k+1}u-u):\nabla^2z\dx-\int_K(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h):\nabla^2z\dx.
+\end{align*}
+On the other hand, by the Cauchy-Schwarz inequality,
+\[
+|z|_{2,K}^2\lesssim  |I_h^{k+1}u-u|_{2,K}|z|_{2,K} + \|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,K}|z|_{2,K},
+\]
+which together with \eqref{eq:z1} gives
+\[
+|z|_{1,K}\lesssim h_K|z|_{2,K}\lesssim h_K|I_h^{k+1}u-u|_{2,K} + h_K\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,K}.
+\]
+Then we have from the triangle inequality and \eqref{eq:postproestimate1} that
+\begin{align*}
+|u-u_h^{\ast}|_{1,h}\leq & |u-I_h^{k+1}u|_{1,h}+|I_h^1(I_h^{k+1}u-u_h^{\ast})|_{1} +|z|_{1,h} \\
+\lesssim & |u-I_h^{k+1}u|_{1,h} + |P_hu-u_h|_{1} + h(|u-I_h^{k+1}u|_{2,h}+\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0}).
+\end{align*}
+Finally, the required result follows readily from the error estimate of $I_h^{k+1}$, \eqref{eq:hhjH1supererror} and \eqref{eq:hhjenergyerror}.
+\end{proof}
+
+
+\subsection{Hybridization}
+
+We will hybridize the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2} in this subsection \cite{ArnoldBrezzi1985,HuangHuang2016,HuangHuang2019}. Introduce two finite element spaces
+\begin{align*}
+\Sigma_h&:=\{\boldsymbol{\tau}_h\in L^{2}(\Omega ; \mathbb{S}): \boldsymbol{\tau}_h|_T\in \mathbb P_{k-1}(T ; \mathbb{S})  \text { for each }  T \in \mathcal{T}_{h}\}, \\
+M_h&:=\{\mu_h\in L^2(\mathcal{E}_{h}): \mu_h|_e\in \mathbb P_{k-1}(e) \text { for each } e \in \mathring{\mathcal{E}}_{h}, \text { and } \mu_h=0 \text { on } \mathcal{E}_{h}\backslash\mathring{\mathcal{E}}_{h}\}.
+\end{align*}
+Equip the multiplier space $M_h$ with squared norm
+$$
+\|\mu_h\|_{\alpha,h}^2:=\sum_{T\in\mathcal T_h}\sum_{e\in\mathcal{E}(T)}h_e^{-2\alpha}\|\mu_h\|_{0,e}^2,\quad \alpha=\pm1/2.
+$$
+
+The hybridization of the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2} is to find $(\boldsymbol{\sigma}_h, u_h,\lambda_h)\in \Sigma_h\times V_h\times M_h$ such that
+\begin{align}
+a(\boldsymbol\sigma_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h; u_h,\lambda_h) & =0 \quad\quad\quad\;\;\;\, \forall~\boldsymbol\tau_h\in \Sigma_h, \label{eq:hybirdmfem1}\\
+b_h(\boldsymbol\sigma_h; v_h,\mu_h) & =-(f, v_h)  \quad \forall~v_h\in V_h, \mu_h\in M_h. \label{eq:hybirdmfem2}
+\end{align}
+where
+\[
+b_h(\boldsymbol\tau_h; u_h,\lambda_h):=(\boldsymbol{\tau}_h, \nabla_h^2u_h) + \sum_{T\in \mathcal{T}_{h}}(\boldsymbol{n}^{\intercal}\boldsymbol{\tau}_h\boldsymbol{n}_e, \lambda_h-\partial_{n_e}u_h)_{\partial T},
+\]
+where $\nabla_h$ is the piecewise counterpart of $\nabla$ with respect to $\mathcal T_h$.
+Here $\boldsymbol{n}$ is the unit outward normal to $\partial T$, and $\boldsymbol{n}_e$ is a fixed unit normal vector of edge $e$.
+
+\begin{lemma}
+There holds the following inf-sup condition
+\begin{equation}\label{eq:HHJdiscreteinfsup3}
+\|\nabla_h^2v_h\|_{0}+\|\mu_h-\partial_{n_e}v_h\|_{1/2,h}\lesssim \sup_{\bs\tau_h\in\Sigma_h}\frac{b_h(\bs\tau_h;v_h,\mu_h)}{\|\bs\tau_h\|_{0,h}}\quad\forall~v_h\in V_h,\mu_h\in M_h.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\bs\tau_h\in\Sigma_h$ such that
+\begin{align*}
+(\boldsymbol{n}^{\intercal}\boldsymbol{\tau}_h\boldsymbol{n}_e)|_{e}&=\frac{1}{h_e}(\mu_h-\partial_{n_e}v_h),\qquad e\in\mathcal E(T), T\in\mathcal T_h,
+\\
+\int_T\bs\tau_h:\bs\varsigma\dx&=\int_T\nabla^2v_h:\bs\varsigma\dx\quad\forall~\bs\varsigma\in \mathbb P_{k-2}(T;\mathbb S), T\in\mathcal T_h.
+\end{align*}
+Then
+\begin{equation*}
+\|\bs\tau_h\|_{0,h}\lesssim \|\nabla_h^2v_h\|_{0} + \|\mu_h-\partial_{n_e}v_h\|_{1/2,h},
+\end{equation*}
+\[
+b_h(\bs\tau_h;v_h,\mu_h)=\|\nabla_h^2v_h\|_{0}^2+\|\mu_h-\partial_{n_e}v_h\|_{1/2,h}^2.
+\]
+Therefore the inf-sup \eqref{eq:HHJdiscreteinfsup3} holds.
+\end{proof}
+
+Thanks to the discrete inf-sup conditions \eqref{eq:HHJdiscreteinfsup3} and the fact $\|\boldsymbol{\tau}_h\|_{0,h}\lesssim \|\boldsymbol{\tau}_h\|_{0}$ for $\boldsymbol{\tau}_h\in\Sigma_h$, the well-posedness of the mixed finite element method \eqref{eq:hybirdmfem1}-\eqref{eq:hybirdmfem2} follows from the Babu{\v{s}}ka-Brezzi theory \cite{BoffiBrezziFortin2013}.
+\begin{theorem}
+The hybridized mixed finite element method \eqref{eq:hybirdmfem1}-\eqref{eq:hybirdmfem2} is well-posed. We have the discrete stability 
+\begin{align}
+\notag
+&\quad \|\widetilde{\boldsymbol{\sigma}}_h\|_{0,h}+\|\nabla_h^2\widetilde{u}_h\|_{0}+\|\widetilde{\lambda}_h-\partial_{n_e}\widetilde{u}_h\|_{1/2,h} \\
+\label{eq:discretestability3}
+&\lesssim\sup_{\boldsymbol{\tau}_h\in\Sigma_h, v_h\in V_h,\mu\in M_h}\frac{A_h(\widetilde{\boldsymbol{\sigma}}_h,\widetilde{u}_h,\widetilde{\lambda}_h;\boldsymbol{\tau}_h,v_h,\mu_h)}{\|\boldsymbol{\tau}_h\|_{0,h}+\|\nabla_h^2v_h\|_{0}+\|\mu_h-\partial_{n_e}v_h\|_{1/2,h}}    
+\end{align}
+for any $\widetilde{\boldsymbol{\sigma}}_h\in\Sigma_h$, $\widetilde{u}_h\in V_h$ and $\widetilde{\lambda}_h\in M_h$, where
+$$
+A_h(\widetilde{\boldsymbol{\sigma}}_h,\widetilde{u}_h,\widetilde{\lambda}_h;\boldsymbol{\tau}_h,v_h,\mu_h):=(\widetilde{\boldsymbol{\sigma}}_h,\boldsymbol{\tau}_h)+ b_h(\boldsymbol\tau_h; \widetilde{u}_h,\widetilde{\lambda}_h)+ b_h(\widetilde{\boldsymbol\sigma}_h; v_h,\mu_h).
+$$
+\end{theorem}
+
+
+\begin{theorem}
+Let $(\boldsymbol{\sigma} , u)\in \boldsymbol{H}^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ be the solution of the HHJ mixed formulation \eqref{eq:hhjmixedformulation1}-\eqref{eq:hhjmixedformulation2}, and $(\boldsymbol{\sigma}_h,u_h,\lambda_h)$ be the solution of the mixed finite element method \eqref{eq:hybirdmfem1}-\eqref{eq:hybirdmfem2}.
+Assume $\boldsymbol{\sigma}\in \boldsymbol{H}^{m+1}(\Omega, \mathbb{S})$ and $u\in H^{m+3}(\Omega)$ for
+some non-negative integer $m$.
+Then
+\begin{align}
+\label{eq:errorestimate3}\|\partial_{n_e}(P_hu-u_h)-(Q_{\mathcal{E}_h}^{k-1}(\partial_{n_e}u)-\lambda_h)\|_{1/2,h}&\lesssim h^{\min\{m+1,k\}}\|\bs\sigma\|_{m+1}, \\
+\label{eq:errorestimate4}
+\|\partial_{n_e}u_h-\lambda_h\|_{-1/2,h}&\lesssim   h^{\min\{m+2,k\}}\|u\|_{m+3}.
+\end{align}
+When $\Omega$ is convex, we have
+\begin{equation}\label{eq:errorestimate5}
+\|Q_{\mathcal{E}_h}^{k-1}(\partial_{n_e}u)-\lambda_h\|_{-1/2,h}\lesssim h^{\min\{m+1,k\}+1}(\|\bs\sigma\|_{m+1}+\delta_{k1}\|f\|_0).
+\end{equation}
+\end{theorem}
+\begin{proof}
+Apply \eqref{eq:bpi}, we can show that
+\begin{align*}	
+&\quad\; A_h(I_h^{\div\div}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h, P_hu-u_h, Q_{\mathcal{E}_h}^{k-1}(\partial_{n_e}u)-\lambda_h;\boldsymbol{\tau}_h, v_h,\mu_h) =(I_h^{\div\div}\boldsymbol{\sigma}-\boldsymbol{\sigma},\boldsymbol{\tau}_h)
+\end{align*}
+holds for any $\boldsymbol{\tau}_h\in\boldsymbol{\Sigma}_h$, $v_h\in V_h$ and $\mu\in M_h$.
+
+It follows from	the stability results \eqref{eq:discretestability3} that
+\begin{align*}
+\|\partial_{n_e}(P_hu-u_h)-(Q_{\mathcal{E}_h}^{k-1}(\partial_{n_e}u)-\lambda_h)\|_{1/2,h}&\lesssim \|\boldsymbol{\sigma}-I_h^{\div\div}\boldsymbol{\sigma}\|_0,
+\end{align*}
+which together with the interpolation error estimate of $I_h^{\div\div}$ indicates \eqref{eq:errorestimate3}. And \eqref{eq:errorestimate4} follows from the triangle inequality, \eqref{eq:errorestimate3} and the interpolation error estimates of $P_h$ and $Q_{\mathcal{E}_h}^{k-1}$. Finally \eqref{eq:errorestimate5} follows from \eqref{eq:errorestimate3}, \eqref{eq:hhjH1supererror} and the inverse inequality.
+\end{proof}
+
+
+Define $\nabla_w^2: V_h\times M_h\to\Sigma_h$ by 
+$$
+(\nabla_w^2(v_h,\mu_h), \boldsymbol\tau_h)=b_h(\boldsymbol\tau_h; v_h,\mu_h)\quad\forall~\boldsymbol\tau_h\in\Sigma_h.
+$$
+Then the hybridized mixed finite element method \eqref{eq:hybirdmfem1}-\eqref{eq:hybirdmfem2} can be recast as: find $(u_h,\lambda_h)\in V_h\times M_h$ such that
+$$
+(\nabla_w^2(u_h,\lambda_h), \nabla_w^2(v_h,\mu_h))=(f, v_h)\quad\forall~v_h\in V_h, 
+\mu_h\in M_h.
+$$
+
+
+\subsection{Equivalence between HHJ method and modified Morley element method}
+Recall the Morley element space
+\begin{align*}
+V_h^M := \Big\{&v_h\in L^2(\Omega): v_h|_K\in \mathbb P_2(K),\; \forall~K \in
+\mathcal{T}_h; \displaystyle\int_e\llbracket\partial_{n} v_h\rrbracket\dd s = 0,\; \forall~e \in
+\mathcal{E}_h; \\
+&
+\quad\; v_h \textrm{ is continous at each vertex } \texttt{v}\in \mathcal N_h; v_h(\texttt{v})=0, \;\forall~ \texttt{v}\in\mathcal N_h \cap \partial\Omega
+ \Big\}.
+\end{align*}
+A modified Morley element method is to find
+$w_h\in V_h^M$ such that
+\begin{equation}\label{eq:modiMorley4Biharmonic}
+(\nabla_h^2 w_h, \nabla_h^2 v_h)=(f, I_h^1v_h)\quad\forall~v_h\in V_h^M.
+\end{equation}
+
+\begin{theorem}
+Let $w_h\in V_h^M$ be the solution of Morley element method \eqref{eq:modiMorley4Biharmonic}. Then $(-\nabla_h^2w_h$, $I_h^1w_h$, $Q_{\mathcal E_h}^0(\partial_{n_e}w_h))\in\Sigma_h\times V_h\times M_h$ is the solution of the hybridized mixed finite element method~\eqref{eq:hybirdmfem1}-\eqref{eq:hybirdmfem2} with $k=1$.
+\end{theorem}
+\begin{proof}
+Choose $v_h\in V_h^M$ such that $v_h$ vanishes at all vertices of $\mathcal T_h$, then $I_h^1v_h=0$.
+Applying integration by parts on the left hand side of \eqref{eq:modiMorley4Biharmonic}, we get
+$$
+\sum_{e\in\mathcal E_h^i}([n^{\intercal}(\nabla_h^2w_h)n],\partial_nv_h)_e=\sum_{T\in\mathcal T_h}(n^{\intercal}(\nabla_h^2w_h)n,\partial_nv_h)_{\partial T}=0.
+$$
+As a result, $[n^{\intercal}(\nabla_h^2w_h)n]_e=0$ for all $e\in\mathcal E_h^i$, that is $\nabla_h^2w_h\in \Sigma_h^{\div\div}$.
+
+For $v_h\in V_h^M$, by \eqref{eq:bp0} and \eqref{eq:modiMorley4Biharmonic},
+\begin{align*}  
+b_h(\nabla_h^2w_h; I_h^1v_h,\mu_h)&=b_h(\nabla_h^2w_h, I_h^1v_h)=b_h(\nabla_h^2w_h, v_h) \\
+&=(\nabla_h^2w_h, \nabla_h^2v_h) - \sum_{T\in \mathcal{T}_{h}}(n^{\intercal}(\nabla_h^2w_h)n, \partial_{n}u_h)_{\partial T} \\
+&=(\nabla_h^2w_h, \nabla_h^2v_h)=-(f, I_h^1v_h).
+\end{align*}
+Then $(-\nabla_h^2w_h$, $I_h^1w_h$, $Q_{\mathcal E_h}^0(\partial_{n_e}w_h))$ satisfies \eqref{eq:hybirdmfem2}
+
+It follows from \eqref{eq:bp0} that
+$$(-\nabla_h^2w_h, \boldsymbol\tau_h)+ b_h(\boldsymbol\tau_h; I_h^1w_h,Q_{\mathcal E_h}^0(\partial_{n_e}w_h)) = b_h(\boldsymbol\tau_h, w_h-I_h^1w_h)=0,
+$$
+which ends the proof.
+\end{proof}
+
