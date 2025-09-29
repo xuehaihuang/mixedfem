@@ -341,7 +341,7 @@ $$
 易知, $\mathbb P_{k-1}(D)\boldsymbol{x} \subseteq \mathbb P_k(D;\mathbb R^2)\cap\ker(\boldsymbol x^{\perp})$. 另一方面, 设 $\boldsymbol{v}\in\mathbb P_k(D;\mathbb R^2)\cap\ker(\boldsymbol x^{\perp})$, 即 $\boldsymbol{v}\in\mathbb P_k(D;\mathbb R^2)$ 满足 $\boldsymbol{v}\cdot \boldsymbol x^{\perp}=0$. 这表示 $\boldsymbol{v}$ 与 $\boldsymbol x^{\perp}$ 垂直，从而 $\boldsymbol{v}$ 平行于 $\boldsymbol{x}$， 即 $\boldsymbol{v}\in \mathbb P_{k-1}(D)\boldsymbol{x}$. 证毕.
 \end{proof}
 
-复形 \eqref{eq:deRhamcomplexPoly2d} 和 \eqref{eq:KoszulcomplexPoly2d} 通过下列方式关联：
+复形 \eqref{eq:deRhamcomplexPoly2d} 和 \eqref{eq:KoszulcomplexPoly2d} 通过下列方式相连：
 \begin{equation}\label{eq:deRhamcomplexPolydouble2d}
 %\resizebox{.93\hsize}{!}{$
 \xymatrix{
@@ -358,8 +358,7 @@ $$
 \]
 
 \begin{lemma}\label{lem:symmpolyspacedirectsum}
-设整数 $k\geq-1$，且 $D$ 为二维可缩区域.
-成立
+设整数 $k \geq -1$ 且 $D$ 为二维可缩区域，则有以下空间直和分解：
  \begin{equation}\label{eq:vector2polyspacedecomp2}
 \mathbb P_{k}(D;\mathbb R^2)=\curl\mathbb P_{k+1}(D)\oplus\mathbb P_{k-1}(D)\bs x.
 \end{equation}
@@ -401,26 +400,27 @@ $\curl\mathbb P_{k+1}(D)\cap\mathbb P_{k-1}(D)\bs x=0$.
 
 
 \begin{lemma}
-The polynomial complex
+设整数 $k\geq-1$，且 $D$ 为三维可缩区域.
+多项式复形
 \begin{equation}\label{eq:deRhamcomplex3dPoly}
 %\resizebox{.9\hsize}{!}{$
 \mathbb R\xrightarrow{\subset} \mathbb P_{k+1}(D)\xrightarrow{\grad} \mathbb P_{k}(D;\mathbb R^3)\xrightarrow{\curl}\mathbb P_{k-1}(D;\mathbb R^3) \xrightarrow{\div} \mathbb P_{k-2}(D)\xrightarrow{}0
 %$}
 \end{equation}
-is exact.
+是正合的.  
 \end{lemma}
 \begin{proof}
-Again it follows from \eqref{eq:Hkdiv} that $\div\mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D)$, and
+应用 \eqref{eq:Hkdiv} 可知 $\div\mathbb P_k(D;\mathbb R^2) = \mathbb P_{k-1}(D)$, 因此
 \begin{align*}
 \dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)&=\dim \mathbb P_k(D; \mathbb R^3)-\dim \mathbb P_{k-1}(D) \\
 &=\frac{1}{2}(k+1)(k+2)(k+3)-\frac{1}{6}k(k+1)(k+2)=\frac{1}{6}(k+1)(k+2)(2k+9).
 \end{align*}
 
-For any $\boldsymbol v\in\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, the line integral
+对于任意 $\boldsymbol v\in\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, 线积分
 \[
 q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \]
-is path independent, thus it is well-defined and $\boldsymbol v=\grad q$. Thus $\grad\mathbb P_{k+2}(D)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, and
+与路径无关，因此它是适定的，并且成立 $\boldsymbol v=\grad q$. 从而， $\grad\mathbb P_{k+2}(D)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl)$, 且有
 \begin{align*}
 \dim\curl\mathbb P_{k+1}(D; \mathbb R^3)&=\dim \mathbb P_{k+1}(D; \mathbb R^3)-\dim \mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\curl) \\
 &=\dim \mathbb P_{k+1}(D; \mathbb R^3)-\dim\grad\mathbb P_{k+2}(D) \\
@@ -428,8 +428,8 @@ is path independent, thus it is well-defined and $\boldsymbol v=\grad q$. Thus $
 &=\frac{1}{6}(k+1)(k+2)(2k+9).
 \end{align*}
 
-Noting that $\dim\curl\mathbb P_{k+1}(D; \mathbb R^3)=\dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$ and $\curl\mathbb P_{k+1}(D; \mathbb R^3)\subseteq\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, we obtain $\curl\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$.
-Thus the complex \eqref{eq:deRhamcomplex3dPoly} is exact.
+注意到 $\dim\curl\mathbb P_{k+1}(D; \mathbb R^3)=\dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, 以及 $\curl\mathbb P_{k+1}(D; \mathbb R^3)\subseteq\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, 故有 $\curl\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$.
+由此可知复形 \eqref{eq:deRhamcomplex3dPoly} 是正合的。
 \end{proof}
 
 %\LC{Add the backwards complex using Poincare operators first. Then the following decomposition follows naturally.}
@@ -438,7 +438,8 @@ Thus the complex \eqref{eq:deRhamcomplex3dPoly} is exact.
 
 
 \begin{lemma}\label{lem:Koszul}
-The polynomial complex
+设整数 $k\geq-1$，且 $D$ 为三维可缩区域.
+多项式复形
 %\begin{equation}\label{eq:divdivKoszulcomplexPoly}
 %%\resizebox{.9\hsize}{!}{$
 %0\autorightarrow{$\subset$}{}\mathbb P_{k-2}(\Omega) \autorightarrow{$\boldsymbol x\boldsymbol x^{\intercal}$}{} \mathbb P_k(\Omega; \mathbb S) \autorightarrow{$\boldsymbol x^{\perp}$}{} \mathbb P_k(\Omega; \mathbb S)\boldsymbol x^{\perp}\autorightarrow{}{}0
@@ -448,10 +449,10 @@ The polynomial complex
 0\xrightarrow{\subset}\mathbb P_{k-1}(D) \xrightarrow{\boldsymbol x} \mathbb P_k(D; \mathbb R^3) \xrightarrow{\boldsymbol x\times} \mathbb P_{k+1}(D; \mathbb R^3)\xrightarrow{\boldsymbol x\cdot} \mathbb P_{k+2}(D)\xrightarrow{\pi_{0}}\mathbb {R}\xrightarrow{}0
 %$}
 \end{equation}
-is exact.
+是正合的.  
 \end{lemma}
 \begin{proof}
-It is easy to see that $\pi_0\mathbb P_{k+2}(D)=\mathbb R$ and $\boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_{k+2}(D)\cap\ker(\pi_0)$. And
+易知 $\pi_0\mathbb P_{k+2}(D)=\mathbb R$，以及 $\boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_{k+2}(D)\cap\ker(\pi_0)$. 因此，
 \begin{align*}
 \dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)&=\dim\mathbb P_{k+1}(D; \mathbb R^3)-\dim\bs x\cdot\mathbb P_{k+1}(D; \mathbb R^3) \\
 &=\dim\mathbb P_{k+1}(D; \mathbb R^3)-\dim\mathbb P_{k+2}(D)\cap\ker(\pi_0) \\
@@ -459,7 +460,7 @@ It is easy to see that $\pi_0\mathbb P_{k+2}(D)=\mathbb R$ and $\boldsymbol x\cd
 &=\frac{1}{6}(k+1)(k+2)(2k+9).
 \end{align*}
 
-For any $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times)$, we have $\bs x\times\boldsymbol v=\boldsymbol0$. Thus $\bs v$ is parallel to $\bs x$, which implies $\bs v\in\bs x\mathbb P_{k-1}(D)$. That is $\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times)=\bs x\mathbb P_{k-1}(D)$. And
+对任意 $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)$，有 $\boldsymbol x\times\boldsymbol v=\boldsymbol 0$，故 $\boldsymbol v$ 与 $\boldsymbol x$ 平行，即 $\boldsymbol v\in\boldsymbol x\mathbb P_{k-1}(D)$。因此 $\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)=\boldsymbol x\mathbb P_{k-1}(D)$。于是，
 \begin{align*}
 \dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)&=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times) \\
 &=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\bs x\mathbb P_{k-1}(D) \\
@@ -467,11 +468,11 @@ For any $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times)$, we
 &=\frac{1}{6}(k+1)(k+2)(2k+9).
 \end{align*}
 
-Noting that $\dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$ and $\bs x\times\mathbb P_{k}(D; \mathbb R^3)\subseteq\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$, we obtain $\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$.
-Thus the complex \eqref{eq:deRhamvKoszulcomplex3dPoly} is exact.
+注意到 $\dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$，且 $\bs x\times\mathbb P_{k}(D; \mathbb R^3)\subseteq\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$, 因此 $\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$.
+由此可得复形 \eqref{eq:deRhamvKoszulcomplex3dPoly} 的正合性。
 \end{proof}
 
-Those two complexes \eqref{eq:deRhamcomplex3dPoly} and \eqref{eq:deRhamvKoszulcomplex3dPoly} are connected as
+复形 \eqref{eq:deRhamcomplex3dPoly} 和 \eqref{eq:deRhamvKoszulcomplex3dPoly} 通过以下方式相连：
 \begin{equation}\label{eq:divdivcomplex3dPolydouble}
 %\resizebox{.92\hsize}{!}{$
 \xymatrix{
@@ -480,35 +481,110 @@ Those two complexes \eqref{eq:deRhamcomplex3dPoly} and \eqref{eq:deRhamvKoszulco
 %$}
 \end{equation}
 
-It is easy to see that
+容易看出
 \[
 \mathbb P_{k+2}(D)= \boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)\oplus\mathbb R.
 \]
-We then move to the space $\mathbb P_{k+1}(D; \mathbb R^3)$.
+接下来我们转向空间 $\mathbb P_{k+1}(D; \mathbb R^3)$。
 \begin{lemma}
-We have the decomposition
+设整数 $k \geq -1$ 且 $D$ 为三维可缩区域，则有以下空间直和分解：
 \begin{equation}\label{eq:vector3polyspacedecomp1}
 \mathbb P_{k+1}(D; \mathbb R^3)=\grad\mathbb P_{k+2}(D)\oplus\boldsymbol x\times\mathbb P_k(D; \mathbb R^3).
 \end{equation}
 \end{lemma}
 \begin{proof}
-Since the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in \eqref{eq:vector3polyspacedecomp1}, we only need to prove that the sum in \eqref{eq:vector3polyspacedecomp1} is the direct sum.
+由于等式 \eqref{eq:vector3polyspacedecomp1} 左侧空间的维数等于右侧两空间维数之和，我们只需证明 \eqref{eq:vector3polyspacedecomp1} 中的和是直和。
 
-For any $\boldsymbol v=\nabla q$ with $q\in\mathbb P_{k+2}(D)$ satisfying $\boldsymbol v\in\boldsymbol x\times\mathbb P_k(D; \mathbb R^3)$, it follows $(\boldsymbol x\cdot\nabla)q=0$. Then we get from \eqref{eq:Hkxgrad} that $q$ is constant. Hence $\bs v=\bs0$.
+对任意向量场 $\boldsymbol v \in \grad\mathbb P_{k+2}(D) \cap (\boldsymbol x\times\mathbb P_k(D; \mathbb R^3))$，设 $\boldsymbol v = \grad q$，其中 $q \in \mathbb P_{k+2}(D)$。由此可得 $(\boldsymbol x\cdot\nabla)q = 0$，故由 \eqref{eq:Hkxgrad} 知 $q$ 为常值函数，从而 $\boldsymbol v = \boldsymbol 0$。
 \end{proof}
 
 \begin{lemma}
-We have the decomposition
+设整数 $k \geq -1$ 且 $D$ 为三维可缩区域，则有以下空间直和分解：
 \begin{equation}\label{eq:vector3polyspacedecomp2}
 \mathbb P_{k}(D; \mathbb R^3)=\curl\mathbb P_{k+1}(D;\mathbb R^3)\oplus \boldsymbol x\mathbb P_{k-1}(D).
 \end{equation}
 \end{lemma}
 \begin{proof}
- Noting that the dimension of space in the left hand side is the summation of the dimension of the two spaces in the right hand side in \eqref{eq:vector3polyspacedecomp2}, we only need to prove the direct sum.
+注意到 \eqref{eq:vector3polyspacedecomp2} 式左侧空间的维数等于右侧两个空间维数之和，我们只需证明该分解是直和。
 
-For any $\boldsymbol v=\bs x q$ with $q\in\mathbb P_{k-1}(D)$ satisfying $\boldsymbol v\in\curl\mathbb P_{k+1}(D;\mathbb R^3)$, it follows $\div(\bs x q)=0$. 
-Applying \eqref{eq:Hkdiv}, we get $q=0$. Thus $\bs v=\bs0$.
+为此，考虑交集 $\curl\mathbb P_{k+1}(D;\mathbb R^3) \cap \boldsymbol x\mathbb P_{k-1}(D)$ 中的任意向量场 $\boldsymbol v$。设 $\boldsymbol v = \boldsymbol x q$，其中 $q \in \mathbb P_{k-1}(D)$。由旋量场的性质，有 $\div(\boldsymbol x q) = 0$，应用 \eqref{eq:Hkdiv} 可得 $q = 0$，因此 $\boldsymbol v = \boldsymbol 0$。
 \end{proof}
+
+
+\subsection{任意维多项式复形}
+
+借助外微分，可统一描述任意维空间中的多项式复形（包括多项式微分复形与 Koszul 复形），相关理论见有限元外微积分 \cite{Arnold2018,ArnoldFalkWinther2006,ArnoldFalkWinther2010}。这里采用反对称矩阵来表述部分相关结果。
+
+
+\begin{lemma}\label{lem:Pkdec}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域，则成立以下空间直和分解：
+\begin{align}
+\mathbb P_{k-1}(D; \mathbb R^d) 
+%&= \grad \mathbb P_{k}(K)\oplus\mathbb P_{k-2}(K;\mathbb K)\boldsymbol x  \label{eq:dec1}\\
+&= \grad \mathbb P_{k}(D)\oplus (\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)). \label{eq:dec2}
+\end{align}
+\end{lemma}
+\begin{proof}
+显然成立以下包含关系：
+$$
+\grad \mathbb P_{k}(D)+ (\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d))\subseteq \mathbb P_{k-1}(D; \mathbb R^d).
+$$
+根据公式 \eqref{eq:Hkxgrad}，该和是直和。
+
+映射 $\cdot\boldsymbol x: \mathbb P_{k-1}(D;\mathbb R^d) \to \mathbb P_{k}(D)\backslash \mathbb R$ 是满射，因此
+$$
+\dim\mathbb P_{k-1}(D; \mathbb R^d) 
+= \dim(\mathbb P_{k}(D)\backslash \mathbb R) + \dim(\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)).
+$$
+由于 $\dim \left( \mathbb P_{k}(D)\backslash \mathbb R \right) = \dim \grad \mathbb P_{k}(D)$，通过维数计数即得分解 \eqref{eq:dec2}。
+\end{proof}
+
+文献~\cite[Proposition~1]{Nedelec1980} 中给出了 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的一种显式刻画，即：$\boldsymbol v\in \ker (\cdot \boldsymbol x)\cap \mathbb H_{k-1}(D;\mathbb R^d)$ 当且仅当 $\boldsymbol v\in \mathbb H_{k-1}(D;\mathbb R^d)$ 且其 $(k-1)$ 阶导数 $\nabla^{k-1}\boldsymbol v$ 的对称部分为零。
+
+我们将给出 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的另一种刻画。
+
+\begin{lemma}\label{lem:kerx}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 成立
+\begin{equation}  \label{eq:dec1}
+\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d) = \mathbb P_{k-2}(D;\mathbb K)\boldsymbol x,
+\end{equation}
+其中 $\mathbb K$ 是 $\mathbb R^{d\times d}$ 中反对称矩阵子空间，以及以下空间直和分解：
+\begin{equation}\label{eq:Pkm1vecdecomp}
+\mathbb P_{k-1}(D; \mathbb R^d)= \grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+显然我们有 $\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$。根据 \eqref{eq:dec2}，只需证明 \eqref{eq:Pkm1vecdecomp} 成立。
+
+取 $\boldsymbol q\in\mathbb P_{k-1}(D; \mathbb R^d)$。不失一般性，由线性性质，只需考虑 $\boldsymbol q=\boldsymbol x^{\alpha}\boldsymbol e_{\ell}$ 的情形，其中 $|\alpha|=k-1$ 且 $1\leq\ell\leq d$。令
+$$
+p=\frac{1}{k}\boldsymbol x\cdot\boldsymbol q=\frac{1}{k}\boldsymbol x^{\alpha+\boldsymbol e_{\ell}}\in\mathbb P_{k}(D), \;\; \boldsymbol\tau=\frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha-\boldsymbol e_{i}}(\boldsymbol e_{\ell}\boldsymbol e_{i}^{\intercal}-\boldsymbol e_{i}\boldsymbol e_{\ell}^{\intercal})\in\mathbb P_{k-2}(D;\mathbb K).
+$$
+则有
+\begin{align*}
+\grad p+\boldsymbol\tau\boldsymbol x& = \frac{1}{k}\sum_{i=1}^d(\alpha_i+\delta_{i\ell})\boldsymbol x^{\alpha+\boldsymbol e_{\ell}-\boldsymbol e_{i}}\boldsymbol e_{i} + \frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha-\boldsymbol e_{i}}(\boldsymbol e_{\ell}x_{i}-\boldsymbol e_{i}x_{\ell}) \\
+& = \frac{1}{k}\sum_{i=1}^d(\alpha_i+\delta_{i\ell})\boldsymbol x^{\alpha+\boldsymbol e_{\ell}-\boldsymbol e_{i}}\boldsymbol e_{i} + \frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha}\boldsymbol e_{\ell} - \frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha+\boldsymbol e_{\ell}-\boldsymbol e_{i}}\boldsymbol e_{i} \\
+&=\frac{1}{k}\boldsymbol x^{\alpha}\boldsymbol e_{\ell}+\frac{|\alpha|}{k}\boldsymbol x^{\alpha}\boldsymbol e_{\ell}=\boldsymbol x^{\alpha}\boldsymbol e_{\ell},
+\end{align*}
+即 $\boldsymbol q=\grad p+\boldsymbol\tau\boldsymbol x$。 因此，成立
+$$
+\mathbb P_{k-1}(D; \mathbb R^d)\subseteq \grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x.
+$$ 
+结合已知关系 $\grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\mathbb P_{k-1}(D; \mathbb R^d)$，即得 \eqref{eq:Pkm1vecdecomp}。
+\end{proof}
+
+空间分解 \eqref{eq:dec2} 与刻画 \eqref{eq:dec1} 可总结为以下双向复形：
+\begin{equation*}%\label{eq:deRhamcomplex3dPolydouble}
+%\resizebox{.91\hsize}{!}{$
+\xymatrix{
+\mathbb R\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k}(D)\ar@<0.4ex>[r]^-{\grad} \ar@<0.4ex>[l]^-{\pi_0}  & \mathbb P_{k-1}(D;\mathbb R^d)\ar@<0.4ex>[r]^-{\skw\grad}\ar@<0.4ex>[l]^-{\boldsymbol v\cdot\boldsymbol x}  & \mathbb P_{k-2}(D;\mathbb K) \ar@<0.4ex>[l]^-{\boldsymbol\tau\boldsymbol x},
+%& 0 \ar@<0.4ex>[l]^-{\supset} }.
+}
+%$}
+\end{equation*}
+其中反对称算子 $\skw:\mathbb R^{d\times d}\to\mathbb K$ 定义为 $\skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})$。
+
 
 \section{$H(\div)$ 有限元}
 The material in this section comes from \cite{BoffiBrezziFortin2013}.

@@ -791,27 +791,27 @@ a(P_hu, v_h)=a(u, v_h)=a(u, Iv_h)=\langle Au, Iv_h\rangle_{V'\times V}=\langle I
 \section{鞍点系统：Brezzi 理论}
 
 \subsection{混合变分问题}
-We shall consider an abstract mixed variational
-problem first. Let $V$ and $P$ be two Banach spaces. For given $(f, g)\in V'\times P'$, find
-$(u, p)\in V \times P$ such that
+首先考虑一个抽象混合变分问题。设 $V$ 和 $P$ 为两个 Banach 空间。对于给定的 $(f, g)\in V'\times P'$，求 $(u, p)\in V \times P$ 使得
+\begin{subequations}\label{abstractmixed}
 \begin{align}
 a(u, v)+ b(v, p) & =\langle f, v\rangle \quad \forall~v\in V, \label{abstractmixed1}\\
 b(u, q) & =\langle g, q\rangle  \quad \forall~q\in P.\label{abstractmixed2}
 \end{align}
-Let us introduce linear operators
+\end{subequations}
+现引入线性算子
 \[
-A : V \to V',\quad \textrm{ as } \langle Au, v\rangle = a(u, v)
+A : V \to V',\quad \textrm{ 定义为 }\; \langle Au, v\rangle = a(u, v)
 \]
-and
+与
 \[
-B: V\to P', \quad B' : P \to V',\quad \textrm{ as } \langle Bv, q\rangle = \langle v, B'q\rangle = b(v, q).
+B: V\to P', \quad B' : P \to V',\quad \textrm{ 满足 }\; \langle Bv, q\rangle = \langle v, B'q\rangle = b(v, q).
 \]
-Written in the operator form, the problem becomes
+抽象混合变分问题 \eqref{abstractmixed} 对应的算子方程为
 \begin{align}
 Au+ B'p & =f, \label{abstractmixedoperator1}\\
 Bu & =g, \label{abstractmixedoperator2}
 \end{align}
-or in short
+或简记为
 \begin{equation*}%\label{abstractmixedoperatormatrix}
 \begin{pmatrix}
 A &  B' \\
@@ -829,10 +829,9 @@ f \\ g
 
 \subsection{Inf-sup 条件}
 
-We shall study the well posedness of this abstract mixed problem.
+我们将研究该抽象混合变分问题的适定性。
 
-First we assume all bilinear forms are continuous so that all operators $A, B, B'$ are
-continuous: the bilinear form $a(\cdot, \cdot)$ and $b(\cdot, \cdot)$ are continuous
+首先假设所有双线性形式均连续，即算子 $A, B, B'$ 连续：双线性形式 $a(\cdot, \cdot)$ 与 $b(\cdot, \cdot)$ 满足连续性条件
 \begin{equation}\label{acontinuous}
 a(u, v)\leq C\|u\|_V\|v\|_V \quad \forall~ u, v\in V,
 \end{equation}
@@ -840,80 +839,66 @@ a(u, v)\leq C\|u\|_V\|v\|_V \quad \forall~ u, v\in V,
 b(v, q)\leq C\|v\|_V\|q\|_P \quad \forall~ v\in V, q\in P.
 \end{equation}
 
-The solvable of the second equation \eqref{abstractmixedoperator2} is equivalent to $B$ is surjective or $B'$ is injective
-and $R(B')$ closed which is equivalent to the following inf-sup condition
+第二个方程 \eqref{abstractmixedoperator2} 的可解性等价于算子 $B$ 为满射（或算子 $B'$ 为单射且值域 $R(B')$ 闭），这又等价于如下 inf-sup 条件
 \begin{equation}\label{infsup}
 \inf_{q\in P}\sup_{v\in V}\frac{b(v, q)}{\|v\|_V\|q\|_P}=\beta>0.
 \end{equation}
-With condition \eqref{infsup}, we have $B : V/\ker(B)\to P'$ is an isomorphism. So given $g\in P'$, we
-can choose $u_1\in V/\ker(B)$ such that $Bu_1 = g$ and $\|u_1\|_V\leq \beta^{-1}\|g\|_{P'}$.
+在条件 \eqref{infsup} 下，$B : V/\ker(B)\to P'$ 为同构映射。因此对任意 $g\in P'$，存在 $u_1\in V/\ker(B)$ 使得 $Bu_1 = g$ 且 $\|u_1\|_V\leq \beta^{-1}\|g\|_{P'}$。
 
-After we get a unique $u_1$, we restrict the test function $v$ in \eqref{abstractmixed1} to $\ker(B)$. Since
-$\langle v, B'q\rangle = \langle Bv, q\rangle = 0$ for $v\in \ker(B)$, we get the following variational form: find
-$u_0\in \ker(B)$ such that
+确定唯一的 $u_1$ 后，我们将测试函数 $v$ 限制在 $\ker(B)$ 上考虑 \eqref{abstractmixed1}。由于对 $v\in \ker(B)$ 有 $\langle v, B'q\rangle = \langle Bv, q\rangle = 0$，得到如下变分问题：求 $u_0\in \ker(B)$ 使得
 \begin{equation}\label{abstractkernelproblem}
 a(u_0, v) = \langle f, v\rangle- a(u_1, v)\quad \forall~v \in \ker(B).
 \end{equation}
-The existence and uniqueness of $u_0$ is then equivalent to the two inf-sup conditions for
-$a(u, v)$ on space $Z = \ker(B)$:
+变分问题 \eqref{abstractkernelproblem} 的适定性等价于双线性形式 $a(u, v)$ 在空间 $Z = \ker(B)$ 上满足两个 inf-sup 条件：
 \begin{equation}\label{infsupkernel}
 \inf_{u\in Z}\sup_{v\in Z}\frac{a(u, v)}{\|u\|_V\|v\|_V}=\inf_{v\in Z}\sup_{u\in Z}\frac{a(u, v)}{\|u\|_V\|v\|_V}=\alpha>0.
 \end{equation}
 
-After we determine a unique $u = u_0 + u_1$ in this way, we solve
+如此确定唯一的 $u = u_0 + u_1$ 后，通过求解
 \[
 B'p = f - Au
 \]
-to get $p$. Since $u_0$ is the solution to \eqref{abstractkernelproblem}, the right hand side $f - Au \in \ker(B)^{\perp}$. Thus we
-require $B': P\to \ker(B)^{\perp}$ is an isomorphism which is also equivalent to the condition \eqref{infsup}.
+得到 $p$。由于 $u_0$ 是 \eqref{abstractkernelproblem} 的解，右端项 $f - Au \in \ker(B)^{\perp}$。因此我们要求 $B': P\to \ker(B)^{\perp}$ 为同构映射，这也等价于条件 \eqref{infsup}。
 
 \begin{theorem}
-Assume the bilinear forms $a(\cdot, \cdot)$, $b(\cdot, \cdot)$ are continuous, i.e., \eqref{acontinuous}-\eqref{bcontinuous} hold. The
-mixed variational problem \eqref{abstractmixed1}-\eqref{abstractmixed2} is well-posed if and only if \eqref{infsup} and \eqref{infsupkernel} hold. When \eqref{infsup} and \eqref{infsupkernel} hold, we have the stability result
+设双线性形式 $a(\cdot, \cdot)$ 和 $b(\cdot, \cdot)$ 连续（即 \eqref{acontinuous}-\eqref{bcontinuous} 成立），则混合变分问题 \eqref{abstractmixed1}-\eqref{abstractmixed2} 适定的充要条件是 \eqref{infsup} 与 \eqref{infsupkernel} 同时成立。当这两个条件满足时，我们有稳定性估计
 \[
 \|u\|_V+\|p\|_P\lesssim \|f\|_{V'}+\|g\|_{P'}.
 \]
 \end{theorem}
 
-The following characterization of the inf-sup condition for the operator $B$ is useful. The
-verification is again transferred to a construction of a suitable function.
-The proof is similar to that in Theorem~\ref{thm:infsupequiv2} and thus skipped here.
+以下关于算子 $B$ 的 inf-sup 条件的刻画非常实用。其验证过程可转化为构造一个合适的函数。该证明与定理~\ref{thm:infsupequiv2} 的证明类似，故在此从略。
 \begin{theorem}
-The inf-sup condition \eqref{infsup} is equivalent to that for any $q\in P$, there exists
-$v\in V$, such that
+Inf-sup 条件 \eqref{infsup} 等价于：对任意 $q\in P$，存在 $v\in V$ 使得
 \begin{equation*}%\label{infsupequiv2}
-b(v, q)\geq C_1\|q\|_P^2,\quad\textrm{and } \quad\|v\|_V\leq C_2\|q\|_P.
+b(v, q)\geq C_1\|q\|_P^2,\quad\textrm{且 } \quad\|v\|_V\leq C_2\|q\|_P.
 \end{equation*}
 \end{theorem}
 
-Note that in general a construction of desirable $v = v(q)$, especially the control of norm
-$\|v\|$, may not be straightforward.
+需要指出的是，一般而言，构造符合要求的 $v = v(q)$（尤其是对其范数 $\|v\|_V$ 的控制）可能并非易事。
+
 
 \subsection{协调离散}
-We consider finite element approximation to the mixed
-problem: Find $u_h\in V_h$ and $p_h\in P_h$ such that
+
+我们考虑混合问题的有限元逼近：求 $u_h\in V_h$ 和 $p_h\in P_h$ 使得
 \begin{align}
 a(u_h, v_h)+ b(v_h, p_h) & =\langle f, v_h\rangle \quad \forall~v_h\in V_h, \label{abstractmfem1}\\
 b(u_h, q_h) & =\langle g, q_h\rangle  \quad \forall~q_h\in P_h.\label{abstractmfem2}
 \end{align}
-We shall mainly consider the conforming case $V_h\subset V$ and $P_h\subset P$. We denote $B_h:
-V_h\to P_h'$, and denote $Z_h = \ker(B_h)$. Recall that $Z = \ker(B)$. In the application
-to Stokes equations $B = -\div$, so $Z$ is called divergence free space and $Z_h$ is discrete
-divergence free space.
+考虑协调有限元情形 $V_h\subset V$ 和 $P_h\subset P$。记 $B_h: V_h\to P_h'$，并令 $Z_h = \ker(B_h)$。回顾 $Z = \ker(B)$，在应用于 Stokes 方程时 $B = -\div$，因此 $Z$ 称为无散空间，$Z_h$ 称为离散无散空间。
 
 \begin{remark}
-In general $Z_h \not\subset Z$. Namely a discrete divergence free function may not be
-exactly divergence free. Just compare the meaning of $B_hu_h = 0$ in $(P_h)'$
+一般而言 $Z_h \not\subset Z$，即离散无散函数未必严格无散。只需比较 $B_hu_h = 0$（在 $(P_h)'$ 中）
 \[
 \langle B_hu_h, q_h\rangle=0\quad\forall~q_h\in P_h,
 \]
-with $Bu_h=0$ in $P'$
+与 $Bu_h=0$（在 $P'$ 中）
 \[
 \langle Bu_h, q\rangle=0\quad\forall~q\in P.
 \]
 \end{remark}
 
-The discrete inf-sup conditions for the finite element approximation will be
+有限元逼近的离散 inf-sup 条件为：
 \begin{equation}\label{discreteinfsupkernel}
 \inf_{u_h\in Z_h}\sup_{v_h\in Z_h}\frac{a(u_h, v_h)}{\|u_h\|_V\|v_h\|_V}=\inf_{v_h\in Z_h}\sup_{u_h\in Z_h}\frac{a(u_h, v_h)}{\|u_h\|_V\|v_h\|_V}=\alpha_h>0,
 \end{equation}
@@ -922,45 +907,41 @@ The discrete inf-sup conditions for the finite element approximation will be
 \end{equation}
 
 \begin{theorem}
-If \eqref{acontinuous}-\eqref{bcontinuous}, \eqref{infsup}, \eqref{infsupkernel}, \eqref{discreteinfsupkernel} and \eqref{discreteinfsup} hold, then the discrete problem is well-posed and
+若 \eqref{acontinuous}-\eqref{bcontinuous}、\eqref{infsup}、\eqref{infsupkernel}、\eqref{discreteinfsupkernel} 及 \eqref{discreteinfsup} 成立，则离散问题适定，且成立误差估计
 \[
 \|u-u_h\|_V+\|p-p_h\|_P\leq C\inf_{v_h\in V_h, q_h\in P_h}(\|u-v_h\|_V+\|p-q_h\|_P).
 \]
 \end{theorem}
 
 \begin{exe}
-%Assume Banach spaces $V$ and $P$ are reflexive.
-Let $U = V\times P$ and rewrite the mixed formulation using one bilinear form
-defined on $U$. Then use Babu\v{s}ka theory to prove the above theorem. Write explicitly how
-the constant $C$ depends on the constants in all inf-sup conditions.
+设 $U = V\times P$，并用定义在 $U$ 上的单个双线性形式重写混合变分形式。随后应用 Babu\v{s}ka 理论证明上述定理，并明确写出常数 $C$ 如何依赖于各 inf-sup 条件中的常数。
 \end{exe}
 
 
 \subsection{Fortin 算子}
-Note that the inf-sup condition \eqref{infsup} in the continuous level implies:
-for any $q_h\in P_h$, there exists $v \in V$ such that $b(v, q_h)\geq\beta\|v\|_V\|q_h\|_P$ and $\|v\|_V\leq C\|q_h\|_P$.
-For the discrete inf-sup condition, we need a $v_h\in V_h$ satisfying such property. One
-approach is to use the so-called Fortin operator \cite{Fortin1977} to get such a $v_h$ from $v$.
+注意到连续层面的 inf-sup 条件 \eqref{infsup} 蕴含：对任意 $q_h\in P_h$，存在 $v \in V$ 使得
+$$
+b(v, q_h)\geq\beta\|v\|_V\|q_h\|_P, \quad \|v\|_V\leq C\|q_h\|_P.
+$$
+为建立离散 inf-sup 条件，我们需要构造满足相应性质的 $v_h\in V_h$。一种方法是利用所谓的 Fortin 算子 \cite{Fortin1977}，通过 $v$ 构造出所需的 $v_h$。
 
-\begin{defn}[Fortin operator]
-A linear operator $\Pi_h: V\to V_h$ is called a Fortin operator
-if
+\begin{defn}[Fortin 算子]
+线性算子 $\Pi_h: V\to V_h$ 称为 Fortin 算子，若其满足：
 \begin{enumerate}
-\item $b(\Pi_hv, q_h) = b(v, q_h)$ for all $q_h\in P_h$
-\item $\|\Pi_hv\|_V\leq C\|v\|_V$.
+\item 对任意 $q_h\in P_h$，$b(\Pi_hv, q_h) = b(v, q_h)$；
+\item $|\Pi_hv|_V\leq C|v|_V$。
 \end{enumerate}
 \end{defn}
 
 \begin{theorem}
-Assume the inf-sup condition \eqref{infsup} holds and there exists a Fortin operator
-$\Pi_h$, then the discrete inf-sup condition \eqref{discreteinfsup} holds.
+若 inf-sup 条件 \eqref{infsup} 成立且存在 Fortin 算子 $\Pi_h$，则离散 inf-sup 条件 \eqref{discreteinfsup} 成立。
 \end{theorem}
 \begin{proof}
-By the inf-sup condition \eqref{infsup},
+由 inf-sup 条件 \eqref{infsup} 可得
 \[
 \beta\leq \inf_{q_h\in P_h}\sup_{v\in V}\frac{b(v, q_h)}{\|v\|_V\|q_h\|_P}\leq C\inf_{q_h\in P_h}\sup_{v\in V}\frac{b(\Pi_hv, q_h)}{\|\Pi_hv\|_V\|q_h\|_P}\leq C\inf_{q_h\in P_h}\sup_{v_h\in V_h}\frac{b(v_h, q_h)}{\|v_h\|_V\|q_h\|_P}
 \]
-Thus the discrete inf-sup condition \eqref{discreteinfsup} holds with $\beta_h=\beta/C$.
+因此离散 inf-sup 条件 \eqref{discreteinfsup} 成立，且可取 $\beta_h=\beta/C$。
 \end{proof}
 
 
