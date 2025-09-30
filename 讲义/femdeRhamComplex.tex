@@ -282,12 +282,21 @@ $$
 \begin{equation}\label{eq:Hkdiv}
 \div(\bs x q)=(k+d)q\quad\forall~q\in\mathbb H_k(D).
 \end{equation}
+由等式 \eqref{eq:Hkxgrad} 可直接推得
+\cite[(35)]{ChenHuang2022a}
+$$
+\mathbb P_{k}(T)\cap\ker(\boldsymbol{x}\cdot\nabla)=\mathbb P_{0}(T),
+$$
+\begin{equation}\label{eq:20230205}
+\mathbb P_{k}(T)\cap\ker(c+\boldsymbol{x}\cdot\nabla)=\{0\},
+\end{equation}
+其中 $c$ 为任意正数。
+
+
 定义算子 $\pi_{0}: \mathcal C^0(D)\to \mathbb R$ 为
 \[
 \pi_{0}v:=v(\bs0).
 \]
-
-
 
 
 
@@ -574,101 +583,277 @@ $$
 结合已知关系 $\grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\mathbb P_{k-1}(D; \mathbb R^d)$，即得 \eqref{eq:Pkm1vecdecomp}。
 \end{proof}
 
+\begin{lemma}\label{lem:skwgrad}
+令整数 $k \geq 1$。
+设 $\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$ 满足 $(\skw\grad\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$，其中反对称算子 $\skw:\mathbb R^{d\times d}\to\mathbb K$ 定义为 $\skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})$。
+则有 $\boldsymbol{w}=\boldsymbol{0}$。
+\end{lemma}
+\begin{proof}
+由于
+\begin{equation*}%\label{eq:20220224}  
+(\skw\grad\boldsymbol{w})\boldsymbol{x}=\frac{1}{2}(\grad\boldsymbol{w})\boldsymbol{x}-\frac{1}{2}(\grad\boldsymbol{w})^{\intercal}\boldsymbol{x}=\frac{1}{2}(I+\boldsymbol{x}\cdot\grad)\boldsymbol{w} - \frac{1}{2}\grad(\boldsymbol{w}\cdot\boldsymbol{x}),
+\end{equation*}
+由$\boldsymbol{w}\cdot\boldsymbol{x}=0$可得$(I+\boldsymbol{x}\cdot\grad)\boldsymbol{w}=\boldsymbol{0}$，结合\eqref{eq:20230205}式即得$\boldsymbol{w}=\boldsymbol{0}$。
+\end{proof}
+
+\begin{lemma}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 
+多项式复形
+\begin{equation}\label{eq:polycomplex1}
+\mathbb R\xrightarrow{}\mathbb P_k(D)\xrightarrow{\grad}\mathbb P_{k-1}(D;\mathbb R^d)\xrightarrow{\skw\grad}\mathbb P_{k-2}(D;\mathbb K)
+\end{equation}
+是正合的。
+\end{lemma}
+\begin{proof}
+显然\eqref{eq:polycomplex1}是一个复形。只需证明$\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)\subseteq\grad\mathbb P_{k}(D)$。
+
+对于任意$\boldsymbol{v}\in\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)$，根据空间分解 \eqref{eq:Pkm1vecdecomp}，存在$q\in \mathbb P_k(D)$和$\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$使得$\boldsymbol{v}=\grad q+\boldsymbol{w}$。
+由$\skw\grad\boldsymbol{v}=\boldsymbol{0}$可得$\skw\grad\boldsymbol{w}=\boldsymbol{0}$。
+应用引理~\ref{lem:skwgrad} 即得$\boldsymbol{w}=\boldsymbol{0}$。因此$\boldsymbol{v}=\grad q\in\grad\mathbb P_k(D)$。
+\end{proof}
+
+
+
 空间分解 \eqref{eq:dec2} 与刻画 \eqref{eq:dec1} 可总结为以下双向复形：
 \begin{equation*}%\label{eq:deRhamcomplex3dPolydouble}
 %\resizebox{.91\hsize}{!}{$
 \xymatrix{
-\mathbb R\ar@<0.4ex>[r]^-{\subset} & \mathbb P_{k}(D)\ar@<0.4ex>[r]^-{\grad} \ar@<0.4ex>[l]^-{\pi_0}  & \mathbb P_{k-1}(D;\mathbb R^d)\ar@<0.4ex>[r]^-{\skw\grad}\ar@<0.4ex>[l]^-{\boldsymbol v\cdot\boldsymbol x}  & \mathbb P_{k-2}(D;\mathbb K) \ar@<0.4ex>[l]^-{\boldsymbol\tau\boldsymbol x},
+\mathbb R\ar@<0.4ex>[r]^-{\subseteq} & \mathbb P_{k}(D)\ar@<0.4ex>[r]^-{\grad} \ar@<0.4ex>[l]^-{\pi_0}  & \mathbb P_{k-1}(D;\mathbb R^d)\ar@<0.4ex>[r]^-{\skw\grad}\ar@<0.4ex>[l]^-{\boldsymbol v\cdot\boldsymbol x}  & \mathbb P_{k-2}(D;\mathbb K) \ar@<0.4ex>[l]^-{\boldsymbol\tau\boldsymbol x}.
 %& 0 \ar@<0.4ex>[l]^-{\supset} }.
 }
 %$}
 \end{equation*}
-其中反对称算子 $\skw:\mathbb R^{d\times d}\to\mathbb K$ 定义为 $\skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})$。
+
+
+
+下面是反对称矩阵值多项式空间的一个直和分解。
+
+\begin{lemma}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。
+成立空间直和分解 
+\begin{equation}\label{eq:Pkskwtensordecomp}  
+\mathbb P_{k-2}(D;\mathbb K)=\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)\oplus\big(\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})\big),
+\end{equation}
+其中 $\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x}):=\{\boldsymbol{\tau}\in\mathbb P_{k-2}(D;\mathbb K): \boldsymbol{\tau}\boldsymbol{x}=\boldsymbol{0}\}$.
+\end{lemma}
+\begin{proof}
+根据空间直和分解 \eqref{eq:Pkm1vecdecomp}，我们有
+\[
+\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\skw\grad(\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}).
+\]
+由引理~\ref{lem:skwgrad}，$\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)\cap\big(\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})\big)={\boldsymbol{0}}$。因此只需验证维数关系。
+根据复形 \eqref{eq:polycomplex1}，
+\begin{equation}\label{eq:20220324-1}
+\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-1}(D;\mathbb R^d)-\dim\grad\mathbb P_k(D)。
+\end{equation}
+另一方面，由空间分解 \eqref{eq:Pkm1vecdecomp} 可得
+\[
+\dim\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}=\dim\mathbb P_{k-1}(D;\mathbb R^{d})-\dim\grad\mathbb P_k(D).
+\]
+因此，$\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$，由此即得 \eqref{eq:Pkskwtensordecomp}。
+\end{proof}
+
+由 \eqref{eq:Pkskwtensordecomp} 和 \eqref{eq:20220324-1} 可得
+\begin{equation}\label{eq:20220324-2}
+\dim\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})=\dim\mathbb P_{k-2}(D;\mathbb K)+\dim\grad\mathbb P_k(D)- \dim\mathbb P_{k-1}(D;\mathbb R^d).
+\end{equation}
+
+
+接下来，给出空间 $\mathbb P_{k-1}(D; \mathbb R^d)$ 与 \eqref{eq:Pkm1vecdecomp} 对偶的直和分解。
+\begin{lemma}\label{lem:dualPkdec}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域，则成立以下空间直和分解：
+\begin{align}
+\mathbb P_{k-1}(D; \mathbb R^d) 
+&= (\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div))\oplus (\mathbb P_{k-2}(D) \boldsymbol x). \label{eq:dualPkdec2}
+\end{align}
+\end{lemma}
+\begin{proof}
+显然成立以下包含关系：
+$$
+(\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div))\oplus (\mathbb P_{k-2}(D) \boldsymbol x)\subseteq \mathbb P_{k-1}(D; \mathbb R^d).
+$$
+根据公式 \eqref{eq:Hkdiv}，该和是直和。
+
+又
+\begin{align*}
+\dim(\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)) &= \dim\mathbb P_{k-1}(D; \mathbb R^d)-\dim\div\mathbb P_{k-1}(D; \mathbb R^d) \\
+&= \dim\mathbb P_{k-1}(D; \mathbb R^d)-\dim\mathbb P_{k-2}(D),
+\end{align*}
+通过比较可得分解 \eqref{eq:dualPkdec2}。
+\end{proof}
+
+\begin{lemma}\label{lem:dualkerx}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 成立
+\begin{equation}  \label{eq:dualPkdec1}
+\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div) = \div\mathbb P_{k}(D;\mathbb K),
+\end{equation}
+以及以下空间直和分解：
+\begin{equation}\label{eq:dualPkm1vecdecomp}
+\mathbb P_{k-1}(D; \mathbb R^d)= (\div\mathbb P_{k}(D;\mathbb K))\oplus (\mathbb P_{k-2}(D) \boldsymbol x).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+根据空间分解 \eqref{eq:dualPkdec2}，只需证明 \eqref{eq:dualPkdec1} 即可。
+
+对任意 $\boldsymbol{q}\in \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$, 
+\begin{align*}
+\div(2\skw(\boldsymbol{x}\otimes\boldsymbol{q})) = \div(\boldsymbol{x}\otimes\boldsymbol{q}) - \div(\boldsymbol{q}\otimes\boldsymbol{x}) = - (d-1+\boldsymbol{x}\cdot\grad)\boldsymbol{q}.
+\end{align*}
+这结合 \eqref{eq:20230205} 表明 $\div(2\skw(\boldsymbol{x}\otimes\cdot))$ 在空间 $\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$ 上是单射算子。因此，
+$$
+\dim\div\mathbb P_{k}(D;\mathbb K) \geq \dim(\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)).
+$$
+又显然有 $\div\mathbb P_{k}(D;\mathbb K)\subseteq \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$，故等式 \eqref{eq:dualPkdec1} 成立。
+\end{proof}
+
+\begin{lemma}
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 
+多项式复形
+\begin{equation}\label{eq:polycomplex2}
+\mathbb P_k(D;\mathbb K)\xrightarrow{\div}\mathbb P_{k-1}(D;\mathbb R^d)\xrightarrow{\div}\mathbb P_{k-2}(D)\to0
+\end{equation}
+是正合的。
+\end{lemma}
+\begin{proof}
+显然 \eqref{eq:polycomplex2} 构成复形。根据 \eqref{eq:Hkdiv} 有 $\div\mathbb P_{k-1}(D;\mathbb R^d)=\mathbb P_{k-2}(D)$，再结合 \eqref{eq:dualPkdec1} 即可得证。
+\end{proof}
+
+在复形 \eqref{eq:polycomplex2} 的基础上，进一步有以下双向复形：
+\begin{equation*}
+%\resizebox{.91\hsize}{!}{$
+\xymatrix{
+\mathbb P_{k}(D;\mathbb K)\ar@<0.4ex>[r]^-{\div}  & \mathbb P_{k-1}(D;\mathbb R^d)\ar@<0.4ex>[r]^-{\div}\ar@<0.4ex>[l]^-{\skw(\boldsymbol v\otimes\boldsymbol x)}  & \mathbb P_{k-2}(D) \ar@<0.4ex>[r]^-{}\ar@<0.4ex>[l]^-{ q\boldsymbol x} & 0 \ar@<0.4ex>[l]^-{ \supseteq}.
+%& 0 \ar@<0.4ex>[l]^-{\supset} }.
+}
+%$}
+\end{equation*}
 
 
 \section{$H(\div)$ 有限元}
-The material in this section comes from \cite{BoffiBrezziFortin2013}.
-Let $\Gamma:=\partial\Omega$.
-Define
+% The material in this section comes from \cite{BoffiBrezziFortin2013}.
+% Let $\Gamma:=\partial\Omega$.
+在本节中，我们考虑单纯形上$H(\div)$-协调有限元的构造。
+
+\subsection{$H(\div)$ 空间和迹算子}
+回顾 Sobolev 空间
 \[
-H(\div,\Omega):=\{\bs v\in \bs L^2(\Omega;\mathbb R^d): \div\bs v\in L^2(\Omega)\}.
+H(\div,\Omega):=\{\bs v\in L^2(\Omega;\mathbb R^d): \div\bs v\in L^2(\Omega)\}.
 \]
-with squared  norm $\|\bs v\|_{\div, \Omega}^2:=\|\bs v\|_{0, \Omega}^2+\|\div\bs v\|_{0, \Omega}^2$.
+其范数平方为 $\|\bs v\|_{\div, \Omega}^2:=\|\bs v\|_{0, \Omega}^2+\|\div\bs v\|_{0, \Omega}^2$.
 \begin{lemma}
-Let $\bs v\in H(\div,\Omega)$. We have $\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ and the Green's formula
+设$\bs v\in H(\div,\Omega)$，则$\bs v\cdot\bs n|_{\partial\Omega}\in H^{-1/2}(\partial\Omega)$且格林公式成立：
 \[
-(\div\bs v, w)_{\Omega} + (\bs v, \grad w)_{\Omega}=\langle\bs v\cdot\bs n, w\rangle_{H^{-1/2}(\Gamma)\times H^{1/2}(\Gamma)}\quad\forall~w\in H^1(\Omega).
+(\div\bs v, w)_{\Omega} + (\bs v, \grad w)_{\Omega}=\langle\bs v\cdot\bs n, w\rangle_{H^{-1/2}(\partial\Omega)\times H^{1/2}(\partial\Omega)}\quad\forall~w\in H^1(\Omega).
 \]
 \end{lemma}
 
 \begin{lemma}
-The trace operator $\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ is surjective.
+迹算子$\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$是满射。
+% The trace operator $\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ is surjective.
 \end{lemma}
 
-Now introduce $H(\div)$-conforming finite elements on simplexes.
-Assume $K\subset \mathbb R^d$ is a simplex with $d=2,3$. 
+% Now introduce $H(\div)$-conforming finite elements on simplexes.
+% Assume $T\subset \mathbb R^d$ is a simplex with $d=2,3$. 
 
-In two dimensions,
-thanks to \eqref{eq:vector2polyspacedecomp2}, define the shape function space
-\[
-V_{k,\ell}^d(K):=\curl\mathbb P_{k+1}(K)\oplus \boldsymbol x\mathbb P_{\ell-1}(K)=\mathbb P_{k}(K; \mathbb R^2) + \boldsymbol x\mathbb P_{\ell-1}(K),
-\]
-where $\ell=k, k+1$ for $k\geq1$, and $\ell=1$ for $k=0$. 
-The degrees of freedom $\mathcal N_{k,\ell}^d(K)$ are given by
+
+\subsection{Raviart-Thomas 元}
+
+设 $T\subset \mathbb R^d$ 是 一个 $d$ 维单纯形，其中整数 $d\geq2$. Raviart-Thomas (RT) 元 \cite{RaviartThomas1977,Nedelec1980,ChenHuang2022} 的形函数空间为: $k\geq0$,
+$$
+V_k^{\rm RT}(T):= \mathbb P_{k}(T; \mathbb R^d) + \boldsymbol x\mathbb P_{k}(T)=\mathbb P_{k}(T; \mathbb R^d) \oplus \boldsymbol x\mathbb H_{k}(T).
+$$ 
+根据空间直和分解 \eqref{eq:dualPkm1vecdecomp}，成立直和分解
+$$
+V_k^{\rm RT}(T)= (\div\mathbb P_{k+1}(T;\mathbb K))\oplus (\boldsymbol x\mathbb P_{k}(T)).
+$$ 
+从而，由 \eqref{eq:Hkdiv} 可得 
+$$
+V_k^{\rm RT}(T)\cap\ker(\div)=\mathbb P_{k}(T; \mathbb R^d)\cap\ker(\div)=\div\mathbb P_{k+1}(T;\mathbb K).
+$$
+自由度取为
+\begin{subequations}\label{RTfemdof}
 \begin{align}
-(\boldsymbol v\cdot\boldsymbol  n, q)_e & \quad\forall~q\in\mathbb P_{k}(e),  e\in\mathcal E(K),\label{Hdivfem2ddof1}\\
-(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\nabla\mathbb P_{\ell-1}(K)\oplus\boldsymbol x^{\perp}\mathbb P_{k-2}(K). \label{Hdivfem2ddof2}
+(\boldsymbol v\cdot\boldsymbol  n, q)_F, & \quad q\in\mathbb P_{k}(F),  F\in\Delta_{d-1}(T),\label{RTfemdof1}\\
+(\boldsymbol v, \boldsymbol q)_T, & \quad \boldsymbol q\in\mathbb P_{k-1}(T; \mathbb R^d). \label{RTfemdof2}
 \end{align}
+\end{subequations}
 
-
-In three dimensions,
-thanks to \eqref{eq:vector3polyspacedecomp2}, define the shape function space
-\[
-V_{k,\ell}^d(K):=\curl\mathbb P_{k+1}(K;\mathbb R^3)\oplus \boldsymbol x\mathbb P_{\ell-1}(K)=\mathbb P_{k}(K; \mathbb R^3) + \boldsymbol x\mathbb P_{\ell-1}(K),
-\]
-where $\ell=k, k+1$ for $k\geq1$, and $\ell=1$ for $k=0$. 
-The degrees of freedom $\mathcal N_{k,\ell}^d(K)$ are given by
-\begin{align}
-(\boldsymbol v\cdot\boldsymbol  n, q)_F & \quad\forall~q\in\mathbb P_{k}(F),  F\in\mathcal F(K),\label{Hdivfem3ddof1}\\
-(\boldsymbol v, \boldsymbol q)_K & \quad\forall~\boldsymbol q\in\nabla\mathbb P_{\ell-1}(K)\oplus\boldsymbol x\times\mathbb P_{k-2}(K; \mathbb R^3). \label{Hdivfem3ddof2}
-\end{align}
-
-Apparently $\bs v\cdot \bs n|_F\in\mathbb P_{k}(F)$ for any $\bs v\in V_{k,\ell}^d(K)$ and $F\in\mathcal F(K)$.
-And $\div V_{k,\ell}^d(K)=\mathbb P_{\ell-1}(K)$.
-
-
-
-
-\begin{lemma}\label{lem:unisovlenHdivfem}
-The finite element triple $(K, V_{k,\ell}^d(K), \mathcal N_{k,\ell}^d(K))$ is well-defined.
+\begin{lemma}\label{lem:20250930}
+设 $\boldsymbol{v}\in \mathbb P_{k}(T; \mathbb R^d)$ 满足
+\begin{equation}\label{eq:20200917}
+(\boldsymbol v, \boldsymbol q)_T =0 \quad \forall~\boldsymbol q\in\mathbb P_{k-1}(T; \mathbb R^d),
+\end{equation}
+则 $\boldsymbol v=\bs 0$。
 \end{lemma}
 \begin{proof}
-We only prove the unisolvence of the finite element triple $(K, V_{k,\ell}^d(K), \mathcal N_{k,\ell}^d(K))$ in three dimensions, since the proof is similar for two dimensions. It is easy to check that the number of the degrees of freedom \eqref{Hdivfem3ddof1}-\eqref{Hdivfem3ddof2}  is equal to $\dim V_{k,\ell}^d(K)$.
-
-
-Take any $\boldsymbol v\in V_{k,\ell}^d(K)$ and
-suppose all the degrees of freedom \eqref{Hdivfem3ddof1}-\eqref{Hdivfem3ddof2} vanish. 
-By the vanishing degrees of freedom \eqref{Hdivfem3ddof1}, we get $\bs v\in H_0(\div, K)$. 
-Together with the vanishing degrees of freedom \eqref{Hdivfem3ddof2} and the fact $\div V_{k,\ell}^d(K)=\mathbb P_{\ell-1}(K)$, we obtain $\div\bs v=0$, and then $\bs v\in\curl\mathbb P_{k+1}(K;\mathbb R^3)$.
-It follows from \eqref{eq:vector3polyspacedecomp1} and the vanishing degrees of freedom \eqref{Hdivfem3ddof2} that 
-\begin{equation}\label{eq:20200917}
-(\boldsymbol v, \boldsymbol q)_K =0 \quad\forall~\boldsymbol q\in\mathbb P_{k-1}(K; \mathbb R^3). 
-\end{equation}
-
-For ease of presentation, denote four faces in $\mathcal F(K)$ by $F_i$, which is opposite to the $i$th vertex of $K$, and by $\bs n_i$ the outward unit normal vector of $F_i$ for $i=1,2,3,4$. 
-Let $\bs t_i$ be the unit tangential vector of the edge from vertex $4$ to vertex $i$. 
-The set of three vectors $\{\bs t_1, \bs t_2, \bs t_3\}$ forms a basis of $\mathbb R^3$ although they may not be orthogonal in general. Then we have
+为表述简便，记 $\Delta_{d-1}(T)$ 中的 $d+1$ 个面为 $F_i$，其中 $F_i$ 与 $T$ 的第 $i$ 个顶点相对，$\bs n_i$ 为 $F_i$ 的单位外法向量，$i=0,1,\cdots,d$。
+令 $\bs t_i$ ($i=1,\ldots,d$) 表示从顶点 $0$ 指向顶点 $i$ 的单位切向量，则 $d$ 个向量 ${\bs t_1, \ldots, \bs t_d}$ 构成 $\mathbb R^d$ 的一组基（尽管它们一般不正交）。于是有
 \[
-\bs v=\sum_{i=1}^3\frac{\bs v\cdot\bs n_i}{\bs t_i\cdot\bs n_i}\bs t_i.
+\bs v=\sum_{i=1}^d\frac{\bs v\cdot\bs n_i}{\bs t_i\cdot\bs n_i}\bs t_i.
 \]
-Since $\bs v\cdot\bs n_i|_{F_i}=0$, there exists $p\in\mathbb P_{k-1}(K)$ satisfying $\bs v\cdot\bs n_i=\lambda_ip$. Taking $\bs q=\bs n_ip$ in \eqref{eq:20200917} gives
+由于 $\bs v\cdot\bs n_i|_{F_i}=0$，存在 $p_i\in\mathbb P_{k-1}(T)$ 使得 $\bs v\cdot\bs n_i=\lambda_ip_i$。在 \eqref{eq:20200917} 中取 $\bs q=\bs n_ip_i$ 可得
 \[
-(\lambda_ip, p)_K =0.
+(\lambda_ip_i, p_i)_T =0.
 \]
-Hence $p=0$ and $\boldsymbol v\cdot\bs n_i=0$. As a result, $\boldsymbol v=\bs 0$.
+因此 $p_i=0$，进而 $\boldsymbol v\cdot\bs n_i=0$，最终得到 $\boldsymbol v= 0$。
 \end{proof}
 
-We can see that the finite element triple $(K, V_{k,k+1}^d(K), \mathcal N_{k,k+1}^d(K))$ is the Raviart-Thomas element \cite{RaviartThomas1977,Nedelec1980}, and $(K, V_{k,k}^d(K), \mathcal N_{k,k}^d(K))$ is the Brezzi-Douglas-Marini element \cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987}.
+\begin{lemma}\label{lem:unisovlenRTfem}
+自由度 \eqref{RTfemdof} 对于形函数空间 $V_k^{\rm RT}(T)$ 是唯一可解的。
+\end{lemma}
+\begin{proof}
+根据 $\dim\mathbb P_{k}(F)+\dim\mathbb P_{k-1}(T)=\dim\mathbb P_{k}(T)$ 和 $\dim\mathbb P_{k}(F)=\dim \mathbb H_{k}(T)$ 可知，自由度 \eqref{RTfemdof} 的总数为
+\begin{equation*}
+(d+1)\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) = \dim\mathbb P_{k}(F)+d\dim\mathbb P_{k}(T) = \dim V_k^{\rm RT}(T).
+\end{equation*}
+
+设 $\boldsymbol{v}\in V_k^{\rm RT}(T)$ 满足所有自由度 \eqref{RTfemdof} 取值为零。利用分部积分及自由度 \eqref{RTfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且 
+\begin{equation*}
+(\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{n},q)_{\partial T} - (\boldsymbol{v},\grad q)_T=0\quad\forall~q\in \mathbb P_{k}(T).
+\end{equation*}
+因此 $\div\boldsymbol{v}=0$，进而 $\boldsymbol{v}\in \mathbb P_{k}(T; \mathbb R^d)$。
+再应用引理~\ref{lem:20250930}，由自由度 \eqref{RTfemdof2} 为零即得 $\boldsymbol{v}=0$。
+\end{proof}
+
+
+\subsection{Brezzi-Douglas-Marini 元}
+
+Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuranFortin1987,Nedelec1986,ChenHuang2022,ChenChenHuangWei2024,ChenHuang2024} 的形函数空间为 $V_k^{\rm BDM}(T):= \mathbb P_{k}(T; \mathbb R^d)$，其中 $k\geq1$。
+自由度取为
+\begin{subequations}\label{BDMfemdof}
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol  n, q)_F, & \quad q\in\mathbb P_{k}(F),  F\in\Delta_{d-1}(T),\label{BDMfemdof1}\\
+(\boldsymbol v, \boldsymbol q)_T, & \quad \boldsymbol q\in\grad \mathbb P_{k-1}(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol x. \label{BDMfemdof2}
+\end{align}
+\end{subequations}
+
+
+
+\begin{lemma}\label{lem:unisovlenBDMfem}
+自由度 \eqref{BDMfemdof} 对于形函数空间 $V_k^{\rm BDM}(T)$ 是唯一可解的。
+\end{lemma}
+\begin{proof}
+根据空间分解 \eqref{eq:Pkm1vecdecomp}、关系式 $\dim\mathbb P_{k}(F)=\dim \mathbb H_{k}(T)$ 及 $\dim\mathbb P_{k}(F)+\dim\mathbb P_{k-1}(T)=\dim\mathbb P_{k}(T)$ 可知，自由度 \eqref{BDMfemdof} 的总数为
+\begin{equation*}
+(d+1)\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) - \dim\mathbb H_{k}(T) = d\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) = \dim V_k^{\rm BDM}(T).
+\end{equation*}
+
+设 $\boldsymbol{v}\in V_k^{\rm BDM}(T)$ 满足所有自由度 \eqref{BDMfemdof} 取值为零。利用分部积分及自由度 \eqref{BDMfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且
+\begin{equation*}
+(\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{n},q)_{\partial T} - (\boldsymbol{v},\grad q)_T=0\quad\forall~q\in \mathbb P_{k-1}(T).
+\end{equation*}
+因此 $\div\boldsymbol{v}=0$，进而由分部积分得
+\begin{equation*}
+(\boldsymbol{v},\grad q)_T=0\quad\forall~q\in \mathbb P_{k}(T).
+\end{equation*}
+结合自由度 \eqref{BDMfemdof2} 的零值条件，可得
+\begin{equation*}
+(\boldsymbol v, \boldsymbol q)_T =0 \quad \forall~\boldsymbol q\in\mathbb P_{k-1}(T; \mathbb R^d).
+\end{equation*}
+再应用引理~\ref{lem:20250930} 即得 $\boldsymbol{v}=0$。
+\end{proof}
+
 
 %\newpage
 Next we present the explicit expression of the $H(\div)$ bubble functions for $k\geq2$. Let
@@ -765,7 +950,7 @@ where $\bs x_i$ is the Cartesian coordinate of vertex $\texttt{v}_i$, $F_{i^*}\i
 Assume $d=3$.
 Define
 \[
-H(\curl,\Omega):=\{\bs v\in \bs L^2(\Omega;\mathbb R^3): \curl\bs v\in \bs L^2(\Omega;\mathbb R^3)\}.
+H(\curl,\Omega):=\{\bs v\in L^2(\Omega;\mathbb R^3): \curl\bs v\in L^2(\Omega;\mathbb R^3)\}.
 \]
 with squared  norm $\|\bs v\|_{\curl, \Omega}^2:=\|\bs v\|_{0, \Omega}^2+\|\curl\bs v\|_{0, \Omega}^2$.
 
@@ -778,7 +963,7 @@ The results on the trace of $H(\curl,\Omega)$ can be found in \cite{BuffaCostabe
  \bs H^{-1/2}(\curl_{\Gamma}, \Gamma):=\{\bs\lambda\in V_{\gamma}': \curl_{\Gamma}\bs\lambda\in H^{-1/2}(\Gamma)\},
  \]
  where $V_{\gamma}:=\gamma_{t}(\bs H^{1/2}(\Gamma))$ and $V_{\pi}:=\pi_{t}(\bs H^{1/2}(\Gamma))$.
-Spaces $ \bs H^{-1/2}(\div_{\Gamma}, \Gamma)$ and $ \bs H^{-1/2}(\curl_{\Gamma}, \Gamma)$ are dual to each other with the pivot space $\bs L_t^2(\Gamma):=\{\bs \lambda\in\bs L^2(\Gamma;\mathbb R^3): \bs \lambda\cdot\bs n=0\}$.
+Spaces $ \bs H^{-1/2}(\div_{\Gamma}, \Gamma)$ and $ \bs H^{-1/2}(\curl_{\Gamma}, \Gamma)$ are dual to each other with the pivot space $L_t^2(\Gamma):=\{\bs \lambda\in L^2(\Gamma;\mathbb R^3): \bs \lambda\cdot\bs n=0\}$.
 
 If the surface $\Gamma$ was regular, then
 \[
