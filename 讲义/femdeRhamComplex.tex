@@ -816,6 +816,18 @@ $$
 再应用引理~\ref{lem:20250930}，由自由度 \eqref{RTfemdof2} 为零即得 $\boldsymbol{v}=0$。
 \end{proof}
 
+根据空间分解 \eqref{eq:Pkm1vecdecomp}，自由度 \eqref{RTfemdof} 可等价地改写为
+\begin{subequations}\label{RTfemanotherdof}
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol  n, q)_F, & \quad q\in\mathbb P_{k}(F),  F\in\Delta_{d-1}(T),\label{RTfemanotherdof1}\\
+(\div\boldsymbol v, q)_T, & \quad q\in\mathbb P_{k}(T)/\mathbb R, \label{RTfemanotherdof2}\\
+(\boldsymbol v, \boldsymbol q)_T, & \quad \boldsymbol q\in\mathbb P_{k-2}(T;\mathbb K)\boldsymbol x. \label{RTfemanotherdof3}
+\end{align}
+\end{subequations} 
+自由度 \eqref{RTfemanotherdof} 阐明了有限元的一般构造思路：边界自由度 \eqref{RTfemanotherdof1} 由 Sobolev 空间的迹决定，确保 $H(\div)$-协调性；内部自由度 \eqref{RTfemanotherdof2} 对应散度算子的像空间，体现微分复形结构；内部自由度 \eqref{RTfemanotherdof3} 对应泡函数空间或多项式空间的直和分解。基于微分复形与 Sobolev 空间迹的这一构造方法，同样可推广至其他 Sobolev 空间的有限元设计，详见文献 \cite{ChenHuang2022}。
+
+
+\textcolor{red}{给出低次RT元的基函数，给出任意次基函数的文献Anorld2009。}
 
 \subsection{Brezzi-Douglas-Marini 元}
 
@@ -856,84 +868,90 @@ Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuran
 
 
 %\newpage
-Next we present the explicit expression of the $H(\div)$ bubble functions for $k\geq2$. Let
+接下来我们给出当 $k\geq2$ 时 $H(\div)$ 泡函数空间的显式刻画。定义多项式泡函数空间
 \[
-\mathring V_{k}^d(K):=\{\bs v\in\mathbb P_{k}(K;\mathbb R^3): \bs v\cdot\bs n|_{\partial K}=0\},\quad
-V_{k,b}^d(K):=\sum_{1\leq i<j\leq 4}\lambda_i\lambda_j\mathbb P_{k-2}(K)\bs t_{ij},
+\mathbb B_k(\div, T):=\{\bs v\in\mathbb P_{k}(T;\mathbb R^d): \bs v\cdot\bs n|_{\partial K}=0\}.
 \]
-where $\bs t_{ij}:=\bs x_j-\bs x_i$ with $\bs x_1, \bs x_2, \bs x_3, \bs x_4$ being the four vertices of the tetrahedron $K$.
+由 BDM 元的唯一可解性知，
+\[
+\dim \mathbb B_k(\div, T) = d\binom{k+d}{d} - (d+1)\binom{k+d-1}{d-1} = (k-1)\binom{k+d-1}{d-1}.
+\]
+
+
+
 \begin{lemma}
-It holds for $k\geq2$ that
+对于 $k\geq2$ 成立
 \begin{equation}\label{eq:Hdivbubbleidentity}
-\mathring V_{k}^d(K)=V_{k,b}^d(K).
+\mathbb B_k(\div, T)=\sum_{0\leq i<j\leq d}\lambda_i\lambda_j\mathbb P_{k-2}(T)\bs t_{i,j},
 \end{equation}
+其中 $\bs t_{i,j}:=\textnormal{\texttt{v}}_j-\textnormal{\texttt{v}}_i$，$\textnormal{\texttt{v}}_0, \textnormal{\texttt{v}}_1, \cdots, \textnormal{\texttt{v}}_d$ 是单纯形 $T$ 的顶点。
 \end{lemma}
 \begin{proof}
-It is easy to see that $V_{k,b}^d(K)\subseteq\mathring V_{k}^d(K)$. Next let's prove $\mathring V_{k}^d(K)\subseteq V_{k,b}^d(K)$. Take any $\bs v\in\mathring V_{k}^d(K)$. Since $\{\bs t_{14}, \bs t_{24}, \bs t_{34}\}$ forms a basis of $\mathbb R^3$, we can express 
-$$\bs v=q_1\bs t_{14}+q_2\bs t_{24}+q_3\bs t_{34},$$ 
-where $q_1, q_2, q_3\in\mathbb P_k(K)$. Noting that $\bs v\cdot\bs n|_{\partial K}=0$, we get
+验证 $\lambda_i\lambda_j\mathbb P_{k-2}(T)\boldsymbol t_{i,j}\subseteq \mathbb B_k(\div, T)$ 的依据是以下事实：
+$$\lambda_i\lambda_j \boldsymbol t_{i,j}\cdot \boldsymbol n_{\ell}|_{F_{\ell}} = 0, \quad \ell = 0, 1, \cdots, d.$$
+事实上，若 $\ell = i$ 或 $\ell = j$，则 $\lambda_i\lambda_j|_{F_{\ell}} =0$；否则 $\boldsymbol t_{i,j}\cdot \boldsymbol n_{\ell} = 0$。接下来证明 $\mathbb B_k(\div, T)$ 中的每个函数均可表示为 $\lambda_i\lambda_j \boldsymbol t_{i,j}$ 的线性组合。
+
+
+任取 $\bs v\in\mathbb B_k(\div, T)$。由于 $\{\bs t_{0,1}, \ldots, \bs t_{0,d}\}$ 构成 $\mathbb R^d$ 的一组基，故 $\bs v$ 可表示为
+$$\bs v=p_1\bs t_{0,1}+\cdots+p_d\bs t_{0,d},$$ 
+其中 $p_1, \ldots, p_d\in\mathbb P_k(T)$。注意到 $\bs v\cdot\bs n|_{\partial T}=0$，因此
 \[
-q_i\bs t_{i4}\cdot\bs n_i|_{F_i}=0\quad\textrm{ for } i=1,2,3,
+p_i\bs t_{0,i}\cdot\bs n_i|_{F_i}=0 \quad (i=1,\ldots,d).
+\]
+由此可知 $p_i|_{F_i} = 0$  对 $i=1,\dots,d$ 成立，于是可以令
+\[
+\boldsymbol v = \sum_{i=1}^{d} \lambda_i q_i \boldsymbol t_{0,i}, \quad q_i\in \mathbb P_{k-1}(T).
+\]
+进一步将 $q_i$ 展开为
+\[
+q_i = \lambda_0 q_0 + \sum_{j=1}^{d} \lambda_j q_{ij},
+\]
+其中
+\[
+q_0 \in \mathbb P_{k-2}(T), \quad q_{ij} \in \sum_{\alpha_j+\cdots+\alpha_{d}=k-2 \atop \alpha_j,\cdots,\alpha_{d}\in\mathbb N} \mathrm{span}\{\lambda_j^{\alpha_j}\cdots \lambda_d^{\alpha_d}\},
+\]
+并且 $q_{ij}$ 的表达中不包含 $\lambda_0, \lambda_1, \ldots, \lambda_{j-1}$。
+
+由 $\boldsymbol n\cdot \boldsymbol v|_{F_0}=0$ 且 $\boldsymbol t_{0,i}\cdot \boldsymbol n_0\neq0$，可得
+\[
+\sum_{i=1}^{d} \lambda_i q_i|_{F_0} = 0,
 \quad
-(q_1+q_2+q_3)\bs t_{14}\cdot\bs n_4|_{F_4}=0.
+\textrm{ 即 }
+\quad
+\sum_{i=1}^{d}\sum_{j=1}^{d}(\lambda_i \lambda_j q_{ij})|_{F_0} = 0 \quad\Leftrightarrow\quad \sum_{i=1}^{d}\sum_{j=1}^{d}\lambda_i \lambda_j q_{ij} = 0.
 \]
-Thus there exist $\tilde q_i\in\mathbb P_{k-1}(K)$ such that $q_i=\tilde q_i\lambda_i$ for $i=1,2,3$. Then $(\tilde q_1\lambda_1+\tilde q_2\lambda_2+\tilde q_3\lambda_3)|_{F_4}=0$. And there exists $\tilde q_4\in\mathbb P_{k-1}(K)$ satisfying
-\begin{equation}\label{eq:20201002-1}
-\sum_{i=1}^3\tilde q_i\lambda_i = \tilde q_1\lambda_1+\tilde q_2\lambda_2+\tilde q_3\lambda_3=\tilde q_4\lambda_4.
-\end{equation}
-For each $i=1,2,3$, express $\tilde q_i$ as
+由于 $q_{ij}$ 的表达中不含 $\lambda_0, \lambda_1, \ldots, \lambda_{j-1}$，利用数学归纳法可证
 \[
-\tilde q_i=\sum_{j=1}^4q_{ij}\lambda_j=q_{i4}\lambda_4+q_{ii}\lambda_i+\sum_{j=1, j\neq i}^3q_{ij}\lambda_j,
+\sum_{i=\ell}^{d}\sum_{j=\ell}^{d}\lambda_i \lambda_j q_{ij} = 0,\quad \ell=1,\dots,d.
 \]
-where $q_{i4}\in\sum\limits_{0\leq k_1,k_2,k_3,k_4\leq k-2
-\atop k_1+k_2+k_3+k_4=k-2}\textrm{span}\{\lambda_1^{k_1}\lambda_2^{k_2}\lambda_3^{k_3}\lambda_4^{k_4}\}$, $q_{ii}\in\textrm{span}\{\lambda_i^{k-2}\}$, $q_{ij}\in\sum\limits_{0\leq k_1,k_2,k_3\leq k-2
-\atop k_1+k_2+k_3=k-2}\textrm{span}\{\lambda_1^{k_1}\lambda_2^{k_2}\lambda_3^{k_3}\}$.
-Then \eqref{eq:20201002-1} becomes
+可进一步得到
 \[
-(q_{12}+q_{21})\lambda_1\lambda_2+(q_{13}+q_{31})\lambda_1\lambda_3+(q_{23}+q_{32})\lambda_2\lambda_3
-+ q_{11}\lambda_1^2+ q_{22}\lambda_2^2 + q_{33}\lambda_3^2=\tilde q_4\lambda_4-\lambda_4\sum_{i=1}^3\lambda_iq_{i4}.
+\sum_{j=i}^{d} \lambda_j q_{ij} + \sum_{j=i+1}^{d} \lambda_j q_{ji} = 0, \quad i=1,\dots,d.
 \]
-Hence $q_{11}=q_{22}=q_{33}=0$, and
-\[
-(q_{12}+q_{21})\lambda_1\lambda_2+(q_{13}+q_{31})\lambda_1\lambda_3+(q_{23}+q_{32})\lambda_2\lambda_3=0.
-\]
-By this identity, we get $\lambda_1|(q_{23}+q_{32})$, $\lambda_2|(q_{31}+q_{13})$ and $\lambda_3|(q_{12}+q_{21})$.
-Hence there exist $p_1, p_2\in \mathbb P_{k-3}(K)$ such that
-\begin{equation}\label{eq:20201002-2}
-q_{23}+q_{32}=\lambda_1p_1, \quad q_{31}+q_{13}=\lambda_2p_2, \quad q_{12}+q_{21}=-\lambda_3(p_1+p_2).
-\end{equation}
-Therefore
+由此可得
 \begin{align*}
-\bs v&=\sum_{i=1}^3\tilde q_i\lambda_i\bs t_{i4} =\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4} + \sum_{i=1}^3\sum_{j=1, j\neq i}^3q_{ij}\lambda_j\lambda_i\bs t_{i4}  \\
-&=\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4} + \lambda_1\lambda_2(q_{12}\bs t_{14}+q_{21}\bs t_{24}) + \lambda_1\lambda_3(q_{13}\bs t_{14}+q_{31}\bs t_{34}) + \lambda_2\lambda_3(q_{23}\bs t_{24}+q_{32}\bs t_{34}) \\
-&=\sum_{i=1}^3q_{i4}\lambda_4\lambda_i\bs t_{i4}  + \lambda_1\lambda_2q_{12}\bs t_{12} + \lambda_1\lambda_3q_{13}\bs t_{13}  + \lambda_2\lambda_3q_{23}\bs t_{23}\\
-&\quad + \lambda_1\lambda_2(q_{12}+q_{21})\bs t_{24} + \lambda_1\lambda_3(q_{13}+q_{31})\bs t_{34}+ \lambda_2\lambda_3(q_{23}+q_{32})\bs t_{34}. 
+\sum_{i=1}^{d}\sum_{j=i}^{d} \lambda_i \lambda_j q_{ij} \boldsymbol t_{0,i}
+&= - \sum_{i=1}^{d-1}\sum_{j=i+1}^{d} \lambda_i \lambda_j q_{ji} \boldsymbol t_{0,i}
+= - \sum_{j=1}^{d-1}\sum_{i=j+1}^{d} \lambda_i \lambda_j q_{ij} \boldsymbol t_{0,j} 
+= - \sum_{i=2}^{d}\sum_{j=1}^{i-1} \lambda_i \lambda_j q_{ij} \boldsymbol t_{0,j}.
 \end{align*}
-On the other hand, it follows from \eqref{eq:20201002-2} that
+因此
 \begin{align*}
-&\lambda_1\lambda_2(q_{12}+q_{21})\bs t_{24} + \lambda_1\lambda_3(q_{13}+q_{31})\bs t_{34}+ \lambda_2\lambda_3(q_{23}+q_{32})\bs t_{34} \\
-=&\lambda_1\lambda_2\lambda_3\big(-(p_1+p_2)\bs t_{24} +p_2\bs t_{34}+p_1\bs t_{34} \big)=\lambda_1\lambda_2\lambda_3(p_1+p_2)\bs t_{32}.
+\boldsymbol v&=\sum_{i=1}^{d}\lambda_i q_i\boldsymbol t_{0,i} = \sum_{i=1}^{d}\lambda_i \lambda_{0}q_{0}\boldsymbol t_{0,i} + \sum_{i=1}^{d}\sum_{j=1}^{d}\lambda_i\lambda_jq_{ij}\boldsymbol t_{0,i} \\
+&= \sum_{i=1}^{d}\lambda_i \lambda_{0}q_{0}\boldsymbol t_{0,i}
++ \sum_{i=2}^{d}\sum_{j=1}^{i-1}\lambda_i\lambda_jq_{ij}\boldsymbol t_{0,i} + \sum_{i=1}^{d}\sum_{j=i}^{d}\lambda_i\lambda_jq_{ij}\boldsymbol t_{0,i} \\
+&= \sum_{i=1}^{d}\lambda_i \lambda_{0}q_{0}\boldsymbol t_{0,i}
++ \sum_{i=2}^{d}\sum_{j=1}^{i-1}\lambda_i\lambda_jq_{ij}\boldsymbol t_{0,i} -\sum_{i=2}^{d}\sum_{j=1}^{i-1}\lambda_i\lambda_jq_{ij}\boldsymbol t_{0,j} \\
+&= \sum_{i=1}^{d}\lambda_i \lambda_{0}q_{0}\boldsymbol t_{0,i}
++ \sum_{i=2}^{d}\sum_{j=1}^{i-1}\lambda_i\lambda_jq_{ij}\boldsymbol t_{j,i},
 \end{align*}
-Finally \eqref{eq:Hdivbubbleidentity} holds from the last two identities.
+得证。
 \end{proof}
 
+\textcolor{red}{给出低次BDM元的基函数，给出任意次基函数的文献Anorld2009。}
 
-Since
-\[
-\resizebox{\textwidth}{!}{$ %
-\dim\textrm{span}\{\lambda_1\lambda_4\mathbb P_{k-2}(K)\bs t_{14}, \lambda_2\lambda_4\mathbb P_{k-2}(K)\bs t_{24}, \lambda_3\lambda_4\mathbb P_{k-2}(K)\bs t_{34}\}\cap\textrm{span}\{\lambda_2\lambda_3\mathbb P_{k-2}(K)\bs t_{23}\}=\dim\mathbb P_{k-3}(K), 
-$}
-\]
-\[
-\resizebox{\textwidth}{!}{$ %
-\dim\textrm{span}\{\lambda_1\lambda_4\mathbb P_{k-2}(K)\bs t_{14}, \lambda_2\lambda_4\mathbb P_{k-2}(K)\bs t_{24}, \lambda_3\lambda_4\mathbb P_{k-2}(K)\bs t_{34}, \lambda_2\lambda_3\mathbb P_{k-2}(K)\bs t_{23}\}\cap\textrm{span}\{\lambda_1\lambda_3\mathbb P_{k-2}(K)\bs t_{13}, \lambda_1\lambda_2\mathbb P_{k-2}(K)\bs t_{12}\}=\dim\mathbb P_{k-3}(K) = 3\dim\mathbb P_{k-3}(K)-\mathbb P_{k-4}(K), 
-$}
-\]
-We have from \eqref{eq:Hdivbubbleidentity} that
-\begin{align*}
-\dim\mathring V_{k}^d(K)=6\dim\mathbb P_{k-2}(K)-\dim\mathbb P_{k-3}(K)-(3\dim\mathbb P_{k-3}(K)-\mathbb P_{k-4}(K))=\frac{1}{2}(k^2-1)(k+2).
-\end{align*}
-We can also acquire $\dim\mathring V_{k}^d(K)$ from the unisolvence of the BDM element.
+
+\textcolor{red}{引出切向法向分解 BDM元的构造基函数。}
 
 
 \XH{Discuss more on RT element in arbitrary dimension}.
@@ -1089,3 +1107,5 @@ Recall that a Hilbert complex is a sequence of Hilbert spaces connected by a seq
 \begin{equation}\label{eq:derham}
 0\xrightarrow{} H^1(\Omega)\xrightarrow{\grad}\boldsymbol H(\curl;\Omega)\xrightarrow{\curl}\boldsymbol H(\div;\Omega)\xrightarrow{\div}L^2(\Omega) \xrightarrow{}0.
 \end{equation}
+
+给出泡函数复形。
