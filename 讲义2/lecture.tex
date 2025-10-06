@@ -33,13 +33,13 @@
     citecolor=cyan,
 }
 
-\usepackage{graphicx}
+\usepackage{graphicx,subfigure}
 \usepackage[all]{xy}
 \usepackage{tikz,tikz-cd}
 \usetikzlibrary{arrows}
 \usepackage{multirow}
 
-
+ \usepackage{array}
 \usepackage{enumerate}
 \usepackage{galois}% for \comp
 
@@ -64,7 +64,7 @@
 % \newtheorem{rem}[thm]{Remark}
 % \newtheorem{remark}[theorem]{Remark}
 \newtheorem{remark}[theorem]{注}
-\newtheorem{exm}{Example}[chapter]
+\newtheorem{example}{Example}[chapter]
 \newtheorem{exe}{Exercise}[chapter]
 \renewcommand{\proofname}{证明}
 \newenvironment{prf}{\par\noindent\textbf{证明}:}{}
@@ -160,6 +160,8 @@
 % \input{directsumdecomposition}
 
 % \input{korninequalities}
+
+\input{lagrangegeodecomp}
 
 \input{operatortheory}
 \input{sobolevspace}

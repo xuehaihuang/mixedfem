@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: lecture.aux
+The style file: abbrv.bst
+Database file #1: refs.bib
+Warning--I didn't find a database entry for "Babuska1971"
+Warning--I didn't find a database entry for "LaxMilgram1954"
+Warning--I didn't find a database entry for "ChenChenHuangWei2023"
+Warning--I didn't find a database entry for "Chen;Huang:2022FEMcomplex3D"
+Warning--I didn't find a database entry for "ChenHuang2021Cmgeodecomp"
+Warning--I didn't find a database entry for "nicolaides1973class"
+You've used 79 entries,
+            2118 wiz_defined-function locations,
+            1073 strings with 17251 characters,
+and the built_in function-call counts, 25497 in all, are:
+= -- 2610
+> -- 946
+< -- 14
++ -- 390
+- -- 296
+* -- 1887
+:= -- 4215
+add.period$ -- 246
+call.type$ -- 79
+change.case$ -- 370
+chr.to.int$ -- 0
+cite$ -- 79
+duplicate$ -- 943
+empty$ -- 2143
+format.name$ -- 296
+if$ -- 5276
+int.to.chr$ -- 0
+int.to.str$ -- 79
+missing$ -- 95
+newline$ -- 401
+num.names$ -- 160
+pop$ -- 322
+preamble$ -- 1
+purify$ -- 305
+quote$ -- 0
+skip$ -- 597
+stack$ -- 0
+substring$ -- 2068
+swap$ -- 130
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 282
+warning$ -- 0
+while$ -- 281
+width$ -- 81
+write$ -- 891
+(There were 6 warnings)

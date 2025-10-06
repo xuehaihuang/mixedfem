@@ -729,6 +729,87 @@ $$
 %$}
 \end{equation*}
 
+\section{$t$-$n$ bases}
+For an $\ell$-dimensional sub-simplex $f\in \Delta_{\ell}(T)$, choose 
+$\ell$ linearly independent tangential vectors $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$ of $f$ and $d-\ell$ linearly independent normal vectors $\{\bs n_1^f, \ldots, \bs n_{d-\ell}^f\}$ of $f$.  
+The set of $d$ vectors $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_1^f, \ldots, \bs n_{d-\ell}^f \}$ forms a basis of $\mathbb R^d$.
+Notice that for $\ell = 0$, i.e., at vertices, there are no tangential vectors, and for $\ell = d$, there are no normal vectors. Define the tangent plane and normal plane of $f$ as 
+\begin{equation*}
+\mathscr T^f := {\rm span} \{\bs t_i^f, i=1, \ldots, \ell \},
+\quad
+\mathscr{N}^f :=  {\rm span} \{\bs n_i^f, i=1, \ldots, d-\ell \}.
+\end{equation*}
+All vectors are normalized but $\{\bs t_i^f\}$ or $\{ \bs n_i^f\}$ may not form an orthonormal basis. 
+
+Inside the subspace $\mathscr T^f$, we can find a basis $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f\}$ dual to $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$, i.e., $\hat{\bs t}_i\in \mathscr T^f$ and $(\hat{\bs t}_i, \bs t_j)=\delta_{i,j}$ for $i, j=1,\ldots,\ell$. Similarly we have a basis $\{\hat{\bs n}_1^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ of $\mathscr N^f$ and  $(\hat{\bs n}_i, \bs n_j)=\delta_{i,j}$ for $i, j=1,\ldots, d-\ell$. As $\mathscr T^f \perp \mathscr N^f$, the basis  $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ is also dual to  $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f\}$. 
+%Let $V = ( \bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f)$ and $\hat{V} = ( \hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f)$.
+
+
+%\subsection{Bases for Normal Planes}
+Given a sub-simplex $f\in \Delta_{\ell}(T)$, we now present two bases for its normal plane $\mathscr N^f$ constructed in~\cite{ChenChenHuangWei2023}. 
+
+Recall that we label $F_i$ as the $(d-1)$-dimensional face opposite to the $i$-th vertex. Then $f\subseteq F_i$ for $i\in f^*$. One basis is composed by unit normal vectors of all such $(d-1)$-dimensional faces:
+\begin{equation*}%\label{eq:normalbasis}
+\{\bs n_{F_i}, i\in f^*\},
+\end{equation*}
+and will be called the {\it face normal basis}. 
+
+We now give its dual basis in $\mathscr N^f$. 
+For $f\in \Delta_{\ell}(T), \ell = 0,1,\ldots, n-1$ and $i\in f^*$, let $f\cup\{i\}$ denotes the $(\ell+1)$-dimensional face in $\Delta_{\ell+1}(T)$ with vertices $\{i, f(0),\dots, f(\ell)\}$. Let $\bs n_{f\cup\{i\}}^f$ be a unit normal vector of $f$ but tangential to $f\cup\{i\}$. The basis
+\begin{equation*}%\label{eq:dualnormalbasis}
+\{\bs n_{f\cup\{i\}}^f, i\in f^*\}
+\end{equation*}
+will be called the {\it tangential normal basis}. 
+
+\begin{lemma}\label{lem:normaldual}
+For $f\in \Delta_{\ell}(T)$, the rescaled tangential normal basis $\{\bs n_{f\cup\{i\}}^f/(\bs n_{f\cup\{i\}}^f\cdot\bs n_{F_i}), i\in f^*\}$ of $\mathscr N^f$ is dual to the face normal basis $\{\bs n_{F_i}, i\in f^*\}$.
+\end{lemma}
+\begin{proof}
+Clearly $\bs n_{f\cup\{i\}}^f, \bs n_{F_i}\in \mathscr N^f$ for $i\in f^*$. It suffices to prove
+\begin{equation*}
+ \bs n_{f\cup\{i\}}^f\cdot\bs n_{F_j}=0 \quad \textrm{ for } i,j\in f^*, i\neq j,
+\end{equation*}
+which follows from the fact $f\cup\{i\}\subseteq F_j$ and $\bs n_{f\cup\{i\}}^f\in\mathscr T^{f\cup\{i\}}$.
+\end{proof}
+
+%The vector $\nabla \lambda_i\in \mathbb R^d$ and is parallel to $\boldsymbol{n}_{F_i}$. Denote its projection to $\mathscr T^f$ as $\nabla_f \lambda_i$. If $i\not\in f$, then $f\subseteq F_i$ and $\nabla_f \lambda_i = 0$ as $\nabla \lambda_i\bot F_i$. Using this notation, the vector $\bs n_{f\cup\{i\}}^f$ is parallel to the tangential gradient of $\nabla_{f\cup\{i\}}\lambda_i$. So these two bases can be written as
+%$$
+%\{ \nabla \lambda_i, i\in f^* \}, \quad \{\nabla_{f\cup\{i\}}\lambda_i, i\in f^*\}.
+%$$
+
+
+\begin{figure}[htbp]
+\subfigure[Basis $\{\boldsymbol{t}_{0,1}, \boldsymbol{t}_{0,2}, \boldsymbol{t}_{0,3}\}$ and $\{\nabla \lambda_1, \nabla \lambda_2, \nabla \lambda_3\}$.]{
+\begin{minipage}[t]{0.5\linewidth}
+\centering
+\includegraphics[width=5.0cm]{figures/Tbasis.pdf}
+\end{minipage}}%%
+\subfigure[Basis $\{\bs n_{F_2}, \bs n_{F_3}\}$ and $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$]
+{\begin{minipage}[t]{0.5\linewidth}
+\centering
+\includegraphics*[width=5.3cm]{figures/Tedgebasis.pdf}
+\end{minipage}}
+\caption{Face normal basis and tangential normal basis of a vertex and an edge in a tetrahedron.}
+\label{fig:normalbasis}
+\end{figure}
+
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=5.05cm]{figures/Tbasis.pdf}
+%\caption{Basis $\{\boldsymbol{t}_{0,1}, \boldsymbol{t}_{0,2}, \ldots, \boldsymbol{t}_{0,d}\}$ and $\{\nabla \lambda_1, \ldots, \nabla \lambda_d\}$ for $d=3$.}
+%\label{fig:tnbasis}
+%\end{center}
+%\end{figure}
+
+\begin{example}\rm
+An important example is $f\in \Delta_0(T)$, i.e., $f$ is a vertex. Without loss of generality, let $f = \{0\}$. Then $\bs n_{f\cup\{i\}}^f$ is a unit normal vector of edge $\{0,i\}$: $\bs t_{0i}$ or $\bs t_{i0}$ depending on the orientation. Its dual basis is $\{\bs n_{F_i}/(\bs n_{F_i}\cdot \bs t_{0i}), i=1, \ldots, n\}$. See Fig.~\ref{fig:normalbasis} (a).
+\end{example}
+
+
+\begin{example}\rm
+ Let $f = \{0,1\}$ be an edge of a tetrahedron. Then we have two bases of the normal plane $\mathscr N^f$: $\{\bs n_{F_2}, \bs n_{F_3}\}$ and $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$ They are dual to each other with an appropriate rescaling. See Fig.~\ref{fig:normalbasis} (b). 
+\end{example}
+
 
 \section{$H(\div)$ 有限元}
 % The material in this section comes from \cite{BoffiBrezziFortin2013}.
@@ -826,8 +907,20 @@ $$
 \end{subequations} 
 自由度 \eqref{RTfemanotherdof} 阐明了有限元的一般构造思路：边界自由度 \eqref{RTfemanotherdof1} 由 Sobolev 空间的迹决定，确保 $H(\div)$-协调性；内部自由度 \eqref{RTfemanotherdof2} 对应散度算子的像空间，体现微分复形结构；内部自由度 \eqref{RTfemanotherdof3} 对应泡函数空间或多项式空间的直和分解。基于微分复形与 Sobolev 空间迹的这一构造方法，同样可推广至其他 Sobolev 空间的有限元设计，详见文献 \cite{ChenHuang2022}。
 
+最低次 RT 元 ($k=0$) 的基函数为 \cite[Section 2.6]{BoffiBrezziFortin2013}
+$$
+\phi_i=(\boldsymbol{n}_{F_i}\cdot\nabla\lambda_i)(\texttt{v}_i-\boldsymbol{x}),\quad i=0,1,\ldots,d,
+$$
+其中 $\boldsymbol{n}_{F_i}$ 是 $(d-1)$ 维面 $F_i$ 的单位法向量，仅依赖于面 $F_i$，不依赖于所属的单纯形。
 
-\textcolor{red}{给出低次RT元的基函数，给出任意次基函数的文献Anorld2009。}
+任意次 RT 元的基函数可参见文献 \cite[Section 9, Tables 9.1-9.2]{ArnoldFalkWinther2009}。
+事实上，任意维、任意次 RT 元具有如下几何分解（参见 \cite{ArnoldFalkWinther2009}）
+$$
+\mathbb P_k(T;\mathbb R^d)+\mathbb P_k(T)\bs x=\Oplus_{i=0}^d\mathbb P_{k}(F_{i})(\texttt{v}_i-\boldsymbol{x}) \oplus \Oplus_{i=1}^d\lambda_i\mathbb P_{k-1}(T)(\texttt{v}_i-\boldsymbol{x}).
+$$
+据此几何分解，可构造出 RT 元的基函数。
+
+
 
 \subsection{Brezzi-Douglas-Marini 元}
 
@@ -948,18 +1041,21 @@ q_0 \in \mathbb P_{k-2}(T), \quad q_{ij} \in \sum_{\alpha_j+\cdots+\alpha_{d}=k-
 得证。
 \end{proof}
 
-\textcolor{red}{给出低次BDM元的基函数，给出任意次基函数的文献Anorld2009。}
+
+最低次 BDM 元 ($k=1$) 的基函数为 \cite[Section 2.6]{BoffiBrezziFortin2013}
+$$
+\phi_{\ell,i}=(\boldsymbol{n}_{F_{\ell}}\cdot\nabla\lambda_{\ell})\lambda_i\boldsymbol{t}_{i,\ell},\quad 0\leq \ell \leq d,\; 0\leq i\neq \ell \leq d.
+$$
+任意次 BDM 元的基函数可参见文献 \cite[Section 9, Table 9.1, Table 9.4]{ArnoldFalkWinther2009}。
+
+文献 \cite{ArnoldFalkWinther2009} 中 BDM 元基函数还比较复杂，但它们都可以通过切向法向分解来构造。
 
 
 \textcolor{red}{引出切向法向分解 BDM元的构造基函数。}
 
 
-\XH{Discuss more on RT element in arbitrary dimension}.
-The geometric decomposition for Raviart-Thomas element in arbitrary dimension is (cf. \cite{ArnoldFalkWinther2009})
-$$
-\mathbb P_k(K;\mathbb R^d)+\mathbb P_k(K)\bs x=\Oplus_{i=0}^d\mathbb P_{k}(F_{i^*})\frac{1}{|K|}(\bs x-\bs x_i) \oplus \Oplus_{i=1}^d\mathbb P_{k-1}(K)\lambda_i(\bs x-\bs x_i),
-$$
-where $\bs x_i$ is the Cartesian coordinate of vertex $\texttt{v}_i$, $F_{i^*}\in\Delta_{d-1}(K)$ is opposite to $\texttt{v}_i$.
+
+
 
 
 

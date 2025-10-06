@@ -1,0 +1,186 @@
+% !TeX document-id = {32a890c7-0db2-461b-b834-605db552d4de}
+% !TEX root
+% !TEX program = xelatex
+% !BIB program = biber
+
+%\def \PrintMode{} % 在使用电子版论文时(oneside)，请将此行注释。
+				  % 在打印纸质论文时(twoside)，请保持本行命令不被注释，然后打印时选择双面打印即可。
+
+
+%用来控制是否启动打印模式的宏，请勿改动。
+\ifx \PrintMode \undefined
+    \def \SideMode{oneside}
+    \def \ClearPageStyle{\clearpage}
+\else
+    \def \SideMode{twoside}
+    \def \ClearPageStyle{\cleardoublepage}
+\fi
+
+\documentclass[a4paper,\SideMode,UTF8,zihao=5]{book} %A4纸，UTF-8
+
+\input{packages_and_settings_biber.tex} %加载各宏包以及本模板的主要设置
+\addbibresource{reference/refs.bib} %加载bib文件（参考文献）
+%将参考文献字体设置为五号
+\renewcommand*{\bibfont}{\zihao{5}}
+%\setlength{\bibsep}{1pt plus 0.3ex}
+
+\newcommand{\citeay}[1]{(\citeauthor{#1}，\citeyear{#1})\cite{#1}}  % （姓名,年)【#】
+\newcommand{\citeayp}[1]{\citeauthor{#1}(\citeyear{#1})\cite{#1}}  %  姓名(年)【#】
+
+\DeclareDelimFormat[citeauthor]{finalnamedelim}{ \& }
+\DeclareDelimFormat{finalnamedelim}{\addspace and \space}
+
+
+\graphicspath{{figures/}}   % 设置图片所存放的目录
+
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\DeclareMathOperator*{\tr}{tr}
+\newcommand{\rot}{\operatorname{rot}}
+% \DeclareMathOperator*{\rot}{rot}
+\newcommand{\var}{\operatorname{Var}}
+\DeclareMathOperator*{\cov}{Cov}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+\newcommand{\air}{\operatorname{Air}}
+\newcommand{\sskw}{\operatorname{sskw}}
+\newcommand{\mskw}{\operatorname{mskw}}
+\newcommand{\vskw}{\operatorname{vskw}}
+
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}{Lemma}[theorem]
+% \newtheorem{corollary}{Corollary}[theorem]
+% \newtheorem{defn}{定义}[section]
+% \newtheorem{thm}{定理}[section]
+% \newtheorem{lem}[thm]{引理}
+% \newtheorem{cor}[thm]{推论}
+% \newtheorem{proposition}[thm]{命题}
+% \newtheorem{property}[thm]{性质}
+% \newtheorem{remark}[thm]{注}
+\newtheorem{exm}{例}[section]
+\newtheorem{exmex}{例}
+\newenvironment{sln}{\par\noindent\textbf{解}:}{}
+\newenvironment{prf}{\par\noindent\textbf{证明}:}{}
+\newtheorem{lianxi}{练习}[chapter]
+\renewcommand{\proofname}{证明}
+\newtheorem{exe}{Exercise}[chapter]
+
+\begin{document}
+
+\input{preface/paper_info.tex}
+ 
+\pagestyle{empty} %不对正文前的各页面使用页眉页脚
+\newgeometry{top=2.0cm, bottom=2.0cm,left=3.18cm, right=3.18cm} %设置用于首页的页边距
+%\input{preface/inner-cover.tex} %插入内封面
+\input{preface/mycover.tex} %插入内封面
+\ClearPageStyle
+
+% \input{preface/originality.tex}   %生成中文摘要及关键词
+% \ClearPageStyle
+
+
+\restoregeometry
+%生成目录
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\begin{spacing}{1}
+    \tableofcontents
+\end{spacing}
+\ClearPageStyle
+\pagenumbering{Roman}
+
+% \input{preface/abstract-CHS.tex}   %生成中文摘要及关键词
+% \ClearPageStyle
+
+% \input{preface/abstract-ENG.tex}  %生成英文摘要及关键词
+% \ClearPageStyle
+
+\pagenumbering{arabic}
+\pagestyle{fancy} %开始使用页眉页脚
+\setcounter{page}{1} %论文页码从正文开始记数
+
+\phantomsection
+\input{body/variationalprin.tex} %正文第一章
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/fem.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/ncfem.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/dg.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/biharmonicequation.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+
+\phantomsection
+\input{body/linearelasticity.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/biharmonicperturb.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+
+\phantomsection
+\input{body/sge.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/vem.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+\phantomsection
+\input{body/fdmfem.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\cleardoublepage
+
+
+
+%生成附录
+\phantomsection
+\input{body/Appendix.tex}
+\printbibliography[heading=subbibliography, title={参考文献}, section=\therefsection]
+\ClearPageStyle
+
+
+%生成参考文献
+% \phantomsection
+% \setlength{\bibitemsep}{0pt}
+% \addcontentsline{toc}{chapter}{参考文献}
+% \printbibliography[title={\centerline{\bfseries\sffamily \zihao {-3}参考文献}}]
+% \ClearPageStyle
+
+
+
+% %生成感谢
+% \makeacknowledgement 
+
+\end{document} 

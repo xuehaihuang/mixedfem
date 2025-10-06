@@ -1,0 +1,296 @@
+%!TEX program = xelatex
+%CITATA{OutputFilter=latex2.dll}
+%CITATA{Version=5.00.0.2552}
+%CITATA{CSTFile=LaTeX article (bright).cst}
+%CITATA{Created=Sunday, January 09, 2005 14:34:49}
+%CITATA{LastRevised=Tuesday, February 01, 2005 13:57:41}
+%CITATA{<META NAME="Graphicness" CONTENT="32">}
+%CITATA{<META NAME="Salverform" CONTENT="1">}
+%CITATA{<META NAME="Documentable" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+
+\documentclass[11pt]{book}
+\usepackage{amsfonts}
+\usepackage{latexsym,amssymb,amsmath}
+%\usepackage{amsthm}
+\usepackage[amsmath,thmmarks]{ntheorem}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{indentfirst}
+\usepackage{cite}
+\usepackage{enumerate}
+\usepackage{multicol,multienum}%多栏结构在文中用
+\usepackage{mathrsfs}
+\usepackage{extarrows} % 长等号上方或下方可输文本
+\usepackage{verbatim}
+\usepackage{overpic}
+\usepackage{caption2}
+
+\usepackage{fontspec}
+%\setCJKmainfont{Songti SC Regular}
+%\setmainfont{Kaiti SC Regular}
+\setsansfont{Songti SC Regular}
+\setmainfont{Songti SC Regular}
+%\setmainfont{Times New Roman}
+\usepackage{ctexcap}
+
+%\usepackage[colorlinks,bookmarksnumbered=true,linkcolor=black,citecolor=black]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=cyan,
+}
+
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{titletoc,titlesec}%章节标题设置
+\usepackage{fancyhdr}%定义页眉和页脚 使用fancyhdr 宏包
+\renewcommand{\captionlabeldelim}{}
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.00.0.2552}
+%TCIDATA{LastRevised=Monday, June 13, 2005 13:13:31}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="Salverform" CONTENT="1">}
+\pagestyle{plain} \topmargin -10mm \oddsidemargin 0mm
+\evensidemargin 0mm \textheight 225mm \textwidth 155mm
+\pagestyle{plain}
+\parindent 8mm
+\parskip 0mm
+\hyphenpenalty=1500 \flushbottom
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\DeclareMathOperator*{\var}{Var}
+\DeclareMathOperator*{\cov}{Cov}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+
+
+\begin{document}
+%\titleformat{\chapter}[hang]{\centering\large\sf}{\chaptername}{1em}{}
+\titleformat{\chapter}[hang]{\LARGE\bfseries\center}{\chaptertitlename}{10pt}{}
+\renewcommand{\chaptername}{\thechapter}
+%\renewcommand{\chaptername}{第\thechapter 章}
+%\renewcommand{\chaptername}{上机实验\CJKnumber{\thechapter}}
+%\renewcommand{\chaptername}{Homework~\thechapter}
+\renewcommand{\chaptername}{}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{表}
+\newtheorem{thm}{定理}
+\newtheorem{remark}{注}[section]
+\newtheorem{corollary}{Corollary}
+\newtheorem{lem}{引理}[section]
+\newtheorem{col}[lem]{推论}
+%\newtheorem{lem}[thm]{Lemma}
+%\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\theoremseparator{}
+\newtheorem{defn}{定义}
+\newtheorem{exm}{例}[chapter]
+\newtheorem{hardexm}[exm]{例$^{\star}$}
+\numberwithin{equation}{section}
+
+\newenvironment{tad}{\par\noindent\textbf{教学目的与要求}}{}
+\newenvironment{idtp}{\par\noindent\textbf{教学重点、难点}}{}
+%\newenvironment{exm}{\par\noindent\textbf{例}}{}
+\newenvironment{sln}{\par\noindent\textbf{解:}}{}
+\newenvironment{prf}{\par\noindent\textbf{证明:}}{}
+
+
+% 缩小目录中各级标题之间的缩进
+%\dottedcontents{part}[2em]{\CJKfamily{hei}\large}{4em}{1pc}
+%\dottedcontents{chapter}[2.0em]{\CJKfamily{song}\normalsize}{4em}{1pc}
+%\dottedcontents{chapter}[0em]{}{0em}{1pc}
+%\dottedcontents{chapter}[0.0em]{\CJKfamily{song} \bf \vspace{0.5em}}{1.0em}{5pt}
+%\makeatletter
+%\renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
+%\makeatother
+\titlecontents{chapter}[3.5em]{\CJKfamily{song} \bf}
+{\contentslabel{4.5em}}{}
+{\titlerule*[0.8pc]{.}\contentspage}[\addvspace{0.5ex}]
+%\titlecontents{chapter}[2.8em]{\color{blue}\CJKfamily{song} \bf
+%\addvspace{1.5ex}}
+%{\contentslabel{2em}\hspace*{-1.0em}}{\hspace*{-2.3em}}
+%{\color{black}\titlerule*[0.8pc]{.}\contentspage}[\addvspace{0.5ex}]
+
+
+
+
+%-------------------------------------------------------------------
+\newcommand\BackgroundPicture{%
+\put(0,0){%
+    \parbox[b][\paperheight]{\paperwidth}{%
+      \vfill
+      \centering%
+\begin{tikzpicture}[remember picture,overlay]
+\node [rotate=60,scale=4,text opacity=0.1] at (-2,+2) {混合有限元方法习题};
+\node [rotate=60,scale=4,text opacity=0.1] at (current page.center) {上海财经大学数学学院};
+\end{tikzpicture}%
+      \vfill
+    }}}
+%-------------------------------------------------------------------
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定义页眉和页脚 使用fancyhdr 宏包
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\makeheadrule}{%
+\makebox[0pt][l]{\rule[.7\baselineskip]
+{\headwidth}{\headrulewidth}}%
+
+
+% 1 Line Modified by Lei Wang BaconChina
+% XJTU Version
+%    \rule[.6\baselineskip]{\headwidth}{0.4pt}\vskip-.8\baselineskip}
+% THU Version
+    \vskip-.8\baselineskip}
+
+\makeatletter
+\renewcommand{\headrule}{%
+    {\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+     \makeheadrule}}
+
+\pagestyle{fancyplain}
+
+%去掉章节标题中的数字
+%\renewcommand{\chaptermark}[1]{\markboth{第\chaptername 章 \ #1}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername \ #1}{}}
+ \fancyhf{}
+
+%在book文件类别下,\leftmark自动存录各章之章名,\rightmark记录节标题
+
+%\fancyhead[CO]{\CJKfamily{kai} \fontsize{12pt}{12pt} \bfseries\leftmark}
+\fancyhead[CO]{\CJKfamily{kai} \bfseries \leftmark}
+\fancyhead[CE]{\CJKfamily{kai} \bfseries 混合有限元方法}
+\fancyfoot[C,C]{--~\thepage~--}
+%\fancyfoot[R]{Copyright \copyright 2010-2011 WZU.\\ All rights reserved.}
+
+\fancypagestyle{plain}{%
+\fancyhead{} % clear all header fields
+\renewcommand{\headrulewidth}{0pt}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 选择题选项对齐格式的自定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%分一行.
+\newcommand{\onech}[4]{
+\makebox[92pt][l]{(A) #1} \hfill
+\makebox[92pt][l]{(B) #2} \hfill
+\makebox[92pt][l]{(C) #3} \hfill
+\makebox[92pt][l]{(D) #4}\\}
+%分两行.
+\newcommand{\twoch}[4]{
+\indent\makebox[110pt][l]{\qquad(A) #1} \hfill\makebox[220pt][l]{(B) #2}\\
+\indent\makebox[110pt][l]{\qquad(C) #3} \hfill\makebox[220pt][l]{(D) #4}\\}
+%分四行.
+\newcommand{\fourch}[4]{
+\indent\makebox[262pt][l]{\qquad(A) #1}\\
+\indent\makebox[262pt][l]{\qquad(B) #2}\\
+\indent\makebox[262pt][l]{\qquad(C) #3}\\
+\indent\makebox[262pt][l]{\qquad(D) #4}\\}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% zenumerate可以与table环境混排
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{zenumerate}{\newcounter{zitem}\setcounter{zitem}{0}}{}
+\newcommand\zitem{\refstepcounter{zitem}(\thezitem) }
+%\newcommand\zitem{\refstepcounter{zitem}\thezitem. }
+
+\newenvironment{xenumerate}[1][]
+{\enumerate[(1)]}{\endenumerate}
+
+
+
+
+\title{混合有限元方法习题}
+\author{黄学海  \\{\small 上海财经大学数学学院}
+\\{\small E-mail: huang.xuehai@sufe.edu.cn }
+\\
+\\
+\\
+\\
+%2010年秋\quad 10教育技术师范班
+ }
+
+\date{}
+\vskip 0.5cm
+\maketitle
+
+
+\cleardoublepage
+\renewcommand\contentsname{目录}
+\pdfbookmark[1]{目录}{anchor name}
+\tableofcontents
+
+%\addtocontents{toc}{\addhspace{100pt}}
+%\addcontentsline{toc}{chapter}
+
+
+
+% \AddToShipoutPicture{\BackgroundPicture}
+
+
+
+% \phantomsection
+% \chapter{椭圆型方程的有限差分法}
+% \input{ellipticfdm.tex}
+% \cleardoublepage
+
+
+\phantomsection
+\chapter{混合变分问题习题}
+\input{mixedvar.tex}
+\cleardoublepage
+
+
+\phantomsection
+\chapter{有限元 de Rham 复形习题}
+\input{fedeRham.tex}
+\cleardoublepage
+
+
+% \phantomsection
+% \chapter{数值实验一}
+% \input{numerexperiment1.tex}
+% \cleardoublepage
+
+
+
+%\newpage
+%\ClearShipoutPicture
+
+
+\phantomsection
+\addcontentsline{toc}{chapter}{参考文献}
+\bibliographystyle{abbrv}
+\bibliography{refs}
+\cleardoublepage
+
+\end{document}

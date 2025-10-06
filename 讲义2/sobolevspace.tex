@@ -31,7 +31,7 @@ $\partial\Omega$ can be locally represented by Lipschitz continuous function; na
 there exists a neighborhood of $x$, $G\subset \mathbb R^n$, such that $G\cap\partial\Omega$ is the graph of a Lipschitz
 continuous function under a proper local coordinate system.
 
-\begin{exm}
+\begin{example}
 \begin{itemize}
 \item All the smooth domains are Lipschitz.
 \item A non-smooth example is that every polygonal domain in $\mathbb R^2$ or polyhedron in $\mathbb R^3$ is Lipschitz.
@@ -39,7 +39,7 @@ continuous function under a proper local coordinate system.
 \item A simple example of non-Lipschitz domain is two polygons touching at one vertex only.
 \item A more interesting non-Lipschitz domain is a domain with cusp points on the boundary.
 \end{itemize}
-\end{exm}
+\end{example}
 \begin{figure}[htbp]
   \centering
   % Requires \usepackage{graphicx}
@@ -119,14 +119,14 @@ topology. Namely, in $\mathcal D'(\Omega)$, a sequence $T_n$ converge to $T$ in 
 duality pair. A function $\phi$ belonging to $\mathcal D(\Omega)$ is called a {\it test function} since the action of a
 distribution on $\phi$ can be thought as a test.
 
-\begin{exm}\label{exm:diracdelta}
+\begin{example}\label{exm:diracdelta}
 By the definition, an element in $\mathcal D'(\Omega)$ is uniquely determined by its action.
 The action could be very general and abstract as long as it is linear and continuous. As an example, let us introduce the Dirac delta distribution $\delta\in\mathcal D'(\Omega)$ with $0\in\Omega\subset\mathbb R^n$ defined
 as
 \[
 \langle \delta, \phi\rangle = \phi(0) \quad\textrm{ for all } \phi\in \mathcal D(\Omega).
 \]
-\end{exm}
+\end{example}
 
 One important class of distributions is to use the integration as the action. A function
 is called {\it locally integrable} if it is Lebesgue integrable over every compact subset of $\Omega$.
@@ -166,14 +166,14 @@ that the differential operator can be extended from differential functions to a 
 space: the space of distributions. For example, we can even talk about the derivative of a
 discontinuous function.
 
-\begin{exm}
+\begin{example}
 The Heaviside step function is defined as $S(x) = 1$ for $x > 0$ and $S(x) = 0$
 for $x < 0$. By the definition
 \[
 \int_{\mathbb R}S'\phi\dx=-\int_{\mathbb R}S\phi'\dx=-\int_0^{\infty}\phi'\dx=\phi(0).
 \]
 Therefore $S'=\delta$ in the distribution sense but \textcolor[rgb]{1.00,0.00,0.00}{$\delta$ is not a function in $L_{\textrm{loc}}^1(\Omega)$}.
-\end{exm}
+\end{example}
 
 \vskip0.5cm\noindent{\it Integer order Sobolev spaces}.
 The Sobolev space of index $(k, p)$, where $k$ is a nonnegative
@@ -206,15 +206,15 @@ Prove that $W^{k,p}(\Omega)$ is a Banach space.
 
 For a function in $L^{p}(\Omega)$, treating it as a distribution, its weak derivatives always exists as distributions. But the weak derivative may not be in the space $L^{p}(\Omega)$. Therefore an element in $W^{k,p}(\Omega)$ possesses certain smoothness.
 
-\begin{exm}
+\begin{example}
 We consider the Heaviside function restricted to $(-1, 1)$ and still denote
 by $S$. The weak derivative of $S$ is Delta distribution which is not integrable. Therefore $S \notin H^1(-1, 1)$.
-\end{exm}
+\end{example}
 
-\begin{exm}
+\begin{example}
 Let $u(x)=|x|$ for $x\in(-1,1)$ be an anti-derivative of $2(S-1/2)$. Obviously
 $u\in L^2(-1, 1)$ and $u'\in L^2(-1, 1)$. Therefore $u\in H^1(-1, 1)$.
-\end{exm}
+\end{example}
 
 
 \vskip0.5cm\noindent{\it Fractional order Sobolev spaces}.
@@ -239,14 +239,14 @@ and norm
 \|v\|_{\theta,p,\Omega}:=\left(\|v\|_{0,p,\Omega}^p+|v|_{\theta,p,\Omega}^p\right)^{1/p}.
 \]
 
-\begin{exm}
+\begin{example}
 For the Heaviside function S restricted to $(-1, 1)$, we look at the integral \eqref{eq:fsobolevseminorm}. To be in the space $W^{\theta, p}(\Omega)$, it is essential
 to have the integral
 \[
 \int_0^1\frac{1}{x^{\theta p}}\dx<\infty.
 \]
 That is to require $\theta < 1/p$. In particular, we conclude $S\in H^{1/2-\epsilon}(-1, 1)$ for any $0 <\epsilon\leq 1/2$ but $S\notin H^{1/2}(-1, 1)$.
-\end{exm}
+\end{example}
 
 Given $s = k + \theta$ with a real number $\theta\in(0, 1)$ and an integer $k\geq0$, define
 \[
@@ -320,9 +320,9 @@ Sobolev spaces interesting and important. The Sobolev spaces $W^{k,p}(\Omega)$ a
 weak derivatives. The smoothness using weak derivatives is weaker than that using classic
 derivatives.
 
-\begin{exm}\label{example:20180304-1}
+\begin{example}\label{example:20180304-1}
 In two dimensions, consider the function $u(x) = \ln|\ln|x||$ when $|x| <1/e$ and $u(x) = 0$ when $|x| \geq 1/e$. It is easy to verify that $u\in H^1(\mathbb R^2)$. But $u$ is unbounded, i.e., $u\notin C(\mathbb R^2)$.
-\end{exm}
+\end{example}
 
 Sobolev embedding theorem connects ideas of smoothness using ``weak'' and ``classic''
 derivatives. Roughly speaking, it says that if a function is weakly smooth enough, then it
@@ -401,7 +401,7 @@ that
 \|v\|_{0,p,\Omega}\leq C(n, \Omega)p^{1-1/n} \|v\|_{1,n,\Omega}\quad\textrm{for all }1\leq p < \infty.
 \end{equation*}
 
-\begin{exm}
+\begin{example}
 By the emebedding theorem, we have
 \begin{enumerate}
 \item $H^1(\Omega)\hookrightarrow C(\bar{\Omega})$ in one dimension (Exercise~\ref{exercise:20180304-1}).
@@ -410,7 +410,7 @@ Namely there is no continuous representation of a function in $H^1(\Omega)$ for 
 not well defined.
 \item In 2-D, $H^1(\Omega)\hookrightarrow L^p(\Omega)$ for any $1\leq p<\infty$; in 3-D, $H^1(\Omega)\hookrightarrow L^p(\Omega)$ for any $1\leq p\leq6$.
 \end{enumerate}
-\end{exm}
+\end{example}
 
 
 \subsection{Trace Theorem}
@@ -607,7 +607,7 @@ Theorem~\ref{thm:poissonregularitysmooth}, however, does not hold on general Lip
 The requirement of $\Omega$ is necessary. When $\partial\Omega$ is only Lipschitz continuous, we may not
 be able to glue boundary pieces on the corner points. This is not only a technical difficulty.
 We now give an example in which the regularity of $u$ depends on the shape of $\Omega$.
-\begin{exm}
+\begin{example}
 Let us give a simple counter example. Given $\beta\in (0, 1)$, consider the
 following nonconvex domain
 \[
@@ -619,7 +619,7 @@ harmonic in $\Omega$. Define $u = (1-r^2)v$. A direct calculation shows that
 -\Delta u=4(1+\beta)v\quad\textrm{  in }\Omega,\quad\textrm{and } u|_{\partial\Omega}=0.
 \]
 Note that $4(1+\beta)v\in L^{\infty}(\Omega)\subset L^2(\Omega)$, but $u\notin H^2(\Omega)$.
-\end{exm}
+\end{example}
 
 Nevertheless, a slightly weaker result does hold for general Lipschitz domains.
 \begin{theorem}[\cite{Dauge1988,BacutaBrambleXu2003}]

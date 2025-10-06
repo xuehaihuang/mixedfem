@@ -1,0 +1,271 @@
+% !TEX root = lecture.tex
+\chapter{微分复形在偏微分方程中的应用}
+
+
+\section{Stokes Complex 及应用}
+Complex 1.
+\begin{equation}\label{CA10}
+	\resizebox{0.8\hsize}{!}{$
+		\begin{array}{c}
+			\xymatrix{	
+\mathbb{R} \ar[r] & H_0^1(\Omega)\ar[r]^-{\grad} & \boldsymbol{H}_0(\curl, \Omega)  \ar[r]^-{\curl}
+				& \boldsymbol{H}_0(\div, \Omega)    \ar[r]^-{\div} & L_0^2(\Omega) \ar[r]^{} & 0 ,
+ }
+		\end{array}
+		$}
+	\end{equation}
+
+Example 1：The Possion equation
+\begin{equation}\label{Cw1}
+\left\{
+\begin{aligned}
+-\Delta u &=f,\quad \mathrm{in}\,\Omega \\
+ u &=0, \quad \mathrm{on}\,\partial\Omega .
+\end{aligned}\right.
+\end{equation}
+引入新变量
+\begin{equation}\label{Cq}
+\left\{
+\begin{aligned}
+\boldsymbol{\sigma} &=\nabla u \\
+\div\boldsymbol{\sigma} &=-f.
+\end{aligned}\right.
+\end{equation}
+则方程 (\ref{Cw1})
+变为
+\begin{equation}\label{Cw2}
+\left\{
+\begin{aligned}
+\div\boldsymbol{\sigma}+f &=0,\quad \mathrm{in}\,\Omega\\
+\boldsymbol{\sigma} -\nabla u&=0,\quad \mathrm{in}\,\Omega\\
+ u &=0, \quad \mathrm{on}\,\partial\Omega.
+\end{aligned}\right.
+\end{equation}
+在结合复形(\ref{CA10})的后半部分, 则方程 (\ref{Cw2})的变分形式为: $\boldsymbol{\tau}\in\boldsymbol{H}_0(\div, \Omega),\,u\in L_0^{2}(\Omega)$, 使得
+\begin{equation}\label{Cp1}
+\left\{
+\begin{aligned}
+(\boldsymbol{\sigma},\boldsymbol{\tau})+(\div\boldsymbol{\tau},u)&=0
+  &&\forall \,\, \boldsymbol{\tau}\in \boldsymbol{H}_0(\div, \Omega),
+ \\
+ ( \div\boldsymbol{\sigma},v) &=0 &&\forall \,\, v\in L_0^{2}(\Omega),
+\end{aligned}\right.
+\end{equation}
+下面利用复形(\ref{CA10})来证明 inf-sup 条件和强制性 .\\
+(1) inf-sup 条件: 对 $v\in L_0^{2}(\Omega)$, 根据复形(\ref{CA10})可知 $ \exists\,\boldsymbol{\tau}\in \boldsymbol{H}_0(\div, \Omega)$,
+使得
+$\div\boldsymbol{\tau}=v$, 则有
+\begin{align*}
+\|v\|_{ 0} =\frac{(\div\boldsymbol{\tau},v)}{\|\div\boldsymbol{\tau}\|_{0}}
+\lesssim\sup_{\boldsymbol{\tau}\in\boldsymbol{H}_0(\div, \Omega)}\frac{(\div\boldsymbol{\tau},u)}{\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div)}}
+\end{align*}
+(2) 强制性
+\begin{align*}
+\ker \boldsymbol{B}
+&=\{\boldsymbol{\tau}\in \boldsymbol{H}_0(\div, \Omega),\,(\div\boldsymbol{\tau},v)=0,\quad\forall \, v\in L_0^{2}(\Omega)\}\\
+&=\{\boldsymbol{\tau}\in \boldsymbol{H}(\div, \Omega),\,\div\boldsymbol{\tau}=0\}
+\end{align*}
+所以
+\begin{align*}
+\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div)}^2=\|\boldsymbol{\tau}\|_{0}^2+\|\div\boldsymbol{\tau}\|_{0}^2
+\lesssim\|\boldsymbol{\tau}\|_{0}^2=(\boldsymbol{\tau},\boldsymbol{\tau}),\quad\forall \,\boldsymbol{\tau}\in \ker \boldsymbol{B}.
+\end{align*}
+
+Example 2：The Maxwell equation
+\begin{equation}\label{Ck}
+\left\{
+\begin{aligned}
+\curl\curl \boldsymbol{u} &=\boldsymbol{f},\quad \mathrm{in}\,\Omega \\
+\div u &=0, \quad \mathrm{in}\,\Omega \\
+\boldsymbol{u}\times \boldsymbol{n}&=0,\quad \mathrm{on}\,\partial\Omega .
+\end{aligned}\right.
+\end{equation}
+则方程 (\ref{Ck})的变分形式为: $\boldsymbol{u}\in\boldsymbol{H}_0(\curl, \Omega),\,p\in H_0^{1}(\Omega)$,使得
+\begin{equation}\label{Cr}
+\left\{
+\begin{aligned}
+(\curl\boldsymbol{u},\curl\boldsymbol{v})+(\boldsymbol{v},\nabla\boldsymbol{p})&=(\boldsymbol{f},\boldsymbol{v})
+  &&\forall \,\, \boldsymbol{v}\in \boldsymbol{H}_0(\curl, \Omega),
+ \\
+ ( \boldsymbol{u},\nabla\boldsymbol{q}) &=0 &&\forall \,\, q\in H_0^{1}(\Omega),
+\end{aligned}\right.
+\end{equation}
+下面利用复形(\ref{CA10})来证明 inf-sup 条件和强制性 .\\
+(1) inf-sup 条件: 对 $q\in H_0^{1}(\Omega)$, 根据复形(\ref{CA10})可知 $ \exists\,\boldsymbol{v}=\nabla q\in \boldsymbol{H}_0(\curl, \Omega)$,
+又由 poinc\'{a}re 不等式可得
+\begin{align*}
+\|q\|_{ H_0^{1}(\Omega)}\lesssim |q|_{ H_0^{1}(\Omega)}=\frac{(\nabla q,\nabla q)}{\|\nabla q\|_{0}}
+=\frac{(\boldsymbol{v},\nabla q)}{\|\boldsymbol{v}\|_{\boldsymbol{H}(\curl)}}\lesssim\sup_{\boldsymbol{v}\in\boldsymbol{H}_0(\curl, \Omega)}\frac{(\boldsymbol{v},\nabla q)}{\|\boldsymbol{v}\|_{\boldsymbol{H}(\curl)}}
+\end{align*}
+(2) 强制性
+\begin{align*}
+\ker \boldsymbol{B}
+&=\{\boldsymbol{v}\in \boldsymbol{H}_0(\curl, \Omega),\,(\boldsymbol{v},\nabla q)=0,\quad\forall \, q\in H_0^{1}(\Omega)\}\\
+&=\{\boldsymbol{v}\in \boldsymbol{H}(\curl, \Omega),\,\div\boldsymbol{v}=0\}
+\end{align*}
+又由 $\|\boldsymbol{v}\|_{0}\lesssim\|\curl\boldsymbol{v}\|_{0}$,
+所以
+\begin{align*}
+\|\boldsymbol{v}\|_{\boldsymbol{H}(\curl)}^2=\|\boldsymbol{v}\|_{0}^2+\|\curl\boldsymbol{v}\|_{0}^2
+\lesssim\|\curl\boldsymbol{v}\|_{0}^2,\quad\forall \,\boldsymbol{v}\in \ker \boldsymbol{B}.
+\end{align*}
+
+Complex 2.
+\begin{equation}\label{CA1}
+	\resizebox{0.8\hsize}{!}{$
+		\begin{array}{c}
+			\xymatrix{	
+\mathbb{R} \ar[r] & H^{3}(\Omega)\ar[r]^-{\grad} & \boldsymbol{H}^{2}(\Omega;\mathbb{R}^{3})  \ar[r]^-{\curl}
+				& \boldsymbol{H}^{1}(\Omega;\mathbb{R}^{3})    \ar[r]^-{\div} & L^2(\Omega) \ar[r]^{} & 0 .
+ }
+		\end{array}
+		$}
+	\end{equation}
+Example 3：The Stokes equation
+\begin{equation}\label{eq-Stokes1}
+\left\{
+\begin{aligned}
+-\Delta \boldsymbol{u} - \nabla p &=\boldsymbol{f},\quad \mathrm{in}\,\Omega,\\
+\div \boldsymbol{u}&=0, \quad \mathrm{in}\,\Omega\\
+\boldsymbol{u}&=0,\quad \mathrm{on}\,\partial\Omega
+\end{aligned}
+\right.
+\end{equation}
+则方程 (\ref{eq-Stokes1})的变分形式为: $\boldsymbol{u}\in\boldsymbol{H}_{0}^1(\Omega,\mathbb{R}^{3}),\,p\in L_0^{2}(\Omega)$,使得
+\begin{equation}\label{Cq1}
+\left\{
+\begin{aligned}
+(\nabla\boldsymbol{u},\nabla\boldsymbol{v})+(\div\boldsymbol{v},\boldsymbol{p})&=(\boldsymbol{f},\boldsymbol{v})
+  &&\forall \,\, \boldsymbol{v}\in \boldsymbol{H}_{0}^1(\Omega,\mathbb{R}^{3}),
+ \\
+ ( \div\boldsymbol{u},q) &=0 &&\forall \,\, q\in L_0^{2}(\Omega),
+\end{aligned}\right.
+\end{equation}
+下面利用复形(\ref{CA1})来证明 inf-sup 条件和强制性 .\\
+(1) inf-sup 条件: 对 $q\in   L_0^{2}(\Omega)$, 根据复形(\ref{CA1})可知 $ \exists\,\boldsymbol{v}\in \boldsymbol{H}_{0}^1(\Omega,\mathbb{R}^{3})$,
+$\div \boldsymbol{v}=q$, 且由 poinc\'{a}re 不等式可得 $ \|\boldsymbol{v}\|_{1}\lesssim\|\div\boldsymbol{v}\|_{0}=\|q\|_{0}$, 则
+$$(\div \boldsymbol{v},q)=\|q\|_{0}^2\gtrsim\|q\|_{0}\|\boldsymbol{v}\|_{1},$$
+则有
+\begin{align*}
+\|q\|_{0}\lesssim\frac{(\div \boldsymbol{v},q)}{\|\boldsymbol{v}\|_{1}}\lesssim\sup_{\boldsymbol{v}\in\boldsymbol{H}_0(\Omega,\mathbb{R}^{3})}\frac{(\div \boldsymbol{v},q)}{\|\boldsymbol{v}\|_{1}}
+\end{align*}
+(2) 强制性
+又由 poinc\'{a}re 不等式可得
+\begin{align*}
+\|\boldsymbol{v}\|_{1}^2
+\lesssim(\nabla\boldsymbol{v},\nabla\boldsymbol{v}),\quad\forall \,\boldsymbol{v}\in \boldsymbol{H}_{0}^1(\Omega,\mathbb{R}^{3}).
+\end{align*}
+
+Complex 3.
+\begin{equation}\label{CA3}
+	\resizebox{0.8\hsize}{!}{$
+		\begin{array}{c}
+			\xymatrix{	
+\mathbb{R} \ar[r] & H_0^{1}(\Omega)\ar[r]^-{\grad} & \boldsymbol{H}_{0}(\grad\curl,\Omega)  \ar[r]^-{\curl}
+				& \boldsymbol{H}_{0}^{1}(\Omega;\mathbb{R}^{3})    \ar[r]^-{\div} & L_{0}^2(\Omega) \ar[r]^{} & 0 .
+ }
+		\end{array}
+		$}
+	\end{equation}
+Example 4：The quad-curl problems
+\begin{equation}\label{eq1}
+\left\{
+\begin{aligned}
+-\curl\triangle\curl \boldsymbol{u} + \nabla p &=\boldsymbol{f},\quad \mathrm{in}\,\Omega,\\
+\div \boldsymbol{u}&=0, \quad \mathrm{in}\,\Omega\\
+\boldsymbol{u}\times \boldsymbol{n}=\curl\boldsymbol{u}&=0,\quad \mathrm{on}\,\partial\Omega
+\end{aligned}
+\right.
+\end{equation}
+则方程 (\ref{eq1})的变分形式为: $\boldsymbol{u}\in\boldsymbol{H}_{0}(\grad\curl,\Omega),\,p\in H_0^{1}(\Omega)$,使得
+\begin{equation}\label{Cq1}
+\left\{
+\begin{aligned}
+(\grad\curl\boldsymbol{u},\grad\curl\boldsymbol{v})+(\boldsymbol{v},\nabla p)&=(\boldsymbol{f},\boldsymbol{v})
+  &&\forall \,\, \boldsymbol{v}\in \boldsymbol{H}_{0}(\grad\curl,\Omega),
+ \\
+ ( \boldsymbol{u},\nabla  q) &=0 &&\forall \,\, q\in H_0^{1}(\Omega),
+\end{aligned}\right.
+\end{equation}
+下面利用复形(\ref{CA3})来证明 inf-sup 条件和强制性 .\\
+(1) inf-sup 条件: 对 $q\in H_0^{1}(\Omega)$, 根据复形(\ref{CA3})可知 $ \exists\,\boldsymbol{v}=\nabla q\in \boldsymbol{H}_{0}(\grad\curl,\Omega)$,
+又由 poinc\'{a}re 不等式可得
+\begin{align*}
+\|q\|_{ H_0^{1}(\Omega)}\lesssim |q|_{ H_0^{1}(\Omega)}=\frac{(\nabla q,\nabla q)}{\|\nabla q\|_{0}}
+=\frac{(\boldsymbol{v},\nabla q)}{\|\boldsymbol{v}\|_{\boldsymbol{H}(\grad\curl)}}\lesssim\sup_{\boldsymbol{v}\in\boldsymbol{H}_0(\grad\curl, \Omega)}\frac{(\boldsymbol{v},\nabla q)}{\|\boldsymbol{v}\|_{\boldsymbol{H}(\grad\curl)}}
+\end{align*}
+(2) 强制性
+\begin{align*}
+\ker \boldsymbol{B}
+&=\{\boldsymbol{v}\in \boldsymbol{H}_0(\grad\curl, \Omega),\,(\boldsymbol{v},\nabla q)=0,\quad\forall \, q\in H_0^{1}(\Omega)\}\\
+&=\{\boldsymbol{v}\in \boldsymbol{H}(\grad\curl, \Omega),\,\div\boldsymbol{v}=0\}
+\end{align*}
+又由 poinc\'{a}re 不等式可得 $\|\boldsymbol{v}\|_{0}^{2}+\|\curl\boldsymbol{v}\|_{0}^{2}\lesssim\|\curl\boldsymbol{v}\|_{0}^2\lesssim\|\grad\curl\boldsymbol{v}\|_{0}$,
+所以
+\begin{align*}
+\|\boldsymbol{v}\|_{\boldsymbol{H}(\grad\curl)}^2=\|\boldsymbol{v}\|_{0}^2+\|\curl\boldsymbol{v}\|_{0}^2++\|\grad\curl\boldsymbol{v}\|_{0}^2
+\lesssim\|\grad\curl\boldsymbol{v}\|_{0}^2,\quad\forall \,\boldsymbol{v}\in \ker \boldsymbol{B}.
+\end{align*}
+Complex 4.
+ \begin{equation}\label{CA4}
+	\resizebox{0.8\hsize}{!}{$
+		\begin{array}{c}
+			\xymatrix{	
+\mathbb{R} \ar[r] & H^{1}(\Omega)\ar[r]^-{\grad} & \boldsymbol{H}(\mathrm{Hess}\curl,\Omega)  \ar[r]^-{\curl}
+				& \boldsymbol{H}^{2}(\Omega;\mathbb{R}^{3})    \ar[r]^-{\div} & H^{1}(\Omega) \ar[r]^{} & 0 .
+ }
+		\end{array}
+		$}
+	\end{equation}
+Example 5 :The strain gradient problems\\
+这里引入应变梯度$\varepsilon(\boldsymbol{u})=\sym\grad\boldsymbol{u}$
+则应变梯度问题的变分形式为: $\boldsymbol{u}\in\boldsymbol{H}_{0}^2(\Omega;\mathbb{R}^{3}),\,p\in H_0^{1}(\Omega)$,使得
+\begin{equation}\label{Cq10}
+\left\{
+\begin{aligned}
+(\varepsilon(\boldsymbol{u}),\varepsilon(\boldsymbol{v}))+(\div\boldsymbol{v},p)&=(\boldsymbol{f},\boldsymbol{v})
+  &&\forall \,\, \boldsymbol{v}\in \boldsymbol{H}_{0}^2(\Omega;\mathbb{R}^{3}),
+ \\
+ ( \div\boldsymbol{u},\boldsymbol{q}) &=0 &&\forall \,\, q\in H_0^{1}(\Omega),
+\end{aligned}\right.
+\end{equation}
+进一步改写成带参数 $l$ 的形式
+\begin{equation}\label{Cq11}
+\left\{
+\begin{aligned}
+(\varepsilon(\boldsymbol{u}),\varepsilon(\boldsymbol{v}))_{l}+(\div\boldsymbol{v},p)_{l}&=(\boldsymbol{f},\boldsymbol{v})
+  &&\forall \,\, \boldsymbol{v}\in \boldsymbol{H}_{0}^2(\Omega;\mathbb{R}^{3}),
+ \\
+ ( \div\boldsymbol{u},\boldsymbol{q})_{l} &=0 &&\forall \,\, q\in H_0^{1}(\Omega),
+\end{aligned}\right.
+\end{equation}
+这里
+$$(p,q)_l=l^2(\nabla p,\nabla q)+(p,q).$$
+还是下面利用复形(\ref{CA4})来证明 inf-sup 条件和强制性, 证明方法和上面类似.
+
+Complex 5.
+ \begin{equation}\label{CA2}
+	\resizebox{0.8\hsize}{!}{$
+		\begin{array}{c}
+			\xymatrix{	
+\mathbb{R} \ar[r] & H^{2}(\Omega)\ar[r]^-{\grad} & \boldsymbol{H}^{1}(\curl,\Omega)  \ar[r]^-{\curl}
+				& \boldsymbol{H}^{1}(\Omega;\mathbb{R}^{3})    \ar[r]^-{\div} & L^2(\Omega) \ar[r]^{} & 0 .
+ }
+		\end{array}
+		$}
+	\end{equation}
+Example 5 :The biharmonic equation
+\begin{equation}
+\left\{
+\begin{aligned}
+\Delta^{2}u&=f\qquad \,\,\,\mathrm{in}\,\,\Omega,\\
+u=\partial_{\upsilon}u&=0 \quad \mathrm{on}\,\, \partial\Omega
+\end{aligned}%
+\right.   \label{eqtwo}
+\end{equation}%
+原始变分形式为
+找 $u\in H_{0}^{2}(\Omega)$
+ 使得
+\begin{align}\label{AA0}
+(\nabla^{2}u,\nabla^{2}v)=\langle f,v\rangle \quad \forall\,\, v\in H_{0}^{2}(\Omega)
+\end{align}

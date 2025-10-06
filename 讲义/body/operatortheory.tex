@@ -1,0 +1,174 @@
+\chapter{算子理论}
+
+% Sobolev spaces are fundamental in the study of partial differential equations and their
+% numerical approximations. In this chapter, we shall give brief discussions on the Sobolev
+% spaces and the regularity theory for elliptic boundary value problems.
+
+
+\section{Preliminary From Functional Analysis}
+
+
+Let $X$ and $Y$ be two Banach spaces in this section. See \cite{Brezis2011, Weidmann1980} for details in this section.
+
+\subsection{Closed operators}
+\begin{definition}[Unbounded linear operator]
+Let $X$ and $Y$ be two Banach spaces. An {\bf unbounded linear operator} from
+$X$ into $Y$ is linear map $A: D(A)\subset X\to Y$ defined on a linear subspace $D(A)\subset X$ with values in $Y$. The set $D(A)$ is called the domain of $A$.
+\end{definition}
+
+\begin{definition}[Graph]
+Let $X$ and $Y$ be two Banach spaces. Let $A: D(A)\subset X\to Y$ be a linear operator.
+Define the \textbf{graph} of $A$ as the following linear subspace
+\[
+\{(x, Ax)\in X\times Y: X\in D(A)\}.
+\]
+The linear operator $A$ is said to be \textbf{closed} if the graph of $A$ is closed in $X\times Y$.
+\end{definition}
+
+\begin{lemma}
+The linear operator $A: D(A)\subset X\to Y$ is closed if and only if \textcolor[rgb]{1.00,0.00,0.00}{its domain $D(A)$ is a complete space with respect to the graph norm $\sqrt{\|x\|_X^2+\|Ax\|_{Y}^2}$}.
+\end{lemma}
+
+\begin{lemma}
+If the linear operator $A: D(A)\subset X\to Y$ is closed, then \textcolor[rgb]{1.00,0.00,0.00}{$N(A)$ is closed; however, $R(A)$ need not be closed}.
+\end{lemma}
+
+\begin{theorem}[Closed graph theorem]
+Let $X$ and $Y$ be two Banach spaces. If $A: D(A)\subset X\to Y$ is a closed linear operator and \textcolor[rgb]{1.00,0.00,0.00}{$D(A)$ is closed}, then \textcolor[rgb]{1.00,0.00,0.00}{$A$ is continuous (bounded)}.
+\end{theorem}
+
+
+
+\subsection{Adjoints in Banach spaces}
+\begin{definition}[Adjoint $A'$]
+Suppose $A: D(A)\subset X\to Y$ be a linear operator that is densely defined. Let
+\[
+D(A')=\{y'\in Y': \exists x'\in X' \textrm{ such that } \langle y', Ax\rangle=\langle x', x\rangle\quad \forall x\in D(A)\},
+\]
+where $X'$ and $Y'$ are the dual spaces of $X$ and $Y$ respectively.
+Then we define $A'y':=x'$. The linear operator
+\[
+A': D(A')\subset Y'\to X'
+\]
+is called the \textbf{adjoint} of $A$. The \textbf{domain} $D(A')$ can be rewritten as
+\[
+D(A')=\{y'\in Y': \exists c\geq0 \textrm{ such that } |\langle y', Ax\rangle|\leq c\|x\|_X\quad \forall x\in D(A)\}.
+\]
+The fundamental relation between $A$ and $A'$ is given by
+\[
+\langle y', Ax \rangle_{Y'\times Y}=\langle A'y', x \rangle_{X'\times X}\quad\quad\forall x\in D(A),\quad y'\in D(A').
+\]
+\end{definition}
+
+\begin{lemma}
+If $A: X\to Y$ is a linear bounded operator then $A': Y'\to X'$ is also a linear bounded operator and, moreover,
+\[
+\|A'\|_{\mathcal L(Y', X')}=\|A\|_{\mathcal L(X, Y)}.
+\]
+\end{lemma}
+
+
+\begin{lemma}
+Let $A: D(A)\subset X\to Y$ be a densely defined linear operator. Then \textcolor[rgb]{1.00,0.00,0.00}{the adjoint $A': D(A')\subset Y'\to X'$ is closed}.
+\end{lemma}
+
+\begin{theorem}
+Let $X$ and $Y$ be two \textcolor[rgb]{1.00,0.00,0.00}{reflexive} Banach spaces. Let $A: D(A)\subset X\to Y$ be an unbounded linear operator that is densely defined and closed. Then \textcolor[rgb]{1.00,0.00,0.00}{$D(A')$ is dense in $Y'$}. Thus $A''$ is well defined ($A'': D(A'')\subset X''\to Y''$) and it may
+also be viewed as an unbounded operator from $X$ into $Y$. Then we have
+\[
+A''=A.
+\]
+\end{theorem}
+
+\begin{definition}
+If $M\subset X$ is a linear subspace,  we define the annihilator of $M$ in $X'$
+\[
+M^{\perp}=\{f\in X': \langle f, x\rangle=0\quad \forall x\in M\}.
+\]
+If $N\subset X'$ is a linear subspace we set
+\[
+N^{\perp}=\{x\in X: \langle f, x\rangle=0\quad \forall f\in N\}.
+\]
+\end{definition}
+
+\begin{lemma}
+Let $M\subset X$ be a linear subspace. Then
+\[
+(M^{\perp})^{\perp}=\overline{M}.
+\]
+Let $N\subset X'$ be a linear subspace. Then
+\[
+(N^{\perp})^{\perp}\supset\overline{N}.
+\]
+Moreover, if $X$ is reflexive, then
+\[
+(N^{\perp})^{\perp}=\overline{N}.
+\]
+\end{lemma}
+
+\begin{theorem}
+Let $A: D(A)\subset X\to Y$ be an unbounded linear operator that is densely defined and closed. Then
+\[
+N(A)=R(A')^{\perp},
+\quad
+N(A')=R(A)^{\perp},
+\]
+\[
+N(A)^{\perp}\supset \overline{R(A')},
+\quad
+N(A')^{\perp}= \overline{R(A)}.
+\]
+Moreover, if $X$ is reflexive, then
+\[
+N(A)^{\perp}= \overline{R(A')}.
+\]
+\end{theorem}
+
+\begin{theorem}[Closed range theorem]
+Let $A: D(A)\subset X\to Y$ be an unbounded linear operator that is densely defined and closed. The following properties are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $R(A)$ is closed.
+\item $R(A')$ is closed.
+\item $R(A)=N(A')^{\perp}$.
+\item $R(A')=N(A)^{\perp}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $A: D(A)\subset X\to Y$ be a closed unbounded linear operator. Then $R(A)$ is closed if and only if there exists a constant $C$ such that
+\[
+\textrm{dist}(x, N(A))\leq C\|Ax\|_Y\quad \forall x\in D(A).
+\]
+\end{theorem}
+
+\begin{theorem}
+Let $A: D(A)\subset X\to Y$ be an unbounded linear operator that is densely defined and closed. The following properties are equivalent:
+\begin{enumerate}[label=(\alph*)]
+\item $A$ is surjective, i.e. $R(A)=Y$,
+\item there is a constant $C$ such that
+\[
+\|y\|_{Y'}\leq C\|A'y\|_{X'}\quad \forall y\in D(A'),
+\]
+\item $N(A')=\{0\}$ and $R(A')$ is closed.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $A: D(A)\subset X\to Y$ be an unbounded linear operator that is densely defined and closed. The following properties are equivalent:
+\begin{enumerate}[label=(\alph*)]
+\item $A'$ is surjective, i.e. $R(A')=X'$,
+\item there is a constant $C$ such that
+\[
+\|x\|_{X}\leq C\|Ax\|_{Y}\quad \forall x\in D(A),
+\]
+\item $N(A)=\{0\}$ and $R(A)$ is closed.
+\end{enumerate}
+\end{theorem}
+
+
+
+
+
+
+
+

@@ -1,0 +1,186 @@
+% !TEX root = lecture.tex
+\chapter{Bernstein 多项式和 Lagrange 元几何分解}
+
+% We summarize the most important notation and integer indices in the beginning:
+% \begin{itemize}
+%  \item $\mathbb R^d: n$ is the dimension of the ambient Euclidean space and $n\geq 2$;
+% \item $\mathbb P_r: r$ is the degree of the polynomial and $r\geq 0$;
+% %\item  $\alt^k:$ the space of all skew-symmetric $k$-linear forms;
+%  \item $\Lambda^k: k$ is the order of the differential form and $0\leq k\leq n$;
+% \item $\Delta_{\ell}(T): \ell$ is the dimension of a sub-simplex $f\in \Delta_{\ell}(T)$ and $0\leq \ell \leq n$.
+% \end{itemize}
+
+\section{单纯形和子单纯形}
+设 $T \subset \mathbb{R}^{d}$ 是一个 $d$ 维单纯形，其顶点为 $\texttt{v}_{0}, \texttt{v}_{1}, \ldots, \texttt{v}_{d}$。
+依照~\cite{ArnoldFalkWinther2009} 的记法，我们用 $\Delta(T)$ 表示 $T$ 的所有子单纯形所构成的集合，而 $\Delta_{\ell}(T)$ 表示维数为 $\ell$ 的子单纯形集合，其中 $0\leq \ell \leq d$。
+
+对于子单纯形 $f\in \Delta_{\ell}(T)$，我们将重载符号 $f$ 的含义，使其同时表示几何单纯形和代数指标集合。即一方面 $f = \{f(0), \ldots, f(\ell)\}\subseteq \{0, 1, \ldots, d\}$，另一方面
+\[
+f ={\rm Convex}(\texttt{v}_{f(0)}, \ldots, \texttt{v}_{f(\ell)}) \in \Delta_{\ell}(T)
+\]
+是由顶点 $\texttt{v}_{f(0)}, \ldots, \texttt{v}_{f( \ell)}$ 张成的 $\ell$ 维单纯形。若 $f \in \Delta_{\ell}(T)$，其中 $\ell = 0, \ldots, d-1$，则 $f^{*} \in \Delta_{d- \ell-1}(T)$ 表示 $T$ 中与 $f$ 相对的子单纯形。在代数上，若将 $f$ 视为 $\{0, 1, \ldots, d\}$ 的子集，则 $f^*\subseteq \{0,1, \ldots, d\}$ 满足 $f\cup f^* = \{0, 1, \ldots, d\}$，即 $f^*$ 是集合 $f$ 的补集。在几何上，
+\[
+f^* ={\rm Convex}(\texttt{v}_{f^*(1)}, \ldots, \texttt{v}_{f^*(d-\ell)}) \in \Delta_{d- \ell-1}(T)
+\]
+是由不包含在 $f$ 中的顶点张成的 $(d- \ell-1)$ 维单纯形。关于 $f$ 和 $f^*$ 的图示，请参阅~\cite[Fig. 2]{Chen;Huang:2022FEMcomplex3D}。
+
+记 $F_{i}$ 为与顶点 $\texttt{v}_i$ 相对的 $(d-1)$ 维面，即 $F_i = \{i\}^*$。此处大写字母 $F$ 专用于表示 $T$ 的 $(d-1)$ 维面。对于较低维的子单纯形，我们有时采用更常规的记法。例如，顶点将记为 $\texttt{v}_i$，由 $\texttt{v}_i$ 和 $\texttt{v}_j$ 生成的边将记为 $\texttt{e}_{ij}$。
+
+
+
+
+
+
+\section{重心坐标和 Bernstein 多项式}
+对于区域 $D \subseteq \mathbb{R}^{d}$ 及整数 $r \geqslant 0$，记 $\mathbb{P}_{r}(D)$ 为定义在 $D$ 上的 $r$ 次实值多项式空间。为简化表述，令 $\mathbb{P}_{r}=\mathbb{P}_{r}\left(\mathbb{R}^{d}\right)$。于是当 $d$ 维区域 $D$ 具有非空内部时，有 $\operatorname{dim} \mathbb{P}_{r}(D)=\operatorname{dim} \mathbb{P}_{r}=\displaystyle{r+d \choose d}$。
+当 $D = {\texttt{v}}$ 为单点集时，对任意 $r \geqslant 0$ 均有 $\mathbb{P}_{r}(\texttt{v})=\mathbb{R}$；而当 $r<0$ 时，规定 $\mathbb{P}_{r}(D)= {0}$。
+记 $\mathbb{H}_{r}(D)$ 为定义在 $D$ 上的 $r$ 次齐次实值多项式空间。
+
+对 $d$ 维单纯形 $T$，设 $\lambda_{0}, \lambda_{1}, \ldots, \lambda_{d}$ 为其重心坐标函数，即满足 $\lambda_{i} \in \mathbb{P}_{1}(T)$ 且 $\lambda_{i}\left(\texttt{v}_j\right)=\delta_{i,j}$（$0 \leqslant i, j \leqslant d$），其中 $\delta_{i,j}$ 为 Kronecker delta 函数。函数集 $\{\lambda_{i}, i=0,1,\ldots, d\}$ 构成 $\mathbb{P}_{1}(T)$ 的一组基，满足 $\sum_{i=0}^d\lambda_i (x)= 1$，且对任意 $x\in T$ 有 $0\leq \lambda_i(x)\leq 1$（$i=0,1,\ldots,d$）。$T$ 的子单纯形与重心坐标的零点集一一对应：具体地，对任意 $f\in \Delta_{\ell}(T)$，有 $f = \{x\in T\mid \lambda_i(x) = 0, i\in f^*\}$。
+
+我们将使用多重指标记号 $\alpha \in \mathbb{N}^{d}$，即 $\alpha=(\alpha_1, \dots, \alpha_d)$，其中各整数 $\alpha_i \ge 0$。定义
+\[
+x^\alpha := x_1^{\alpha_1} \cdots x_d^{\alpha_d}, \qquad |\alpha| := \sum_{i=1}^d \alpha_i.
+\]
+同时，我们还将使用多重指标集合 $\mathbb{N}^{0:d}$，其元素为 $\alpha = (\alpha_0, \dots, \alpha_d)$，并定义
+\[
+\lambda^\alpha := \lambda_0^{\alpha_0} \cdots \lambda_d^{\alpha_d}, \quad \alpha \in \mathbb{N}^{0:d}.
+\]
+
+接下来引入单纯形格点集 \cite{Chen;Huang:2022FEMcomplex3D,ChenHuang2021Cmgeodecomp}（亦称主格~\cite{nicolaides1973class}）：$d$ 维 $r$ 阶单纯形格点集是一个指标和为 $r$ 的 $(d+1)$ 维非负整数指标集，即
+\[
+\mathbb T^{d}_r = \left \{ \alpha = (\alpha_0, \alpha_1, \ldots, \alpha_d)\in\mathbb N^{0:d} \mid \alpha_0 + \alpha_1 + \ldots + \alpha_d = r \right \}.
+\]
+集合中的元素 $\alpha \in \mathbb{T}^d_r$ 称为格点。
+
+在单纯形 $T$ 上， $r$ 次多项式空间的 Bernstein 表示 为
+\[
+\mathbb P_r(T) :={\rm span}\{ \lambda^{\alpha} = \lambda_{0}^{\alpha_0}\lambda_{1}^{\alpha_1}\ldots \lambda_{d}^{\alpha_d}, \alpha\in \mathbb T_r^{d}\}.
+\]
+在 Bernstein 形式下，对于任意 $f \in \Delta_\ell(T)$，有
+\[
+\mathbb P_r(f) ={\rm span}\{ \lambda_{f}^{\alpha} = \lambda_{f(0)}^{\alpha_0}\lambda_{f(1)}^{\alpha_1}\ldots \lambda_{f(\ell)}^{\alpha_{\ell}},  \alpha \in \mathbb T_r^{\ell}\}.
+\]
+通过重心坐标自然延拓，可得到 $\mathbb{P}_r(f) \subseteq \mathbb{P}_r(T)$。
+
+定义 $(\ell+1)$ 次泡多项式
+\[
+b_f := \lambda_f = \lambda_{f(0)} \lambda_{f(1)} \cdots \lambda_{f(\ell)} \in \mathbb{P}_{\ell+1}(f).
+\]
+
+泡多项式 $b_f$ 满足以下性质.
+
+\begin{lemma}\label{lm:bf}
+设 $f,e \in \Delta(T)$。若 $f \not\subseteq e$，则 $b_f|_e = 0$。
+\end{lemma}
+
+\begin{proof}
+由分解 $f = (f \cap e^*) \cup (f \cap e)$ 且 $f \not\subseteq e$，可得 $f \cap e^* \neq \varnothing$。因此 $b_f$ 包含某个 $i \in e^*$ 对应的 $\lambda_i$，故 $b_f|_e = 0$。
+\end{proof}
+
+特别地，$b_f$ 在除 $f$ 以外的所有维度不大于 $\dim f$ 的子单纯形上，以及不包含 $f$ 的高维子单纯形上均为零。
+
+
+
+
+\section{Lagrange 元几何分解}\label{sec:geodecompLagrange}
+这一节内容取材于文献 \cite{ChenHuang2024a,ChenChenHuangWei2024}. % 我们首先介绍 Lagrange 元的几何分解。
+下述 Lagrange 元的几何分解最初在~\cite[(2.6)]{ArnoldFalkWinther2009} 中给出。有关该几何分解的示意，可参见~\cite[Fig. 2.1]{ArnoldFalkWinther2009}。对于 $0$ 维面（即顶点 $\texttt{v}$），约定
+$$
+\int_{\texttt{v}} u \dd s = u(\texttt{v}), \quad 1\in \mathbb P_r(\texttt{v})=\mathbb R.
+$$
+
+\begin{theorem}\label{thm:Lagrangedec}
+设 $T$ 为 $d$ 维单纯形，$\mathbb{P}_r(T)$ 为 $r\ge 1$ 次多项式空间，则有如下分解：
+\begin{align}
+\label{eq:Prdec}
+\mathbb P_r(T) &= \Oplus_{\ell = 0}^d\Oplus_{f\in \Delta_{\ell}(T)} b_f\mathbb P_{r - (\ell +1)} (f).
+\end{align}
+且任意 $u \in \mathbb{P}_r(T)$ 由以下自由度唯一确定：
+\begin{equation}\label{eq:dofPr}
+\int_f u \, p \dd s, \quad \quad~p\in \mathbb P_{r - (\ell +1)} (f), f\in \Delta_{\ell}(T), \ell = 0,1,\ldots, d.
+\end{equation}
+\end{theorem}
+\begin{proof}
+我们首先证明分解~\eqref{eq:Prdec}。每个部分 $b_f \mathbb{P}_{r-(\ell+1)}(f) \subseteq \mathbb{P}_r(T)$，并且由于 $b_f$ 的性质（参见引理~\ref{lm:bf}），这些子空间的直和成立。
+通过观察 $(1+x)^{d+1} (1+x)^{r-1} = (1+x)^{d+r}$ 中 $x^r$ 的系数可知
+组合恒等式
+$$
+\sum_{\ell =0}^d { d+1 \choose \ell + 1} { r - 1 \choose r - \ell - 1} = { d + r \choose r}
+$$
+成立。
+利用此恒等式计算维数可得~\eqref{eq:Prdec}。
+
+为了证明自由度的唯一可解性，我们按照分解~\eqref{eq:Prdec} 选择 $\mathbb{P}_r(T)$ 的基 ${\phi_i}$，并将自由度~\eqref{eq:dofPr} 记为 ${N_i}$。由构造可知，基的数量与自由度的数量一致。对应的自由度-基矩阵 $(N_i(\phi_j))$ 是方阵，并且是块下三角形矩阵。具体地，对于 $\phi_f \in b_f \mathbb{P}_{r-(\ell+1)}(f)$，由 引理~\ref{lm:bf} 中 $b_f$ 的性质有
+\[
+\int_{e}\phi_{f} p\dd s=  0, \quad \quad e \in \Delta_m(T), m\leq \ell, e\neq f, p\in \mathbb P_{r-\dim e - 1}(e).
+\]
+每个对角块矩阵是测度 $b_f \dd x_f$ 下的 Gram 矩阵
+$$
+\int_f p q b_f \dd x_f, \quad p, q \in \mathbb P_{r-(\ell + 1)}(f),
+$$
+因此对称且正定，故可逆。
+由此，下三角矩阵的可逆性保证了自由度的唯一可解性；下图给出示意：
+\begin{equation}\label{eq:lowertriangular}
+\renewcommand{\arraystretch}{1.35}
+\begin{array}{cc}
+\begin{array}{c}
+ \; N_f \backslash \;   \phi_f 
+\end{array}
+ &  
+\begin{array}{>{\hfil$}m{1.5cm}<{$\hfil} >{\hfil$}m{1.9cm}<{$\hfil} >{\hfil$}m{0.5cm}<{$\hfil} >{\hfil$}m{2.5cm}<{$\hfil} >{\hfil$}m{1.9cm}<{$\hfil}}
+0 & 1 & \cdots	& d-1 & d 
+\end{array}
+\medskip
+\\
+\begin{array}{c}
+0 \\ 1 \\ \vdots \\ d-1 \\ d
+\end{array} 
+& \left(
+\begin{array}{>{\hfil$}m{1.5cm}<{$\hfil}|>{\hfil$}m{1.9cm}<{$\hfil}|>{\hfil$}m{0.5cm}<{$\hfil}|>{\hfil$}m{2.5cm}<{$\hfil}|>{\hfil$}m{1.9cm}<{$\hfil}}
+\square & 0 & \cdots	& 0 & 0 \\
+\hline
+\square & \square & \cdots	& 0 & 0 \\
+\hline
+\vdots & \vdots & \ddots	& \vdots & \vdots \\
+\hline
+\square & \square & \cdots	& \square & 0 \\
+\hline
+\square & \square & \cdots	& \square& \square 
+\end{array}
+\right)
+\end{array}
+\end{equation}
+\end{proof}
+\begin{remark}\rm
+需要注意的是，当 $r < \ell + 1$ 时，有 $\mathbb{P}_{r-(\ell+1)}(f) = \{0\}$。因此，在几何分解~\eqref{eq:Prdec} 中，最后一个非零项对应于 $\ell \le \min\{r-1,, d\}$。这意味着多项式的次数决定了分解~\eqref{eq:Prdec} 中所涉及子单纯形的维数。
+例如，对于二次多项式，求和仅包含边泡函数，而不包括面泡及更高维泡函数。
+尽管如此，为了书写简便，仍保留完整的求和符号 $\Oplus_{\ell=0}^d$，默认理解为其中的零子空间会自动截断求和范围。
+\end{remark}
+
+
+设 ${\mathcal{T}_h}$ 为区域 $\Omega$ 的一族协调单纯形剖分。
+记 $\Delta_{\ell}(\mathcal{T}_h)$ 为剖分 $\mathcal{T}_h$ 中所有 $\ell$ 维子单纯形的集合，其中 $\ell = 0, 1, \ldots, d$。
+Lagrange 有限元空间定义为
+\[
+S_h^r := \{ v\in C(\Omega): v\!\!\mid_T\in \mathbb P_r(T), \forall~T\in \mathcal T_h, \text{ 自由度 }\, \eqref{eq:dofPr} \text{ 是单值的}\},
+\] 
+其具有如下几何分解形式：
+\[
+S_h^r = \Oplus_{\ell = 0}^d\Oplus_{f\in \Delta_{\ell}(\mathcal T_h)} b_f\mathbb P_{r - (\ell +1)} (f).
+\]
+这里，多项式空间 $b_f\,\mathbb P_{r - (\ell +1)}(f)$ 通过重心坐标的 Bernstein 形式自然扩展到包含 $f$ 的各单元 $T$ 上，从而得到在整个区域 $\Omega$ 上连续的分片多项式函数。
+因此，$S_h^r \subset H^1(\Omega)$，并且其维数为 
+\[
+\dim S_h^r = \sum_{\ell = 0}^d |\Delta_{\ell}(\mathcal T_h)| { r - 1 \choose \ell},
+\]
+其中 $|\Delta_{\ell}(\mathcal T_h)|$ 表示剖分 $\mathcal{T}_h$ 中 $\ell$ 维单纯形的数量。
+
+向量型 Lagrange 元的几何分解是上述结果的直接推广：
+\begin{align}
+\label{eq:vectorLagrange}
+\mathbb P_r(T; \mathbb R^d)  &= \Oplus_{\ell = 0}^d\Oplus_{f\in \Delta_{\ell}(T)} \left [b_f \mathbb P_{r - (\ell +1)} (f) \otimes \mathbb R^d \right ].
+\end{align}
+在式~\eqref{eq:vectorLagrange} 中，默认使用 $\mathbb R^d$ 的一组固定正交基展开向量分量，通常取描述区域 $\Omega$ 的笛卡尔坐标系。
+
+

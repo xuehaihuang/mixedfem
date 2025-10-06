@@ -1,0 +1,78 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {第一章\hspace {.3em}}混合变分问题}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}混合变分问题举例}{7}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Babu\v {s}ka 理论}{14}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}抽象变分问题}{14}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}变分问题的离散：Ritz方法}{16}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}变分问题的离散：Galerkin方法}{16}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}鞍点系统：Brezzi 理论}{18}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}混合变分问题}{18}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Inf-sup 条件}{18}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}协调离散}{19}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Fortin 算子}{20}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}鞍点系统：Zulehner 理论}{20}{section.1.4}%
+\contentsline {chapter}{\numberline {第二章\hspace {.3em}}De Rham复形及有限元离散}{27}{chapter.2}%
+\contentsline {section}{\numberline {2.1}三维de Rham复形}{28}{section.2.1}%
+\contentsline {section}{\numberline {2.2}多项式复形}{31}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}二维多项式复形}{32}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}三维多项式复形}{33}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}任意维多项式复形}{34}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}$t$-$n$ bases}{37}{section.2.3}%
+\contentsline {section}{\numberline {2.4}$H(\operatorname {div})$ 有限元}{39}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}$H(\operatorname {div})$ 空间和迹算子}{39}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Raviart-Thomas 元}{39}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Brezzi-Douglas-Marini 元}{40}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}$H(\operatorname {curl})$ 有限元}{43}{section.2.5}%
+\contentsline {section}{\numberline {2.6}有限元 de Rham 复形}{45}{section.2.6}%
+\contentsline {chapter}{\numberline {第三章\hspace {.3em}}Poisson方程的混合有限元方法}{47}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Poisson~方程}{47}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Poisson~方程的混合有限元格式}{48}{section.3.2}%
+\contentsline {section}{\numberline {3.3}误差分析}{49}{section.3.3}%
+\contentsline {section}{\numberline {3.4}后处理}{51}{section.3.4}%
+\contentsline {section}{\numberline {3.5}杂交化}{52}{section.3.5}%
+\contentsline {chapter}{\numberline {第四章\hspace {.3em}}Stokes方程的混合有限元方法}{53}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Stokes方程}{53}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Stokes方程的协调混合有限元方法}{54}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}压力间断的协调元方法}{56}{subsection.4.2.1}%
+\contentsline {subsubsection}{两维$P_2$-$P_0$元}{56}{subsubsection*.10}%
+\contentsline {subsubsection}{SMALL元}{57}{subsubsection*.11}%
+\contentsline {subsubsection}{Crouzeix-Raviart元}{58}{subsubsection*.12}%
+\contentsline {subsubsection}{Scott-Vogelius元}{60}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {4.2.2}压力连续的协调元方法}{60}{subsection.4.2.2}%
+\contentsline {subsubsection}{MINI元}{60}{subsubsection*.14}%
+\contentsline {subsubsection}{Taylor-Hood元}{61}{subsubsection*.15}%
+\contentsline {section}{\numberline {4.3}Stokes方程的非协调混合元方法}{63}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}非协调$P_1$-$P_0$元}{64}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}一个新的非协调元}{65}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Divergence-free非协调元}{66}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4} Stokes 复形}{70}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}有限元Stokes复形}{70}{subsection.4.4.1}%
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}重调和方程混合元方法}{71}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Hellan-Herrmann-Johnson Mixed Method}{71}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}HHJ method}{73}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Postprocessing}{79}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Hybridization}{80}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Equivalence between HHJ method and modified Morley element method}{82}{subsection.5.1.4}%
+\contentsline {chapter}{Appendices}{85}{section*.16}%
+\contentsline {chapter}{Appendix \numberline {第一章\hspace {.3em}}Bernstein 多项式和 Lagrange 元几何分解}{87}{appendix.1.A}%
+\contentsline {section}{\numberline {A.1}单纯形和子单纯形}{87}{section.1.A.1}%
+\contentsline {section}{\numberline {A.2}重心坐标和 Bernstein 多项式}{87}{section.1.A.2}%
+\contentsline {section}{\numberline {A.3}Lagrange 元几何分解}{88}{section.1.A.3}%
+\contentsline {chapter}{Appendix \numberline {第二章\hspace {.3em}}算子理论}{91}{appendix.1.B}%
+\contentsline {section}{\numberline {B.1}Preliminary From Functional Analysis}{91}{section.1.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}Closed operators}{91}{subsection.1.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Adjoints in Banach spaces}{91}{subsection.1.B.1.2}%
+\contentsline {chapter}{Appendix \numberline {第三章\hspace {.3em}}Sobolev Spaces and Elliptic Equations}{95}{appendix.1.C}%
+\contentsline {section}{\numberline {C.1}Sobolev Spaces}{95}{section.1.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}Preliminaries}{95}{subsection.1.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Definition of Sobolev spaces}{96}{subsection.1.C.1.2}%
+\contentsline {subsection}{\numberline {C.1.3}Extension theorems}{100}{subsection.1.C.1.3}%
+\contentsline {subsection}{\numberline {C.1.4}Embedding theorems}{100}{subsection.1.C.1.4}%
+\contentsline {subsection}{\numberline {C.1.5}Trace Theorem}{102}{subsection.1.C.1.5}%
+\contentsline {subsection}{\numberline {C.1.6}Norm Equivalence Theorem}{102}{subsection.1.C.1.6}%
+\contentsline {subsection}{\numberline {C.1.7}Green's formulas}{103}{subsection.1.C.1.7}%
+\contentsline {section}{\numberline {C.2}Elliptic Boundary Value Problems and Regularity}{104}{section.1.C.2}%
+\contentsline {subsection}{\numberline {C.2.1}Weak formulation}{104}{subsection.1.C.2.1}%
+\contentsline {subsection}{\numberline {C.2.2}Regularity theory}{105}{subsection.1.C.2.2}%
+\contentsline {chapter}{Appendix \numberline {第四章\hspace {.3em}}微分复形在偏微分方程中的应用}{107}{appendix.1.D}%
+\contentsline {section}{\numberline {D.1}Stokes Complex 及应用}{107}{section.1.D.1}%
