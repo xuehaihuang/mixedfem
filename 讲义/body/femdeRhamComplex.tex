@@ -209,7 +209,7 @@ $$
 \end{proof}
 
 \begin{remark}
-算子$\mathcal{P}_1$不是$L^2$有界的. 事实上，设$\Omega\subseteq\mathbb R^3$包含坐标原点，取$q(x)=x/|x|^2$, 则$q(x)\in\mathbb L^2(\Omega;\mathbb R^3)$, 但是$\mathcal{P}_1q$没定义.
+算子$\mathcal{P}_1$不是$L^2$有界的. 事实上，设$\Omega\subseteq\mathbb R^3$包含坐标原点，取$q(x)=x/|x|^2$, 则$q(x)\in L^2(\Omega;\mathbb R^3)$, 但是$\mathcal{P}_1q$没定义.
 \end{remark}
 
 \begin{theorem}
@@ -728,47 +728,61 @@ $$
 %$}
 \end{equation*}
 
-\section{$t$-$n$ bases}
-For an $\ell$-dimensional sub-simplex $f\in \Delta_{\ell}(T)$, choose 
-$\ell$ linearly independent tangential vectors $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$ of $f$ and $d-\ell$ linearly independent normal vectors $\{\bs n_1^f, \ldots, \bs n_{d-\ell}^f\}$ of $f$.  
-The set of $d$ vectors $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_1^f, \ldots, \bs n_{d-\ell}^f \}$ forms a basis of $\mathbb R^d$.
-Notice that for $\ell = 0$, i.e., at vertices, there are no tangential vectors, and for $\ell = d$, there are no normal vectors. Define the tangent plane and normal plane of $f$ as 
+\section{切向法向基}
+
+
+对于一个 $\ell$ 维子单纯形 $f \in \Delta_{\ell}(T)$，选取 $f$ 上 $\ell$ 个线性无关的切向量 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$，以及 $d-\ell$ 个线性无关的法向量 $\{\bs n_1^f, \ldots, \bs n_{d-\ell}^f\}$。
+这 $d$ 个向量组成的集合
+\[
+\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_1^f, \ldots, \bs n_{d-\ell}^f \}
+\]
+构成 $\mathbb{R}^d$ 的一组基底。
+
+注意，当 $\ell=0$（即顶点处）时，没有切向量；当 $\ell=d$ 时，没有法向量。定义 $f$ 的切平面和法平面为
+\[
+\mathscr{T}^f := \mathrm{span} \{\bs t_i^f, i=1, \ldots, \ell \}, \quad
+\mathscr{N}^f := \mathrm{span} \{\bs n_i^f, i=1, \ldots, d-\ell \}.
+\]
+所有向量都是单位长度的，但 $\{\bs t_i^f\}_{i=1}^{\ell}$ 或 $\{\bs n_i^f\}_{i=1}^{d-\ell}$ 不一定构成正交基。
+
+
+在子空间 $\mathscr T^f$ 中，可以找到一组与 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$ 对偶的基函数 $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f\}$，即 $\hat{\bs t}_i \in \mathscr T^f$ 且满足
+$$
+(\hat{\bs t}_i, \bs t_j) = \delta_{i,j}, \quad i, j=1,\ldots,\ell.
+$$
+类似地，空间 $\mathscr N^f$ 也有一组对偶基 $\{\hat{\bs n}_1^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$，其满足
+$$
+(\hat{\bs n}_i, \bs n_j) = \delta_{i,j}, \quad i, j=1,\ldots,d-\ell.
+$$
+由于 $\mathscr T^f \perp \mathscr N^f$，则基组 $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ 亦与 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f\}$ 互为对偶。 
+
+
+给定一个子单纯形 $f\in \Delta_{\ell}(T)$，下面介绍~\cite{ChenChenHuangWei2024} 中构造的两组 $\mathscr N^f$ 的基。
+
+设 $F_i$ 表示与第 $i$ 个顶点相对的 $(d-1)$ 维面，则当 $i\in f^*$ 时，必有 $f\subseteq F_i$。由这些 $(d-1)$ 维面的单位法向量组成的集合
 \begin{equation*}
-\mathscr T^f := {\rm span} \{\bs t_i^f, i=1, \ldots, \ell \},
-\quad
-\mathscr{N}^f :=  {\rm span} \{\bs n_i^f, i=1, \ldots, d-\ell \}.
+\{\bs n_{F_i}, i\in f^*\}
 \end{equation*}
-All vectors are normalized but $\{\bs t_i^f\}$ or $\{ \bs n_i^f\}$ may not form an orthonormal basis. 
+称为\textbf{面法向基}。
 
-Inside the subspace $\mathscr T^f$, we can find a basis $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f\}$ dual to $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$, i.e., $\hat{\bs t}_i\in \mathscr T^f$ and $(\hat{\bs t}_i, \bs t_j)=\delta_{i,j}$ for $i, j=1,\ldots,\ell$. Similarly we have a basis $\{\hat{\bs n}_1^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ of $\mathscr N^f$ and  $(\hat{\bs n}_i, \bs n_j)=\delta_{i,j}$ for $i, j=1,\ldots, d-\ell$. As $\mathscr T^f \perp \mathscr N^f$, the basis  $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ is also dual to  $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f\}$. 
-%Let $V = ( \bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f)$ and $\hat{V} = ( \hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f)$.
-
-
-%\subsection{Bases for Normal Planes}
-Given a sub-simplex $f\in \Delta_{\ell}(T)$, we now present two bases for its normal plane $\mathscr N^f$ constructed in~\cite{ChenChenHuangWei2023}. 
-
-Recall that we label $F_i$ as the $(d-1)$-dimensional face opposite to the $i$-th vertex. Then $f\subseteq F_i$ for $i\in f^*$. One basis is composed by unit normal vectors of all such $(d-1)$-dimensional faces:
-\begin{equation*}%\label{eq:normalbasis}
-\{\bs n_{F_i}, i\in f^*\},
-\end{equation*}
-and will be called the {\it face normal basis}. 
-
-We now give its dual basis in $\mathscr N^f$. 
-For $f\in \Delta_{\ell}(T), \ell = 0,1,\ldots, n-1$ and $i\in f^*$, let $f\cup\{i\}$ denotes the $(\ell+1)$-dimensional face in $\Delta_{\ell+1}(T)$ with vertices $\{i, f(0),\dots, f(\ell)\}$. Let $\bs n_{f\cup\{i\}}^f$ be a unit normal vector of $f$ but tangential to $f\cup\{i\}$. The basis
+接下来给出其在 $\mathscr N^f$ 中的对偶基。
+对于 $f \in \Delta_{\ell}(T)$（$\ell = 0, 1, \dots, d-1$）以及 $i \in f^*$，记 $f\cup\{i\}$ 为由顶点集 $\{i,f(0),\dots,f(\ell)\}$ 所确定的 $(\ell+1)$ 维单纯形。定义 $\bs n_{f\cup\{i\}}^f$ 为 $f$ 的一个单位法向量，同时它平行于单纯形 $f\cup\{i\}$（即，位于该单纯形张成的平面内）。由此得到的基组
 \begin{equation*}%\label{eq:dualnormalbasis}
 \{\bs n_{f\cup\{i\}}^f, i\in f^*\}
 \end{equation*}
-will be called the {\it tangential normal basis}. 
+称为\textbf{切向法向基}。
+
+
 
 \begin{lemma}\label{lem:normaldual}
-For $f\in \Delta_{\ell}(T)$, the rescaled tangential normal basis $\{\bs n_{f\cup\{i\}}^f/(\bs n_{f\cup\{i\}}^f\cdot\bs n_{F_i}), i\in f^*\}$ of $\mathscr N^f$ is dual to the face normal basis $\{\bs n_{F_i}, i\in f^*\}$.
+对于 $f\in \Delta_{\ell}(T)$，缩放后的切向法向基 $\{\bs n_{f\cup\{i\}}^f/(\bs n_{f\cup\{i\}}^f\cdot\bs n_{F_i}), i\in f^*\}$ 是法平面空间 $\mathscr N^f$ 中面法向基 $\{\bs n_{F_i}, i\in f^*\}$ 的对偶基。
 \end{lemma}
 \begin{proof}
-Clearly $\bs n_{f\cup\{i\}}^f, \bs n_{F_i}\in \mathscr N^f$ for $i\in f^*$. It suffices to prove
+显然，对任意 $i\in f^*$，均有 $\bs n_{f\cup\{i\}}^f, \bs n_{F_i}\in \mathscr N^f$。因此只需证明
 \begin{equation*}
- \bs n_{f\cup\{i\}}^f\cdot\bs n_{F_j}=0 \quad \textrm{ for } i,j\in f^*, i\neq j,
+ \bs n_{f\cup\{i\}}^f\cdot\bs n_{F_j}=0, \quad  i,j\in f^*, i\neq j.
 \end{equation*}
-which follows from the fact $f\cup\{i\}\subseteq F_j$ and $\bs n_{f\cup\{i\}}^f\in\mathscr T^{f\cup\{i\}}$.
+该结论可由包含关系 $f\cup\{i\}\subseteq F_j$ 及 $\bs n_{f\cup\{i\}}^f\in \mathscr T^{f\cup\{i\}}$ 直接推出。
 \end{proof}
 
 
@@ -777,45 +791,29 @@ which follows from the fact $f\cup\{i\}\subseteq F_j$ and $\bs n_{f\cup\{i\}}^f\
   \begin{subfigure}{0.49\textwidth} % 调整宽度，使其适应页面
   \centering
     \includegraphics[width=5cm]{figures/Tbasis.pdf}
-    \caption{Basis $\{\boldsymbol{t}_{0,1}, \boldsymbol{t}_{0,2}, \boldsymbol{t}_{0,3}\}$ and $\{\nabla \lambda_1, \nabla \lambda_2, \nabla \lambda_3\}$.}
+    \caption{基 $\{\boldsymbol{t}_{0,1}, \boldsymbol{t}_{0,2}, \boldsymbol{t}_{0,3}\}$ 与 $\{\nabla \lambda_1, \nabla \lambda_2, \nabla \lambda_3\}$.}
   \end{subfigure}
   \hfill % 在两个 subfigure 之间添加水平间距
   \begin{subfigure}{0.49\textwidth}
   \centering
     \includegraphics[width=5.3cm]{figures/Tedgebasis.pdf}
-    \caption{Basis $\{\bs n_{F_2}, \bs n_{F_3}\}$ and $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$}
+    \caption{基 $\{\bs n_{F_2}, \bs n_{F_3}\}$ 与 $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$}
   \end{subfigure}
-  \caption{Face normal basis and tangential normal basis of a vertex and an edge in a tetrahedron.}\label{fig:lagrange2dk45}
+  \caption{四面体中顶点与边的面法向基与切向法向基.}\label{fig:normalbasis}
 \end{figure}
-
-
-% \begin{figure}[htbp]
-% \subfigure[Basis $\{\boldsymbol{t}_{0,1}, \boldsymbol{t}_{0,2}, \boldsymbol{t}_{0,3}\}$ and $\{\nabla \lambda_1, \nabla \lambda_2, \nabla \lambda_3\}$.]{
-% \begin{minipage}[t]{0.5\linewidth}
-% \centering
-% \includegraphics[width=5.0cm]{figures/Tbasis.pdf}
-% \end{minipage}}%%
-% \subfigure[Basis $\{\bs n_{F_2}, \bs n_{F_3}\}$ and $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$]
-% {\begin{minipage}[t]{0.5\linewidth}
-% \centering
-% \includegraphics*[width=5.3cm]{figures/Tedgebasis.pdf}
-% \end{minipage}}
-% \caption{Face normal basis and tangential normal basis of a vertex and an edge in a tetrahedron.}
-% \label{fig:normalbasis}
-% \end{figure}
-
-
 
 
 
 
 \begin{example}\rm
-An important example is $f\in \Delta_0(T)$, i.e., $f$ is a vertex. Without loss of generality, let $f = \{0\}$. Then $\bs n_{f\cup\{i\}}^f$ is a unit normal vector of edge $\{0,i\}$: $\bs t_{0i}$ or $\bs t_{i0}$ depending on the orientation. Its dual basis is $\{\bs n_{F_i}/(\bs n_{F_i}\cdot \bs t_{0i}), i=1, \ldots, n\}$. See Fig.~\ref{fig:normalbasis} (a).
+当 $f\in \Delta_0(T)$ 时，即 $f$ 为一个顶点。假设 $f=\{0\}$，则 $\bs n_{f\cup\{i\}}^f$ 是边 $\{0,i\}$ 的单位法向量，可取为 $\bs t_{0,i}$ 或 $\bs t_{i,0}$，取决于方向。其对偶基为 $\{\bs n_{F_i}/(\bs n_{F_i}\cdot \bs t_{0,i}), i=1, \ldots, d\}$. 见图~\ref{fig:normalbasis} (a)。
 \end{example}
 
 
 \begin{example}\rm
- Let $f = \{0,1\}$ be an edge of a tetrahedron. Then we have two bases of the normal plane $\mathscr N^f$: $\{\bs n_{F_2}, \bs n_{F_3}\}$ and $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$ They are dual to each other with an appropriate rescaling. See Fig.~\ref{fig:normalbasis} (b). 
+设 $f=\{0,1\}$ 为四面体中的一条棱，则其法向平面 $\mathscr N^f$ 有两组基：
+$\{\bs n_{F_2}, \bs n_{F_3}\}$ 与 $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$
+二者经过适当缩放后互为对偶。见图~\ref{fig:normalbasis} (b)。 
 \end{example}
 
 

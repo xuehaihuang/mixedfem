@@ -1,6 +1,7 @@
 % !TEX root = lecture.tex
 \chapter{Bernstein 多项式和 Lagrange 元几何分解}
 
+这一章内容取材于文献 \cite{ChenHuang2024a,ChenChenHuangWei2024}. 
 % We summarize the most important notation and integer indices in the beginning:
 % \begin{itemize}
 %  \item $\mathbb R^d: n$ is the dimension of the ambient Euclidean space and $n\geq 2$;
@@ -22,7 +23,7 @@ f ={\rm Convex}(\texttt{v}_{f(0)}, \ldots, \texttt{v}_{f(\ell)}) \in \Delta_{\el
 \[
 f^* ={\rm Convex}(\texttt{v}_{f^*(1)}, \ldots, \texttt{v}_{f^*(d-\ell)}) \in \Delta_{d- \ell-1}(T)
 \]
-是由不包含在 $f$ 中的顶点张成的 $(d- \ell-1)$ 维单纯形。关于 $f$ 和 $f^*$ 的图示，请参阅~\cite[Fig. 2]{Chen;Huang:2022FEMcomplex3D}。
+是由不包含在 $f$ 中的顶点张成的 $(d- \ell-1)$ 维单纯形。关于 $f$ 和 $f^*$ 的图示，请参阅~\cite[Fig. 2]{ChenHuang2024}。
 
 记 $F_{i}$ 为与顶点 $\texttt{v}_i$ 相对的 $(d-1)$ 维面，即 $F_i = \{i\}^*$。此处大写字母 $F$ 专用于表示 $T$ 的 $(d-1)$ 维面。对于较低维的子单纯形，我们有时采用更常规的记法。例如，顶点将记为 $\texttt{v}_i$，由 $\texttt{v}_i$ 和 $\texttt{v}_j$ 生成的边将记为 $\texttt{e}_{ij}$。
 
@@ -47,7 +48,7 @@ x^\alpha := x_1^{\alpha_1} \cdots x_d^{\alpha_d}, \qquad |\alpha| := \sum_{i=1}^
 \lambda^\alpha := \lambda_0^{\alpha_0} \cdots \lambda_d^{\alpha_d}, \quad \alpha \in \mathbb{N}^{0:d}.
 \]
 
-接下来引入单纯形格点集 \cite{Chen;Huang:2022FEMcomplex3D,ChenHuang2021Cmgeodecomp}（亦称主格~\cite{nicolaides1973class}）：$d$ 维 $r$ 阶单纯形格点集是一个指标和为 $r$ 的 $(d+1)$ 维非负整数指标集，即
+接下来引入单纯形格点集 \cite{ChenHuang2024,ChenHuang2021Cmgeodecomp}（亦称主格~\cite{Nicolaides1973}）：$d$ 维 $r$ 阶单纯形格点集是一个指标和为 $r$ 的 $(d+1)$ 维非负整数指标集，即
 \[
 \mathbb T^{d}_r = \left \{ \alpha = (\alpha_0, \alpha_1, \ldots, \alpha_d)\in\mathbb N^{0:d} \mid \alpha_0 + \alpha_1 + \ldots + \alpha_d = r \right \}.
 \]
@@ -84,7 +85,7 @@ b_f := \lambda_f = \lambda_{f(0)} \lambda_{f(1)} \cdots \lambda_{f(\ell)} \in \m
 
 
 \section{Lagrange 元几何分解}\label{sec:geodecompLagrange}
-这一节内容取材于文献 \cite{ChenHuang2024a,ChenChenHuangWei2024}. % 我们首先介绍 Lagrange 元的几何分解。
+% 我们首先介绍 Lagrange 元的几何分解。
 下述 Lagrange 元的几何分解最初在~\cite[(2.6)]{ArnoldFalkWinther2009} 中给出。有关该几何分解的示意，可参见~\cite[Fig. 2.1]{ArnoldFalkWinther2009}。对于 $0$ 维面（即顶点 $\texttt{v}$），约定
 $$
 \int_{\texttt{v}} u \dd s = u(\texttt{v}), \quad 1\in \mathbb P_r(\texttt{v})=\mathbb R.
