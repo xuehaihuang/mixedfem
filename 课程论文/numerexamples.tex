@@ -1,0 +1,320 @@
+%!TEX program=xelatex
+%\documentclass[11pt,CJK]{book}
+%\documentclass[11pt,a4paper]{book}
+\documentclass{book}
+\usepackage{beamerarticle}
+
+
+
+\usepackage{fontspec}
+%\setCJKmainfont{Songti SC Regular}
+%\setmainfont{Kaiti SC Regular}
+\setsansfont{Songti SC Regular}
+\setmainfont{Songti SC Regular}
+%\setmainfont{Times New Roman}
+\usepackage{ctexcap}
+\usepackage{enumerate}
+
+%\usepackage{beamerthemesplit}   % 使用split风格
+
+%\usepackage[colorlinks,bookmarksnumbered=true,linkcolor=black,citecolor=black]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=cyan,
+}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{color,xcolor}
+\usepackage{graphicx}
+\usepackage{manfnt}
+
+\usepackage{multicol,multienum}%多栏结构在文中用
+\usepackage{multirow}
+\usepackage{indentfirst} % 中文段落首行缩进
+
+
+\usepackage{mathdots} % for \iddots
+\usepackage{extarrows} % for \xlongequal
+
+%\usepackage{pmat} % 分块矩阵
+
+\usepackage{slashbox} % for \backslashbox
+\usepackage{cite}
+
+\usepackage{galois} % for \comp 复合函数小圆圈
+
+\usepackage{wasysym} % for permil 千分之一符号
+
+\usepackage{arcs}
+
+%\usepackage{mnsymbol}
+
+\usepackage{stmaryrd}
+
+\usepackage[all]{xy}
+
+%\usepackage{algorithm,algorithmic}
+\usepackage{algorithm, algorithmicx, algpseudocode}
+
+
+%\usepackage{ccmap}% 复制的中文不乱码
+
+\usepackage{chemarrow}
+
+%\usetikzlibrary{matrix}
+
+\usepackage{pgf, tikz}
+\usetikzlibrary{arrows, automata}
+\usepackage{eso-pic}
+
+
+%\usepackage{titletoc}
+\usepackage{titlesec}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           定制幻灯片---重定义字体、字号命令                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\song}{\CJKfamily{song}}    % 宋体   (Windows自带simsun.ttf)
+\newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体 (Windows自带simfs.ttf)
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体   (Windows自带simkai.ttf)
+\newcommand{\hei}{\CJKfamily{hei}}      % 黑体   (Windows自带simhei.ttf)
+\newcommand{\li}{\CJKfamily{li}}        % 隶书   (Windows自带simli.ttf)
+\newcommand{\you}{\CJKfamily{you}}      % 幼圆   (Windows自带simyou.ttf)
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\yichu}{\fontsize{32pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+\newcommand{\dint}{\displaystyle\int} 
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\newcommand{\var}{\operatorname{Var}}
+\DeclareMathOperator*{\cov}{Cov}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+
+
+
+%% 定义一些自选的模板，包括背景、图标、导航条和页脚等，修改要慎重
+%\beamertemplateshadingbackground{red!10}{structure!10}
+%\beamertemplatesolidbackgroundcolor{white!90!blue}
+%\beamertemplatetransparentcovereddynamic \beamertemplateballitem
+%\beamertemplatenumberedballsectiontoc
+
+\setbeamertemplate{theorems}[numbered]
+
+
+\pagestyle{plain} \topmargin -10mm \oddsidemargin 0mm
+\evensidemargin 0mm \textheight 225mm \textwidth 155mm
+\pagestyle{plain}
+\parindent 8mm
+\parskip 0mm
+\hyphenpenalty=1500 \flushbottom
+
+\begin{document}
+
+%======================= 标题名称中文化 ============================%
+\newtheorem{dingyi}{\hei 定义~}[section]
+\newtheorem{dingli}{\hei 定理~}[section]
+\newtheorem{yinli}[dingli]{\hei 引理~}
+\newtheorem{tuilun}[dingli]{\hei 推论~}
+\newtheorem{mingti}[dingli]{\hei 命题~}
+
+\newtheorem{defn}{\hei 定义~}[section]
+\newtheorem{thm}{\hei 定理~}[section]
+\newtheorem{lem}[thm]{\hei 引理~}
+\newtheorem{cor}[thm]{\hei 推论~}
+\newtheorem{proposition}[thm]{\hei 命题~}
+\newtheorem{property}[thm]{\hei 性质~}
+\newtheorem{remark}[thm]{\hei 注~}
+\newtheorem{exm}{\hei 例~}[section]
+\newtheorem{exmex}{\hei 例~}
+\newenvironment{sln}{\par\noindent\textbf{解}:}{}
+\newenvironment{prf}{\par\noindent\textbf{证明}:}{}
+\newtheorem{lianxi}{练习~}%[section]
+\renewcommand{\proofname}{证明}
+
+
+% \titlecontents{section}[2em]{\vspace{.25\baselineskip}}
+%     {\S\thecontentslabel\quad}{}
+%     {\hspace{.5em}\titlerule*[10pt]{$\cdot$}\contentspage}
+
+%\titleformat{\chapter}{\raggedright\Huge\bfseries}{第\,\thechapter\,章}{1em}{}
+% \titleformat{\chapter}{\raggedright\Huge\bfseries}{数值实验\,\thechapter\,}{1em}{}
+\titleformat{\chapter}{\raggedright\Huge\bfseries}{}{1em}{}
+
+\makeatletter
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\renewcommand{\thedefn}{\arabic{section}.\arabic{defn}}
+\renewcommand{\thethm}{\arabic{section}.\arabic{thm}}
+\renewcommand{\thelem}{\arabic{section}.\arabic{lem}}
+\renewcommand{\thecor}{\arabic{section}.\arabic{cor}}
+\renewcommand{\theproposition}{\arabic{section}.\arabic{proposition}}
+\renewcommand{\theexm}{\arabic{section}.\arabic{exm}}
+\renewcommand{\theremark}{\arabic{section}.\arabic{remark}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 选择题选项对齐格式的自定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%分一行.
+\newcommand{\onech}[4]{
+\makebox[92pt][l]{(A) #1} \hfill
+\makebox[92pt][l]{(B) #2} \hfill
+\makebox[92pt][l]{(C) #3} \hfill
+\makebox[92pt][l]{(D) #4}\\}
+%分两行.
+\newcommand{\twoch}[4]{
+\indent\makebox[110pt][l]{\qquad(A) #1} \hfill\makebox[220pt][l]{(B) #2}\\
+\indent\makebox[110pt][l]{\qquad(C) #3} \hfill\makebox[220pt][l]{(D) #4}\\}
+%分四行.
+\newcommand{\fourch}[4]{
+\indent\makebox[262pt][l]{(A) #1} \newline
+\indent\makebox[262pt][l]{(B) #2} \newline
+\indent\makebox[262pt][l]{(C) #3} \newline
+\indent\makebox[262pt][l]{(D) #4} \newline}
+
+\def\comp{\ensuremath\mathop{\scalebox{.6}{$\circ$}}}
+\newcommand\arccot{\mathop{\mathrm{arccot}}}
+\newcommand\sgn{\mathop{\mathrm{sgn}}}
+\newenvironment{xenumerate}[1][]
+{\enumerate[(1)]}{\endenumerate}
+
+
+
+%-------------------------------------------------------------------
+\newcommand\BackgroundPicture{%
+\put(0,0){%
+    \parbox[b][\paperheight]{\paperwidth}{%
+      \vfill
+      \centering%
+\begin{tikzpicture}[remember picture,overlay]
+\node [rotate=60,scale=4,text opacity=0.1] at (-2,+2) {黄学海};
+\node [rotate=60,scale=4,text opacity=0.1] at (current page.center) {上海财经大学数学学院};
+%\node [rotate=60,scale=4,text opacity=0.06] at (-2,+2) {黄学海};
+%\node [rotate=60,scale=4,text opacity=0.06] at (current page.center) {温州大学数学与信息科学学院};
+\end{tikzpicture}%
+      \vfill
+    }}}
+%-------------------------------------------------------------------
+
+
+
+
+\title{混合有限元方法数值实验}
+\author{黄学海  \\{\small 上海财经大学数学学院}
+\\{\small E-mail: huang.xuehai@sufe.edu.cn}
+\\
+\\
+\\
+\\
+%2020-2021学年秋\\%16信息与计算
+ }
+
+\date{}
+\vskip 0.5cm
+\maketitle
+
+
+\cleardoublepage
+%\renewcommand\contentsname{目录}
+\pdfbookmark[1]{目录}{anchor name}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+
+%\AddToShipoutPicture{\BackgroundPicture}
+
+
+
+\phantomsection
+%\chapter{习题~\thechapter}
+\chapter{数值试验}
+\input{poissonfem.tex}
+\cleardoublepage
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{课程论文}
+% \input{coursepaperfem.tex}
+% \cleardoublepage
+
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{函数插值}
+% \input{interpolation1.tex}
+% \cleardoublepage
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{快速傅立叶变换(FFT)}
+% % \input{interpolationrunge.tex}
+% \input{fft.tex}
+% \cleardoublepage
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{最佳一致逼近多项式算法}
+% % \input{interpolationrunge.tex}
+% \input{approximationmaxnorm.tex}
+% \cleardoublepage
+
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{曲线拟合}
+% \input{fittingrunge.tex}
+% \cleardoublepage
+
+
+% \phantomsection
+% %\chapter{习题~\thechapter}
+% \chapter{数值积分}
+% \input{quadrature.tex}
+% \cleardoublepage
+
+%\pdfbookmark[0]{参考文献}{reference}
+%\nocite{*}
+
+% \phantomsection
+% \addcontentsline{toc}{chapter}{参考文献}
+% \bibliographystyle{abbrv}
+% \bibliography{refs}
+% \cleardoublepage
+
+
+
+
+
+\end{document}

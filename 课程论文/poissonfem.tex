@@ -1,0 +1,36 @@
+
+设$\Omega=(0,1)^2$为平面上的单位矩形. 考虑Poisson方程
+$$
+\begin{cases}
+-\Delta u=f\quad  \textrm{在 }\, \Omega \textrm{ 内},\\
+u|_{\partial \Omega}=0.
+\end{cases}
+$$
+设真解 $u=\sin(\pi x)\sin(\pi y)$.
+
+在一致网格剖分上分别用
+%线性Lagrange元, 二次Lagrange元和非协调线性元
+线性 BDM 元和二次 BDM 元方法
+数值求解上述Poisson方程, 进行数值模拟, 列表给出误差 $\|u-u_h\|$, $\|Q_hu-u_h\|$, $\|\nabla_h(u-u_h)\|$, $\|\nabla_h(Q_hu-u_h)\|$ 和 $\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|$ 关于 $h$ 的收敛阶，
+并画出这些误差关于 $h$ 的收敛阶的图.
+
+\vskip1cm
+\noindent{\bf 注}: 
+% 提交电子版, 截止时间：12月31日.
+
+\begin{enumerate}[(1)]
+\item 报告组成: 原理分析, 程序代码, 数值实验结果及其分析总结.
+\item 可以采用有限元软件包编写, 比如 iFEM (https://www.math.uci.edu/~chenlong/programming.html), MFEM (https://mfem.org/), FEALPy (https://github.com/weihuayi/fealpy); 也可以完全自己编写.
+
+\item 提交电子版, 截止时间：12月31日.
+\end{enumerate}
+
+
+
+%\vskip1cm
+%\noindent{\bf 实验报告要求}
+%\begin{enumerate}[(1)]
+%\item 报告组成: 原理分析, 算法设计, 程序代码, 数值实验结果及其分析总结.
+%
+%\item 打印上交, 上交时间为12周周三.
+%\end{enumerate}
