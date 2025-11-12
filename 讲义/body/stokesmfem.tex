@@ -140,9 +140,9 @@
 存在一个有界线性算子 $\Pi_h :H_0^{1}(\Omega; \mathbb{R}^{d})\rightarrow V_h$满足
 \begin{align}
  (\div(\boldsymbol{v}-\Pi_h\boldsymbol{v}), q) &=0,\qquad\quad  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}),q\in P_{h} ,\label{k1}\\
- \|\Pi_h \boldsymbol{v}\|_{1} &\lesssim\|\boldsymbol{v}\|_{1}, \quad\;  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).\label{k2}
+ \|\Pi_h \boldsymbol{v}\|_{1} &\leq C\|\boldsymbol{v}\|_{1}, \quad\;  \boldsymbol{v}\in H_0^{1}(\Omega; \mathbb{R}^{d}).\label{k2}
 \end{align}
-算子$\Pi_h$称为Fortin算子.
+算子$\Pi_h$称为Fortin算子. 这里, 正常数 $C$ 可能与网格剖分 $\mathcal{T}_h$ 有关.
 \end{lemma}
 \begin{prf}
 先证明存在Fortin算子意味着离散inf-sup 条件(\ref{u4})成立. 对于$q\in P_h$, 由inf-sup 条件(\ref{BT2})和\eqref{k1}-\eqref{k2} 可得
@@ -501,7 +501,7 @@ $\Pi_{h}\boldsymbol{v}=I_h^{\rm SZ}\boldsymbol{v}
 \begin{equation*}
 \begin{cases}
 \mathbb P_2(T;\mathbb R^3)+b_T\mathbb P_{0}(T;\mathbb R^3)+\mathrm{span}\{b_F\boldsymbol{n}_F, F\in\partial T\}, & k=2,\\
-\mathbb P_k(T;\mathbb R^3)+b_T\mathbb P_{k-2}(T;\mathbb R^3), & k\geq2.	
+\mathbb P_k(T;\mathbb R^3)+b_T\mathbb P_{k-2}(T;\mathbb R^3), & k\geq3.	
 \end{cases}
 \end{equation*}
 自由度为
@@ -644,7 +644,7 @@ P_{h}&:=\{q\in H^{1}(\Omega)\cap L_{0}^2(\Omega): q|_T\in \mathbb P_{k-1}(T), T\
 每一个$d$-维单形$T\in\mathcal T_h$至少有一个顶点位于开区域$\Omega$内部. 
 \end{center}
 
-在此网格假设下，Taylor-Hood元满足离散inf-sup条件\eqref{u4}，其证明相对复杂，参考\cite{BoffiBrezziFortin2013,Boffi1994,Boffi1997,GiraultScott2003,Chen2014,DieningStornTscherpel2022}. 这里给出文献\cite{DieningStornTscherpel2022}中任意维最低次Taylor-Hood元离散inf-sup条件\eqref{u4}的证明, 关键之处是$\nabla V_{h}$为最低次棱元的子空间.
+在此网格假设下，Taylor-Hood元满足离散inf-sup条件\eqref{u4}，其证明相对复杂，参考\cite{BoffiBrezziFortin2013,Boffi1994,Boffi1997,GiraultScott2003,Chen2014,DieningStornTscherpel2022}. 这里给出文献\cite{DieningStornTscherpel2022}中任意维最低次Taylor-Hood元离散inf-sup条件\eqref{u4}的证明, 关键之处是$\nabla P_{h}$为最低次棱元的子空间.
 \begin{lemma}
 设$k=2$, Taylor-Hood元满足离散inf-sup条件\eqref{u4}.
 \end{lemma}
@@ -973,7 +973,7 @@ b_{T}^{\rm NC}=2-(d+1)(\lambda_0^2+\lambda_1^2+\cdots+\lambda_d^2).
 设$\boldsymbol{v}=\boldsymbol{v}_1+\boldsymbol{v}_2\in V(T)$满足\eqref{divfreencfmDoFs}中所有自由度为零，其中$\boldsymbol{v}_1\in V^{\div}(T)$，$\boldsymbol{v}_2\in \div(b_T\mathbb P_1(T;\mathbb K))$. 易知$\div\boldsymbol{v}_2=0$, 以及$(\boldsymbol{v}_2\cdot\boldsymbol{n})|_{\partial T}=0$.
 因此$\div\boldsymbol{v}=\div\boldsymbol{v}_1$, 以及$(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=(\boldsymbol{v}_1\cdot\boldsymbol{n})|_{\partial T}$. 借助分部积分，由自由度\eqref{divfreencfmDoFs1}和\eqref{divfreencfmDoFs3}可推
 \begin{equation*}
-(\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{v}, q)_{\partial T}-(\boldsymbol{v}, \nabla q)_T=0,\quad q\in\mathbb P_1(T).
+(\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{n}, q)_{\partial T}-(\boldsymbol{v}, \nabla q)_T=0,\quad q\in\mathbb P_1(T).
 \end{equation*}
 于是$\boldsymbol{v}_1\in\mathbb P_1(T;\mathbb R^d)$且满足$(\boldsymbol{v}_1\cdot\boldsymbol{n})|_{\partial T}=0$. 由BDM元的唯一可解性知$\boldsymbol{v}_1=0$. 故$\boldsymbol{v}\in \div(b_T\mathbb P_1(T;\mathbb K))$.
 
@@ -1143,6 +1143,975 @@ $\dim\mathbb P_1^r(T;\mathbb K)=d^2-1$.
 三维情形$d=3$，约化向量有限元形函数空间为$V^{\div}(T)\oplus\curl(b_T\mathbb P_1^r(T;\mathbb R^3))$, 其中$\mathbb P_1^r(T;\mathbb R^3):=\mathbb P_1(T;\mathbb R^3)/{\rm span}\{(3\lambda_i-1)\nabla\lambda_i, i=0,1,2,3\}$, 与文献\cite{XieXuXue2008}中的相同.
 
 % 在三维情形$d=3$，文献\cite{XieXuXue2008}中的约化向量有限元形函数空间为$V^{\div}(T)\oplus\curl(b_T\mathbb P_1^r(T;\mathbb R^3))$, 其中$\mathbb P_1^r(T;\mathbb R^3):=\mathbb P_1(T;\mathbb R^3)/{\rm span}\{(3\lambda_i-1)\nabla\lambda_i, i=0,1,2,3\}$.
+
+\section{质量守恒的超收敛混合有限元方法}
+
+本节提出一类超收敛且无散度（质量守恒）的有限元方法. 速度和压力分别采用 $H(\mathrm{div})$ 协调向量元和分片间断多项式进行离散化. 离散形式引入了一种弱偏梯度算子，该算子由切向-法向连续的无迹张量有限元构建. 
+该格式具有内蕴稳定性，无需额外稳定化处理. 
+
+
+
+\subsection{有限元空间}
+
+\subsubsection{速度场的有限元空间}
+
+我们采用 $H(\div)$ 协调有限元对速度场 $\boldsymbol{u}$ 进行离散化. 
+对于单形单元 $T$ 和整数 $k \ge 0$、$\ell \ge -1$，局部形函数空间定义为
+\begin{equation*}
+\mathbb V_{k,\ell}^{\div}(T)
+:= \mathbb P_{k}(T;\mathbb R^d) + \mathbb H_{\ell}(T)\boldsymbol{x}, 
+\quad \ell = k \text{ 或 }\, k - 1.
+\end{equation*}
+当 $\ell \ge 0$ 时，自由度（DoFs）定义为（参见~\cite[Section~3]{ChenHuang2022}）
+\begin{subequations}\label{eq:HdivDoF}
+\begin{align}
+(\boldsymbol v\cdot\boldsymbol n, q)_F, & \quad q\in\mathbb P_{k}(F), \quad F\in\mathcal F(T), \label{Hdivfemdof1}\\
+(\boldsymbol v, \boldsymbol q)_T, & \quad \boldsymbol q\in \grad\mathbb P_{\ell}(T)\oplus
+\{\boldsymbol q\in \mathbb P_{k-1}(T;\mathbb R^d): \boldsymbol q\cdot\boldsymbol x=0\}. \label{Hdivfemdof2}
+\end{align}
+\end{subequations}
+当 $\ell = k$ 时，该空间对应 Raviart--Thomas (RT) 元~\cite{RaviartThomas1977,Nedelec1980}，其内部矩 \eqref{Hdivfemdof2} 张成 $\mathbb{P}_{k-1}(T;\mathbb{R}^d)$；
+当 $\ell = k-1$ 时，则对应 Brezzi--Douglas--Marini (BDM) 元~\cite{BrezziDouglasMarini1985,Nedelec1986}，其内部矩形成严格子空间. 
+
+
+对应的全局有限元空间定义为
+\begin{align*}
+\mathbb V_{k,\ell}^{\div}(\mathcal T_h)
+&:= \{\boldsymbol v_h\in H(\div,\Omega): 
+\boldsymbol v_h|_T \in \mathbb V_{k,\ell}^{\div}(T)
+\text{ 对所有 }\, T\in\mathcal T_h\},\\
+\mathring{\mathbb V}_{k,\ell}^{\div}(\mathcal T_h)
+&:= \mathbb V_{k,\ell}^{\div}(\mathcal T_h)\cap H_0(\div,\Omega).
+\end{align*}
+为简便起见，后文中将省略 $\mathcal T_h$. 
+
+有限元空间 $\mathring{\mathbb V}_{k,\ell}^{\div}$ 可用于离散化 Stokes 方程中的散度算子，但由于缺少切向连续性，不适合用于拉普拉斯项的离散化. 为了施加切向连续性，我们面集合 $\mathcal{F}_h$ 上的有限元空间用于离散速度场在面集合 $\mathcal{F}_h$ 上的切向分量：
+\begin{equation*}
+\Lambda_k = \mathbb P_k(\mathcal F_h; \mathbb R^{d-1}), \quad  
+\mathring{\Lambda}_k = \mathbb P_k(\mathring{\mathcal F}_h; \mathbb R^{d-1}) 
+\end{equation*}
+
+对于每个单元 $T \in \mathcal{T}_h$, 记 $I_{(k,\ell),T}^{\rm div}: H^1(T;\mathbb{R}^d) \to \mathbb V_{k,\ell}^{\div}(T)$  
+为由~\eqref{eq:HdivDoF} 中给定自由度定义的局部插值算子. 
+相应的全局插值算子
+ $I_{k,\ell}^{\div}: H^1(\mathcal{T}_h;\mathbb{R}^d)\to L^2(\Omega;\mathbb R^d)$ 定义为
+\[
+(I_{k,\ell}^{\div}\boldsymbol{v})|_T := I_{(k,\ell),T}^{\rm div}(\boldsymbol{v}|_T), 
+\quad \forall\, T \in \mathcal{T}_h, \ \boldsymbol{v} \in H^1(\mathcal{T}_h; \mathbb{R}^d).
+\] 
+由此，对于任意 $\boldsymbol{v}\in H^1(\Omega;\mathbb R^d)$，有
+$I_{k,\ell}^{\div}\boldsymbol{v}\in \mathbb V_{k,\ell}^{\div}$. 
+
+对于 $T\in\mathcal{T}_h$ 以及 $\boldsymbol{v}\in H^m(T;\mathbb{R}^d)$、$1\le m\le k+1$，
+该插值算子满足以下误差估计：
+\begin{equation}\label{eq:Ihdivprop2}
+\|\boldsymbol{v}-I_{(k,\ell),T}^{\rm div}\boldsymbol{v}\|_{T}
++ h_T|\boldsymbol{v}-I_{(k,\ell),T}^{\rm div}\boldsymbol{v}|_{1,T}
+\lesssim h_T^m|\boldsymbol{v}|_{m,T}.
+\end{equation}
+
+我们有如下交换性质（参见~\cite{ArnoldFalkWinther2006}）：
+\begin{equation}\label{eq:Ihdivprop1}
+\div\!\big(I_{k,\ell}^{\div}\boldsymbol{v}\big)
+= Q_{\ell}\big(\div\boldsymbol{v}\big),
+\qquad \forall\,\boldsymbol{v}\in H^1(\Omega;\mathbb{R}^d),
+\end{equation}
+这意味着对于任意 $\boldsymbol{v}\in H^1(\Omega;\mathbb{R}^d)\cap\ker(\div)$，有 $\div\!\big(I_{k,\ell}^{\div}\boldsymbol{v}\big)=0$.  
+
+与 ${\rm BDM}_k$ 空间相比，${\rm RT}_k$ 空间中额外的内部矩仅用于丰富散度算子的值域. 
+因此，对于任意 $\boldsymbol{v}\in H^1(\Omega;\mathbb{R}^d)\cap\ker(\div)$ 且 $k\ge 1$，有
+\begin{equation*}
+I_{k,k}^{\div}\boldsymbol{v}
+= I_{k,k-1}^{\div}\boldsymbol{v}
+\in \mathbb V_{k,k-1}^{\div}\cap \ker(\div).
+\end{equation*}
+
+\begin{lemma}
+成立如下范数等价关系：
+\begin{equation}
+\label{eq:discretdevgradnormequiv11}
+\begin{aligned}
+|\boldsymbol{v}_h|_{1,h}^2&\eqsim \|\grad_h\boldsymbol{v}_h\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\boldsymbol{v}_h]\!]\|_{F}^2 \\
+\notag
+&\eqsim \|\dev\grad_h\boldsymbol{v}_h\|^2  + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F\boldsymbol{v}_h]\!]\|_{F}^2
+\end{aligned}
+\end{equation}
+对所有 $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{k,\ell}^{\div}$ 成立. 这意味着 $|\cdot|_{1,h}$ 是空间 $\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 上的范数. 
+\end{lemma}
+\begin{proof}
+范数等价关系 \eqref{eq:discretdevgradnormequiv11} 可直接由 \eqref{eq:discretdevgradnormequiv} 推得. 
+\end{proof}
+
+
+\subsubsection{压力场的有限元空间}
+在离散格式中，我们采用分片多项式空间 $\mathbb{P}_{\ell}(\mathcal{T}_h)$ 来近似压力 $p$. 
+由交换性质 \eqref{eq:Ihdivprop1} 可得
+\begin{equation*}
+\div\mathring{\mathbb{V}}_{k,\ell}^{\div} = \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R.
+\end{equation*}
+
+
+
+\subsubsection{伪应力场的有限元空间}
+对于整数 $k \ge 0$，局部形函数空间为 $\mathbb P_{k}(T;\mathbb T)$，其自由度定义为
+\begin{subequations}\label{eq:curldivdof}
+\begin{align}\label{eq:curdivfemdof1}
+\int_{F} \boldsymbol{t}_i^{\intercal}\boldsymbol{\tau}\boldsymbol{n}\, q \, \mathrm{d}S, 
+& \quad q \in \mathbb P_{k}(F), \ i = 1,2,\ldots, d-1,\ F\in\mathcal F(T), \\
+\label{eq:curdivfemdof2}
+\int_{T} \boldsymbol{\tau}: \boldsymbol{q} \, \mathrm{d}x, 
+& \quad \boldsymbol{q} \in \mathbb{P}_{k-1}(T; \mathbb{T}).
+\end{align}
+\end{subequations}
+此无迹张量有限元的唯一可解性可参见文献~\cite{ChenHuangZhang2025,GopalakrishnanLedererSchoeberl2020}. 
+对应的全局有限元空间为
+\begin{align*}
+\Sigma_{k}^{\rm tn}(\mathcal T_h)
+:= \{\boldsymbol{\tau}_h \in \mathbb P_{k}(\mathcal{T}_h;\mathbb T) :
+\text{ 所有 \eqref{eq:curldivdof} 中的自由度都是单值的}\}.
+\end{align*}
+空间 $\Sigma_{k}^{\rm tn}$ 中的函数在切向-法向方向上连续，即对所有 $F \in \mathring{\mathcal F}_h$，有
+\[
+[\Pi_F\boldsymbol{\sigma}\boldsymbol{n}]_F = 0.
+\]
+
+
+对于每个单元 $T \in \mathcal{T}_h$，记
+$I_T^{\rm tn}: H^1(T;\mathbb{T}) \to \mathbb{P}_{k}(T; \mathbb{T})$
+为由自由度~\eqref{eq:curldivdof} 定义的局部插值算子. 
+对应的全局插值算子
+$I_k^{\rm tn}: H^1(\mathcal{T}_h;\mathbb{T}) \to \mathbb P_{k}(\mathcal{T}_h;\mathbb T)$
+定义为
+\[
+(I_k^{\rm tn}\boldsymbol{\tau})|_T := I_T^{\rm tn}(\boldsymbol{\tau}|_T), 
+\quad \forall\, T \in \mathcal{T}_h, \ \boldsymbol{\tau} \in H^1(\mathcal{T}_h; \mathbb{T}).
+\] 
+于是，对于任意 $\boldsymbol{\tau}\in H^1(\Omega;\mathbb T)$，有 $I_k^{\rm tn}\boldsymbol{\tau}\in \Sigma_{k}^{\rm tn}$. 
+
+对于任意 $T\in\mathcal{T}_h$ 以及 $\boldsymbol{\tau}\in H^m(T;\mathbb{T})$，$1\le m\le k+1$，有标准插值误差估计：
+\begin{equation}\label{eq:Ihtnprop2}
+\|\boldsymbol{\tau}-I_T^{\rm tn}\boldsymbol{\tau}\|_{T}
++ h_T|\boldsymbol{\tau}-I_T^{\rm tn}\boldsymbol{\tau}|_{1,T}
+\lesssim h_T^m|\boldsymbol{\tau}|_{m,T}.
+\end{equation}
+
+% We now prove the following important commutative property.
+% \begin{lemma}\label{lm:interpolant}
+% For $\bs \tau \in H^1(\Omega;\mathbb T)$, we have 
+% \begin{equation}\label{eq:divinterpolant}
+% (\div \bs \tau, \bs v_h) = (\div_w I_k^{\rm tn} \bs \tau, \bs v_h)_{0,h}, \quad \forall\,\bs v_h\in \mathring{\mathbb V}_{k,k-1}^{\div}.
+% \end{equation}
+% \end{lemma}
+% \begin{proof}
+% Notice that $\dev\grad \bs v_h\in \Sigma_{k-1}^{-1}(\mathbb T)$ and $[\Pi_F\bs v_h]\in \mathbb P_{k}(F;\mathbb R^{d-1})$. So
+% \begin{align*}
+% (\div_w I_k^{\rm tn} \bs \tau, \bs v_h)_{0,h} &= - \sum_{T\in\mathcal{T}_h}(I_k^{\rm tn} \bs \tau, \dev\grad\boldsymbol{v}_h)_T + \sum_{F\in\mathcal{F}_h}(\Pi_FI_k^{\rm tn} \bs \tau \boldsymbol{n}, [\Pi_F\boldsymbol{v}_h])_F\\
+% &= - \sum_{T\in\mathcal{T}_h}(\bs \tau, \dev\grad\boldsymbol{v}_h)_T + \sum_{F\in\mathcal{F}_h}(\Pi_F\bs \tau \boldsymbol{n}, [\Pi_F\boldsymbol{v}_h])_F\\
+% & = (\div \bs \tau, \bs v_h).
+% \end{align*}
+% \end{proof}
+
+% 弱散度算子 $\div_{w}$ 定义了 $\Sigma_k^{\rm tn} \times \mathring{\mathbb V}_{k,\ell}^{\div}$ 上的双线性形式：
+% \begin{equation*}
+% \begin{aligned}
+% (\div_{w}\boldsymbol{\sigma}, \boldsymbol{v})_{0,h}
+% := (\div_{w}\boldsymbol{\sigma}, E\boldsymbol{v})_{0,h}
+% &= \sum_{T\in\mathcal{T}_h}(\div\boldsymbol{\sigma}, \boldsymbol{v})_T
+% - \sum_{F\in\mathring{\mathcal{F}}_h}([\boldsymbol{n}^{\intercal}\boldsymbol{\sigma}\boldsymbol{n}], \boldsymbol{n}\cdot\boldsymbol{v})_F\\
+% &= - \sum_{T\in\mathcal{T}_h}(\boldsymbol{\sigma}, \dev\grad\boldsymbol{v})_T
+% + \sum_{F\in\mathcal{F}_h}(\Pi_F\boldsymbol{\sigma}\boldsymbol{n}, [\Pi_F\boldsymbol{v}])_F.
+% \end{aligned}
+% \end{equation*}
+
+% \begin{remark}\rm
+% The bilinear form $(\div_{w}\cdot, \cdot)_{0,h}$ defines a mapping, still denoted by $\div_w: \Sigma_k^{\rm tn} \to (\mathring{\mathbb V}_{k,\ell}^{\div})'$. 
+% With the inner product $(\cdot, \cdot)_{0,h}$, we identify $\mathring{M}_{k-1,k}^{-1}(\mathbb R^d)$ with its dual.  
+% Through the embedding $E$, we further identify $\mathring{\mathbb V}_{k,\ell}^{\div} \cong E(\mathring{\mathbb V}_{k,\ell}^{\div})$ with its dual,  
+% and hence can write the mapping as
+% \[
+% \div_{w}: \Sigma_k^{\rm tn} \to \mathring{\mathbb V}_{k,\ell}^{\div}.
+% \]
+% \end{remark}
+
+\subsection{弱偏梯度算子}
+
+为给出混合有限元方法，引入弱偏梯度算子
+$$
+\dev \grad_w: H^1(\mathcal{T}_h;\mathbb{R}^d)\times L^2(\mathcal{F}_h;\mathbb R^{d-1}) \to \mathbb{P}_{k}(\mathcal{T}_h; \mathbb{T}),
+$$ 
+定义如下: 对于任意 $(\boldsymbol{v}, \boldsymbol{\mu})\in H^1(\mathcal{T}_h;\mathbb{R}^d)\times L^2(\mathcal{F}_h;\mathbb R^{d-1})$, $\dev \grad_w(\boldsymbol{v}, \boldsymbol{\mu})\in \mathbb{P}_{k}(\mathcal{T}_h; \mathbb{T})$ 在每个单元 $T\in\mathcal{T}_h$ 上由下式确定：
+\begin{equation*}
+(\dev \grad_w(\boldsymbol{v}, \boldsymbol{\mu}), \boldsymbol{\tau})_T=-(\boldsymbol{v},\div\boldsymbol{\tau})_T+(\boldsymbol{n}\cdot\boldsymbol{v},\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}+(\boldsymbol{\mu}, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T},\quad \forall\,\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T}).
+\end{equation*}
+应用分部积分可得
+\begin{equation*}
+(\dev \grad_w(\boldsymbol{v}, \boldsymbol{\mu}), \boldsymbol{\tau})_T=(\dev \grad\boldsymbol{v},\boldsymbol{\tau})_T - (\Pi_F\boldsymbol{v}-\boldsymbol{\mu}, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T},\quad \forall\,\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T}).
+\end{equation*}
+
+% 我们将证明如下交换性质：
+% \begin{equation}\label{eq:Qkgrad}
+% Q_{k}^{\rm tn}\dev \grad = \dev\grad_w I_{k,k}^{\div},
+% \end{equation}
+% 其中 $Q_k^{\rm tn}: L^2(\Omega; \mathbb T)\to \Sigma_{k}^{\rm tn}$ 表示 $L^2$ 投影算子. 
+
+
+% \begin{lemma}\label{lm:devinterpolant}
+% 对于任意 $\boldsymbol{u}\in H_0^1(\Omega; \mathbb R^d)$，有
+% \begin{equation}\label{eq:devinterpolant}
+% (\dev \grad \boldsymbol{u}, \boldsymbol{\tau}_h) 
+% =  (\dev\grad_w I_{k,k}^{\div} \boldsymbol{u}, \boldsymbol{\tau}_h), 
+% \quad \forall\,\boldsymbol{\tau}_h\in \Sigma_k^{\rm tn}.
+% \end{equation}
+% \end{lemma}
+% \begin{proof}
+% 由于 $\div(\bs \tau_h|_T)\in \mathbb P_{k-1}(T;\mathbb R^d)$，且 $[\bs n^{\intercal}\bs \tau_h\bs n]|_F\in \mathbb P_k(F)$，我们有
+% \begin{align*}
+% (\dev \grad \bs u, \bs \tau_h) &= -\sum_{T\in\mathcal{T}_h} (\bs u, \div \bs \tau_h)_T + \sum_{F\in\mathring{\mathcal{F}}_h}(\bs u\cdot \bs n, [\bs n^{\intercal}\bs \tau_h\bs n])_F,\\
+%  &= -\sum_{T\in\mathcal{T}_h} (I_{k,k}^{\div} \bs u, \div \bs \tau_h)_T + \sum_{F\in\mathring{\mathcal{F}}_h}(I_{k,k}^{\div} \bs u\cdot \bs n, [\bs n^{\intercal}\bs \tau_h\bs n])_F \\
+%  &= (\dev\grad_w I_{k,k}^{\div} \bs u, \bs \tau_h).
+% \end{align*}
+% \end{proof}
+
+\begin{lemma}\label{lm:weakdevgrad}
+对于 $\boldsymbol{v}\in H^1(\Omega;\mathbb R^d)$ 和 $\boldsymbol{\mu}\in L^2(\mathcal{F}_h;\mathbb R^{d-1})$，有
+\begin{equation}\label{eq:weakdevgradcommu}
+\dev \grad_w(I_{k,k}^{\div}\boldsymbol{v},\, Q_{k,\mathcal{F}_h}\boldsymbol{\mu}) 
+= \dev \grad_w(\boldsymbol{v},\, \boldsymbol{\mu}),
+\end{equation}
+其中 $Q_{k,\mathcal{F}_h}$ 是从 $L^2(\mathcal{F}_h;\mathbb R^{d-1})$ 到 $\Lambda_k$ 的 $L^2$ 正交投影算子. 
+\end{lemma}
+\begin{proof}
+根据算子 $\dev \grad_w$ 的定义，对于任意 $\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T})$ 和 $T\in\mathcal{T}_h$，有
+\begin{align*}
+&\quad\; (\dev \grad_w(I_{k,k}^{\div}\boldsymbol{v}, Q_{k,\mathcal{F}_h}\boldsymbol{\mu}), \boldsymbol{\tau})_T \\
+&=-(I_{k,k}^{\div}\boldsymbol{v},\div\boldsymbol{\tau})_T+(\boldsymbol{n}\cdot(I_{k,k}^{\div}\boldsymbol{v}),\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}+(\boldsymbol{\mu}, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T}.
+\end{align*}
+由插值算子 $I_{k,k}^{\div}$ 的定义，即可得到 \eqref{eq:weakdevgradcommu}. 
+\end{proof}
+
+
+为保证上述等式成立，$\mathrm{RT}_k$ 空间是必要的，因为其内部矩（参见~\eqref{Hdivfemdof2}）能够完全覆盖 $\div \boldsymbol{\tau}_h$ 的多项式空间 $\mathbb P_{k-1}(T;\mathbb R^d)$. 
+然而，对于 $\mathrm{BDM}_k$ 空间 $\mathbb V_{k,k-1}^{\div}$，其内部矩条件不足以满足该要求，
+因此等式~\eqref{eq:weakdevgradcommu} 对 $I_{k,k-1}^{\div}$ 不再成立. 
+
+
+\subsection{混合有限元方法}
+
+% 为此，我们定义**弱偏应变梯度算子**
+% $$
+% \dev \grad_w: H^1(\mathcal{T}_h;\mathbb{R}^d)\times L^2(\mathcal{F}*h;\mathbb R^{d-1}) \to \mathbb{P}*{k}(\mathcal{T}_h; \mathbb{T})
+% $$
+% 其定义如下：对于任意 $(\boldsymbol{v}, \boldsymbol{\mu})\in H^1(\mathcal{T}_h;\mathbb{R}^d)\times L^2(\mathcal{F}_h;\mathbb R^{d-1})$，令 $(\dev \grad)*w(\boldsymbol{v}, \boldsymbol{\mu})\in \mathbb{P}*{k}(\mathcal{T}_h; \mathbb{T})$ 在每个单元 $T\in\mathcal{T}_h$ 上由下式确定：
+% \begin{equation*}
+% (\dev \grad_w(\boldsymbol{v}, \boldsymbol{\mu}), \boldsymbol{\tau})_T
+% = -(\boldsymbol{v},\div\boldsymbol{\tau})_T
+
+% * (\boldsymbol{n}\cdot\boldsymbol{v}, \boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}
+% * (\boldsymbol{\mu}, \Pi_F\boldsymbol{\tau}\boldsymbol{n})*{\partial T},
+%   \end{equation*}
+%   其中 $\boldsymbol{\tau}\in \mathbb{P}*{k}(T;\mathbb{T})$. 
+
+
+
+借助算子 $\dev \grad_w$, 我们为 Stokes 方程~\eqref{eq-Stokes2} 建立如下混合有限元格式:  
+找 $\boldsymbol{u}_h\in \mathring{\mathbb{V}}_{k,\ell}^{\div}$, 
+$\boldsymbol{\lambda}_h\in\mathring{\Lambda}_k$, 和 
+$p_h\in\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$, 
+其中 $k \ge 0$ and $\ell\in\{k,\,k-1\}$, 使得
+\begin{subequations}\label{distribustokesfemWG}
+\begin{align}
+\label{distribustokesfemWG1}
+(\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h),\, 
+\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h))
++ (\div\boldsymbol{v}_h,\, p_h)
+&= (\boldsymbol{f},\, \boldsymbol{v}_h), \\
+\label{distribustokesfemWG2}
+(\div\boldsymbol{u}_h,\, q_h) &= 0,
+\end{align}
+\end{subequations}
+对所有
+$\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{k,\ell}^{\div}$，
+$\boldsymbol{\mu}_h\in\mathring{\Lambda}_k$，以及
+$q_h\in\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$ 均成立.
+
+在最低阶情况下，即 $k=0$ 且 $\ell=-1$，速度使用 $H(\div)$ 协调的分片常数向量空间 $\mathbb V_{(0,-1), h}^{\div}=\mathbb P_0(\mathcal{T}_h;\mathbb R^d)\cap H_0(\div,\Omega)$ 近似，压力则使用零空间. 这意味着离散速度 $\boldsymbol{u}_h$ 自动满足无散度条件. 
+因此，混合方法退化为：寻找
+$\boldsymbol{u}_h\in \mathring{\mathbb{V}}_{(0,-1),h}^{\div}$ 和 $\boldsymbol{\lambda}_h\in\mathbb P_{0}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，使得
+$$
+(\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h), \dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) = (\boldsymbol{f}, \boldsymbol{v}_h)
+$$
+对任意 $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{(0,-1),h}^{\div}$ 和 $\boldsymbol{\mu}_h\in\mathbb P_{0}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$ 成立. 
+
+
+% When $k\geq2$, equation \eqref{distribustokesfemWG2} is equivalent to $\div\boldsymbol{\sigma}_h-\nabla_wu_h\in H(\div,\Omega)$, and
+% \begin{equation}\label{distribustokesfemWG20}
+% (\div(\div\boldsymbol{\sigma}_h-\nabla_wu_h), v_0)=(f, v_0)\quad \forall~v_0\in\mathbb P_{m-2}(\mathcal{T}_h).
+% \end{equation}
+
+根据范数等价 \eqref{eq:discretdevgradnormequiv11}，
+$$
+\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}:=(\|\dev \grad_h\boldsymbol{v}_h\|^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|\Pi_F\boldsymbol{v}_h-\boldsymbol{\mu}_h\|_{\partial T}^2)^{1/2}
+$$ 
+定义了空间 $\mathring{\mathbb{V}}_{(k,\ell),h}^{\div}\times \mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$ 的范数. 
+
+
+\begin{lemma}
+对于 $(\boldsymbol{v}_h, \boldsymbol{\mu}_h)\in \mathring{\mathbb{V}}_{k,k-1}^{\div}\times \mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，成立范数等价
+\begin{equation}\label{eq:weakdevgradnormequiv}
+\|\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|\eqsim \interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+对每个单元应用分部积分可得
+\begin{equation}\label{eq:20250107}
+(\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h), \boldsymbol{\tau})_T=(\dev\grad\boldsymbol{v}_h, \boldsymbol{\tau})_T+(\boldsymbol{\mu}_h-\Pi_F\boldsymbol{v}_h, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T}
+\end{equation}
+对任意 $\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T})$ 和 $T\in\mathcal{T}_h$ 成立. 
+在 \eqref{eq:20250107} 中取 $\boldsymbol{\tau} = \dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)|_T$，利用逆不等式可得
+\begin{equation}\label{eq:202501071}
+\|\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|_T^2\lesssim \|\dev \grad\boldsymbol{v}_h\|_T^2+h_T^{-1}\|\Pi_F\boldsymbol{v}_h-\boldsymbol{\mu}_h\|_{\partial T}^2.
+\end{equation}
+
+另一方面，取 $\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T})$，使其满足
+\begin{equation*}
+(\Pi_F\boldsymbol{\tau}\boldsymbol{n})|_F = h_T^{-1}(\boldsymbol{\mu}_h-\Pi_F\boldsymbol{v}_h)|_F\quad\forall~F\in\mathcal{F}(T); \quad
+Q_{k-1,T}\boldsymbol{\tau}_h  = \dev\grad(\boldsymbol{v}_h|_T).
+\end{equation*}
+则有
+\begin{equation*}
+\|\boldsymbol{\tau}\|_{T}^2 \eqsim \|\dev \grad\boldsymbol{v}_h\|_T^2+h_T^{-1}\|\Pi_F\boldsymbol{v}_h-\boldsymbol{\mu}_h\|_{\partial T}^2=(\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h), \boldsymbol{\tau})_T.  
+\end{equation*}
+由此得到
+\begin{equation*}
+\|\dev \grad\boldsymbol{v}_h\|_T^2+h_T^{-1}\|\Pi_F\boldsymbol{v}_h-\boldsymbol{\mu}_h\|_{\partial T}^2\lesssim \|\dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|_{T}^2.
+\end{equation*}
+结合 \eqref{eq:202501071}，即得范数等价 \eqref{eq:weakdevgradnormequiv}. 
+\end{proof}
+
+\begin{theorem}\label{thm:unisolmfem}
+混合有限元方法 \eqref{distribustokesfemWG} 是适定的. 
+设其数值解为 $(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)\in \mathring{\mathbb{V}}_{(k,\ell),h}^{\div} \times \mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1}) \times \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$，则有 $\boldsymbol{u}_h\in\mathring{\mathbb V}_{k,k-1}^{\div}\cap\ker(\div)$, 并且 $\boldsymbol{\sigma}_h:= \dev \grad_w(\boldsymbol{u}_h, \boldsymbol{\lambda}_h)$ 是切向-法向连续的，即 $\boldsymbol{\sigma}_h\in\Sigma_{k}^{\rm tn}$.
+此外，有限元解 $\boldsymbol{u}_h$、$\boldsymbol{\lambda}_h$ 和 $\boldsymbol{\sigma}_h$ 与整数 $\ell$ 无关. 
+\end{theorem}
+\begin{proof}
+当 $\ell = -1$ 时，$\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R = {0}$，此时离散方法 \eqref{distribustokesfemWG} 的适定性可由范数等价 \eqref{eq:weakdevgradnormequiv} 和 Lax-Milgram 引理得到. 
+
+现在假设 $\ell \ge 0$. 
+对于任意 $q_h\in \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$，由 $\div H_0^1(\Omega;\mathbb R^d)=L_0^2(\Omega)$ 和 \eqref{eq:Ihdivprop1}，有
+\begin{equation}\label{eq:qhinfsup}
+\|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div\boldsymbol{v},q_h)}{\|\boldsymbol{v}\|_1}=\sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\|\boldsymbol{v}\|_1}.
+\end{equation}
+选取 $\boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，使得 $\boldsymbol{\mu}_h|_F\in \Pi_F(Q_{k,F}\boldsymbol{v})$ 对所有 $F\in \mathring{\mathcal{F}}_h$ 成立. 由 \eqref{eq:Ihdivprop2} 可得
+\begin{align*}
+\interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}^2& =\|\dev \grad_h(I_{k, \ell}^{\div}\boldsymbol{v})\|^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v})-\boldsymbol{\mu}_h\|_{\partial T}^2 \\
+&\lesssim \|\boldsymbol{v}\|_1^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|I_{k, \ell}^{\div}\boldsymbol{v}-Q_{k,F}\boldsymbol{v}\|_{\partial T}^2\lesssim \|\boldsymbol{v}\|_1^2.
+\end{align*}
+将上两式结合，可得
+\begin{equation}\label{eq:20250926}
+\|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}} \leq \sup_{\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{(k,\ell),h}^{\div}\atop \boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})} \frac{(\div\boldsymbol{v}_h,q_h)}{\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}}.
+\end{equation}
+由 Babu{\v{s}}ka-Brezzi 理论，结合上述 inf-sup 条件和离散强制性 \eqref{eq:weakdevgradnormequiv}，可知离散方法 \eqref{distribustokesfemWG} 是适定的. 
+
+方程 \eqref{distribustokesfemWG2} 表明 $\div\boldsymbol{u}_h = 0$，因此 $\boldsymbol{u}_h \in \mathring{\mathbb V}_{k,k-1}^{\div}\cap \ker(\div)$. 
+在 \eqref{distribustokesfemWG1} 中取 $\boldsymbol{v}_h = 0$，得到
+$$
+(\boldsymbol{\sigma}_h, \dev \grad_w(0,\boldsymbol{\mu}_h)) = 0\qquad\forall~\boldsymbol{\mu}_h
+\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1}),
+$$
+即
+\begin{equation*}
+\sum_{T\in\mathcal{T}_h}(\Pi_F\boldsymbol{\sigma}_h\boldsymbol{n}, \boldsymbol{\mu}_h)_{\partial T} = 0\qquad\forall~\boldsymbol{\mu}_h
+\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1}),
+\end{equation*}
+这表明 $\boldsymbol{\sigma}_h$ 是切向-法向连续的. 
+
+假设 $(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)\in \mathring{\mathbb{V}}_{k,k}^{\div} \times \mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1}) \times \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$ 是 $\ell=k$ 时离散方法 \eqref{distribustokesfemWG} 的解，则
+$(\boldsymbol{u}_h, \boldsymbol{\lambda}_h,Q_{k-1,h}p_h)\in \mathring{\mathbb{V}}_{k,k-1}^{\div} \times \mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1}) \times \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$ 是 $\ell=k-1$ 时离散方法 \eqref{distribustokesfemWG} 的解.
+\end{proof}
+
+
+\begin{remark}\rm
+文献 \cite{CockburnSayas2014} 中的 HDG 方法对所有变量都使用了 $k$ 阶多项式空间. 实际上，当速度 $\boldsymbol{u}_h$ 使用 $k$ 阶 BDM 元离散时，只使用 $p_h \in \mathbb{P}_{k-1}(\mathcal{T}_h)$ 就足够了. 此外，我们对 $\boldsymbol{\sigma}_h$ 使用了无迹张量空间 $\mathbb{P}_{k}(\mathcal{T}_h; \mathbb{T})$，而 \cite{CockburnSayas2014} 使用的是全张量空间 $\mathbb{P}_{k}(\mathcal{T}_h; \mathbb{M})$. 
+\end{remark}
+
+\subsection{误差分析}
+下文中，设 $\boldsymbol{u} \in H_0^1(\Omega;\mathbb{R}^d)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，并设
+$\boldsymbol{\sigma} = \grad\boldsymbol{u} = \dev\grad\boldsymbol{u}$. 
+则 \eqref{eq-Stokes2} 中的第一条方程可写为
+\begin{equation}\label{stokes1}
+-\div\boldsymbol{\sigma}- \nabla p=\boldsymbol{f}  \quad \text { 在 $\Omega$ 中} .
+\end{equation}
+此外，设 $\boldsymbol{\lambda} \in L^2(\mathcal{F}_h; \mathbb{R}^{d-1})$ 定义为
+$$
+\boldsymbol{\lambda}|_F = \Pi_F \boldsymbol{u}, \quad \forall\,F \in \mathcal{F}_h.
+$$
+此记号将在后续分析中使用. 
+
+
+为分析混合有限元方法 \eqref{distribustokesfemWG}，我们首先在空间 $H^{1}(\mathcal{T}_h;\mathbb{T})$ 上引入如下网格依赖范数：
+\begin{align*}
+\|\boldsymbol{\tau}_h\|_{0,h}^2 &:= \|\boldsymbol{\tau}_h\|^2+ \sum_{F \in \mathcal{F}_h}h_F\|\Pi_F\boldsymbol{\tau}_h \boldsymbol{n}\|_{F}^2.
+\end{align*}
+
+
+\begin{lemma}
+设 $\boldsymbol{u} \in H_0^1(\Omega;\mathbb{R}^d)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，则有
+\begin{equation}\label{eq:weakdevgradulambda}
+(\dev \grad)_w(\boldsymbol{u}, \boldsymbol{\lambda}) = Q_{k,h}(\dev \grad\boldsymbol{u}) = Q_{k,h}\boldsymbol{\sigma}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+由算子 $(\dev \grad)_w$ 的定义，对于任意 $\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T})$ 及 $T\in\mathcal{T}_h$，有
+\begin{equation*}
+((\dev \grad)_w(\boldsymbol{u}, \boldsymbol{\lambda}), \boldsymbol{\tau})_T=-(\boldsymbol{u},\div\boldsymbol{\tau})_T+(\boldsymbol{n}\cdot\boldsymbol{u},\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}+(\Pi_F\boldsymbol{u}, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T}.
+\end{equation*}
+对上式进行分部积分后即可得到式 \eqref{eq:weakdevgradulambda}. 
+\end{proof}
+
+\begin{lemma}
+对于 $\boldsymbol{v}_h\in \mathbb{V}_{k,k-1}^{\div}\cap\ker(\div)$ 及
+$\boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，成立正交性
+\begin{equation}\label{eq:Ihtnorth}
+(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h, (\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) =0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+由于对每个内部面 $F\in\mathring{\mathcal{F}}_h$ 都有 $[\![\Pi_F (I_h^{\rm tn} \boldsymbol{\sigma}) \boldsymbol{n}]\!] = 0$，因此
+$$
+(I_h^{\rm tn}\boldsymbol{\sigma}, (\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) = \sum_{T\in\mathcal{T}_h}\big((I_h^{\rm tn}\boldsymbol{\sigma}, \dev \grad \boldsymbol{v}_h)_T-(\Pi_F(I_h^{\rm tn}\boldsymbol{\sigma})\boldsymbol{n}, \Pi_F\boldsymbol{v}_h)_{\partial T}\big).
+$$
+由分部积分及算子 $I_h^{\rm tn}$ 的定义可得
+\begin{equation*}
+(I_h^{\rm tn}\boldsymbol{\sigma}, \dev \grad \boldsymbol{v}_h)_T-(\Pi_F(I_h^{\rm tn}\boldsymbol{\sigma})\boldsymbol{n}, \Pi_F\boldsymbol{v}_h)_{\partial T} = -(\div\boldsymbol{\sigma}, \boldsymbol{v}_h)_T+(\boldsymbol{n}^{\intercal}\boldsymbol{\sigma}\boldsymbol{n}, \boldsymbol{n}\cdot\boldsymbol{v}_h)_{\partial T}.
+\end{equation*}
+结合以上两式与 \eqref{stokes1}，得到
+\begin{equation*}
+(I_h^{\rm tn}\boldsymbol{\sigma}, (\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) = -(\div\boldsymbol{\sigma}, \boldsymbol{v}_h)=(\boldsymbol{f}+\nabla p, \boldsymbol{v}_h).
+\end{equation*}
+由 $\div\boldsymbol{v}_h=0$，可推得
+\begin{equation}\label{eq:Ihtnprop3}
+(I_h^{\rm tn}\boldsymbol{\sigma}, (\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) =(\boldsymbol{f}, \boldsymbol{v}_h).
+\end{equation}
+另一方面，由 \eqref{distribustokesfemWG1} 知
+\begin{equation*}
+(\boldsymbol{\sigma}_h, (\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) =(\boldsymbol{f}, \boldsymbol{v}_h).
+\end{equation*}
+故正交性 \eqref{eq:Ihtnorth} 成立.
+\end{proof}
+
+% By the definitions of interpolation operators $I_{k,k}^{\div}$, $I_h^{\rm tn}$ and $Q_{\ell,h}$, we have
+% \begin{align}\label{eq:Ihdivprop3}
+% b_h(\boldsymbol{\tau}_h,q_h;\boldsymbol{v}-I_{k,k}^{\div}\boldsymbol{v})&=0\quad \forall~\boldsymbol{\tau}_h \in \Sigma_{k}^{\rm tn}, q_h\in\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R,\boldsymbol{v}\in H^1(\Omega;\mathbb{R}^d), \\
+% \label{eq:Ihtnprop1}
+% b_h(\boldsymbol{\tau}-I_h^{\rm tn}\boldsymbol{\tau},q-Q_{\ell,h}q;\boldsymbol{v}_h)&=0\quad \forall~\boldsymbol{\tau}\in \Sigma^{\rm tn}, q\in L^2(\Omega), \boldsymbol{v}_h\in \mathring{\mathbb V}_{k,k-1}^{\div}.
+% \end{align}
+
+\begin{lemma}
+有如下估计式成立：
+\begin{equation}\label{eq:preestimate4p}
+(\div(I_{k, \ell}^{\div}\boldsymbol{v}), p-p_h)\lesssim \|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}|\boldsymbol{v}|_{1}\qquad\forall\,\boldsymbol{v}\in H_0^1(\Omega; \mathbb{R}^d).
+\end{equation}
+\end{lemma}
+\begin{proof}
+由 \eqref{distribustokesfemWG1}（取 $\boldsymbol{\mu}_h=0$）与 \eqref{stokes1} 可得
+\begin{align*}
+(\div(I_{k, \ell}^{\div}\boldsymbol{v}), p-p_h) &= (\div(I_{k, \ell}^{\div}\boldsymbol{v}), p) - (\boldsymbol{f}, I_{k, \ell}^{\div}\boldsymbol{v}) + (\boldsymbol{\sigma}_h, (\dev \grad)_w(I_{k, \ell}^{\div}\boldsymbol{v},0)) \\
+&= (\div\boldsymbol{\sigma}, I_{k, \ell}^{\div}\boldsymbol{v}) + (\boldsymbol{\sigma}_h, (\dev \grad)_w(I_{k, \ell}^{\div}\boldsymbol{v},0)) \\
+&= -(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\dev \grad_h(I_{k, \ell}^{\div}\boldsymbol{v})) + \sum_{T\in\mathcal{T}_h}(\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v}), \Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n})_{\partial T}.
+\end{align*}
+由于 $[\![\Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n}]\!]=0$ 对所有 $F \in \mathring{\mathcal{F}}_{h}$ 成立，
+$$
+\sum_{T\in\mathcal{T}_h}(\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v}), \Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n})_{\partial T}=\sum_{F\in\mathcal{F}_h}([\![\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v})]\!], \Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n})_{F}.
+$$
+综合上述两个等式可得
+\begin{equation*}
+(\div(I_{k, \ell}^{\div}\boldsymbol{v}), p-p_h)\lesssim \|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}|I_{k, \ell}^{\div}\boldsymbol{v}|_{1,h}.
+\end{equation*}
+最后由插值误差估计 \eqref{eq:Ihdivprop2} 即得所需结果. 
+\end{proof}
+
+\begin{theorem}
+设 $(\boldsymbol{u}, p)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，$(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)$ 为混合有限元方法 \eqref{distribustokesfemWG} 的解. 假设 $\boldsymbol{u}\in H^{k+2}(\Omega;\mathbb R^d)$ 且 $p\in H^{\ell+1}(\Omega)$，则有误差估计：
+\begin{align}
+\label{eq:errorestimate1}
+\|\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h} + \interleave(I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h,Q_{k,\mathcal{F}_h}\boldsymbol{\lambda}-\boldsymbol{\lambda}_h)\interleave_{1,h} \hskip-1cm & \\
+\notag
+ + \|Q_{\ell,h} p - p_h\| &\lesssim h^{k+1} |\boldsymbol{u}|_{k+2},\\
+\label{eq:errorestimate2}
+\|\boldsymbol{u} - \boldsymbol{u}_h\|+h|\boldsymbol{u} - \boldsymbol{u}_h|_{1,h} &\lesssim h^{k+1} ( |\boldsymbol{u}|_{k+2} + |\boldsymbol{u}|_{k+1}),\\
+\label{eq:errorestimate3}
+\|p - p_h\| &\lesssim h^{\ell+1} (|\boldsymbol{u}|_{k+2} + |p|_{\ell+1}).
+\end{align}
+\end{theorem}
+\begin{proof}
+为了简化表示，设 $\boldsymbol{v}_h=I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h$, 以及 $\boldsymbol{\mu}_h=Q_{k,\mathcal{F}_h}\boldsymbol{\lambda}-\boldsymbol{\lambda}_h$.
+根据 \eqref{eq:Ihdivprop1} 和定理~\ref{thm:unisolmfem}，可知 $\boldsymbol{v}_h \in \mathbb{V}_{k,k-1}^{\div} \cap \ker(\div)$. 
+利用 \eqref{eq:weakdevgradcommu} 和 \eqref{eq:weakdevgradulambda}，有
+$$
+(\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)= (\dev \grad)_w(\boldsymbol{u},\boldsymbol{\lambda})-(\dev \grad)_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)=Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h.
+$$
+根据 \eqref{eq:Ihtnorth}，得到
+\begin{equation*}
+(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h, \boldsymbol{\sigma}-\boldsymbol{\sigma}_h) =(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h, Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h) =0.
+\end{equation*}
+由此可得
+$$
+\|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|^2=(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}) \quad\Rightarrow\quad \|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq \|\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|.
+$$
+因此，利用插值误差估计 \eqref{eq:Ihtnprop2} 可得
+$$
+\|\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h}\leq \|\boldsymbol{\sigma} - I_h^{\rm tn}\boldsymbol{\sigma}\|_{0,h} + \|I_h^{\rm tn}\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h} \lesssim \|\boldsymbol{\sigma} - I_h^{\rm tn}\boldsymbol{\sigma}\|_{0,h}\lesssim h^{k+1} |\boldsymbol{u}|_{k+2}.
+$$
+结合 \eqref{eq:weakdevgradnormequiv}，得到
+\begin{equation*}
+\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}\lesssim\|(\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|=\|Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq\|\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|\lesssim h^{k+1} |\boldsymbol{u}|_{k+2}.
+\end{equation*}
+另一方面，利用 \eqref{eq:qhinfsup} 和 \eqref{eq:preestimate4p}，可得
+\begin{equation*}
+\|Q_{\ell,h} p - p_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),Q_{\ell,h} p - p_h)}{\|\boldsymbol{v}\|_1}\lesssim \|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}\lesssim h^{k+1} |\boldsymbol{\sigma}|_{k+1}.
+\end{equation*}
+因此，误差估计 \eqref{eq:errorestimate1} 成立. 最后，估计 \eqref{eq:errorestimate2} 与 \eqref{eq:errorestimate3} 可由 \eqref{eq:errorestimate1} 以及插值算子 $I_{k,k}^{\div}\boldsymbol{u}$ 和 $Q_{\ell,h} p$ 的估计直接得到. 
+\end{proof}
+
+估计 \eqref{eq:errorestimate1}-\eqref{eq:errorestimate2} 表明，混合有限元方法 \eqref{distribustokesfemWG} 是压力稳健的（pressure-robust）. 
+
+% \begin{remark}\rm
+% 文献 \cite{ChenWangZhong2015} 中的 Stokes 方程三角形 MAC 格点方法，使用 $\textrm{RT}_0$-$\textrm{P}_0$ 元对（即 $k=\ell=0$）对速度和压力进行离散，其误差量 $|I_{(0,0),h}^{\div}\boldsymbol{u} - \boldsymbol{u}_h|_{1,h} + \|Q_{0,h} p - p_h\|$ 的收敛阶为 $O(h^{\min\{1,\sigma\}}|\ln h|^{1/2})$，其中 $\sigma \geq \frac{1}{2}$ 描述了网格的对称性.  当使用 $\textrm{BDM}_1$-$\textrm{P}_0$ 元对（即 $k=1$, $\ell=0$）时，MAC 格点方法对应误差量的收敛阶为 $O(h^{1+\min\{1/2,\sigma\}})$. 
+% 可见，文献 \cite{ChenWangZhong2015} 中的两种三角形 MAC 格点方法的收敛速度均低于混合有限元方法 \eqref{distribustokesfemWG} 所给出的估计 \eqref{eq:errorestimate1}. 
+% \end{remark}
+
+
+
+
+
+\subsection{$L^2$ 误差估计}
+
+通过对偶论证可以得到
+$\|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|$ 的超收敛性. 
+引入对偶问题：求 $\tilde{\bs u}\in H_0^1(\Omega;\mathbb R^d)$ 和 $\tilde p\in L^2(\Omega)/\mathbb R$，使其满足
+\begin{equation}\label{dualstokes}
+\begin{cases}
+%\tilde{\boldsymbol{\sigma}}-\grad\tilde{\boldsymbol{u}}=0 & \text { in } \Omega,\\
+%\div \tilde{\boldsymbol{\sigma}} 
+- \Delta \tilde{\bs u} + \nabla \tilde{p}= I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h& \text{在 }\, \Omega \text{ 内}, \\
+\qquad\;\;\div\tilde{\boldsymbol{u}} =0 & \text{在 }\, \Omega \text{ 内}.
+\end{cases}
+\end{equation}
+假设对偶问题 \eqref{dualstokes} 具有 $H^2$ 正则性：
+\begin{equation}\label{eq:regularity}
+\|\tilde{\boldsymbol{u}}\|_2 \lesssim \|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|.
+\end{equation}
+关于凸域上 $H^2$ 正则性的参考文献见 \cite[Remark I.5.6]{GiraultRaviart1986} 和 \cite[Section 11.5]{MazyaRossmann2010}. 
+
+\begin{lemma}
+设 $(\boldsymbol{u}, p)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，$(\boldsymbol{u}_h$, $\boldsymbol{\lambda}_h$, $p_h)$ 为混合有限元方法 \eqref{distribustokesfemWG} 的解. 设 $\tilde{\bs u}$ 为对偶问题 \eqref{dualstokes} 的解，并假设 $\skw\grad\boldsymbol{f}\in L^2(\Omega;\mathbb K)$. 则有
+\begin{equation}
+\label{eq:errorestimate40}
+(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}) \lesssim \begin{cases}
+h\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h} |\tilde{\boldsymbol{u}}|_{2}, & k\geq1,   \\
+h^2\|\skw\grad\boldsymbol{f}\|\|\tilde{\boldsymbol{u}}\|_1, & k=0.
+\end{cases}
+\end{equation}
+\end{lemma}
+\begin{proof}
+在 \eqref{distribustokesfemWG1} 中取 $\boldsymbol{v}_h = I_{k,k}^{\div}\tilde{\boldsymbol{u}}$ 和 $\boldsymbol{\mu}_h = 0$，结合 $\div(I_{k,k}^{\div}\tilde{\boldsymbol{u}})=0$ 和 \eqref{stokes1} 得
+\begin{equation*}
+(\boldsymbol{\sigma}_h, \dev \grad_w(I_{k,k}^{\div}\tilde{\boldsymbol{u}},0)) = (\boldsymbol{f}, I_{k,k}^{\div}\tilde{\boldsymbol{u}}) = -(\div\boldsymbol{\sigma}, I_{k,k}^{\div}\tilde{\boldsymbol{u}}),
+\end{equation*}
+即 
+\[
+\sum_{T\in\mathcal{T}_h}(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\dev\grad(I_{k,k}^{\div}\tilde{\boldsymbol{u}}))_T - \sum_{F\in\mathcal{F}_h}(\Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n}, [\![\Pi_F(I_{k,k}^{\div}\tilde{\boldsymbol{u}})]\!])_{F}=0.
+\]
+于是
+\begin{equation}\label{eq:20250923}
+\begin{aligned}
+(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}) &= \sum_{T\in\mathcal{T}_h}(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\dev\grad(\tilde{\boldsymbol{u}}-I_{k,k}^{\div}\tilde{\boldsymbol{u}}))_T \\
+&\quad - \sum_{F\in\mathcal{F}_h}(\Pi_F(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)\boldsymbol{n}, [\![\Pi_F(\tilde{\boldsymbol{u}}-I_{k,k}^{\div}\tilde{\boldsymbol{u}})]\!])_{F}.
+\end{aligned}
+\end{equation}
+当 $k\geq1$ 时，由 Cauchy-Schwarz 不等式和 $I_{k,k}^{\div}$ 的插值估计 \eqref{eq:Ihdivprop2} 可得
+\begin{equation*}
+(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}) \lesssim h\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h} |\tilde{\boldsymbol{u}}|_{2}.
+\end{equation*}
+
+当 $k=0$ 时，对 \eqref{eq:20250923} 右端进行分部积分，得到
+\begin{equation*}
+(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}) =-(\div\boldsymbol{\sigma},\tilde{\boldsymbol{u}}-I_{0,0}^{\div}\tilde{\boldsymbol{u}}).
+\end{equation*}
+由于 $\div\tilde{\boldsymbol{u}}=0$ 且 $\div H_0^2(\Omega;\mathbb K)=H_0^1(\Omega;\mathbb R^d)\cap \ker(\div)$（参见 \cite[Theorem 1.1]{CostabelMcIntosh2010}），存在 $\tilde{\boldsymbol{\tau}}\in H_0^2(\Omega;\mathbb K)$ 使得
+\begin{equation*}
+\div\tilde{\boldsymbol{\tau}}=\tilde{\boldsymbol{u}},\quad \|\tilde{\boldsymbol{\tau}}\|_2\lesssim \|\tilde{\boldsymbol{u}}\|_1.
+\end{equation*}
+回顾以反对称矩阵形式表示的微分 $(d-2)$-形式线性有限元空间 \cite{Arnold2018,ArnoldFalkWinther2006}：
+% Recall the linear finite element space of the differential $(d-2)$-form in skew-symmetric form \cite{Arnold2018,ArnoldFalkWinther2006}
+\begin{equation*}
+\mathbb V_{h}^{d-2}:=\{\boldsymbol{\tau}_h\in H(\div,\Omega;\mathbb K): \boldsymbol{\tau}_h|_T \in \mathbb P_{1}(T;\mathbb K) \;\;\textrm{ for } T \in \mathcal{T}_{h}\}.
+\end{equation*}
+其自由度定义参见文献 \cite[(3.10)]{ChenHuangWei2024}. 
+记 $I_h^{d-2}: H^2(\Omega;\mathbb K)\to \mathbb V_{h}^{d-2}$ 为相应的节点插值算子，则它满足如下的交换性质：
+\begin{equation*}
+\div(I_h^{d-2}\boldsymbol{\tau})=I_{0,0}^{\div}(\div\boldsymbol{\tau})\quad\forall~\boldsymbol{\tau}\in H^2(\Omega;\mathbb K).
+\end{equation*}
+于是，利用分部积分和 \eqref{stokes1} 可得
+\begin{align*}
+(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}) &= -(\div\boldsymbol{\sigma},\div(\tilde{\boldsymbol{\tau}}-I_{h}^{d-2}\tilde{\boldsymbol{\tau}})) = (\skw\grad(\div\boldsymbol{\sigma}), \tilde{\boldsymbol{\tau}}-I_{h}^{d-2}\tilde{\boldsymbol{\tau}}) \\
+& = -(\skw\grad\boldsymbol{f}, \tilde{\boldsymbol{\tau}}-I_{h}^{d-2}\tilde{\boldsymbol{\tau}}) .
+\end{align*}
+结合 $I_{h}^{d-2}$ 的插值误差估计，得到
+\begin{equation*}
+(\boldsymbol{\sigma}_h-\boldsymbol{\sigma},\grad\tilde{\boldsymbol{u}})\lesssim h^2\|\skw\grad\boldsymbol{f}\||\tilde{\boldsymbol{\tau}}|_2\lesssim h^2\|\skw\grad\boldsymbol{f}\|\|\tilde{\boldsymbol{u}}\|_1.
+\end{equation*}
+证毕. 
+\end{proof}
+
+\begin{theorem}
+设 $(\boldsymbol{u}, p)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，$(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)$ 为混合有限元方法 \eqref{distribustokesfemWG} 的解. 若 $\boldsymbol{u}\in H^{k+2}(\Omega;\mathbb R^d)$、$\skw\grad\boldsymbol{f}\in L^2(\Omega;\mathbb K)$，且 $H^2$ 正则性 \eqref{eq:regularity} 成立，则有
+\begin{equation}
+\label{eq:errorestimate4}
+\|I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\| \lesssim h^{k+2}(|\boldsymbol{u}|_{k+2}  + \delta_{k0}\|\skw\grad\boldsymbol{f}\|),
+\end{equation}
+其中 $\delta_{00}=1$，而当 $k\geq1$ 时 $\delta_{k0}=0$. 
+\end{theorem}
+\begin{proof}
+令 $\boldsymbol{v}_h=I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\in\mathring{\mathbb V}_{k,k-1}^{\div}\cap\ker(\div)$ 以简化表述.
+设 $\tilde{\boldsymbol{\sigma}} = \grad \tilde{\boldsymbol{u}}$. 由 $\div\boldsymbol{v}_h=0$ 以及算子 $I_k^{\rm tn}$ 的定义，有
+\begin{align*}
+\|\boldsymbol{v}_h\|^2 &= -(\div \tilde{\boldsymbol{\sigma}}, \boldsymbol{v}_h) = \sum_{T\in\mathcal{T}_h}(\tilde{\boldsymbol{\sigma}},\dev \grad\boldsymbol{v}_h)_T - \sum_{T\in\mathcal{T}_h}(\Pi_F\boldsymbol{v}_h, \Pi_F\tilde{\boldsymbol{\sigma}}\boldsymbol{n})_{\partial T} \\
+& = \sum_{T\in\mathcal{T}_h}(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}},\dev \grad\boldsymbol{v}_h)_T -\sum_{T\in\mathcal{T}_h}(\Pi_F\boldsymbol{v}_h, \Pi_F(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}})\boldsymbol{n})_{\partial T} \\
+&=\big(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}},\dev \grad_w(I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h,Q_{k,\mathcal{F}_h}\boldsymbol{\lambda}-\boldsymbol{\lambda}_h)\big).
+\end{align*}
+结合式 \eqref{eq:weakdevgradcommu} 可得
+\[
+\begin{aligned}
+\|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|^2& = (\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,I_k^{\rm tn}\tilde{\boldsymbol{\sigma}})\\
+&=(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,I_k^{\rm tn}\tilde{\boldsymbol{\sigma}}-\tilde{\boldsymbol{\sigma}}) + (\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\tilde{\boldsymbol{u}}).
+\end{aligned}
+\]
+由 Cauchy–Schwarz 不等式、算子 $I_k^{\rm tn}$ 的误差估计 \eqref{eq:Ihtnprop2}、\eqref{eq:errorestimate40} 以及 $H^2$ 正则性 \eqref{eq:regularity}，可得
+% \begin{equation*}
+% \|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|^2\lesssim h\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h}(|\tilde{\boldsymbol{\sigma}}|_1 + |\tilde{\boldsymbol{u}}|_{2}).
+% \end{equation*}
+% This together with the $H^2$-regularity \eqref{eq:regularity} gives
+\begin{equation*}
+\|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|\lesssim h\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h} + \delta_{k0}h^2\|\skw\grad\boldsymbol{f}\|.
+\end{equation*}
+最后结合误差估计 \eqref{eq:errorestimate1} 与上述不等式，即得结论 \eqref{eq:errorestimate4} 成立. 
+\end{proof}
+
+\subsection{后处理}
+利用误差估计式 \eqref{eq:errorestimate1} 与 \eqref{eq:errorestimate4}，我们可以构造出 $\boldsymbol{u}$ 的一种超收敛近似. 
+对于每个单元 $T \in \mathcal{T}_h$，寻找 $\boldsymbol{u}_h^{*}|_T\in \mathbb{P}_{k+1}(T;\mathbb{R}^d)$ 与 $p_h^{*}\in\mathbb{P}_k(T)\cap L_0^2(T)$，使其满足
+\begin{subequations}\label{distribustokespostfem}
+\begin{align}
+(\boldsymbol{u}_h^{*}\cdot\boldsymbol{n},q)_F &=
+(\boldsymbol{u}_h\cdot \boldsymbol{n},q)_F 
+\quad\;\;\; \forall\,q\in\mathbb{P}_0(F),\ F\in\mathcal{F}(T), \label{eq:postprocessingu1}\\
+(\grad\boldsymbol{u}_h^{*},\grad\boldsymbol{v})_T
++(\div\boldsymbol{v},p_h^{*})_T &=
+(\boldsymbol{\sigma}_h,\grad\boldsymbol{v})_T 
+\quad \forall\,\boldsymbol{v}\in\widetilde{\mathbb{P}}_{k+1}(T;\mathbb{R}^d), \label{eq:postprocessingu2}\\
+(\div \boldsymbol{u}_h^{*},q)_T &= 0 
+\qquad\qquad\qquad\; \forall\,q\in{\mathbb{P}}_{k}(T)\cap L_0^2(T), \label{eq:postprocessingu3}
+\end{align}
+\end{subequations}
+其中 
+$\widetilde{\mathbb{P}}_{k+1}(T;\mathbb{R}^d)
+:= \{\boldsymbol{v}_h\in\mathbb{P}_{k+1}(T;\mathbb{R}^d): 
+Q_{0,F}(\boldsymbol{v}_h\cdot\boldsymbol{n})=0\ \ \forall\,F\subset\partial T\}$.
+
+局部问题 \eqref{distribustokespostfem} 是适定的. 
+由式 \eqref{eq:postprocessingu1} 可得
+\begin{equation*}
+Q_{0,T}(\div\boldsymbol{u}_h^{*})
+=Q_{0,T}(\div\boldsymbol{u}_h)=0,
+\end{equation*} 
+结合式 \eqref{eq:postprocessingu3}，可知在每个单元 $T\in\mathcal{T}_h$ 上都有 $\div\boldsymbol{u}_h^{*}=0$. 
+因此，$\boldsymbol{u}_h^{*}\in  \mathbb P_{k+1}(\mathcal T_h; \mathbb R^d)$ 在单元内部逐点满足散度为零. 
+
+\begin{theorem}
+设 $(\boldsymbol{u}, p)$ 为 Stokes 方程~\eqref{eq-Stokes2} 的精确解，$(\boldsymbol{u}_h$, $\boldsymbol{\lambda}_h$, $p_h)$ 为混合有限元方法~\eqref{distribustokesfemWG} 的数值解. 若 $\boldsymbol{u}\in H^{k+2}(\Omega;\mathbb R^d)$，则有
+\begin{equation}\label{eq:postH1error}
+\|\grad_h(\boldsymbol{u}-\boldsymbol{u}_h^{*})\|\lesssim h^{k+1}|\boldsymbol{u}|_{k+2}.
+\end{equation}
+若进一步假设 $\skw\grad\boldsymbol{f} \in L^2(\Omega; \mathbb{K})$， 且 $H^2$ 正则性估计~\eqref{eq:regularity} 成立，则有
+\begin{equation}\label{eq:postL2error}
+\|\boldsymbol{u}-\boldsymbol{u}_h^{*}\|\lesssim h^{k+2}\big(|\boldsymbol{u}|_{k+2}  + \delta_{k0}\|\skw\grad\boldsymbol{f}\|\big).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+令
+\[
+\boldsymbol{w}=(I-I_{(0,0),T}^{\div})(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})\in\widetilde{\mathbb{P}}_{k+1}(T;\mathbb{R}^d).
+\]
+由性质 \eqref{eq:Ihdivprop1} 可得
+\[
+\div\big(I_{(0,0),T}^{\div}(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})\big)
+=Q_{0,T}\div\boldsymbol{u}-Q_{0,T}\div\boldsymbol{u}_h^{*}=0.
+\]
+因此，$I_{(0,0),T}^{\div}(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})\in\mathbb{P}_{0}(T;\mathbb{R}^d)$. 再次应用 \eqref{eq:Ihdivprop1} 可得
+\[
+\div\boldsymbol{w}
+=\div(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})
+=Q_{k,T}\div\boldsymbol{u}-\div\boldsymbol{u}_h^{*}=0.
+\]
+在式 \eqref{eq:postprocessingu2} 中取 $\boldsymbol{v}=\boldsymbol{w}$，得
+\begin{align*}
+|\boldsymbol{w}|_{1,T}^2
+&=(\grad(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*}),\grad\boldsymbol{w})_T \\
+&=(\grad(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}),\grad\boldsymbol{w})_T
++(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,\grad\boldsymbol{w})_T.
+\end{align*}
+由插值误差估计 \eqref{eq:Ihdivprop2} 及逆不等式可得
+\begin{equation}\label{eq:20250703}
+\|\boldsymbol{w}\|_T\eqsim h_T|I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*}|_{1,T}
+\lesssim h_T\big(|\boldsymbol{u}-I_{(k+1,k),T}^{\div}\boldsymbol{u}|_{1,T}+\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_T\big).
+\end{equation}
+由三角不等式、插值估计式 \eqref{eq:Ihdivprop2} 以及应力误差估计 \eqref{eq:errorestimate1}，可得式 \eqref{eq:postH1error} 成立. 
+
+再由式 \eqref{eq:postprocessingu1} 有
+\[
+I_{(0,0),T}^{\div}(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})
+=I_{(0,0),T}^{\div}(I_{(k,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h).
+\]
+利用三角不等式、插值估计 \eqref{eq:Ihdivprop2}、逆不等式以及式 \eqref{eq:20250703}，可得
+\begin{align*}
+\|\boldsymbol{u}-\boldsymbol{u}_h^{*}\|_T
+&\le \|\boldsymbol{u}-I_{(k+1,k),T}^{\div}\boldsymbol{u}\|_T
++\|I_{(0,0),T}^{\div}(I_{(k,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h)\|_T
++\|\boldsymbol{w}\|_T\\
+&\lesssim \|\boldsymbol{u}-I_{(k+1,k),T}^{\div}\boldsymbol{u}\|_T
++\|I_{(k,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|_T\\
+&\quad +h_T\big(|\boldsymbol{u}-I_{(k+1,k),T}^{\div}\boldsymbol{u}|_{1,T}
++\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_T\big).
+\end{align*}
+结合插值估计式 \eqref{eq:Ihdivprop2}、误差估计 \eqref{eq:errorestimate4} 与 \eqref{eq:errorestimate1}，即得结论 \eqref{eq:postL2error}. 
+\end{proof}
+
+
+
+\subsection{等价的离散方法}\label{sec:hybrid}
+
+本节探讨与混合有限元格式 \eqref{distribustokesfemWG} 等价的几种离散方法. 
+
+\subsubsection{速度场的杂交化}
+
+回顾文献 \cite{AyusodeDiosLipnikovManzini2016,ChenHuang2020} 中定义的 $H^1$ 非协调虚拟元. 
+对整数 $k\geq 0$ 和 $\ell=k,k-1$，其单元形函数空间定义为：
+\begin{equation*}
+%\label{ncve}
+V_{k+1,\ell+2}^{\rm VE}(T)=\{v\in H^1(T):\Delta v\in\mathbb{P}_{\ell}(T), \partial_n v|_F\in\mathbb{P}_{k}(F), \ \forall\, F\in\mathcal{F}(T)\}.
+\end{equation*}
+%Obviously $\mathbb{P}_{k+1}(T)\subseteq V_{k+1,\ell+2}^{\rm VE}(T)$, $V^{\rm VE}_{1,1}(T)=\mathbb{P}_{1}(T)$, and $V^{\rm VE}_{1,2}(T)=\mathbb{P}_{1}(T)\oplus\textrm{span}\{\boldsymbol{x}\cdot\boldsymbol{x}\}$.
+该形函数空间的自由度如下给出：
+\begin{subequations}\label{ve-dof}
+	\begin{align}
+		\label{ve-dof1}
+		(v,q)_F, & \quad q\in \mathbb{P}_{k}(F), \, F\in\mathcal{F}(T),\\
+		\label{ve-dof2}
+		(v,q)_T, & \quad q\in \mathbb{P}_{\ell}(T).
+	\end{align}
+\end{subequations}
+全局虚拟元空间 $V_{k+1,\ell+2}^{\rm VE} = V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)$ 定义为
+\begin{align*}
+V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h) &= \{v\in L^2(\Omega):v|_T\in V_{k+1,\ell+2}^{\rm VE}(T),\ \forall\, T\in\mathcal{T}_h; \textrm{ 自由度 \eqref{ve-dof1}} \textrm{ 在内部面 $\mathring{\mathcal{F}}_h$ 上取单值}\}.
+\end{align*}
+该空间满足弱连续性条件：
+\begin{equation*}%\label{weak-c}
+([\![v]\!], q)_F = 0 
+\quad \forall\, v\in V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h), \ 
+q\in\mathbb{P}_{k}(F), \ 
+F\in\mathring{\mathcal{F}}_h.
+\end{equation*}
+当 $(k,\ell) = (0,-1)$ 时，空间 $V_{1,1}^{\rm VE}$ 退化为 Crouzeix--Raviart (CR) 元~\cite{CrouzeixRaviart1973}；
+当 $(k,\ell) = (0,0)$ 时，空间 $V_{1,2}^{\rm VE}$ 对应于增强性 Crouzeix--Raviart 元~\cite{HuMa2015,HuHuangLin2014}. 
+
+
+通过杂交化空间 $\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 的法向连续性，并将拉格朗日乘子与空间 $\mathbb{P}_{\ell}(\mathcal{T}_h)$ 结合以形成用于离散压力的 $H^1$-非协调空间 $V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)$，我们得到如下混合格式：
+寻找 $\boldsymbol{u}_h\in \prod_{T\in \mathcal T_h}\mathbb V_{k,\ell}^{\div}(T)$, $\boldsymbol{\lambda}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$ 和 $p_h\in V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)/\mathbb R$ 使得
+\begin{subequations}\label{distribustokesH1pfemWG}
+\begin{align}
+\label{distribustokesH1pfemWG1}
+(\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h), \dev \grad_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)) - (\boldsymbol{v}_h, \nabla_hp_h) &= (\boldsymbol{f}, \boldsymbol{v}_h), \\
+\label{distribustokesH1pfemWG2}
+(\boldsymbol{u}_h, \nabla_hq_h)&=0
+\end{align}
+\end{subequations}
+对任意 $\boldsymbol{v}_h\in \prod_{T\in \mathcal T_h}\mathbb V_{k,\ell}^{\div}(T)$, $\boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$, $q_h\in V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)/\mathbb R$ 成立. 
+
+
+\begin{theorem}\label{thm:equivalence0}
+混合方法 \eqref{distribustokesH1pfemWG} 是适定的. 
+设 $(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)\in \prod_{T\in \mathcal T_h}$ $\mathbb V_{k,\ell}^{\div}(T)$ $\times \mathring{\Lambda}_k\times (V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)/\mathbb R)$ 是其解，则 $(\boldsymbol{u}_h,\boldsymbol{\lambda}_h,Q_{\ell}p_h)\in \mathring{\mathbb{V}}_{k,\ell}^{\div}\times \mathring{\Lambda}_k\times(\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R)$ 即为混合有限元方法 \eqref{distribustokesfemWG} 的解.
+\end{theorem}
+\begin{proof}
+首先证明当 $\boldsymbol{f}=0$ 时离散格式 \eqref{distribustokesH1pfemWG} 只有零解. 
+对 \eqref{distribustokesH1pfemWG2} 应用分部积分得
+\begin{equation*}
+\sum_{T\in\mathcal{T}_h}(\div\boldsymbol{u}_h, Q_{\ell,T}q_h)_T - \sum_{F\in\mathcal{F}_h}([\![\boldsymbol{u}_h\cdot\boldsymbol{n}]\!], Q_{k,F}q_h)_F=0 \quad \forall~q_h\in V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h).
+\end{equation*}
+由自由度 \eqref{ve-dof} 可知上式蕴含 $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$，以及 $\div\boldsymbol{u}_h=0$. 
+
+记 $Q_T^{\rm div}: L^2(T; \mathbb{R}^d) \to \mathbb V_{k,\ell}^{\div}(T)$ 为 $L^2$ 正交投影算子. 
+回顾文献 ~\cite{HuangTang2025,ChenHuang2020,ChenHuangWei2024} 中建立的单元 $T\in\mathcal{T}_h$ 上的范数等价关系：
+\begin{align}
+%\label{ve-normeq}
+%\|v\|^2_{T} &\eqsim \|Q_{\ell,T}v\|^2_{T}+\sum_{F\in\mathcal{F}(T)}h_F\|Q_{k,F}v\|^2_{F} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T), \\
+\label{ve-infsup2}
+\|Q_{T}^{\rm div}\nabla v\|_{0,T}&\eqsim\|\nabla v\|_{0,T} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T).
+\end{align}
+
+在 \eqref{distribustokesH1pfemWG1} 中取 $(\boldsymbol{v}_h,\boldsymbol{\mu}_h)=(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)$， \eqref{distribustokesH1pfemWG2} 中取 $q_h=p_h$，并相加得 $\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)=0$，从而 $\boldsymbol{u}_h=0$，$\boldsymbol{\lambda}_h=0$. 再结合 \eqref{distribustokesH1pfemWG1} 与范数等价关系 \eqref{ve-infsup2} 可得 $p_h=0$. 
+因此离散格式 \eqref{distribustokesH1pfemWG} 是适定的. 
+
+对于第二部分，由 \eqref{distribustokesH1pfemWG2} 可知 $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$，以及 $\div\boldsymbol{u}_h=0$. 
+取 $\boldsymbol{v}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$，由分部积分得
+\[
+ - (\boldsymbol{v}_h, \nabla_hp_h) = (\div\boldsymbol{v}_h, Q_{\ell}p_h).
+\]
+因此，$(\boldsymbol{u}_h,\boldsymbol{\lambda}_h,Q_{\ell}p_h)$ 满足方程 \eqref{distribustokesfemWG1}，证毕. 
+\end{proof}
+
+%Theorem~\ref{thm:equivalence0} establishes the equivalence between the discrete method \eqref{distribustokesH1pfemWG} and the mixed finite element method \eqref{distribustokesfemWG}.  
+
+在 \eqref{distribustokesH1pfemWG} 中，速度空间的法向连续性被松弛，这在 $\ell = -1$ 时尤为有用. 由于空间 $\mathring{\mathbb{V}}_{0,-1}^{\div}$ 缺乏显式的局部基函数，我们可以通过程序实现等价的混合格式 \eqref{distribustokesH1pfemWG} 来替代混合方法 \eqref{distribustokesfemWG}. 
+
+即使在 $(k,\ell)=(0,-1)$ 的最低阶情形下，该方法仍具有如下误差估计：
+\begin{equation*}
+\begin{aligned}
+&\|\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h} + \|\grad_h(\boldsymbol{u}-\boldsymbol{u}_h^{*})\| + \|\dev\grad_w(I_{0,0}^{\div}\boldsymbol{u} - \boldsymbol{u}_h,Q_{0,\mathcal{F}_h}\boldsymbol{\lambda}-\boldsymbol{\lambda}_h)\| \lesssim h |\boldsymbol{u}|_{2},\\
+&\|\boldsymbol{u} - \boldsymbol{u}_h\|_0+h\|\grad_h(\boldsymbol{u} - \boldsymbol{u}_h)\| \lesssim h( |\boldsymbol{u}|_{2} + |\boldsymbol{u}|_{1}),\\	
+&\|\boldsymbol{u}-\boldsymbol{u}_h^{*}\|+\|I_{0,0}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\| \lesssim h^{2}(|\boldsymbol{u}|_{2}  + \|\skw\grad\boldsymbol{f}\|).
+\end{aligned}
+\end{equation*}
+%\end{remark}
+
+\subsubsection{无稳定项虚拟元方法}
+对整数 $k\geq0$，定义 $H^1$-非协调虚拟元的局部形函数空间为：
+\begin{align*}
+\mathbb{V}_{k+1}^{\rm VE}(T)&:=\{\bs v\in H^1(T;\mathbb R^d): \div\bs v\in\mathbb P_{k}(T), \textrm{ 存在 }\, s\in L^2(T) \textrm{ 使得 } \\
+&  \quad\quad \Delta\bs v+\nabla s\in \big(\mathbb P_{k-1}(T;\mathbb R^d)\cap\ker(\cdot\boldsymbol x)\big),\;  (\partial_n\bs v+s\bs n)|_F\in\mathbb P_{k}(F;\mathbb R^d) \;\forall~F\in\mathcal F(T)\}.
+\end{align*}
+参照 \cite[Section 3.1]{WeiHuangLi2021} 的论证，局部虚拟元空间 $\mathbb{V}_{k+1}^{\rm VE}(T)$ 由以下自由度唯一确定：
+\begin{subequations}\label{vev-dof}
+\begin{align}
+(\bs v, \bs q)_F, & \quad \bs q\in\mathbb P_{k}(F; \mathbb R^d),  F\in\mathcal F(T), \label{vev-dof1}\\
+(\bs v, \bs q)_T, & \quad \bs q\in\mathbb P_{k-1}(T;\mathbb R^d). \label{vev-dof2}
+\end{align}
+\end{subequations}
+显然有 $\mathbb P_{k+1}(T;\mathbb R^d)\subseteq\mathbb{V}_{k+1}^{\rm VE}(T)$，且 $\mathbb{V}_{1}^{\rm VE}(T)=\mathbb P_1(T;\mathbb R^d)$. 
+全局虚拟元空间定义为：
+\begin{align*}
+\mathring{\mathbb{V}}_{h}^{\rm VE} &:= \{\boldsymbol{v}\in L^2(\Omega;\mathbb R^d):\boldsymbol{v}|_T\in\mathbb{V}_{k+1}^{\rm VE}(T) \textrm{ 对所有 }\, T\in\mathcal{T}_h; \\
+&\qquad\qquad\qquad\quad\quad\;\;\textrm{ 自由度 \eqref{vev-dof1} 在 $\mathring{\mathcal{F}}_h$ 中每个面上取单值，且在 $\partial\Omega$ 上为零 }\}.
+\end{align*}
+
+Stokes 方程 \eqref{eq-Stokes2} 的一种混合虚拟元方法是：对整数 $k\geq 0$，求 $\boldsymbol{u}_h\in \mathring{\mathbb{V}}_{h}^{\rm VE}$ 和 $p_h\in\mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$，使得
+\begin{subequations}\label{distribustokesvem}
+\begin{align}
+\label{distribustokesvem1}
+(Q_{k}(\dev \grad_h\boldsymbol{u}_h), Q_{k}(\dev \grad_h\boldsymbol{v}_h)) + (\div_h\boldsymbol{v}_h, p_h) &= (\boldsymbol{f}, I_{k,k}^{\div}\boldsymbol{v}_h), \\
+\label{distribustokesvem2}
+(\div_h\boldsymbol{u}_h, q_h)&=0
+\end{align}
+\end{subequations}
+对所有 $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{h}^{\rm VE}$ 和 $q_h\in\mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$ 成立.
+当 $k=0$ 时，混合格式 \eqref{distribustokesvem} 即为文献 \cite[(23)]{Linke2014} 中的修正 Crouzeix-Raviart 元方法. 
+
+
+% To show the well-posedness of the mixed virtual element method \eqref{distribustokesvem}, we equip space $\mathring{\mathbb{V}}_{h}^{\rm VE}$ with norm $\interleave(I_{k,k}^{\div}\boldsymbol{v}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{v}_h))\interleave_{1,h}$. By the commuting property \eqref{eq:Ihdivprop1} and the norm equivalence \eqref{eq:discretdevgradnormequiv11}, we have
+% \begin{equation*}
+% (\div_h\boldsymbol{v}_h, q_h)=(\div(I_{k,k}^{\div}\boldsymbol{v}_h), q_h)\lesssim \interleave(I_{k,k}^{\div}\boldsymbol{v}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{v}_h))\interleave_{1,h}\|q_h\|
+% \end{equation*}
+% for all $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{h}^{\rm VE}$ and $q_h\in\mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$.
+
+\begin{lemma}
+成立以下交换性：
+\begin{equation}\label{eq:weakdevgradvemcommu}
+\dev \grad_w(I_{k,k}^{\div}\boldsymbol{v}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{v}_h))	= Q_{k}(\dev \grad_h\boldsymbol{v}_h)\quad\forall\,\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{h}^{\rm VE}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+由算子 $\dev \grad_w$ 与 $I_{k,k}^{\div}$ 的定义，对任意 $\boldsymbol{\tau}\in \mathbb{P}_{k}(T;\mathbb{T})$ 及 $T\in\mathcal{T}_h$ 有
+\begin{align*}
+&\quad\; (\dev \grad_w(I_{k,k}^{\div}\boldsymbol{v}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{v}_h)), \boldsymbol{\tau})_T \\
+&=-(I_{k,k}^{\div}\boldsymbol{v}_h,\div\boldsymbol{\tau})_T+(\boldsymbol{n}\cdot(I_{k,k}^{\div}\boldsymbol{v}_h),\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}+(\Pi_F\boldsymbol{v}_h, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T}\\
+&=-(\boldsymbol{v}_h,\div\boldsymbol{\tau})_T+(\boldsymbol{n}\cdot\boldsymbol{v}_h,\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})_{\partial T}+(\Pi_F\boldsymbol{v}_h, \Pi_F\boldsymbol{\tau}\boldsymbol{n})_{\partial T}.
+\end{align*}
+再结合分部积分即得 \eqref{eq:weakdevgradvemcommu}. 
+\end{proof}
+
+由 \eqref{eq:weakdevgradvemcommu} 可知，$\|Q_{k}(\dev \grad_h\boldsymbol{v}_h)\|$ 定义了空间 $\mathring{\mathbb{V}}_{h}^{\rm VE}\cap\ker(\div_h)$ 上的一个范数. 
+
+% \begin{equation*}
+% \|Q_{k,h}(\dev \grad_h\boldsymbol{v}_h)\|\lesssim \interleave(I_{k,k}^{\div}\boldsymbol{v}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{v}_h))\interleave_{1,h} \quad \forall\,\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{h}^{\rm VE}.
+% \end{equation*}
+
+\begin{theorem}
+混合虚拟元方法 \eqref{distribustokesvem} 是适定的. 
+设 $(\boldsymbol{u}_h, p_h)\in \mathring{\mathbb{V}}_{h}^{\rm VE} \times \mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$ 为其解，则 $$(I_{k,k}^{\div}\boldsymbol{u}_h, Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{u}_h), Q_{\ell}p_h)\in \mathring{\mathbb{V}}_{k,\ell}^{\div} \times\mathbb P_{k}(\mathring{\mathcal{F}}_h; \mathbb R^{d-1})\times \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$$  是混合有限元方法 \eqref{distribustokesfemWG} 的解. 
+\end{theorem}
+\begin{proof}
+混合有限元方法 \eqref{distribustokesvem} 的适定性可采用与定理~\ref{thm:equivalence0} 类似的思路证明. 
+
+下面证明离散方法 \eqref{distribustokesvem} 与 \eqref{distribustokesfemWG} 的等价性. 
+由交换性 \eqref{eq:weakdevgradvemcommu}，可知方程 \eqref{distribustokesvem1} 意味着 $(I_{k,k}^{\div}\boldsymbol{u}_h$, $Q_{k,\mathcal{F}_h}(\Pi_F\boldsymbol{u}_h)$, $Q_{\ell}p_h)$ 满足方程 \eqref{distribustokesfemWG1}. 
+由交换性质 \eqref{eq:Ihdivprop1}，方程 \eqref{distribustokesvem1} 说明 $I_{k,k}^{\div}\boldsymbol{u}_h$ 满足方程 \eqref{distribustokesfemWG2}. 
+\end{proof}
+
+\begin{remark}\rm
+我们也可采用如下虚拟元空间离散速度：
+% \begin{align*}
+% &\Big{\boldsymbol{v}\in L^2(\Omega;\mathbb R^d):\boldsymbol{v}|T\in V{k+1,k+1}^{\rm VE}(T)\otimes\mathbb R^d \text{ 对所有 }T\in\mathcal{T}_h; \
+% &\qquad\qquad \text{自由度 \eqref{ve-dof1} 在 $\mathring{\mathcal{F}}_h$ 中每个面上取单值，且在 $\partial\Omega$ 上为零}\Big}.
+% \end{align*}
+\begin{align*}
+% \mathring{V}_{h}^{\rm VE}:= 
+&\{\boldsymbol{v}\in L^2(\Omega;\mathbb R^d):\boldsymbol{v}|_T\in V_{k+1,k+1}^{\rm VE}(T)\otimes\mathbb R^d \textrm{ 对所有 }\, T\in\mathcal{T}_h;  \\
+&\qquad\qquad\qquad\;\;\;\textrm{ 自由度 \eqref{ve-dof1} 在 $\mathring{\mathcal{F}}_h$ 中每个面上取单值，且在 $\partial\Omega$ 上为零}\}.
+\end{align*}
+% Then the equivalent mixed virtual element method is to find $\boldsymbol{u}_h\in \mathring{V}_{h}^{\rm VE}$ and $p_h\in\mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$ with integer $k\geq 0$, such that
+% \begin{align*}
+% (Q_{k,h}(\dev \grad_h\boldsymbol{u}_h), Q_{k,h}(\dev \grad_h\boldsymbol{v}_h)) + (\div(I_{k,k}^{\div}\boldsymbol{v}_h), p_h) &= (\boldsymbol{f}, I_{k,k}^{\div}\boldsymbol{v}_h), \\
+% (\div(I_{k,k}^{\div}\boldsymbol{u}_h), q_h)&=0
+% \end{align*}
+% for all $\boldsymbol{v}_h\in \mathring{V}_{h}^{\rm VE}$ and $q_h\in\mathbb{P}_{k}(\mathcal{T}_h)/\mathbb R$.
+\end{remark}
+
+\subsubsection{伪应力–速度–压力离散格式}
+通过引入伪应力变量
+$\boldsymbol{\sigma}_h:= \dev \grad_w\boldsymbol{u}_h\in\Sigma_{k}^{\rm tn}$，
+可将混合有限元方法 \eqref{distribustokesfemWG}
+改写为 MCS 方法~\cite{GopalakrishnanLedererSchoeberl2020a}：
+求 $\boldsymbol{\sigma}_h\in \Sigma_{k}^{\rm tn}$, $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 和 $p_h\in\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$，使得
+% \begin{subequations}\label{distribustokesfem}
+\begin{align*}
+% \label{distribustokesfem1}
+(\boldsymbol{\sigma}_h,\boldsymbol{\tau}_h)+b_h(\boldsymbol{\tau}_h,q_h;\boldsymbol{u}_h)&=0  & & \forall~\boldsymbol{\tau}_h \in \Sigma_{k}^{\rm tn}, q_h\in\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R, \\
+% \label{distribustokesfem2}
+b_h(\boldsymbol{\sigma}_h,p_h;\boldsymbol{v}_h) &=-(\boldsymbol{f}, \boldsymbol{v}_h) & &\forall~\boldsymbol{v}_h \in \mathring{\mathbb{V}}_{k,\ell}^{\div},
+\end{align*}
+% \end{subequations}
+其中双线性形式
+\begin{align*}
+b_h(\boldsymbol{\tau}_h,q_h;\boldsymbol{v}_h)&:=\sum_{T\in \mathcal{T}_{h}}(\div\boldsymbol{\tau}_h, \boldsymbol{v}_h)_T-\sum_{T\in \mathcal{T}_{h}}(\boldsymbol{n}^\intercal\boldsymbol{\tau}_h\boldsymbol{n}, \boldsymbol{n}\cdot\boldsymbol{v}_h)_{\partial T} - (\div\boldsymbol{v}_h, q_h) \\
+&\;=-\sum_{T\in \mathcal{T}_{h}}(\boldsymbol{\tau}_h, \grad\boldsymbol{v}_h)_T+\sum_{T\in \mathcal{T}_{h}}(\Pi_F\boldsymbol{\tau}_h\boldsymbol{n}, \Pi_F\boldsymbol{v}_h)_{\partial T} - (\div\boldsymbol{v}_h, q_h).
+\end{align*}
+
+在文献 \cite{GopalakrishnanLedererSchoeberl2020a} 的 MCS 方法中，伪应力空间选取如下子空间：
+\begin{equation*}
+\left\{
+\boldsymbol{\tau}_h \in \Sigma_{k}^{\rm tn} :
+\Pi_F \boldsymbol{\tau}_h \boldsymbol{n} \in \mathbb{P}_{k-1}(F; \mathbb{R}^{d-1})
+\ \text{对所有 }\, F \in \mathcal{F}_h
+\right\}
+\end{equation*}
+来离散无迹应力张量 $\boldsymbol{\sigma}$. 
+然而，约束条件 $\Pi_F \boldsymbol{\tau}_h \boldsymbol{n} \in \mathbb{P}_{k-1}(F; \mathbb{R}^{d-1})$ 使得~\cite{GopalakrishnanLedererSchoeberl2020a} 中的离散格式无法获得超收敛性质，例如估计式 \eqref{eq:errorestimate1} 中的 $\|\bs \sigma - \bs \sigma_h\|$ 与 $\|Q_{\ell} p - p_h\|$，以及 \eqref{eq:errorestimate4} 中的 $\|I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\|$. 
+
+在后续工作 \cite{GopalakrishnanLedererSchoeberl2020} 中，通过丰富应力空间获得了超收敛结果，但其方法要求 $k=\ell\ge1$. 
+相比之下，本节的离散格式不仅涵盖高阶情形，还自然适用于低阶情形 $(k,\ell)=(0,-1)$、$(0,0)$、$(1,0)$，并且在理论分析上更加简洁、透明. 
+
 
 
 

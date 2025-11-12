@@ -1,0 +1,202 @@
+\chapter{Korn 型不等式和分片 Korn 型不等式}
+
+% Sobolev spaces are fundamental in the study of partial differential equations and their
+% numerical approximations. In this chapter, we shall give brief discussions on the Sobolev
+% spaces and the regularity theory for elliptic boundary value problems.
+
+
+
+\section{Korn 型不等式}
+
+设 $D\subset\mathbb R^d$ 是一个 $d$ 维有界区域（$d\geq2$），令
+\begin{equation*}
+\textrm{RT}(D):=\mathbb{P}_0(D;\mathbb{R}^d)\oplus \boldsymbol{x}\mathbb{P}_0(D),
+\end{equation*}
+此为 $D$ 上最低阶 Raviart-Thomas 空间的形函数空间 \cite{RaviartThomas1977,Nedelec1980,ChenHuang2022}。事实上，$\textrm{RT}(D)$ 是算子 $\dev\grad$ 的核空间 \cite{ChenHuang2022a,PaulyZulehner2020}。
+
+
+
+\begin{lemma}
+成立
+\begin{equation*}
+\textnormal{\textrm{RT}}(D) = L^2(D;\mathbb{R}^d)\cap \ker(\dev\grad):=\{\boldsymbol{v}\in L^2(D;\mathbb{R}^d): \dev\grad\boldsymbol{v}=0\}.
+\end{equation*}	
+\end{lemma}
+\begin{proof}
+显然有 $\mathrm{RT}(D) \subseteq L^2(D;\mathbb{R}^d) \cap \ker(\dev \grad)$。  
+为证反向包含，设 $\boldsymbol{v} \in L^2(D;\mathbb{R}^d) \cap \ker(\dev \grad)$，则
+\begin{equation*}
+\grad\boldsymbol{v} = \frac{1}{d}(\div\boldsymbol{v})\boldsymbol{I}.	
+\end{equation*}
+对上式左乘散度算子得 $\grad(\div\boldsymbol{v})=0$，因此 $\grad \boldsymbol{v}$ 为常张量，进而 $\boldsymbol{v}$ 是仿射函数。结合上式可知 $\boldsymbol{v} \in \textrm{RT}(D)$。
+\end{proof}
+
+
+可以验证空间 $\textrm{RT}(D)$ 由以下自由度唯一确定：
+\begin{equation*}
+\int_{D}\boldsymbol{v}\dx, \quad \int_{D}\div \boldsymbol{v}\dx.
+\end{equation*}
+基于这些自由度定义插值算子 $\Pi_{\textrm{RT}, D}: H(\div ,D)\to \textrm{RT}(D)$，即满足
+\begin{equation}\label{eq:PiRTD}
+Q_{0,D}(\Pi_{\textrm{RT},D}\boldsymbol{v}) = Q_{0,D} \boldsymbol{v},\quad\div (\Pi_{\textrm{RT},D}\boldsymbol{v}) = Q_{0,D}(\div \boldsymbol{v}).
+\end{equation}
+该算子具有如下显式表达式：
+\begin{equation*}
+\Pi_{\textrm{RT},D}\boldsymbol{v}= Q_{0,D} \boldsymbol{v} + \frac{1}{d}Q_{0,D}(\div \boldsymbol{v})(\boldsymbol{x}-Q_{0,D}\boldsymbol{x}).
+\end{equation*}
+由于 $\operatorname{grad}(\Pi_{\textrm{RT},D}\boldsymbol{v}) = \frac{1}{d}Q_{0,D}(\div \boldsymbol{v})\boldsymbol{I}$，成立
+\begin{equation}\label{eq:gradPiRTproj}
+|\Pi_{\textrm{RT},D}\boldsymbol{v}|_{1,D} = \frac{1}{\sqrt{d}}\|Q_{0,D}(\div \boldsymbol{v})\|_{D}.
+\end{equation}
+
+回顾文献 \cite{Bogovskii1979,AcostaDuranMuschietti2006,Duran2012} 中散度算子的 Bogovskii 右逆算子的连续性：该算子从 $L^2_0(D)$ 到 $H_0^{1}(D;\mathbb{R}^d)$ 是连续的。
+
+\begin{lemma}[Theorem 3.2 in \cite{Duran2012}]\label{lem:divH1L2}
+设 $D \subset \mathbb{R}^d$ 是关于球 $B \subset D$ 星形的有界区域。对任意 $f \in L_0^2(D)$，存在向量场 $\boldsymbol{v} \in H_0^1(D; \mathbb{R}^d)$ 使得 $\div\boldsymbol{v}=f$，且
+\begin{equation*}
+|\boldsymbol{v}|_{1,D}\leq C_{\div, D}\|f\|_D,
+\end{equation*}
+其中常数 $C_{\div, D}>0$ 为
+\begin{equation*}
+C_{\div, D}=2C_d\frac{h_D}{h_B}\left(\frac{|D|}{|B|}\right)^{\frac{d-2}{2(d-1)}}\left(\ln\frac{|D|}{|B|}\right)^{\frac{d}{2(d-1)}}.
+\end{equation*}
+这里 $C_d>0$ 是仅依赖于空间维数 $d$ 的常数。
+\end{lemma}
+
+\begin{lemma}\label{le:devgrad1}
+设 $D \subset \mathbb{R}^d$ 是关于球 $B \subset D$ 星形的有界区域。设 $\boldsymbol{v}\in H^{1}(D;\mathbb{R}^d)$ 满足 $\div\boldsymbol{v}\in L_0^2(D)$，则有
+\begin{equation*}
+|\boldsymbol{v}|_{1,D} \leq C_{\dev\grad, D}\|\dev\grad \boldsymbol{v}\|_D,
+\end{equation*}
+其中常数 $C_{\dev\grad, D}>0$ 为
+\begin{equation*}
+C_{\dev\grad, D}=\left(1+\frac{d}{(d-1)^2}C_{\div, D}^2\right)^{1/2}.
+\end{equation*}
+\end{lemma}
+\begin{proof}
+由分解 $\grad\boldsymbol{v}= \dev\grad\boldsymbol{v} + \frac{1}{d}(\div\boldsymbol{v})\boldsymbol{I}$ 得
+\begin{equation*}
+|\boldsymbol{v}|_{1,D}^2=\|\dev\grad\boldsymbol{v}\|_D^2 + \frac{1}{d}\|\div \boldsymbol{v}\|_D^2.
+\end{equation*}
+因此只需证明
+\begin{equation}\label{eq:20250114}
+\|\div \boldsymbol{v}\|_D\leq \frac{d}{d-1} C_{\div, D} \|\dev\grad\boldsymbol{v}\|_D.
+\end{equation}
+
+应用引理~\ref{lem:divH1L2}，存在 $\boldsymbol{w}\in H_0^{1}(D;\mathbb{R}^d)$ 使得
+\begin{equation*}
+\div \boldsymbol{w} = \div  \boldsymbol{v},\quad |\boldsymbol{w}|_{1,D}\leq C_{\div, D} \|\div \boldsymbol{v}\|_D.
+\end{equation*}
+由分部积分得 $(\div \boldsymbol{v},\div \boldsymbol{w})_D = (\grad\boldsymbol{v}, \nabla\boldsymbol{w})_D$，于是
+\begin{align*}
+\|\div \boldsymbol{v}\|_D^2 &= (\div \boldsymbol{v},\div \boldsymbol{w})_D= (\grad\boldsymbol{v}, \nabla\boldsymbol{w})_D \\
+&= (\dev\grad\boldsymbol{v}, \nabla\boldsymbol{w})_D + \frac{1}{d}(\div\boldsymbol{v}, \div\boldsymbol{w})_D \\
+&= (\dev\grad\boldsymbol{v}, \nabla\boldsymbol{w})_D + \frac{1}{d}\|\div \boldsymbol{v}\|_D^2.
+\end{align*}
+这意味着
+\begin{equation*}
+\|\div \boldsymbol{v}\|_D^2=\frac{d}{d-1}(\dev\grad\boldsymbol{v}, \nabla\boldsymbol{w})_D\leq \frac{d}{d-1} C_{\div, D}\|\dev\grad\boldsymbol{v}\|_D\|\div \boldsymbol{v}\|_D.
+\end{equation*}
+因此 \eqref{eq:20250114} 成立。
+\end{proof}
+
+
+\begin{lemma}
+设 $D \subset \mathbb{R}^d$ 是关于球 $B \subset D$ 星形的有界区域，则有以下 Korn 型不等式：
+\begin{align}\label{eq:devgradineqlty1}
+|\boldsymbol{v}|_{1,D} &\leq C_{\dev\grad, D}\|\dev\grad \boldsymbol{v}\|_D + \frac{1}{\sqrt{d}}\|Q_{0,D}(\div \boldsymbol{v})\|_D \;\;\;\,\forall~\boldsymbol{v}\in H^{1}(D;\mathbb{R}^d), \\
+\label{eq:devgradineqlty2}
+|\boldsymbol{v}|_{1,D} &\leq C_{\dev\grad, D}\|\dev\grad \boldsymbol{v}\|_D \qquad\qquad\qquad\qquad\quad\quad\;\,\,\forall~\boldsymbol{v}\in H_0^{1}(D;\mathbb{R}^d).
+\end{align}
+\end{lemma}
+\begin{proof}
+由于 $\div(\boldsymbol{v}-\Pi_{\textrm{RT},D}\boldsymbol{v})\in L_0^2(D)$，应用引理~\ref{le:devgrad1} 得
+\begin{align*}
+|\boldsymbol{v}-\Pi_{\textrm{RT},D}\boldsymbol{v}|_{1,D} &\leq C_{\dev\grad, D} \|\dev\grad(\boldsymbol{v}-\Pi_{\textrm{RT},D}\boldsymbol{v})\|_D \\
+&=C_{\dev\grad, D}\|\dev\grad\boldsymbol{v}\|_D.
+\end{align*}
+于是有
+\begin{equation*}
+|\boldsymbol{v}|_{1,D}\leq C_{\dev\grad, D}\|\dev\grad\boldsymbol{v}\|_D+|\Pi_{\textrm{RT},\Omega}\boldsymbol{v}|_{1,D}.
+\end{equation*}
+结合 \eqref{eq:gradPiRTproj} 与上式即得 \eqref{eq:devgradineqlty1}。  
+不等式 \eqref{eq:devgradineqlty2} 是 \eqref{eq:devgradineqlty1} 的直接推论。
+\end{proof}
+
+
+\section{分片 Korn 型不等式与范数等价性}
+接下来，对分片光滑向量值函数建立类似 \eqref{eq:devgradineqlty2} 的不等式。  
+对 $\boldsymbol{v}\in H^1(\mathcal{T}_h;\mathbb R^d)$，赋予如下分片 $H^1$ 半范数：
+\begin{equation*}
+|\boldsymbol{v}|_{1,h}^2 :=  \sum_{T\in\mathcal{T}_h}\|\dev\grad\boldsymbol{v}\|^2_T+\sum_{F \in \mathcal{F}_h}  h_F^{-1}\|[\![\boldsymbol{v}]\!]\|_{F}^2.
+\end{equation*}
+对 $\boldsymbol{v}\in H^1(\mathcal{T}_h;\mathbb R^d)\cap H_0(\div,\Omega)$，有
+\begin{equation*}
+|\boldsymbol{v}|_{1,h}^2 =  \sum_{T\in\mathcal{T}_h}\|\dev\grad\boldsymbol{v}\|^2_T+\sum_{F \in \mathcal{F}_h}  h_F^{-1}\|[\![\Pi_F\boldsymbol{v}]\!]\|_{F}^2.
+\end{equation*}
+
+令 $\Pi_{\textrm{RT},h}: H^1(\mathcal{T}_h;\mathbb R^d)\to L^2(\Omega;\mathbb R^d)$ 为 $\Pi_{\textrm{RT},T}$ 的全局版本，即对 $\boldsymbol{v}\in H^1(\mathcal{T}_h;\mathbb R^d)$ 定义
+\begin{equation*}
+(\Pi_{\textrm{RT},h}\boldsymbol{v})|_T:=\Pi_{\textrm{RT},T}(\boldsymbol{v}|_T),\quad\forall\, T\in\mathcal{T}_h.
+\end{equation*}
+引入向量场的线性 Lagrange 元空间
+$$
+\mathbb{V}_h^{\rm L} := \{\boldsymbol{v}\in H_0^{1}(\Omega;\mathbb{R}^d): \boldsymbol{v}|_T\in\mathbb{P}_{1}(T;\mathbb{R}^d) \textrm{ 对所有 }\, T\in\mathcal{T}_h\}.$$
+我们还需要一个连接算子 $E_h: \mathbb P_1(\mathcal{T}_h;\mathbb R^d)\to \mathbb{V}_h^{\rm L}$，定义如下（参见 \cite[(2.1)]{Brenner2004}）：  
+对剖分 $\mathcal{T}_h$ 的每个内部顶点 $\texttt{v}$，
+\[
+(E_h\boldsymbol{v})(\texttt{v}) = \frac{1}{|\mathcal{T}_{\texttt{v}}|}{ \sum_{T \in \mathcal{T}_{\texttt{v}}}(\boldsymbol{v}|_T)(\texttt{v})},
+\]
+其中 $\mathcal{T}_{\texttt{v}} :=\{T\in\mathcal{T}_h : \texttt{v}\in\partial T\} $ 为共享顶点 $\texttt{v}$ 的单形集合，$|\mathcal{T}_{\texttt{v}}|$ 为 $\mathcal{T}_{\texttt{v}}$ 中单形个数。  
+成立如下估计（参见 \cite[(2.10)]{Brenner2004}）：
+\begin{equation}
+\label{estimate:Ehv}
+\sum_{T\in\mathcal{T}_h}|\boldsymbol{v}-E_h\boldsymbol{v}|_{1,T}^2\lesssim \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\boldsymbol{v}]\!]\|_{F}^2\quad\forall~\boldsymbol{v}\in \mathbb{P}_{1}(\mathcal{T}_h;\mathbb{R}^d).
+\end{equation}
+
+
+现在我们可以建立如下分片光滑向量场的分片 Korn 型不等式。
+\begin{lemma}
+对于任意 $\boldsymbol{v}\in H^{1}(\mathcal T_h; \mathbb{R}^d)$，成立以下范数等价关系：
+\begin{align}
+\label{eq:discretdevgradnormequiv}
+\|\grad_h\boldsymbol{v}\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\boldsymbol{v}]\!]\|_{F}^2 
+&\eqsim \|\dev\grad_h\boldsymbol{v}\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{0,F}[\![\boldsymbol{v}\cdot\boldsymbol{n}]\!]\|_{F}^2 \\
+\notag
+&\quad  + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F\boldsymbol{v}]\!]\|_{F}^2,
+\end{align}
+其中 $Q_{\mathrm{RT},F}: L^2(F;\mathbb R^{d-1})\to \mathbb{P}_0(F;\mathbb{R}^{d-1})\oplus (\Pi_F\boldsymbol{x})\mathbb{P}_0(F)$ 为 $L^2$ 正交投影算子。
+\end{lemma}
+\begin{proof}
+在每个单形 $T\in\mathcal{T}_h$ 上应用引理~\ref{le:devgrad1}，结合迹不等式与 \eqref{eq:PiRTD} 可得
+\begin{equation}\label{eq:PiRTestimate}
+\|\grad_h(\boldsymbol{v}-\Pi_{\textrm{RT},h}\boldsymbol{v})\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\boldsymbol{v}-\Pi_{\textrm{RT},h}\boldsymbol{v}]\!]\|_{F}^2\lesssim \|\dev\grad_h\boldsymbol{v}\|^2.
+\end{equation}
+因此只需证明
+\begin{align}
+\label{eq:discretdevgradnormequiv0}
+&\quad\;\|\grad_h(\Pi_{\textrm{RT},h}\boldsymbol{v})\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\Pi_{\textrm{RT},h}\boldsymbol{v}]\!]\|_{F}^2 \\
+\notag
+&\lesssim \|\dev\grad_h\boldsymbol{v}\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{0,F}[\![\boldsymbol{v}\cdot\boldsymbol{n}]\!]\|_{F}^2  + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F\boldsymbol{v}]\!]\|_{F}^2.
+\end{align}
+利用 \eqref{eq:devgradineqlty2} 与 \eqref{estimate:Ehv}，有
+\begin{align*}
+\|\grad_h(\Pi_{\textrm{RT},h}\boldsymbol{v})\|^2 & \lesssim \|\grad_h(\Pi_{\textrm{RT},h}\boldsymbol{v}-E_h(\Pi_{\textrm{RT},h}\boldsymbol{v}))\|^2 +|E_h(\Pi_{\textrm{RT},h}\boldsymbol{v})|_1^2 \\
+& \lesssim \|\grad_h(\Pi_{\textrm{RT},h}\boldsymbol{v}-E_h(\Pi_{\textrm{RT},h}\boldsymbol{v}))\|^2 +\|\dev\grad E_h(\Pi_{\textrm{RT},h}\boldsymbol{v})\|^2 \\
+& \lesssim \|\grad_h(\Pi_{\textrm{RT},h}\boldsymbol{v}-E_h(\Pi_{\textrm{RT},h}\boldsymbol{v}))\|^2 \lesssim \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\Pi_{\textrm{RT},h}\boldsymbol{v}]\!]\|_{F}^2. 
+\end{align*}
+由 \eqref{eq:PiRTestimate} 可得
+\begin{align*}
+\sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\Pi_{\textrm{RT},h}\boldsymbol{v}]\!]\|_{F}^2&=\sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{0,F}[\![(\Pi_{\textrm{RT},h}\boldsymbol{v})\cdot\boldsymbol{n}]\!]\|_{F}^2 \\
+&\quad\;+\sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F(\Pi_{\textrm{RT},h}\boldsymbol{v})]\!]\|_{F}^2 \\
+&\lesssim \|\dev\grad_h\boldsymbol{v}\|^2 \\
+&\quad\;+ \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{0,F}[\![\boldsymbol{v}\cdot\boldsymbol{n}]\!]\|_{F}^2  + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F\boldsymbol{v}]\!]\|_{F}^2.
+\end{align*}
+结合上述两个不等式即得 \eqref{eq:discretdevgradnormequiv0}。
+\end{proof}
+
+
+
+
+
+

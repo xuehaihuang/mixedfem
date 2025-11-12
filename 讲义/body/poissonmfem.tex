@@ -33,8 +33,8 @@ $$\|\boldsymbol\tau\|^2_{H(\div, \Omega)}=\|\boldsymbol\tau\|^2+\|\div\boldsymbo
 \begin{align}\label{1.4}
 \left\{
 \begin{array}{ll}
-(\boldsymbol\sigma, \boldsymbol\tau)+&(\div\boldsymbol\tau, u) = 0, \quad \forall \ \boldsymbol\tau\in  H(\div,\Omega), \\
-&(\div\boldsymbol\sigma, v) = -(f, v), \quad \forall \ v\in L^2(\Omega).
+&(\boldsymbol\sigma, \boldsymbol\tau)+(\div\boldsymbol\tau, u) = 0, \qquad\quad\;\; \forall \ \boldsymbol\tau\in  H(\div,\Omega), \\
+&\qquad\quad\;\;\;(\div\boldsymbol\sigma, v) = -(f, v), \quad \forall \ v\in L^2(\Omega).
 \end{array}
 \right.
 \end{align}
@@ -348,3 +348,202 @@ Q^0_T(Q^{k+1}_T u-u^\ast_h)&=Q^0_TQ^{k+1}_T u-Q^0_T u^\ast_h=Q^0_T u-Q^0_T u_h\\
 
 \section{杂交化}
 考虑 $k=0$的情形，没有自由度，VEM
+
+
+对于Poisson方程的混合有限元格式，找$\boldsymbol\sigma_h\in\Sigma_h,\, u_h\in\mathbb{P}_{l}(\mathcal{T}_h)$，使得
+\begin{subequations}
+\begin{align}
+(\boldsymbol\sigma_h, \boldsymbol\tau_h) + (\div \boldsymbol\tau_h, u_h) &= 0,\qquad\quad \;\;\; \forall \boldsymbol\tau_h \in \Sigma_h,\label{MixPoisson1}\\ 
+(\div \boldsymbol\sigma_h, v_h) &= -(f, v_h), \quad \forall  v_h \in \mathbb{P}_{l}(\mathcal{T}_h)\label{MixPoisson2},
+\end{align}
+\end{subequations}
+其中$l = k-1, k $，
+\[
+\Sigma_h  = \{\boldsymbol\tau_h\in H(\div,\Omega):\boldsymbol\tau_h|_T\in\mathbb{P}_{k}(T;\mathbb{R}^d)+\mathbb{H}_{k}(T)\boldsymbol x, \; T\in\mathcal{T}_h\}.
+\]
+对于速度变量，由于 $H(\div)$ 空间中协调元法要求法向分量在 $d-1$ 维面上连续，因此可以对其进行杂化，从而简化编程实现的复杂性。
+引入$Lagrange$乘子：
+\[
+([\![\boldsymbol\sigma_h\cdot\boldsymbol n]\!],\mu_h)_{F} = 0,\quad \mu_h\in \mathbb{P}_{k}(F),\,F\in\mathring{\mathcal{F}}_h.
+\]
+因此可以放松对速度变量连续性的要求，引入离散的$L^2(\Omega,\mathbb{R}^d)$的有限元空间：
+\[
+\Sigma_h^{-1}  = \{\boldsymbol\tau_h\in L^2(\Omega):\boldsymbol\tau_h|_T\in\mathbb{P}_{k}(T;\mathbb{R}^d)+\mathbb{H}_{l}(T)\boldsymbol x, \; T\in\mathcal{T}_h\}.
+\]
+则混合变分问题可以改写为：找$\boldsymbol\sigma_h\in\Sigma_h^{-1},\, u_h\in\mathbb{P}_{l}(\mathcal{T}_h),\, \lambda_h\in\mathbb{P}_{k}(\mathring{\mathcal{F}}_h)$，使得
+\begin{subequations}
+\begin{align}
+(\boldsymbol\sigma_h, \boldsymbol\tau_h) + (\div \boldsymbol\tau_h, u_h) -\sum_{T\in\mathcal{T}_h}(\boldsymbol\tau_h\cdot\boldsymbol n,\lambda_h)_{\partial T}&= 0,\qquad\;\;\; \forall \boldsymbol\tau_h \in \Sigma_h^{-1},\label{HMixPoisson1}\\ 
+(\div \boldsymbol\sigma_h, v_h)-\sum_{T\in\mathcal{T}_h}(\boldsymbol\sigma_h\cdot\boldsymbol n,\mu_h)_{\partial T} &= -(f, v_h), \; \forall  v_h \in \mathbb{P}_{l}(\mathcal{T}_h),\,\mu_h\in \mathbb{P}_{k}(\mathring{\mathcal{F}}_h)\label{HMixPoisson2}.
+\end{align}
+\end{subequations}
+\subsection{HDG方法}
+我们考虑定义在 $\mathcal{T}_h \times \mathcal{F}_h$ 上的分片多项式的乘积空间$M_{l,k} : = \mathbb{P}_{l}(\mathcal{T}_h)\times\mathbb{P}_{k}(\mathcal{F}_h)$，以及它的子空间$\mathring{M}_{l,k} : = \mathbb{P}_{l}(\mathcal{T}_h)\times\mathbb{P}_{k}(\mathring{\mathcal{F}}_h)$，对于$v_h\in M_{l,k}$可以表示为$v_h = (v_0,v_b)$。我们定义其上的内积：
+\[
+(u_h,v_h)_{0,h} := (u_0,v_0) +\sum_{F\in\mathcal{F}_h}h_F(u_b,v_b)_F,
+\]
+缩放因子$h_F$确保这两个项具有相同的量级。自然的可以定义范数
+\[
+\|v_h\|_{0,h}^2 = \|v_0\|^2_{0,h} + \sum_{F\in\mathcal{F}_h}h_F\|v_b\|_{0,h}^2.
+\]
+
+对于$\boldsymbol\tau\in\Sigma_h^{-1} $ 定义弱散度算子：$\div_w : \Sigma_h^{-1} \to\mathring{M}_{l,k}$
+\[
+\div_w\boldsymbol\tau = (\div_T\boldsymbol\tau,-h_F^{-1}[\![\boldsymbol\tau\cdot\boldsymbol n]\!])_{T\in\mathcal{T}_h,F\in\mathring{\mathcal{F}}_h},
+\]
+显然的，当$\boldsymbol\tau\in \Sigma_h^{-1} \cap H(\div,\Omega)$时，则$\div_w\boldsymbol\tau = (\div\boldsymbol\tau,0)$，在这种情况下，可以写成 $\div_w\boldsymbol\tau = \div\boldsymbol\tau$。
+
+对于$v_h\in\mathring{M}_{l,k}$，定义弱梯度算子$\nabla_w :\mathring{M}_{l,k}\to \Sigma_h^{-1}$：
+\[
+\begin{aligned}
+(\nabla_wv_h,\boldsymbol\tau)_{T} :&= -(v_0,\div\boldsymbol\tau)_T + (v_b,\boldsymbol\tau\cdot\boldsymbol n)_{\partial T}\\
+&=(\nabla_Tv_0,\boldsymbol\tau)_T + (v_b-v_0,\boldsymbol\tau\cdot\boldsymbol n)_{\partial T}.
+\end{aligned}
+\]
+由分部积分，可以得到
+\[
+(\div_w\boldsymbol\tau,v_h)_{0,h} = -(\boldsymbol\tau,\nabla_wv_h),\quad\forall\boldsymbol\tau\in\Sigma_h^{-1},\,v_h\in\mathring{M}_{l,k}.
+\]
+
+根据弱算子的定义，可以将\eqref{HMixPoisson1}-\eqref{HMixPoisson2} 改写为：找$\boldsymbol\tau_h\in\Sigma_h^{-1},\,u_h\in\mathring{M}_{l,k}$，使得
+\begin{subequations}
+\begin{align}
+(\boldsymbol\sigma_h, \boldsymbol\tau_h) + (\div_w \boldsymbol\tau_h, u_h)_{0,h} &= 0,\qquad\quad \;\;\; \forall \boldsymbol\tau_h \in \Sigma_h^{-1},\label{HDGPoisson1}\\ 
+(\div_w \boldsymbol\sigma_h, v_h)_{0,h}  &= -(f, v_0), \quad \forall  v_h = (v_0,v_b) \in \mathring{M}_{l,k}\label{HDGPoisson2},
+\end{align}
+\end{subequations}
+也等价于
+\begin{subequations}
+\begin{align}
+(\boldsymbol\sigma_h, \boldsymbol\tau_h) - (\boldsymbol\tau_h, \nabla_wu_h) &= 0,\qquad\quad \;\;\; \forall \boldsymbol\tau_h \in \Sigma_h^{-1},\label{HDGPoisson3}\\ 
+-( \boldsymbol\sigma_h, \nabla_wv_h) &= -(f, v_0), \quad \forall  v_h = (v_0,v_b) \in \mathring{M}_{l,k}\label{HDGPoisson4},
+\end{align}
+\end{subequations}
+
+\subsection{WG方法}
+由\eqref{HDGPoisson3}，我们得到$\boldsymbol\sigma_h = \nabla_wu_h$，则问题变成：找$u_h\in\mathring{M}_{l,k}$，使得
+\begin{equation}\label{WGPoisson}
+(\nabla_wu_h,\nabla_wv_h) = (f, v_0), \quad \forall  v_h = (v_0,v_b) \in \mathring{M}_{l,k}.
+\end{equation}
+我们称\eqref{WGPoisson}为无稳定化项的WG数值格式。
+
+我们可以定义$\mathring{M}_{l,k}$上的网格依赖的$H^1$半范：
+\[
+|v_h|_{1,h}^2 : = \sum_{T\in\mathcal{T}_h}|v_0|_{1,h}^2 + \sum_{T\in\mathcal{T}_h}h_T^{-1}\|v_b-v_0\|_{\partial T}^2,\quad \forall v_h = (v_0,v_b) \in \mathring{M}_{l,k}.
+\]
+成立下列范数等价性：
+\begin{lemma}
+对于$ v_h = (v_0,v_b) \in \mathring{M}_{l,k}$，成立
+\begin{equation}\label{eq:normequ}
+\|\nabla_wv_h\| \eqsim |v_h|_{1,h}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+为了简化记号，令$\boldsymbol\tau = \nabla_w v_h$，那么有
+\[
+\begin{aligned}
+\|\nabla_wv_h\|^2&= \sum_{T\in\mathcal{T}_h}(\nabla_Tv_0,\boldsymbol\tau)_{T} + \sum_{T\in\mathcal{T}_h}(v_0-v_b,\boldsymbol\tau\cdot\boldsymbol n)_{\partial T}\\
+&\leq \|\nabla_hv_0\|\|\boldsymbol\tau\| + (\sum_{T\in\mathcal{T}_h} h_T^{-1}\|v_0-v_b\|_{0,\partial T}^2)^{\frac{1}{2}}(\sum_{T\in\mathcal{T}_h} h_T\|\boldsymbol\tau\cdot\boldsymbol n\|_{\partial T}^{2})^{\frac{1}{2}}.
+\end{aligned}
+\]
+由此可以推出：
+\[
+\|\nabla_wv_h\|^2\leq  \sum_{T\in\mathcal{T}_h}|v_0|_{1,h}^2 + \sum_{T\in\mathcal{T}_h}h_T^{-1}\|v_b-v_0\|_{\partial T}^2,
+\]
+即$ \|\nabla_wv_h\|\leq |v_h|_{1,h}$。我们接下来考虑反方向，取$\boldsymbol\tau\in\Sigma_h^{-1}$所有自由度都为$0$，除 $\forall\;T\in\mathcal{T}_h$
+\[
+\begin{aligned}
+\boldsymbol\tau\cdot\boldsymbol n|_{\partial T} &= h_T^{-1}(v_b-v_0)|_{\partial T},\\
+(\boldsymbol\tau,\boldsymbol q)_T &= (\nabla_Tv_0,\boldsymbol q)_T\quad \boldsymbol q\in\nabla\mathbb{P}_{l}(T),
+\end{aligned} 
+\]
+由尺度论证，成立 $\|\boldsymbol\tau\|^2\lesssim\sum_{T\in\mathcal{T}_h}|v_0|_{1,h}^2 + \sum_{T\in\mathcal{T}_h}h_T^{-1}\|v_b-v_0\|_{\partial T}^2 = |v_h|_{1,h}^2$，另一方面
+\[
+\begin{aligned}
+(\nabla_wv_h,\boldsymbol\tau) = \sum_{T\in\mathcal{T}_h}|v_0|_{1,h}^2 + \sum_{T\in\mathcal{T}_h}h_T^{-1}\|v_b-v_0\|_{\partial T}^2  = |v_h|_{1,h}^2.
+\end{aligned}
+\]
+结合上述两个结果，以及Cauchy不等式，得到
+$
+ |v_h|_{1,h}\lesssim\|\nabla_wv_h\|,
+$ 得证。
+\end{proof}
+在\eqref{WGPoisson}中 ，令$v_0 = 0$，以及$\boldsymbol\sigma_h = \nabla_wu_h$，则有
+\[
+\begin{aligned}
+(\boldsymbol\sigma_h,\nabla_w(0,v_b)) = \sum_{F\in\mathcal{F}_h}([\![\boldsymbol\sigma_h\cdot\boldsymbol n]\!],v_b)_F = 0.
+\end{aligned}
+\]
+这意味着$\boldsymbol\sigma_h\in\Sigma_h$，则$\div_w\boldsymbol\sigma_h = (\div\boldsymbol\sigma_h,0)$，显然有
+$(\nabla_wu,\nabla_wv_h) = -(\div\boldsymbol\sigma_h, u_0)$，因此可以将\eqref{WGPoisson}写成混合形式：
+\begin{subequations}
+\begin{align}
+(\boldsymbol\sigma_h, \boldsymbol\tau_h) + (\div\boldsymbol\tau_h, u_0) &= 0,\\ 
+( \div\boldsymbol\sigma_h, v_0)&= -(f, v_0).
+\end{align}
+\end{subequations}
+\subsection{虚拟元方法}
+$\Sigma_h^{-1}$和$\mathring{M}_{l,k}$实际离散的是$L^2(\Omega;\mathbb{R}^d)$和$H^{-1}(\Omega)$，即离散的原始问题为：找$\boldsymbol\sigma\in L^2(\Omega;\mathbb{R}^d),\, u\in H_0^1(\Omega)$，使得
+\[
+\begin{aligned}
+(\boldsymbol\sigma,\boldsymbol\tau) + \langle\div\boldsymbol\tau,u\rangle &= 0,\qquad\quad\; \forall \boldsymbol\tau\in L^2(\Omega;\mathbb{R}^d),\\
+ \langle\div\boldsymbol\sigma,v\rangle &= -(f,v),\quad \forall v\in H_0^1(\Omega) .
+\end{aligned}
+\]
+对于$H_0^1(\Omega)$空间，可以使用非协调虚拟元来进行离散。对于$l=k-1,\,k$，
+\[
+V^{\mathrm{VE}}_{k,l}(T) : = \{ v\in H^1(T):\Delta v|_T\in\mathbb{P}_{l}(T),\partial_n v|_T\in\mathbb{P}_{k}(F), \, F\in\Delta_{d-1}(T) \}.
+\]
+显然$\mathbb{P}_{k+1}(T)\in V^{\mathrm{VE}}(T)$，给出虚拟元的自由度：
+\begin{subequations}
+\begin{align}
+(v,q)_F \quad&q \in\mathbb{P}_k(F) \label{eq:DoFVE1}\\ 
+ (v,q)_T\quad & q\in\mathbb{P}_{l}(T).\label{eq:DoFVE2}
+\end{align}
+\end{subequations}
+定义全局有限元空间：
+\[
+\begin{aligned}
+\mathring{V}_{k,l}^{\mathrm{VE}}:=\{v\in L^2(\Omega): v|_T\in V^{\mathrm{VE}}(T),\, T\in\mathcal{T}_h; \int_F [\![v]\!]q\,ds = 0, \; q\in\mathbb{P}_{k}(F), \, F\in\mathring{\mathcal{F}}_h\\
+\text{ 并且 }
+\int_F vq\,ds = 0,\,F\in\mathcal{F}_h\backslash\mathring{\mathcal{F}}_h.
+\} 
+\end{aligned}
+\]
+当$k=0,l=-1$时，是CR元， $V^{\mathrm{VE}}_{0,-1}(T) = \mathbb{P}_{1}(T)$；当$k=0,l=0$时，是增强的CR元， $V^{\mathrm{VE}}_{0,0}(T) = \mathbb{P}_{1}(T) + \text{span}\{\boldsymbol x\cdot\boldsymbol x\}$。引入算子$Q_M : \mathring{V}_{k,l}^{\mathrm{VE}}\to\mathring{M}_{l,k}$
+\[
+Q_Mv_h := (Q_{l,T}v_h,Q_{k,F}v_h)_{T\in\mathcal{T}_h,F\in\mathring{\mathcal{F}}_h} 
+\]
+根据自由度\eqref{eq:DoFVE1}-\eqref{eq:DoFVE2}，这显然是一个双射。定义$L^2$投影算子：$Q_{\Sigma}
+:L^2(\Omega;\mathbb{R}^d)\to\Sigma_h^{-1}$，可以得到算子交换性：
+\begin{equation}
+\nabla_wQ_M v_h = Q_{\Sigma}\nabla_hv_h ,\quad \forall v_h\in \mathring{V}_{k,l}^{\mathrm{VE}}.
+\end{equation}
+\begin{lemma}
+对于$v_h\in \mathring{V}_{k,l}^{\mathrm{VE}},\, \boldsymbol\tau_h\in\Sigma_h^{-1}$，成立
+\[
+(\nabla_wQ_Mv_h,\boldsymbol\tau_h)_T = (\nabla_hv_h,\boldsymbol\tau_h)_T.
+\]
+\end{lemma}
+\begin{proof}
+将等式左侧展开，
+ \[
+ \begin{aligned}
+ (\nabla_wQ_Mv_h,\boldsymbol\tau_h)_T &=  -(Q_{l,T}v_h,\div\boldsymbol\tau_h)_T +(Q_{k,F}v_h,\boldsymbol\tau_h\cdot\boldsymbol n)_{\partial T}\\
+ & = -(v_h,\div\boldsymbol\tau_h)_T+(v_h,\boldsymbol\tau_h\cdot\boldsymbol n)_{\partial T}
+  \end{aligned}
+ \]
+ 得证。
+\end{proof}
+根据算子交换性，对于$u_h\in\mathring{M}_{l,k}$，成立
+\[
+\nabla_w u_h = \nabla_wQ_MQ_M^{-1}u_h = Q_{\Sigma}\nabla_h(Q_M^{-1}u_h),
+\]
+因此可以将\eqref{WGPoisson}写成：找$u_h\in\mathring{V}_{k,l}^{\mathrm{VE}}$，使得
+\begin{equation}\label{eq:VEMPoisson}
+(Q_{\Sigma}\nabla_h(u_h),Q_{\Sigma}\nabla_h(v_h)) = (f,Q_{l,h}v_h),\quad\forall v_h\in\mathring{V}_{k,l}^{\mathrm{VE}}.
+\end{equation}
+当$k =0$时，可以去掉投影算子：找$u_h\in\mathring{V}_{0,l}^{\mathrm{VE}},\, l = -1, 0$，使得
+\begin{equation}\label{eq:CRPoisson}
+(\nabla_h(u_h),\nabla_h(v_h)) = (f,Q_{l,h}v_h),\quad\forall v_h\in\mathring{V}_{0,l}^{\mathrm{VE}}.
+\end{equation}
