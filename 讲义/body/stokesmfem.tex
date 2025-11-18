@@ -1232,11 +1232,15 @@ I_{k,k}^{\div}\boldsymbol{v}
 \label{eq:discretdevgradnormequiv11}
 \begin{aligned}
 |\boldsymbol{v}_h|_{1,h}^2&\eqsim \|\grad_h\boldsymbol{v}_h\|^2 + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|[\![\boldsymbol{v}_h]\!]\|_{F}^2 \\
-\notag
 &\eqsim \|\dev\grad_h\boldsymbol{v}_h\|^2  + \sum_{F \in \mathcal{F}_h} h_F^{-1}\|Q_{\mathrm{RT},F}[\![\Pi_F\boldsymbol{v}_h]\!]\|_{F}^2
 \end{aligned}
 \end{equation}
-对所有 $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{k,\ell}^{\div}$ 成立. 这意味着 $|\cdot|_{1,h}$ 是空间 $\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 上的范数. 
+对所有 $\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{k,\ell}^{\div}$ 成立，
+其中 $Q_{\mathrm{RT},F}: L^2(F;\mathbb R^{d-1})\to \mathbb{P}_0(F;\mathbb{R}^{d-1})\oplus (\Pi_F\boldsymbol{x})\mathbb{P}_0(F)$ 为 $L^2$ 正交投影算子，以及
+\begin{equation*}
+|\boldsymbol{v}|_{1,h}^2 :=  \sum_{T\in\mathcal{T}_h}\|\dev\grad\boldsymbol{v}\|^2_T+\sum_{F \in \mathcal{F}_h}  h_F^{-1}\|[\![\boldsymbol{v}]\!]\|_{F}^2.
+\end{equation*}
+这意味着 $|\cdot|_{1,h}$ 是空间 $\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 上的范数. 
 \end{lemma}
 \begin{proof}
 范数等价关系 \eqref{eq:discretdevgradnormequiv11} 可直接由 \eqref{eq:discretdevgradnormequiv} 推得. 
@@ -1494,23 +1498,32 @@ Q_{k-1,T}\boldsymbol{\tau}_h  = \dev\grad(\boldsymbol{v}_h|_T).
 此外，有限元解 $\boldsymbol{u}_h$、$\boldsymbol{\lambda}_h$ 和 $\boldsymbol{\sigma}_h$ 与整数 $\ell$ 无关. 
 \end{theorem}
 \begin{proof}
-当 $\ell = -1$ 时，$\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R = {0}$，此时离散方法 \eqref{distribustokesfemWG} 的适定性可由范数等价 \eqref{eq:weakdevgradnormequiv} 和 Lax-Milgram 引理得到. 
+假设 $\boldsymbol{f}=0$，利用齐次问题仅有零解来验证方法的适定性.
+由式 \eqref{distribustokesfemWG2} 可得 $\div \boldsymbol{u}_h = 0$，从而 $\boldsymbol{u}_h \in \mathring{\mathbb{V}}_{k,k-1}^{\div} \cap \ker(\div)$.
+在式 \eqref{distribustokesfemWG1} 中取 $\boldsymbol{v}_h = \boldsymbol{u}_h$ 和 $\boldsymbol{\mu}_h = \boldsymbol{\lambda}_h$，并在式 \eqref{distribustokesfemWG2} 中取 $q_h = p_h$，两式相减可得
+\[
+\|\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)\| = 0.
+\]
+由范数等价关系 \eqref{eq:weakdevgradnormequiv} 可知 $\boldsymbol{u}_h = 0$ 且 $\boldsymbol{\lambda}_h = 0$.
+此时，由式 \eqref{distribustokesfemWG1} 及等式 $\div \mathring{\mathbb{V}}_{k,\ell}^{\div} = \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb{R}$，可进一步推出 $p_h = 0$.
 
-现在假设 $\ell \ge 0$. 
-对于任意 $q_h\in \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$，由 $\div H_0^1(\Omega;\mathbb R^d)=L_0^2(\Omega)$ 和 \eqref{eq:Ihdivprop1}，有
-\begin{equation}\label{eq:qhinfsup}
-\|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div\boldsymbol{v},q_h)}{\|\boldsymbol{v}\|_1}=\sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\|\boldsymbol{v}\|_1}.
-\end{equation}
-选取 $\boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，使得 $\boldsymbol{\mu}_h|_F\in \Pi_F(Q_{k,F}\boldsymbol{v})$ 对所有 $F\in \mathring{\mathcal{F}}_h$ 成立. 由 \eqref{eq:Ihdivprop2} 可得
-\begin{align*}
-\interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}^2& =\|\dev \grad_h(I_{k, \ell}^{\div}\boldsymbol{v})\|^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v})-\boldsymbol{\mu}_h\|_{\partial T}^2 \\
-&\lesssim \|\boldsymbol{v}\|_1^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|I_{k, \ell}^{\div}\boldsymbol{v}-Q_{k,F}\boldsymbol{v}\|_{\partial T}^2\lesssim \|\boldsymbol{v}\|_1^2.
-\end{align*}
-将上两式结合，可得
-\begin{equation}\label{eq:20250926}
-\|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}} \leq \sup_{\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{(k,\ell),h}^{\div}\atop \boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})} \frac{(\div\boldsymbol{v}_h,q_h)}{\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}}.
-\end{equation}
-由 Babu{\v{s}}ka-Brezzi 理论，结合上述 inf-sup 条件和离散强制性 \eqref{eq:weakdevgradnormequiv}，可知离散方法 \eqref{distribustokesfemWG} 是适定的. 
+
+% 当 $\ell = -1$ 时，$\mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R = {0}$，此时离散方法 \eqref{distribustokesfemWG} 的适定性可由范数等价 \eqref{eq:weakdevgradnormequiv} 和 Lax-Milgram 引理得到. 
+% 现在假设 $\ell \ge 0$. 
+% 对于任意 $q_h\in \mathbb{P}_{\ell}(\mathcal{T}_h)/\mathbb R$，由 $\div H_0^1(\Omega;\mathbb R^d)=L_0^2(\Omega)$ 和 \eqref{eq:Ihdivprop1}，有
+% \begin{equation}\label{eq:qhinfsup}
+% \|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div\boldsymbol{v},q_h)}{\|\boldsymbol{v}\|_1}=\sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\|\boldsymbol{v}\|_1}.
+% \end{equation}
+% 选取 $\boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})$，使得 $\boldsymbol{\mu}_h|_F\in \Pi_F(Q_{k,F}\boldsymbol{v})$ 对所有 $F\in \mathring{\mathcal{F}}_h$ 成立. 由 \eqref{eq:Ihdivprop2} 可得
+% \begin{align*}
+% \interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}^2& =\|\dev \grad_h(I_{k, \ell}^{\div}\boldsymbol{v})\|^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|\Pi_F(I_{k, \ell}^{\div}\boldsymbol{v})-\boldsymbol{\mu}_h\|_{\partial T}^2 \\
+% &\lesssim \|\boldsymbol{v}\|_1^2+\sum_{T\in\mathcal{T}_h}h_T^{-1}\|I_{k, \ell}^{\div}\boldsymbol{v}-Q_{k,F}\boldsymbol{v}\|_{\partial T}^2\lesssim \|\boldsymbol{v}\|_1^2.
+% \end{align*}
+% 将上两式结合，可得
+% \begin{equation}\label{eq:20250926}
+% \|q_h\| \lesssim \sup_{\boldsymbol{v}\in H_0^1(\Omega;\mathbb{R}^d)} \frac{(\div(I_{k, \ell}^{\div}\boldsymbol{v}),q_h)}{\interleave(I_{k, \ell}^{\div}\boldsymbol{v},\boldsymbol{\mu}_h)\interleave_{1,h}} \leq \sup_{\boldsymbol{v}_h\in \mathring{\mathbb{V}}_{(k,\ell),h}^{\div}\atop \boldsymbol{\mu}_h\in\mathbb P_{k}(\mathring{\mathcal{F}}_h;\mathbb R^{d-1})} \frac{(\div\boldsymbol{v}_h,q_h)}{\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}}.
+% \end{equation}
+% 由 Babu{\v{s}}ka-Brezzi 理论，结合上述 inf-sup 条件和离散强制性 \eqref{eq:weakdevgradnormequiv}，可知离散方法 \eqref{distribustokesfemWG} 是适定的. 
 
 方程 \eqref{distribustokesfemWG2} 表明 $\div\boldsymbol{u}_h = 0$，因此 $\boldsymbol{u}_h \in \mathring{\mathbb V}_{k,k-1}^{\div}\cap \ker(\div)$. 
 在 \eqref{distribustokesfemWG1} 中取 $\boldsymbol{v}_h = 0$，得到
@@ -1656,15 +1669,18 @@ $$
 \end{equation*}
 由此可得
 $$
-\|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|^2=(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}) \quad\Rightarrow\quad \|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq \|\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|.
+\|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|^2=(I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h, I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}) \quad\Rightarrow\quad \|I_h^{\rm tn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq \|\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|,
 $$
+\begin{equation}\label{eq:20251118}
+\|Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|^2=(Q_{k,h}\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}, Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h) \quad\Rightarrow\quad \|Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq \|Q_{k,h}\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|.
+\end{equation}
 因此，利用插值误差估计 \eqref{eq:Ihtnprop2} 可得
 $$
 \|\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h}\leq \|\boldsymbol{\sigma} - I_h^{\rm tn}\boldsymbol{\sigma}\|_{0,h} + \|I_h^{\rm tn}\boldsymbol{\sigma} - \boldsymbol{\sigma}_h\|_{0,h} \lesssim \|\boldsymbol{\sigma} - I_h^{\rm tn}\boldsymbol{\sigma}\|_{0,h}\lesssim h^{k+1} |\boldsymbol{u}|_{k+2}.
 $$
-结合 \eqref{eq:weakdevgradnormequiv}，得到
+结合 \eqref{eq:weakdevgradnormequiv} 和 \eqref{eq:20251118}，得到
 \begin{equation*}
-\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}\lesssim\|(\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|=\|Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq\|\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|\lesssim h^{k+1} |\boldsymbol{u}|_{k+2}.
+\interleave(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\interleave_{1,h}\lesssim\|(\dev \grad)_w(\boldsymbol{v}_h,\boldsymbol{\mu}_h)\|=\|Q_{k,h}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|\leq\|Q_{k,h}\boldsymbol{\sigma}-I_h^{\rm tn}\boldsymbol{\sigma}\|\lesssim h^{k+1} |\boldsymbol{u}|_{k+2}.
 \end{equation*}
 另一方面，利用 \eqref{eq:qhinfsup} 和 \eqref{eq:preestimate4p}，可得
 \begin{equation*}
