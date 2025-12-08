@@ -272,8 +272,8 @@ $$
 在本节中，我们将讨论定义在可缩区域 $D\subset\mathbb R^d$ 上的多项式空间，其中 $d=2,3$. 不失一般性，我们假设 $D$ 包含坐标原点. 如果区域 $D$ 不包含坐标原点，可以平移区域 $D$ 使其包含坐标原点. 
 
 
-设整数 $k\geq0$，记 $\mathbb P_k(D)$ 为区域 $D$ 上所有总次数不超过 $k$ 的多项式构成的空间。为方便表述，当 $k<0$ 时，约定 $\mathbb P_k(D):=\{0\}$。
-记 $\mathbb P_k(D; \mathbb{X})$ 为 $\mathbb P_k(D)$ 的张量或向量版本，其中 $\mathbb{X}$ 可取 $\mathbb M$、$\mathbb{S}$、$\mathbb{K}$ 或 $\mathbb{R}^d$。定义 $k$ 次齐次多项式空间 $\mathbb H_k(D):=\mathbb P_k(D)\backslash \mathbb P_{k-1}(D)$. 
+设整数 $k\geq0$，记 $\mathbb P_k(D)$ 为区域 $D$ 上所有总次数不超过 $k$ 的多项式构成的空间. 为方便表述，当 $k<0$ 时，约定 $\mathbb P_k(D):=\{0\}$. 
+记 $\mathbb P_k(D; \mathbb{X})$ 为 $\mathbb P_k(D)$ 的张量或向量版本，其中 $\mathbb{X}$ 可取 $\mathbb M$、$\mathbb{S}$、$\mathbb{K}$ 或 $\mathbb{R}^d$. 定义 $k$ 次齐次多项式空间 $\mathbb H_k(D):=\mathbb P_k(D)\backslash \mathbb P_{k-1}(D)$. 
 可以直接验证
 \begin{equation}\label{eq:Hkxgrad}
 \bs x\cdot\nabla q=kq\quad\forall~q\in\mathbb H_k(D),
@@ -289,7 +289,7 @@ $$
 \begin{equation}\label{eq:20230205}
 \mathbb P_{k}(T)\cap\ker(c+\boldsymbol{x}\cdot\nabla)=\{0\},
 \end{equation}
-其中 $c$ 为任意正数。
+其中 $c$ 为任意正数. 
 
 
 定义算子 $\pi_{0}: \mathcal C^0(D)\to \mathbb R$ 为
@@ -357,7 +357,7 @@ $$
 & 0 \ar@<0.4ex>[l]^-{\supset} }.
 %$}
 \end{equation}
-与向量函数的 Koszul 复形不同，这里我们无法将恒等性质直接应用于齐次多项式。不过，利用 Koszul 算子与微分算子对多项式空间进行分解的方法仍然成立。
+与向量函数的 Koszul 复形不同，这里我们无法将恒等性质直接应用于齐次多项式. 不过，利用 Koszul 算子与微分算子对多项式空间进行分解的方法仍然成立. 
 
 
 首先，我们有如下分解：
@@ -384,7 +384,7 @@ $\curl\mathbb P_{k+1}(D)\cap\mathbb P_{k-1}(D)\bs x=0$.
 \[
 \dim \mathbb P_k(D;\mathbb R^2) = \dim \curl \mathbb P_{k+1}(D) + \dim (\mathbb P_{k-1}(D)\boldsymbol x),
 \]
-即可得到相应的分解。
+即可得到相应的分解. 
 \end{proof}
 
 类似地，我们有双向多项式复形
@@ -437,7 +437,7 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \end{align*}
 
 注意到 $\dim\curl\mathbb P_{k+1}(D; \mathbb R^3)=\dim\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, 以及 $\curl\mathbb P_{k+1}(D; \mathbb R^3)\subseteq\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$, 故有 $\curl\mathbb P_{k+1}(D; \mathbb R^3)=\mathbb P_k(D;\mathbb R^3)\cap\ker(\div)$.
-由此可知复形 \eqref{eq:deRhamcomplex3dPoly} 是正合的。
+由此可知复形 \eqref{eq:deRhamcomplex3dPoly} 是正合的. 
 \end{proof}
 
 %\LC{Add the backwards complex using Poincare operators first. Then the following decomposition follows naturally.}
@@ -468,7 +468,7 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 &=\frac{1}{6}(k+1)(k+2)(2k+9).
 \end{align*}
 
-对任意 $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)$，有 $\boldsymbol x\times\boldsymbol v=\boldsymbol 0$，故 $\boldsymbol v$ 与 $\boldsymbol x$ 平行，即 $\boldsymbol v\in\boldsymbol x\mathbb P_{k-1}(D)$。因此 $\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)=\boldsymbol x\mathbb P_{k-1}(D)$。于是，
+对任意 $\boldsymbol v\in\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)$，有 $\boldsymbol x\times\boldsymbol v=\boldsymbol 0$，故 $\boldsymbol v$ 与 $\boldsymbol x$ 平行，即 $\boldsymbol v\in\boldsymbol x\mathbb P_{k-1}(D)$. 因此 $\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\boldsymbol x\times)=\boldsymbol x\mathbb P_{k-1}(D)$. 于是，
 \begin{align*}
 \dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)&=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\mathbb P_{k}(D; \mathbb R^3)\cap\ker(\bs x\times) \\
 &=\dim\mathbb P_{k}(D; \mathbb R^3)-\dim\bs x\mathbb P_{k-1}(D) \\
@@ -477,7 +477,7 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \end{align*}
 
 注意到 $\dim\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\dim\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$，且 $\bs x\times\mathbb P_{k}(D; \mathbb R^3)\subseteq\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$, 因此 $\bs x\times\mathbb P_{k}(D; \mathbb R^3)=\mathbb P_{k+1}(D; \mathbb R^3)\cap\ker(\bs x\cdot)$.
-由此可得复形 \eqref{eq:deRhamvKoszulcomplex3dPoly} 的正合性。
+由此可得复形 \eqref{eq:deRhamvKoszulcomplex3dPoly} 的正合性. 
 \end{proof}
 
 复形 \eqref{eq:deRhamcomplex3dPoly} 和 \eqref{eq:deRhamvKoszulcomplex3dPoly} 通过以下方式相连：
@@ -493,7 +493,7 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \[
 \mathbb P_{k+2}(D)= \boldsymbol x\cdot\mathbb P_{k+1}(D; \mathbb R^3)\oplus\mathbb R.
 \]
-接下来我们转向空间 $\mathbb P_{k+1}(D; \mathbb R^3)$。
+接下来我们转向空间 $\mathbb P_{k+1}(D; \mathbb R^3)$. 
 \begin{lemma}
 设整数 $k \geq -1$ 且 $D$ 为三维可缩区域，则有以下空间直和分解：
 \begin{equation}\label{eq:vector3polyspacedecomp1}
@@ -501,9 +501,9 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \end{equation}
 \end{lemma}
 \begin{proof}
-由于等式 \eqref{eq:vector3polyspacedecomp1} 左侧空间的维数等于右侧两空间维数之和，我们只需证明 \eqref{eq:vector3polyspacedecomp1} 中的和是直和。
+由于等式 \eqref{eq:vector3polyspacedecomp1} 左侧空间的维数等于右侧两空间维数之和，我们只需证明 \eqref{eq:vector3polyspacedecomp1} 中的和是直和. 
 
-对任意向量场 $\boldsymbol v \in \grad\mathbb P_{k+2}(D) \cap (\boldsymbol x\times\mathbb P_k(D; \mathbb R^3))$，设 $\boldsymbol v = \grad q$，其中 $q \in \mathbb P_{k+2}(D)$。由此可得 $(\boldsymbol x\cdot\nabla)q = 0$，故由 \eqref{eq:Hkxgrad} 知 $q$ 为常值函数，从而 $\boldsymbol v = \boldsymbol 0$。
+对任意向量场 $\boldsymbol v \in \grad\mathbb P_{k+2}(D) \cap (\boldsymbol x\times\mathbb P_k(D; \mathbb R^3))$，设 $\boldsymbol v = \grad q$，其中 $q \in \mathbb P_{k+2}(D)$. 由此可得 $(\boldsymbol x\cdot\nabla)q = 0$，故由 \eqref{eq:Hkxgrad} 知 $q$ 为常值函数，从而 $\boldsymbol v = \boldsymbol 0$. 
 \end{proof}
 
 \begin{lemma}
@@ -513,15 +513,15 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 \end{equation}
 \end{lemma}
 \begin{proof}
-注意到 \eqref{eq:vector3polyspacedecomp2} 式左侧空间的维数等于右侧两个空间维数之和，我们只需证明该分解是直和。
+注意到 \eqref{eq:vector3polyspacedecomp2} 式左侧空间的维数等于右侧两个空间维数之和，我们只需证明该分解是直和. 
 
-为此，考虑交集 $\curl\mathbb P_{k+1}(D;\mathbb R^3) \cap \boldsymbol x\mathbb P_{k-1}(D)$ 中的任意向量场 $\boldsymbol v$。设 $\boldsymbol v = \boldsymbol x q$，其中 $q \in \mathbb P_{k-1}(D)$。由旋量场的性质，有 $\div(\boldsymbol x q) = 0$，应用 \eqref{eq:Hkdiv} 可得 $q = 0$，因此 $\boldsymbol v = \boldsymbol 0$。
+为此，考虑交集 $\curl\mathbb P_{k+1}(D;\mathbb R^3) \cap \boldsymbol x\mathbb P_{k-1}(D)$ 中的任意向量场 $\boldsymbol v$. 设 $\boldsymbol v = \boldsymbol x q$，其中 $q \in \mathbb P_{k-1}(D)$. 由旋量场的性质，有 $\div(\boldsymbol x q) = 0$，应用 \eqref{eq:Hkdiv} 可得 $q = 0$，因此 $\boldsymbol v = \boldsymbol 0$. 
 \end{proof}
 
 
 \subsection{任意维多项式复形}
 
-借助外微分，可统一描述任意维空间中的多项式复形（包括多项式微分复形与 Koszul 复形），相关理论见有限元外微积分 \cite{Arnold2018,ArnoldFalkWinther2006,ArnoldFalkWinther2010}。这里采用反对称矩阵来表述部分相关结果。
+借助外微分，可统一描述任意维空间中的多项式复形（包括多项式微分复形与 Koszul 复形），相关理论见有限元外微积分 \cite{Arnold2018,ArnoldFalkWinther2006,ArnoldFalkWinther2010}. 这里采用反对称矩阵来表述部分相关结果. 
 
 
 \begin{lemma}\label{lem:Pkdec}
@@ -537,22 +537,22 @@ q=\int_{\bs 0}^{\bs x}\bs v\cdot\dd\bs x \in \mathbb P_{k+2}(D)
 $$
 \grad \mathbb P_{k}(D)+ (\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d))\subseteq \mathbb P_{k-1}(D; \mathbb R^d).
 $$
-根据公式 \eqref{eq:Hkxgrad}，该和是直和。
+根据公式 \eqref{eq:Hkxgrad}，该和是直和. 
 
 映射 $\cdot\boldsymbol x: \mathbb P_{k-1}(D;\mathbb R^d) \to \mathbb P_{k}(D)\backslash \mathbb R$ 是满射，因此
 $$
 \dim\mathbb P_{k-1}(D; \mathbb R^d) 
 = \dim(\mathbb P_{k}(D)\backslash \mathbb R) + \dim(\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)).
 $$
-由于 $\dim \left( \mathbb P_{k}(D)\backslash \mathbb R \right) = \dim \grad \mathbb P_{k}(D)$，通过维数计数即得分解 \eqref{eq:dec2}。
+由于 $\dim \left( \mathbb P_{k}(D)\backslash \mathbb R \right) = \dim \grad \mathbb P_{k}(D)$，通过维数计数即得分解 \eqref{eq:dec2}. 
 \end{proof}
 
-文献~\cite[Proposition~1]{Nedelec1980} 中给出了 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的一种显式刻画，即：$\boldsymbol v\in \ker (\cdot \boldsymbol x)\cap \mathbb H_{k-1}(D;\mathbb R^d)$ 当且仅当 $\boldsymbol v\in \mathbb H_{k-1}(D;\mathbb R^d)$ 且其 $(k-1)$ 阶导数 $\nabla^{k-1}\boldsymbol v$ 的对称部分为零。
+文献~\cite[Proposition~1]{Nedelec1980} 中给出了 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的一种显式刻画，即：$\boldsymbol v\in \ker (\cdot \boldsymbol x)\cap \mathbb H_{k-1}(D;\mathbb R^d)$ 当且仅当 $\boldsymbol v\in \mathbb H_{k-1}(D;\mathbb R^d)$ 且其 $(k-1)$ 阶导数 $\nabla^{k-1}\boldsymbol v$ 的对称部分为零. 
 
-我们将给出 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的另一种刻画。
+我们将给出 $\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$ 的另一种刻画. 
 
 \begin{lemma}\label{lem:kerx}
-设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 成立
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域.  成立
 \begin{equation}  \label{eq:dec1}
 \ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d) = \mathbb P_{k-2}(D;\mathbb K)\boldsymbol x,
 \end{equation}
@@ -563,9 +563,9 @@ $$
 \end{lemma}
 
 \begin{proof}
-显然我们有 $\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$。根据 \eqref{eq:dec2}，只需证明 \eqref{eq:Pkm1vecdecomp} 成立。
+显然我们有 $\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\ker (\cdot \boldsymbol x)\cap \mathbb P_{k-1}(D;\mathbb R^d)$. 根据 \eqref{eq:dec2}，只需证明 \eqref{eq:Pkm1vecdecomp} 成立. 
 
-取 $\boldsymbol q\in\mathbb P_{k-1}(D; \mathbb R^d)$。不失一般性，由线性性质，只需考虑 $\boldsymbol q=\boldsymbol x^{\alpha}\boldsymbol e_{\ell}$ 的情形，其中 $|\alpha|=k-1$ 且 $1\leq\ell\leq d$。令
+取 $\boldsymbol q\in\mathbb P_{k-1}(D; \mathbb R^d)$. 不失一般性，由线性性质，只需考虑 $\boldsymbol q=\boldsymbol x^{\alpha}\boldsymbol e_{\ell}$ 的情形，其中 $|\alpha|=k-1$ 且 $1\leq\ell\leq d$. 令
 $$
 p=\frac{1}{k}\boldsymbol x\cdot\boldsymbol q=\frac{1}{k}\boldsymbol x^{\alpha+\boldsymbol e_{\ell}}\in\mathbb P_{k}(D), \;\; \boldsymbol\tau=\frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha-\boldsymbol e_{i}}(\boldsymbol e_{\ell}\boldsymbol e_{i}^{\intercal}-\boldsymbol e_{i}\boldsymbol e_{\ell}^{\intercal})\in\mathbb P_{k-2}(D;\mathbb K).
 $$
@@ -575,40 +575,40 @@ $$
 & = \frac{1}{k}\sum_{i=1}^d(\alpha_i+\delta_{i\ell})\boldsymbol x^{\alpha+\boldsymbol e_{\ell}-\boldsymbol e_{i}}\boldsymbol e_{i} + \frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha}\boldsymbol e_{\ell} - \frac{1}{k}\sum_{i=1}^d\alpha_i\boldsymbol x^{\alpha+\boldsymbol e_{\ell}-\boldsymbol e_{i}}\boldsymbol e_{i} \\
 &=\frac{1}{k}\boldsymbol x^{\alpha}\boldsymbol e_{\ell}+\frac{|\alpha|}{k}\boldsymbol x^{\alpha}\boldsymbol e_{\ell}=\boldsymbol x^{\alpha}\boldsymbol e_{\ell},
 \end{align*}
-即 $\boldsymbol q=\grad p+\boldsymbol\tau\boldsymbol x$。 因此，成立
+即 $\boldsymbol q=\grad p+\boldsymbol\tau\boldsymbol x$.  因此，成立
 $$
 \mathbb P_{k-1}(D; \mathbb R^d)\subseteq \grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x.
 $$ 
-结合已知关系 $\grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\mathbb P_{k-1}(D; \mathbb R^d)$，即得 \eqref{eq:Pkm1vecdecomp}。
+结合已知关系 $\grad \mathbb P_{k}(D)\oplus\mathbb P_{k-2}(D;\mathbb K)\boldsymbol x\subseteq\mathbb P_{k-1}(D; \mathbb R^d)$，即得 \eqref{eq:Pkm1vecdecomp}. 
 \end{proof}
 
 \begin{lemma}\label{lem:skwgrad}
-令整数 $k \geq 1$。
-设 $\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$ 满足 $(\skw\grad\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$，其中反对称算子 $\skw:\mathbb R^{d\times d}\to\mathbb K$ 定义为 $\skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})$。
-则有 $\boldsymbol{w}=\boldsymbol{0}$。
+令整数 $k \geq 1$. 
+设 $\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$ 满足 $(\skw\grad\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$，其中反对称算子 $\skw:\mathbb R^{d\times d}\to\mathbb K$ 定义为 $\skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})$. 
+则有 $\boldsymbol{w}=\boldsymbol{0}$. 
 \end{lemma}
 \begin{proof}
 由于
 \begin{equation*}%\label{eq:20220224}  
 (\skw\grad\boldsymbol{w})\boldsymbol{x}=\frac{1}{2}(\grad\boldsymbol{w})\boldsymbol{x}-\frac{1}{2}(\grad\boldsymbol{w})^{\intercal}\boldsymbol{x}=\frac{1}{2}(I+\boldsymbol{x}\cdot\grad)\boldsymbol{w} - \frac{1}{2}\grad(\boldsymbol{w}\cdot\boldsymbol{x}),
 \end{equation*}
-由$\boldsymbol{w}\cdot\boldsymbol{x}=0$可得$(I+\boldsymbol{x}\cdot\grad)\boldsymbol{w}=\boldsymbol{0}$，结合\eqref{eq:20230205}式即得$\boldsymbol{w}=\boldsymbol{0}$。
+由$\boldsymbol{w}\cdot\boldsymbol{x}=0$可得$(I+\boldsymbol{x}\cdot\grad)\boldsymbol{w}=\boldsymbol{0}$，结合\eqref{eq:20230205}式即得$\boldsymbol{w}=\boldsymbol{0}$. 
 \end{proof}
 
 \begin{lemma}
-设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域.  
 多项式复形
 \begin{equation}\label{eq:polycomplex1}
 \mathbb R\xrightarrow{}\mathbb P_k(D)\xrightarrow{\grad}\mathbb P_{k-1}(D;\mathbb R^d)\xrightarrow{\skw\grad}\mathbb P_{k-2}(D;\mathbb K)
 \end{equation}
-是正合的。
+是正合的. 
 \end{lemma}
 \begin{proof}
-显然\eqref{eq:polycomplex1}是一个复形。只需证明$\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)\subseteq\grad\mathbb P_{k}(D)$。
+显然\eqref{eq:polycomplex1}是一个复形. 只需证明$\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)\subseteq\grad\mathbb P_{k}(D)$. 
 
-对于任意$\boldsymbol{v}\in\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)$，根据空间分解 \eqref{eq:Pkm1vecdecomp}，存在$q\in \mathbb P_k(D)$和$\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$使得$\boldsymbol{v}=\grad q+\boldsymbol{w}$。
-由$\skw\grad\boldsymbol{v}=\boldsymbol{0}$可得$\skw\grad\boldsymbol{w}=\boldsymbol{0}$。
-应用引理~\ref{lem:skwgrad} 即得$\boldsymbol{w}=\boldsymbol{0}$。因此$\boldsymbol{v}=\grad q\in\grad\mathbb P_k(D)$。
+对于任意$\boldsymbol{v}\in\mathbb P_{k-1}(D;\mathbb R^d)\cap\ker(\skw\grad)$，根据空间分解 \eqref{eq:Pkm1vecdecomp}，存在$q\in \mathbb P_k(D)$和$\boldsymbol{w}\in\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$使得$\boldsymbol{v}=\grad q+\boldsymbol{w}$. 
+由$\skw\grad\boldsymbol{v}=\boldsymbol{0}$可得$\skw\grad\boldsymbol{w}=\boldsymbol{0}$. 
+应用引理~\ref{lem:skwgrad} 即得$\boldsymbol{w}=\boldsymbol{0}$. 因此$\boldsymbol{v}=\grad q\in\grad\mathbb P_k(D)$. 
 \end{proof}
 
 
@@ -625,10 +625,10 @@ $$
 
 
 
-下面是反对称矩阵值多项式空间的一个直和分解。
+下面是反对称矩阵值多项式空间的一个直和分解. 
 
 \begin{lemma}
-设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域. 
 成立空间直和分解 
 \begin{equation}\label{eq:Pkskwtensordecomp}  
 \mathbb P_{k-2}(D;\mathbb K)=\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)\oplus\big(\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})\big),
@@ -640,16 +640,16 @@ $$
 \[
 \skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\skw\grad(\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}).
 \]
-由引理~\ref{lem:skwgrad}，$\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)\cap\big(\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})\big)={\boldsymbol{0}}$。因此只需验证维数关系。
+由引理~\ref{lem:skwgrad}，$\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)\cap\big(\mathbb P_{k-2}(D;\mathbb K)\cap\ker(\boldsymbol{x})\big)={\boldsymbol{0}}$. 因此只需验证维数关系. 
 根据复形 \eqref{eq:polycomplex1}，
 \begin{equation}\label{eq:20220324-1}
-\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-1}(D;\mathbb R^d)-\dim\grad\mathbb P_k(D)。
+\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-1}(D;\mathbb R^d)-\dim\grad\mathbb P_k(D). 
 \end{equation}
 另一方面，由空间分解 \eqref{eq:Pkm1vecdecomp} 可得
 \[
 \dim\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}=\dim\mathbb P_{k-1}(D;\mathbb R^{d})-\dim\grad\mathbb P_k(D).
 \]
-因此，$\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$，由此即得 \eqref{eq:Pkskwtensordecomp}。
+因此，$\dim\skw\grad\mathbb P_{k-1}(D;\mathbb R^d)=\dim\mathbb P_{k-2}(D;\mathbb K)\boldsymbol{x}$，由此即得 \eqref{eq:Pkskwtensordecomp}. 
 \end{proof}
 
 由 \eqref{eq:Pkskwtensordecomp} 和 \eqref{eq:20220324-1} 可得
@@ -658,7 +658,7 @@ $$
 \end{equation}
 
 
-接下来，给出空间 $\mathbb P_{k-1}(D; \mathbb R^d)$ 与 \eqref{eq:Pkm1vecdecomp} 对偶的直和分解。
+接下来，给出空间 $\mathbb P_{k-1}(D; \mathbb R^d)$ 与 \eqref{eq:Pkm1vecdecomp} 对偶的直和分解. 
 \begin{lemma}\label{lem:dualPkdec}
 设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域，则成立以下空间直和分解：
 \begin{align}
@@ -671,18 +671,18 @@ $$
 $$
 (\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div))\oplus (\mathbb P_{k-2}(D) \boldsymbol x)\subseteq \mathbb P_{k-1}(D; \mathbb R^d).
 $$
-根据公式 \eqref{eq:Hkdiv}，该和是直和。
+根据公式 \eqref{eq:Hkdiv}，该和是直和. 
 
 又
 \begin{align*}
 \dim(\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)) &= \dim\mathbb P_{k-1}(D; \mathbb R^d)-\dim\div\mathbb P_{k-1}(D; \mathbb R^d) \\
 &= \dim\mathbb P_{k-1}(D; \mathbb R^d)-\dim\mathbb P_{k-2}(D),
 \end{align*}
-通过比较可得分解 \eqref{eq:dualPkdec2}。
+通过比较可得分解 \eqref{eq:dualPkdec2}. 
 \end{proof}
 
 \begin{lemma}\label{lem:dualkerx}
-设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 成立
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域.  成立
 \begin{equation}  \label{eq:dualPkdec1}
 \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div) = \div\mathbb P_{k}(D;\mathbb K),
 \end{equation}
@@ -693,29 +693,29 @@ $$
 \end{lemma}
 
 \begin{proof}
-根据空间分解 \eqref{eq:dualPkdec2}，只需证明 \eqref{eq:dualPkdec1} 即可。
+根据空间分解 \eqref{eq:dualPkdec2}，只需证明 \eqref{eq:dualPkdec1} 即可. 
 
 对任意 $\boldsymbol{q}\in \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$, 
 \begin{align*}
 \div(2\skw(\boldsymbol{x}\otimes\boldsymbol{q})) = \div(\boldsymbol{x}\otimes\boldsymbol{q}) - \div(\boldsymbol{q}\otimes\boldsymbol{x}) = - (d-1+\boldsymbol{x}\cdot\grad)\boldsymbol{q}.
 \end{align*}
-这结合 \eqref{eq:20230205} 表明 $\div(2\skw(\boldsymbol{x}\otimes\cdot))$ 在空间 $\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$ 上是单射算子。因此，
+这结合 \eqref{eq:20230205} 表明 $\div(2\skw(\boldsymbol{x}\otimes\cdot))$ 在空间 $\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$ 上是单射算子. 因此，
 $$
 \dim\div\mathbb P_{k}(D;\mathbb K) \geq \dim(\mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)).
 $$
-又显然有 $\div\mathbb P_{k}(D;\mathbb K)\subseteq \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$，故等式 \eqref{eq:dualPkdec1} 成立。
+又显然有 $\div\mathbb P_{k}(D;\mathbb K)\subseteq \mathbb P_{k-1}(D; \mathbb R^d) \cap\ker(\div)$，故等式 \eqref{eq:dualPkdec1} 成立. 
 \end{proof}
 
 \begin{lemma}
-设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域。 
+设整数 $k \geq 1$ 且 $D$ 为 $d$ 维可缩区域.  
 多项式复形
 \begin{equation}\label{eq:polycomplex2}
 \mathbb P_k(D;\mathbb K)\xrightarrow{\div}\mathbb P_{k-1}(D;\mathbb R^d)\xrightarrow{\div}\mathbb P_{k-2}(D)\to0
 \end{equation}
-是正合的。
+是正合的. 
 \end{lemma}
 \begin{proof}
-显然 \eqref{eq:polycomplex2} 构成复形。根据 \eqref{eq:Hkdiv} 有 $\div\mathbb P_{k-1}(D;\mathbb R^d)=\mathbb P_{k-2}(D)$，再结合 \eqref{eq:dualPkdec1} 即可得证。
+显然 \eqref{eq:polycomplex2} 构成复形. 根据 \eqref{eq:Hkdiv} 有 $\div\mathbb P_{k-1}(D;\mathbb R^d)=\mathbb P_{k-2}(D)$，再结合 \eqref{eq:dualPkdec1} 即可得证. 
 \end{proof}
 
 在复形 \eqref{eq:polycomplex2} 的基础上，进一步有以下双向复形：
@@ -731,19 +731,19 @@ $$
 \section{切向法向基}
 
 
-对于一个 $\ell$ 维子单纯形 $f \in \Delta_{\ell}(T)$，选取 $f$ 上 $\ell$ 个线性无关的切向量 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$，以及 $d-\ell$ 个线性无关的法向量 $\{\bs n_1^f, \ldots, \bs n_{d-\ell}^f\}$。
+对于一个 $\ell$ 维子单纯形 $f \in \Delta_{\ell}(T)$，选取 $f$ 上 $\ell$ 个线性无关的切向量 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$，以及 $d-\ell$ 个线性无关的法向量 $\{\bs n_1^f, \ldots, \bs n_{d-\ell}^f\}$. 
 这 $d$ 个向量组成的集合
 \[
 \{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_1^f, \ldots, \bs n_{d-\ell}^f \}
 \]
-构成 $\mathbb{R}^d$ 的一组基底。
+构成 $\mathbb{R}^d$ 的一组基底. 
 
-注意，当 $\ell=0$（即顶点处）时，没有切向量；当 $\ell=d$ 时，没有法向量。定义 $f$ 的切平面和法平面为
+注意，当 $\ell=0$（即顶点处）时，没有切向量；当 $\ell=d$ 时，没有法向量. 定义 $f$ 的切平面和法平面为
 \[
 \mathscr{T}^f := \mathrm{span} \{\bs t_i^f, i=1, \ldots, \ell \}, \quad
 \mathscr{N}^f := \mathrm{span} \{\bs n_i^f, i=1, \ldots, d-\ell \}.
 \]
-所有向量都是单位长度的，但 $\{\bs t_i^f\}_{i=1}^{\ell}$ 或 $\{\bs n_i^f\}_{i=1}^{d-\ell}$ 不一定构成正交基。
+所有向量都是单位长度的，但 $\{\bs t_i^f\}_{i=1}^{\ell}$ 或 $\{\bs n_i^f\}_{i=1}^{d-\ell}$ 不一定构成正交基. 
 
 
 在子空间 $\mathscr T^f$ 中，可以找到一组与 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f\}$ 对偶的基函数 $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f\}$，即 $\hat{\bs t}_i \in \mathscr T^f$ 且满足
@@ -754,35 +754,41 @@ $$
 $$
 (\hat{\bs n}_i, \bs n_j) = \delta_{i,j}, \quad i, j=1,\ldots,d-\ell.
 $$
-由于 $\mathscr T^f \perp \mathscr N^f$，则基组 $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ 亦与 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f\}$ 互为对偶。 
+由于 $\mathscr T^f \perp \mathscr N^f$，则基组 $\{\hat{\bs t}_1^f, \ldots, \hat{\bs t}_{\ell}^f, \hat{\bs n}_{1}^f, \ldots, \hat{\bs n}_{d-\ell}^f\}$ 亦与 $\{\bs t_1^f, \ldots, \bs t_{\ell}^f, \bs n_{1}^f, \ldots, \bs n_{d-\ell}^f\}$ 互为对偶.  
 
 
-给定一个子单纯形 $f\in \Delta_{\ell}(T)$，下面介绍~\cite{ChenChenHuangWei2024} 中构造的两组 $\mathscr N^f$ 的基。
+给定一个子单纯形 $f\in \Delta_{\ell}(T)$，下面介绍~\cite{ChenChenHuangWei2024} 中构造的两组 $\mathscr N^f$ 的基. 
 
-设 $F_i$ 表示与第 $i$ 个顶点相对的 $(d-1)$ 维面，则当 $i\in f^*$ 时，必有 $f\subseteq F_i$。由这些 $(d-1)$ 维面的单位法向量组成的集合
+设 $F_i$ 表示与第 $i$ 个顶点相对的 $(d-1)$ 维面，则当 $i\in f^*$ 时，必有 $f\subseteq F_i$. 由这些 $(d-1)$ 维面的单位法向量组成的集合
 \begin{equation*}
 \{\bs n_{F_i}, i\in f^*\}
 \end{equation*}
-称为\textbf{面法向基}。
+称为\textbf{面法向基}. 
 
-接下来给出其在 $\mathscr N^f$ 中的对偶基。
-对于 $f \in \Delta_{\ell}(T)$（$\ell = 0, 1, \dots, d-1$）以及 $i \in f^*$，记 $f\cup\{i\}$ 为由顶点集 $\{i,f(0),\dots,f(\ell)\}$ 所确定的 $(\ell+1)$ 维单纯形。定义 $\bs n_{f\cup\{i\}}^f$ 为 $f$ 的一个单位法向量，同时它平行于单纯形 $f\cup\{i\}$（即，位于该单纯形张成的平面内）。由此得到的基组
+记边向量 $\bs t_{i,j}:=\textnormal{\texttt{v}}_j-\textnormal{\texttt{v}}_i$， 其中 $\textnormal{\texttt{v}}_0, \textnormal{\texttt{v}}_1, \cdots, \textnormal{\texttt{v}}_d$ 是单纯形 $T$ 的顶点. 成立
+\begin{equation}\label{eq:tangradlambdadual}
+\bs t_{i,j}\cdot\nabla\lambda_{\ell}=\delta_{j,\ell}-\delta_{i,\ell}, \quad \forall\,i,j,\ell=0,1,\ldots,d.
+\end{equation}
+
+
+接下来给出其在 $\mathscr N^f$ 中的对偶基. 
+对于 $f \in \Delta_{\ell}(T)$（$\ell = 0, 1, \dots, d-1$）以及 $i \in f^*$，记 $f\cup\{i\}$ 为由顶点集 $\{i,f(0),\dots,f(\ell)\}$ 所确定的 $(\ell+1)$ 维单纯形. 定义 $\bs n_{f\cup\{i\}}^f$ 为 $f$ 的一个单位法向量，同时它平行于单纯形 $f\cup\{i\}$（即，位于该单纯形张成的平面内）. 由此得到的基组
 \begin{equation*}%\label{eq:dualnormalbasis}
 \{\bs n_{f\cup\{i\}}^f, i\in f^*\}
 \end{equation*}
-称为\textbf{切向法向基}。
+称为\textbf{切向法向基}. 
 
 
 
 \begin{lemma}\label{lem:normaldual}
-对于 $f\in \Delta_{\ell}(T)$，缩放后的切向法向基 $\{\bs n_{f\cup\{i\}}^f/(\bs n_{f\cup\{i\}}^f\cdot\bs n_{F_i}), i\in f^*\}$ 是法平面空间 $\mathscr N^f$ 中面法向基 $\{\bs n_{F_i}, i\in f^*\}$ 的对偶基。
+对于 $f\in \Delta_{\ell}(T)$，缩放后的切向法向基 $\{\bs n_{f\cup\{i\}}^f/(\bs n_{f\cup\{i\}}^f\cdot\bs n_{F_i}), i\in f^*\}$ 是法平面空间 $\mathscr N^f$ 中面法向基 $\{\bs n_{F_i}, i\in f^*\}$ 的对偶基. 
 \end{lemma}
 \begin{proof}
-显然，对任意 $i\in f^*$，均有 $\bs n_{f\cup\{i\}}^f, \bs n_{F_i}\in \mathscr N^f$。因此只需证明
+显然，对任意 $i\in f^*$，均有 $\bs n_{f\cup\{i\}}^f, \bs n_{F_i}\in \mathscr N^f$. 因此只需证明
 \begin{equation*}
  \bs n_{f\cup\{i\}}^f\cdot\bs n_{F_j}=0, \quad  i,j\in f^*, i\neq j.
 \end{equation*}
-该结论可由包含关系 $f\cup\{i\}\subseteq F_j$ 及 $\bs n_{f\cup\{i\}}^f\in \mathscr T^{f\cup\{i\}}$ 直接推出。
+该结论可由包含关系 $f\cup\{i\}\subseteq F_j$ 及 $\bs n_{f\cup\{i\}}^f\in \mathscr T^{f\cup\{i\}}$ 直接推出. 
 \end{proof}
 
 
@@ -806,21 +812,21 @@ $$
 
 
 \begin{example}\rm
-当 $f\in \Delta_0(T)$ 时，即 $f$ 为一个顶点。假设 $f=\{0\}$，则 $\bs n_{f\cup\{i\}}^f$ 是边 $\{0,i\}$ 的单位法向量，可取为 $\bs t_{0,i}$ 或 $\bs t_{i,0}$，取决于方向。其对偶基为 $\{\bs n_{F_i}/(\bs n_{F_i}\cdot \bs t_{0,i}), i=1, \ldots, d\}$. 见图~\ref{fig:normalbasis} (a)。
+当 $f\in \Delta_0(T)$ 时，即 $f$ 为一个顶点. 假设 $f=\{0\}$，则 $\bs n_{f\cup\{i\}}^f$ 是边 $\{0,i\}$ 的单位法向量，可取为 $\bs t_{0,i}$ 或 $\bs t_{i,0}$，取决于方向. 其对偶基为 $\{\bs n_{F_i}/(\bs n_{F_i}\cdot \bs t_{0,i}), i=1, \ldots, d\}$. 见图~\ref{fig:normalbasis} (a). 
 \end{example}
 
 
 \begin{example}\rm
 设 $f=\{0,1\}$ 为四面体中的一条棱，则其法向平面 $\mathscr N^f$ 有两组基：
 $\{\bs n_{F_2}, \bs n_{F_3}\}$ 与 $\{ \bs n^{\{0,1\}}_{\{0,1,2\}}, \bs n^{\{0,1\}}_{\{0,1,3\}}\}.$
-二者经过适当缩放后互为对偶。见图~\ref{fig:normalbasis} (b)。 
+二者经过适当缩放后互为对偶. 见图~\ref{fig:normalbasis} (b).  
 \end{example}
 
 
 \section{$H(\div)$ 有限元}
 % The material in this section comes from \cite{BoffiBrezziFortin2013}.
 % Let $\Gamma:=\partial\Omega$.
-在本节中，我们考虑单纯形上$H(\div)$-协调有限元的构造。
+在本节中，我们考虑单纯形上$H(\div)$-协调有限元的构造. 
 
 \subsection{$H(\div)$ 空间和迹算子}
 回顾 Sobolev 空间
@@ -836,7 +842,7 @@ H(\div,\Omega):=\{\bs v\in L^2(\Omega;\mathbb R^d): \div\bs v\in L^2(\Omega)\}.
 \end{lemma}
 
 \begin{lemma}
-迹算子$\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$是满射。
+迹算子$\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$是满射. 
 % The trace operator $\bs v\in H(\div,\Omega)\to\bs v\cdot\bs n|_{\Gamma}\in H^{-1/2}(\Gamma)$ is surjective.
 \end{lemma}
 
@@ -871,23 +877,23 @@ $$
 \begin{equation}\label{eq:20200917}
 (\boldsymbol v, \boldsymbol q)_T =0 \quad \forall~\boldsymbol q\in\mathbb P_{k-1}(T; \mathbb R^d),
 \end{equation}
-则 $\boldsymbol v=\bs 0$。
+则 $\boldsymbol v=\bs 0$. 
 \end{lemma}
 \begin{proof}
-为表述简便，记 $\Delta_{d-1}(T)$ 中的 $d+1$ 个面为 $F_i$，其中 $F_i$ 与 $T$ 的第 $i$ 个顶点相对，$\bs n_i$ 为 $F_i$ 的单位外法向量，$i=0,1,\cdots,d$。
-令 $\bs t_i$ ($i=1,\ldots,d$) 表示从顶点 $0$ 指向顶点 $i$ 的单位切向量，则 $d$ 个向量 ${\bs t_1, \ldots, \bs t_d}$ 构成 $\mathbb R^d$ 的一组基（尽管它们一般不正交）。于是有
+为表述简便，记 $\Delta_{d-1}(T)$ 中的 $d+1$ 个面为 $F_i$，其中 $F_i$ 与 $T$ 的第 $i$ 个顶点相对，$\bs n_i$ 为 $F_i$ 的单位外法向量，$i=0,1,\cdots,d$. 
+令 $\bs t_i$ ($i=1,\ldots,d$) 表示从顶点 $0$ 指向顶点 $i$ 的单位切向量，则 $d$ 个向量 ${\bs t_1, \ldots, \bs t_d}$ 构成 $\mathbb R^d$ 的一组基（尽管它们一般不正交）. 于是有
 \[
 \bs v=\sum_{i=1}^d\frac{\bs v\cdot\bs n_i}{\bs t_i\cdot\bs n_i}\bs t_i.
 \]
-由于 $\bs v\cdot\bs n_i|_{F_i}=0$，存在 $p_i\in\mathbb P_{k-1}(T)$ 使得 $\bs v\cdot\bs n_i=\lambda_ip_i$。在 \eqref{eq:20200917} 中取 $\bs q=\bs n_ip_i$ 可得
+由于 $\bs v\cdot\bs n_i|_{F_i}=0$，存在 $p_i\in\mathbb P_{k-1}(T)$ 使得 $\bs v\cdot\bs n_i=\lambda_ip_i$. 在 \eqref{eq:20200917} 中取 $\bs q=\bs n_ip_i$ 可得
 \[
 (\lambda_ip_i, p_i)_T =0.
 \]
-因此 $p_i=0$，进而 $\boldsymbol v\cdot\bs n_i=0$，最终得到 $\boldsymbol v= 0$。
+因此 $p_i=0$，进而 $\boldsymbol v\cdot\bs n_i=0$，最终得到 $\boldsymbol v= 0$. 
 \end{proof}
 
 \begin{lemma}\label{lem:unisovlenRTfem}
-自由度 \eqref{RTfemdof} 对于形函数空间 $V_k^{\rm RT}(T)$ 是唯一可解的。
+自由度 \eqref{RTfemdof} 对于形函数空间 $V_k^{\rm RT}(T)$ 是唯一可解的. 
 \end{lemma}
 \begin{proof}
 根据 $\dim\mathbb P_{k}(F)+\dim\mathbb P_{k-1}(T)=\dim\mathbb P_{k}(T)$ 和 $\dim\mathbb P_{k}(F)=\dim \mathbb H_{k}(T)$ 可知，自由度 \eqref{RTfemdof} 的总数为
@@ -895,12 +901,12 @@ $$
 (d+1)\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) = \dim\mathbb P_{k}(F)+d\dim\mathbb P_{k}(T) = \dim V_k^{\rm RT}(T).
 \end{equation*}
 
-设 $\boldsymbol{v}\in V_k^{\rm RT}(T)$ 满足所有自由度 \eqref{RTfemdof} 取值为零。利用分部积分及自由度 \eqref{RTfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且 
+设 $\boldsymbol{v}\in V_k^{\rm RT}(T)$ 满足所有自由度 \eqref{RTfemdof} 取值为零. 利用分部积分及自由度 \eqref{RTfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且 
 \begin{equation*}
 (\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{n},q)_{\partial T} - (\boldsymbol{v},\grad q)_T=0\quad\forall~q\in \mathbb P_{k}(T).
 \end{equation*}
-因此 $\div\boldsymbol{v}=0$，进而 $\boldsymbol{v}\in \mathbb P_{k}(T; \mathbb R^d)$。
-再应用引理~\ref{lem:20250930}，由自由度 \eqref{RTfemdof2} 为零即得 $\boldsymbol{v}=0$。
+因此 $\div\boldsymbol{v}=0$，进而 $\boldsymbol{v}\in \mathbb P_{k}(T; \mathbb R^d)$. 
+再应用引理~\ref{lem:20250930}，由自由度 \eqref{RTfemdof2} 为零即得 $\boldsymbol{v}=0$. 
 \end{proof}
 
 根据空间分解 \eqref{eq:Pkm1vecdecomp}，自由度 \eqref{RTfemdof} 可等价地改写为
@@ -911,26 +917,26 @@ $$
 (\boldsymbol v, \boldsymbol q)_T, & \quad \boldsymbol q\in\mathbb P_{k-2}(T;\mathbb K)\boldsymbol x. \label{RTfemanotherdof3}
 \end{align}
 \end{subequations} 
-自由度 \eqref{RTfemanotherdof} 阐明了有限元的一般构造思路：边界自由度 \eqref{RTfemanotherdof1} 由 Sobolev 空间的迹决定，确保 $H(\div)$-协调性；内部自由度 \eqref{RTfemanotherdof2} 对应散度算子的像空间，体现微分复形结构；内部自由度 \eqref{RTfemanotherdof3} 对应泡函数空间或多项式空间的直和分解。基于微分复形与 Sobolev 空间迹的这一构造方法，同样可推广至其他 Sobolev 空间的有限元设计，详见文献 \cite{ChenHuang2022}。
+自由度 \eqref{RTfemanotherdof} 阐明了有限元的一般构造思路：边界自由度 \eqref{RTfemanotherdof1} 由 Sobolev 空间的迹决定，确保 $H(\div)$-协调性；内部自由度 \eqref{RTfemanotherdof2} 对应散度算子的像空间，体现微分复形结构；内部自由度 \eqref{RTfemanotherdof3} 对应泡函数空间或多项式空间的直和分解. 基于微分复形与 Sobolev 空间迹的这一构造方法，同样可推广至其他 Sobolev 空间的有限元设计，详见文献 \cite{ChenHuang2022}. 
 
 最低次 RT 元 ($k=0$) 的基函数为 \cite[Section 2.6]{BoffiBrezziFortin2013}
 $$
 \phi_i=(\boldsymbol{n}_{F_i}\cdot\nabla\lambda_i)(\texttt{v}_i-\boldsymbol{x}),\quad i=0,1,\ldots,d,
 $$
-其中 $\boldsymbol{n}_{F_i}$ 是 $(d-1)$ 维面 $F_i$ 的单位法向量，仅依赖于面 $F_i$，不依赖于所属的单纯形。
+其中 $\boldsymbol{n}_{F_i}$ 是 $(d-1)$ 维面 $F_i$ 的单位法向量，仅依赖于面 $F_i$，不依赖于所属的单纯形. 
 
-任意次 RT 元的基函数可参见文献 \cite[Section 9, Tables 9.1-9.2]{ArnoldFalkWinther2009}。
+任意次 RT 元的基函数可参见文献 \cite[Section 9, Tables 9.1-9.2]{ArnoldFalkWinther2009}. 
 事实上，任意维、任意次 RT 元具有如下几何分解（参见 \cite{ArnoldFalkWinther2009}）
 $$
 \mathbb P_k(T;\mathbb R^d)+\mathbb P_k(T)\bs x=\Oplus_{i=0}^d\mathbb P_{k}(F_{i})(\texttt{v}_i-\boldsymbol{x}) \oplus \Oplus_{i=1}^d\lambda_i\mathbb P_{k-1}(T)(\texttt{v}_i-\boldsymbol{x}).
 $$
-据此几何分解，可构造出 RT 元的基函数。
+据此几何分解，可构造出 RT 元的基函数. 
 
 
 
 \subsection{Brezzi-Douglas-Marini 元}
 
-Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuranFortin1987,Nedelec1986,ChenHuang2022,ChenChenHuangWei2024,ChenHuang2024} 的形函数空间为 $V_k^{\rm BDM}(T):= \mathbb P_{k}(T; \mathbb R^d)$，其中 $k\geq1$。
+Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuranFortin1987,Nedelec1986,ChenHuang2022,ChenChenHuangWei2024,ChenHuang2024} 的形函数空间为 $V_k^{\rm BDM}(T):= \mathbb P_{k}(T; \mathbb R^d)$，其中 $k\geq1$. 
 自由度取为
 \begin{subequations}\label{BDMfemdof}
 \begin{align}
@@ -942,7 +948,7 @@ Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuran
 
 
 \begin{lemma}\label{lem:unisovlenBDMfem}
-自由度 \eqref{BDMfemdof} 对于形函数空间 $V_k^{\rm BDM}(T)$ 是唯一可解的。
+自由度 \eqref{BDMfemdof} 对于形函数空间 $V_k^{\rm BDM}(T)$ 是唯一可解的. 
 \end{lemma}
 \begin{proof}
 根据空间分解 \eqref{eq:Pkm1vecdecomp}、关系式 $\dim\mathbb P_{k}(F)=\dim \mathbb H_{k}(T)$ 及 $\dim\mathbb P_{k}(F)+\dim\mathbb P_{k-1}(T)=\dim\mathbb P_{k}(T)$ 可知，自由度 \eqref{BDMfemdof} 的总数为
@@ -950,7 +956,7 @@ Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuran
 (d+1)\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) - \dim\mathbb H_{k}(T) = d\dim\mathbb P_{k}(F)+d\dim\mathbb P_{k-1}(T) = \dim V_k^{\rm BDM}(T).
 \end{equation*}
 
-设 $\boldsymbol{v}\in V_k^{\rm BDM}(T)$ 满足所有自由度 \eqref{BDMfemdof} 取值为零。利用分部积分及自由度 \eqref{BDMfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且
+设 $\boldsymbol{v}\in V_k^{\rm BDM}(T)$ 满足所有自由度 \eqref{BDMfemdof} 取值为零. 利用分部积分及自由度 \eqref{BDMfemdof} 的零值条件，可得 $(\boldsymbol{v}\cdot\boldsymbol{n})|_{\partial T}=0$，且
 \begin{equation*}
 (\div\boldsymbol{v}, q)_T=(\boldsymbol{v}\cdot\boldsymbol{n},q)_{\partial T} - (\boldsymbol{v},\grad q)_T=0\quad\forall~q\in \mathbb P_{k-1}(T).
 \end{equation*}
@@ -962,12 +968,12 @@ Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuran
 \begin{equation*}
 (\boldsymbol v, \boldsymbol q)_T =0 \quad \forall~\boldsymbol q\in\mathbb P_{k-1}(T; \mathbb R^d).
 \end{equation*}
-再应用引理~\ref{lem:20250930} 即得 $\boldsymbol{v}=0$。
+再应用引理~\ref{lem:20250930} 即得 $\boldsymbol{v}=0$. 
 \end{proof}
 
 
 %\newpage
-接下来我们给出当 $k\geq2$ 时 $H(\div)$ 泡函数空间的显式刻画。定义多项式泡函数空间
+接下来我们给出当 $k\geq2$ 时 $H(\div)$ 泡函数空间的显式刻画. 定义多项式泡函数空间
 \[
 \mathbb B_k(\div, T):=\{\bs v\in\mathbb P_{k}(T;\mathbb R^d): \bs v\cdot\bs n|_{\partial K}=0\}.
 \]
@@ -981,19 +987,18 @@ Brezzi-Douglas-Marini (BDM) 元 \cite{BrezziDouglasMarini1985,BrezziDouglasDuran
 \begin{lemma}
 对于 $k\geq2$ 成立
 \begin{equation}\label{eq:Hdivbubbleidentity}
-\mathbb B_k(\div, T)=\sum_{0\leq i<j\leq d}\lambda_i\lambda_j\mathbb P_{k-2}(T)\bs t_{i,j},
+\mathbb B_k(\div, T)=\sum_{0\leq i<j\leq d}\lambda_i\lambda_j\mathbb P_{k-2}(T)\bs t_{i,j}.
 \end{equation}
-其中 $\bs t_{i,j}:=\textnormal{\texttt{v}}_j-\textnormal{\texttt{v}}_i$，$\textnormal{\texttt{v}}_0, \textnormal{\texttt{v}}_1, \cdots, \textnormal{\texttt{v}}_d$ 是单纯形 $T$ 的顶点。
 \end{lemma}
 \begin{proof}
 验证 $\lambda_i\lambda_j\mathbb P_{k-2}(T)\boldsymbol t_{i,j}\subseteq \mathbb B_k(\div, T)$ 的依据是以下事实：
 $$\lambda_i\lambda_j \boldsymbol t_{i,j}\cdot \boldsymbol n_{\ell}|_{F_{\ell}} = 0, \quad \ell = 0, 1, \cdots, d.$$
-事实上，若 $\ell = i$ 或 $\ell = j$，则 $\lambda_i\lambda_j|_{F_{\ell}} =0$；否则 $\boldsymbol t_{i,j}\cdot \boldsymbol n_{\ell} = 0$。接下来证明 $\mathbb B_k(\div, T)$ 中的每个函数均可表示为 $\lambda_i\lambda_j \boldsymbol t_{i,j}$ 的线性组合。
+事实上，若 $\ell = i$ 或 $\ell = j$，则 $\lambda_i\lambda_j|_{F_{\ell}} =0$；否则 $\boldsymbol t_{i,j}\cdot \boldsymbol n_{\ell} = 0$. 接下来证明 $\mathbb B_k(\div, T)$ 中的每个函数均可表示为 $\lambda_i\lambda_j \boldsymbol t_{i,j}$ 的线性组合. 
 
 
-任取 $\bs v\in\mathbb B_k(\div, T)$。由于 $\{\bs t_{0,1}, \ldots, \bs t_{0,d}\}$ 构成 $\mathbb R^d$ 的一组基，故 $\bs v$ 可表示为
+任取 $\bs v\in\mathbb B_k(\div, T)$. 由于 $\{\bs t_{0,1}, \ldots, \bs t_{0,d}\}$ 构成 $\mathbb R^d$ 的一组基，故 $\bs v$ 可表示为
 $$\bs v=p_1\bs t_{0,1}+\cdots+p_d\bs t_{0,d},$$ 
-其中 $p_1, \ldots, p_d\in\mathbb P_k(T)$。注意到 $\bs v\cdot\bs n|_{\partial T}=0$，因此
+其中 $p_1, \ldots, p_d\in\mathbb P_k(T)$. 注意到 $\bs v\cdot\bs n|_{\partial T}=0$，因此
 \[
 p_i\bs t_{0,i}\cdot\bs n_i|_{F_i}=0 \quad (i=1,\ldots,d).
 \]
@@ -1009,7 +1014,7 @@ q_i = \lambda_0 q_0 + \sum_{j=1}^{d} \lambda_j q_{ij},
 \[
 q_0 \in \mathbb P_{k-2}(T), \quad q_{ij} \in \sum_{\alpha_j+\cdots+\alpha_{d}=k-2 \atop \alpha_j,\cdots,\alpha_{d}\in\mathbb N} \mathrm{span}\{\lambda_j^{\alpha_j}\cdots \lambda_d^{\alpha_d}\},
 \]
-并且 $q_{ij}$ 的表达中不包含 $\lambda_0, \lambda_1, \ldots, \lambda_{j-1}$。
+并且 $q_{ij}$ 的表达中不包含 $\lambda_0, \lambda_1, \ldots, \lambda_{j-1}$. 
 
 由 $\boldsymbol n\cdot \boldsymbol v|_{F_0}=0$ 且 $\boldsymbol t_{0,i}\cdot \boldsymbol n_0\neq0$，可得
 \[
@@ -1044,7 +1049,7 @@ q_0 \in \mathbb P_{k-2}(T), \quad q_{ij} \in \sum_{\alpha_j+\cdots+\alpha_{d}=k-
 &= \sum_{i=1}^{d}\lambda_i \lambda_{0}q_{0}\boldsymbol t_{0,i}
 + \sum_{i=2}^{d}\sum_{j=1}^{i-1}\lambda_i\lambda_jq_{ij}\boldsymbol t_{j,i},
 \end{align*}
-得证。
+得证. 
 \end{proof}
 
 
@@ -1052,12 +1057,12 @@ q_0 \in \mathbb P_{k-2}(T), \quad q_{ij} \in \sum_{\alpha_j+\cdots+\alpha_{d}=k-
 $$
 \phi_{\ell,i}=(\boldsymbol{n}_{F_{\ell}}\cdot\nabla\lambda_{\ell})\lambda_i\boldsymbol{t}_{i,\ell},\quad 0\leq \ell \leq d,\; 0\leq i\neq \ell \leq d.
 $$
-任意次 BDM 元的基函数可参见文献 \cite[Section 9, Table 9.1, Table 9.4]{ArnoldFalkWinther2009}。
+任意次 BDM 元的基函数可参见文献 \cite[Section 9, Table 9.1, Table 9.4]{ArnoldFalkWinther2009}. 
 
-文献 \cite{ArnoldFalkWinther2009} 中 BDM 元基函数还比较复杂，但它们都可以通过切向法向分解来构造。
+文献 \cite{ArnoldFalkWinther2009} 中 BDM 元基函数还比较复杂，但它们都可以通过切向法向分解来构造. 
 
 
-\textcolor{red}{引出切向法向分解 BDM元的构造基函数。}
+\textcolor{red}{引出切向法向分解 BDM元的构造基函数. }
 
 
 
@@ -1210,4 +1215,4 @@ Recall that a Hilbert complex is a sequence of Hilbert spaces connected by a seq
 0\xrightarrow{} H^1(\Omega)\xrightarrow{\grad}\boldsymbol H(\curl;\Omega)\xrightarrow{\curl}\boldsymbol H(\div;\Omega)\xrightarrow{\div}L^2(\Omega) \xrightarrow{}0.
 \end{equation}
 
-给出泡函数复形。
+给出泡函数复形. 

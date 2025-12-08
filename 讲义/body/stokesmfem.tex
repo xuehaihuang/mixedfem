@@ -652,9 +652,9 @@ P_{h}&:=\{q\in H^{1}(\Omega)\cap L_{0}^2(\Omega): q|_T\in \mathbb P_{k-1}(T), T\
 记$I_h^{\rm SZ}: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$为Scott-Zhang插值算子\cite{ScottZhang1990}.
 下面考虑插值算子$\Pi_2: H_{0}^{1}(\Omega,\mathbb{R}^{d})\to V_{h}$的构造.
 
-记$\mathcal E_h$, $\mathring{\mathcal E}_h$和$\mathcal E^{\partial}_h$分别为单形剖分$\mathcal T_h$所有一维边、内边和边界边的集合. 对端点为$\texttt{v}_i$和$\texttt{v}_j$的边$e_{ij}\in\mathcal E_h$，令$\boldsymbol{b}_{ij}=\lambda_i\lambda_j\boldsymbol{t}_{ij}/\int_{\Omega}\lambda_i\lambda_j\dx$, 则有
+记$\mathcal E_h$, $\mathring{\mathcal E}_h$和$\mathcal E^{\partial}_h$分别为单形剖分$\mathcal T_h$所有一维边、内边和边界边的集合. 对端点为$\texttt{v}_i$和$\texttt{v}_j$的边$e_{ij}\in\mathcal E_h$，令$\boldsymbol{b}_{ij}=\lambda_i\lambda_j\boldsymbol{t}_{i,j}/\int_{\Omega}\lambda_i\lambda_j\dx$, 则有
 \begin{equation*}
-(\div\boldsymbol{b}_{ij}, \lambda_k)=-(\boldsymbol{b}_{ij}, \nabla \lambda_{k})=-\frac{1}{\int_{\Omega}\lambda_{i}\lambda_{j}\dx}\int_{\Omega}\lambda_{i}\lambda_{j}\boldsymbol{t}_{ij}\cdot\nabla\lambda_{k}\dx=-\boldsymbol{t}_{ij}\cdot\nabla\lambda_{k}=\delta_{ik}-\delta_{jk}.
+(\div\boldsymbol{b}_{ij}, \lambda_k)=-(\boldsymbol{b}_{ij}, \nabla \lambda_{k})=-\frac{1}{\int_{\Omega}\lambda_{i}\lambda_{j}\dx}\int_{\Omega}\lambda_{i}\lambda_{j}\boldsymbol{t}_{i,j}\cdot\nabla\lambda_{k}\dx=-\boldsymbol{t}_{i,j}\cdot\nabla\lambda_{k}=\delta_{ik}-\delta_{jk}.
 \end{equation*}
 易知，当$e_{ij}\in\mathring{\mathcal E}_h$时$\boldsymbol{b}_{ij}\in V_{h}$，当$e_{ij}\in\mathcal E^{\partial}_h$时$\boldsymbol{b}_{ij}\not\in V_{h}$. 为此，对$\boldsymbol{b}_{ij}$进行修正.
 对于边界边$e_{ij}\in\mathcal E^{\partial}_h$，由网格假设知，存在一个$\Omega$内的顶点$\texttt{v}_m$使得$e_{im}, e_{jm}\in\mathring{\mathcal E}_h$. 令
@@ -1783,7 +1783,7 @@ h^2\|\skw\grad\boldsymbol{f}\|\|\tilde{\boldsymbol{u}}\|_1, & k=0.
 \begin{theorem}
 设 $(\boldsymbol{u}, p)$ 为 Stokes 方程 \eqref{eq-Stokes2} 的解，$(\boldsymbol{u}_h, \boldsymbol{\lambda}_h, p_h)$ 为混合有限元方法 \eqref{distribustokesfemWG} 的解. 若 $\boldsymbol{u}\in H^{k+2}(\Omega;\mathbb R^d)$、$\skw\grad\boldsymbol{f}\in L^2(\Omega;\mathbb K)$，且 $H^2$ 正则性 \eqref{eq:regularity} 成立，则有
 \begin{equation}
-\label{eq:errorestimate4}
+\label{eq:stokeserrorestimate4}
 \|I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\| \lesssim h^{k+2}(|\boldsymbol{u}|_{k+2}  + \delta_{k0}\|\skw\grad\boldsymbol{f}\|),
 \end{equation}
 其中 $\delta_{00}=1$，而当 $k\geq1$ 时 $\delta_{k0}=0$. 
@@ -1796,7 +1796,7 @@ h^2\|\skw\grad\boldsymbol{f}\|\|\tilde{\boldsymbol{u}}\|_1, & k=0.
 & = \sum_{T\in\mathcal{T}_h}(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}},\dev \grad\boldsymbol{v}_h)_T -\sum_{T\in\mathcal{T}_h}(\Pi_F\boldsymbol{v}_h, \Pi_F(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}})\boldsymbol{n})_{\partial T} \\
 &=\big(I_k^{\rm tn}\tilde{\boldsymbol{\sigma}},\dev \grad_w(I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h,Q_{k,\mathcal{F}_h}\boldsymbol{\lambda}-\boldsymbol{\lambda}_h)\big).
 \end{align*}
-结合式 \eqref{eq:weakdevgradcommu} 可得
+结合式 \eqref{eq:weakdevgradcommu} 和式 \eqref{eq:weakdevgradulambda} 可得
 \[
 \begin{aligned}
 \|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|^2& = (\boldsymbol{\sigma}-\boldsymbol{\sigma}_h,I_k^{\rm tn}\tilde{\boldsymbol{\sigma}})\\
@@ -1811,11 +1811,11 @@ h^2\|\skw\grad\boldsymbol{f}\|\|\tilde{\boldsymbol{u}}\|_1, & k=0.
 \begin{equation*}
 \|I_{k,k}^{\div}\boldsymbol{u}-\boldsymbol{u}_h\|\lesssim h\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_{0,h} + \delta_{k0}h^2\|\skw\grad\boldsymbol{f}\|.
 \end{equation*}
-最后结合误差估计 \eqref{eq:errorestimate1} 与上述不等式，即得结论 \eqref{eq:errorestimate4} 成立. 
+最后结合误差估计 \eqref{eq:errorestimate1} 与上述不等式，即得结论 \eqref{eq:stokeserrorestimate4} 成立. 
 \end{proof}
 
 \subsection{后处理}
-利用误差估计式 \eqref{eq:errorestimate1} 与 \eqref{eq:errorestimate4}，我们可以构造出 $\boldsymbol{u}$ 的一种超收敛近似. 
+利用误差估计式 \eqref{eq:errorestimate1} 与 \eqref{eq:stokeserrorestimate4}，我们可以构造出 $\boldsymbol{u}$ 的一种超收敛近似. 
 对于每个单元 $T \in \mathcal{T}_h$，寻找 $\boldsymbol{u}_h^{*}|_T\in \mathbb{P}_{k+1}(T;\mathbb{R}^d)$ 与 $p_h^{*}\in\mathbb{P}_k(T)\cap L_0^2(T)$，使其满足
 \begin{subequations}\label{distribustokespostfem}
 \begin{align}
@@ -1901,7 +1901,7 @@ I_{(0,0),T}^{\div}(I_{(k+1,k),T}^{\div}\boldsymbol{u}-\boldsymbol{u}_h^{*})
 &\quad +h_T\big(|\boldsymbol{u}-I_{(k+1,k),T}^{\div}\boldsymbol{u}|_{1,T}
 +\|\boldsymbol{\sigma}-\boldsymbol{\sigma}_h\|_T\big).
 \end{align*}
-结合插值估计式 \eqref{eq:Ihdivprop2}、误差估计 \eqref{eq:errorestimate4} 与 \eqref{eq:errorestimate1}，即得结论 \eqref{eq:postL2error}. 
+结合插值估计式 \eqref{eq:Ihdivprop2}、误差估计 \eqref{eq:stokeserrorestimate4} 与 \eqref{eq:errorestimate1}，即得结论 \eqref{eq:postL2error}. 
 \end{proof}
 
 
@@ -1940,7 +1940,92 @@ q\in\mathbb{P}_{k}(F), \
 F\in\mathring{\mathcal{F}}_h.
 \end{equation*}
 当 $(k,\ell) = (0,-1)$ 时，空间 $V_{1,1}^{\rm VE}$ 退化为 Crouzeix--Raviart (CR) 元~\cite{CrouzeixRaviart1973}；
-当 $(k,\ell) = (0,0)$ 时，空间 $V_{1,2}^{\rm VE}$ 对应于增强性 Crouzeix--Raviart 元~\cite{HuMa2015,HuHuangLin2014}. 
+当 $(k,\ell) = (0,0)$ 时，空间 $V_{1,2}^{\rm VE}$ 对应于增强型 Crouzeix--Raviart 元~\cite{HuMa2015,HuHuangLin2014}. 
+
+下面给出虚拟元空间 $V_{k+1,\ell+2}^{\rm VE}(T)$ 的一些性质.
+\begin{lemma}
+设 $T$ 是 $d$ 维单纯形，成立逆迹不等式
+\begin{equation}\label{H1ncvem:inversetraceineqlity}
+\|\partial_nv\|_{\partial T}\lesssim h_T^{-1/2}|v|_{1,T} \qquad \forall\, v\in V_{k+1,\ell+2}^{\rm VE}(T),
+\end{equation}
+和逆不等式
+\begin{equation}\label{H1ncvem:inverseineqlity}
+|v|_{1,T}\lesssim h_T^{-1}\|v\|_{T} \qquad \forall\, v\in V_{k+1,\ell+2}^{\rm VE}(T).
+\end{equation}
+\end{lemma}
+\begin{proof}
+首先证明逆迹不等式 \eqref{H1ncvem:inversetraceineqlity}.
+取 $T$ 的任一超平面 $F\in\Delta_{d-1}(T)$，设其方程为 $\boldsymbol{x}\cdot\boldsymbol{n}+c=0$（其中 $\boldsymbol{n}$ 为单位外法向量）. 我们构造一个辅助多项式函数 $w\in \mathbb P_k(T)$，定义为 $w(\boldsymbol{x})=b_F(\partial_nv)(\boldsymbol{x}_F)$， 其中 $\boldsymbol{x}_F:=\boldsymbol{x}-(\boldsymbol{x}\cdot\boldsymbol{n}+c)\boldsymbol{n}$ 是 $\boldsymbol{x}$ 在 $F$ 上的正交投影，$b_F\in\mathbb P_d(T)$ 是面 $F$ 的泡函数.
+由此构造可得：
+\begin{equation*}
+\|w\|_F\eqsim \|\partial_nv\|_F,\quad \|w\|_T\lesssim h_T^{1/2}\|\partial_nv\|_F.
+\end{equation*}
+结合范数等价性、分部积分公式和多项式空间上的逆不等式，我们有
+\begin{align*}
+\|\partial_nv\|_F^2&\eqsim (w, \partial_nv)_F=(w, \partial_nv)_{\partial T}=(\nabla w, \nabla v)_T + (w, \Delta v)_T \\
+&\leq \|\nabla w\|_T\|\nabla v\|_T + \|w\|_T\|\Delta v\|_T\lesssim h_T^{-1}\|w\|_T|v|_{1,T}.
+\end{align*}
+从而得出逆迹不等式 \eqref{H1ncvem:inversetraceineqlity}.
+
+接着证明逆迹不等式 \eqref{H1ncvem:inverseineqlity}.
+应用分部积分公式，多项式空间上的逆不等式和逆迹不等式 \eqref{H1ncvem:inversetraceineqlity}，我们有：
+\begin{align*}
+|v|_{1,T}^2 & = -(\Delta v, v)_T + (\partial_nv, v)_{\partial T} = -(\Delta v, Q_{\ell,T}v)_T + \sum_{F\in\Delta_{d-1}(T)}(\partial_nv, Q_{k,F}v)_{F} \\
+& \leq \|\Delta v\|_T\|Q_{\ell,T}v\|_T + \sum_{F\in\Delta_{d-1}(T)}\|\partial_nv\|_{F}\|Q_{k,F}v\|_{F} \\
+&\lesssim h_T^{-1}|v|_{1,T}\|Q_{\ell,T}v\|_T + \sum_{F\in\Delta_{d-1}(T)}h_T^{-1/2}|v|_{1,T}\|Q_{k,F}v\|_{F}.
+\end{align*}
+除以 $|v|_{1,T}$ 并平方，可得：
+\begin{equation*}
+|v|_{1,T}^2\lesssim h_T^{-2}\|Q_{\ell,T}v\|_T^2 + \sum_{F\in\Delta_{d-1}(T)}h_T^{-1}\|Q_{k,F}v\|_{F}^2.
+\end{equation*}
+再结合 $V_{k+1,\ell+2}^{\rm VE}(T)$ 空间上的 $L^2$ 范数等价关系：
+\begin{equation}\label{H1ncvem:L2normequiv}
+\|v\|_{T}^2\eqsim \|Q_{\ell,T}v\|_T^2 + \sum_{F\in\Delta_{d-1}(T)}h_T\|Q_{k,F}v\|_{F}^2,
+\end{equation}
+可得逆不等式 \eqref{H1ncvem:inverseineqlity}.
+\end{proof}
+
+记 $Q_T^{\rm div}: L^2(T; \mathbb{R}^d) \to \mathbb V_{k,\ell}^{\div}(T)$ 为 $L^2$ 正交投影算子. 
+回顾文献 ~\cite{HuangTang2025,ChenHuang2020,ChenHuangWei2024} 中建立如下范数等价关系.
+\begin{lemma}
+设 $T$ 是 $d$ 维单纯形，成立范数等价关系：
+\begin{align}
+%\label{ve-normeq}
+%\|v\|^2_{T} &\eqsim \|Q_{\ell,T}v\|^2_{T}+\sum_{F\in\mathcal{F}(T)}h_F\|Q_{k,F}v\|^2_{F} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T), \\
+\label{ve-infsup2}
+\|Q_{T}^{\rm div}\nabla v\|_{T}&\eqsim\|\nabla v\|_{T} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T).
+\end{align}
+\end{lemma}
+\begin{proof}
+显然，由 $L^2$ 正交投影的性质，有 $\|Q_{T}^{\rm div}\nabla v\|_{T}\leq \|\nabla v\|_{T}$. 因此，我们只需证明不等式：
+\begin{equation}\label{eq:20251201}
+\|\nabla v\|_{T}\lesssim \|Q_{T}^{\rm div}\nabla v\|_{T} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T)\cap L_0^2(T).
+\end{equation}
+我们基于自由度 \eqref{eq:HdivDoF}，构造一个特殊的函数 $\boldsymbol{\phi}\in\mathbb V_{k,\ell}^{\div}(T)$ 满足：
+\begin{align*}
+(\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & = h_T^{-1}(v, q)_F \quad \forall \, q\in\mathbb{P}_{k}(F), \, F\in\Delta_{d-1}(T), \\
+(\div\boldsymbol{\phi}, q)_T & = -h_T^{-2}(v, q)_T \quad \forall \, q\in \mathbb P_{\ell}(T)\cap L_0^2(T),
+\end{align*}
+其余自由度均取零. 由此构造，$\boldsymbol{\phi}$ 满足以下投影关系：
+$$
+\div\boldsymbol{\phi}-Q_{0,T}(\div\boldsymbol{\phi})=-h_T^{-2}Q_{\ell,T}v;\quad (\boldsymbol{\phi}\cdot\boldsymbol{n})|_F= h_T^{-1}Q_{k,F}v, \;\; F\in\Delta_{d-1}(T).
+$$
+结合范数等价性 \eqref{H1ncvem:L2normequiv} 和 $v\in L_0^2(T)$ 可得,
+$$
+\|\boldsymbol{\phi}\|_T\lesssim h_T^{-1}\|Q_{\ell,T}v\|_T + h_T^{-1/2}\sum_{F\in\Delta_{d-1}(T)}\|Q_{k,F}v\|_F\lesssim h_T^{-1}\|v\|_T\lesssim |v|_{1,T}.
+$$
+现在，
+应用分部积分、范数等价性 \eqref{H1ncvem:L2normequiv} 和逆不等式 \eqref{H1ncvem:inverseineqlity} 可知
+\begin{align*}
+(\boldsymbol{\phi},\nabla v)_T &= -(\div\boldsymbol{\phi}, v)_T + (\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial T}= -(\div\boldsymbol{\phi}-Q_{0,T}(\div\boldsymbol{\phi}), v)_T + (\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial T} \\
+&=h_T^{-2}\|Q_{\ell,T}v\|_T^2 + \sum_{F\in\Delta_{d-1}(T)} h_T^{-1}\|Q_{k,F}v\|_F^2\eqsim h_T^{-2}\|v\|_T^2\gtrsim |v|_{1,T}^2.
+\end{align*}
+因此, 根据上述两个不等式可得
+\begin{equation*}
+|v|_{1,T}^2\lesssim (\boldsymbol{\phi}, \nabla v)_T=(\boldsymbol{\phi}, Q_{T}^{\rm div}\nabla v)_T\leq \|\boldsymbol{\phi}\|_T\|Q_{T}^{\rm div}\nabla v\|_T\lesssim |v|_{1,T}\|Q_{T}^{\rm div}\nabla v\|_T.
+\end{equation*}
+从而得出不等式 \eqref{eq:20251201}，证毕.
+\end{proof}
 
 
 通过杂交化空间 $\mathring{\mathbb{V}}_{k,\ell}^{\div}$ 的法向连续性，并将拉格朗日乘子与空间 $\mathbb{P}_{\ell}(\mathcal{T}_h)$ 结合以形成用于离散压力的 $H^1$-非协调空间 $V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h)$，我们得到如下混合格式：
@@ -1966,18 +2051,10 @@ F\in\mathring{\mathcal{F}}_h.
 \begin{equation*}
 \sum_{T\in\mathcal{T}_h}(\div\boldsymbol{u}_h, Q_{\ell,T}q_h)_T - \sum_{F\in\mathcal{F}_h}([\![\boldsymbol{u}_h\cdot\boldsymbol{n}]\!], Q_{k,F}q_h)_F=0 \quad \forall~q_h\in V_{k+1,\ell+2}^{\rm VE}(\mathcal T_h).
 \end{equation*}
-由自由度 \eqref{ve-dof} 可知上式蕴含 $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$，以及 $\div\boldsymbol{u}_h=0$. 
+由自由度 \eqref{ve-dof} 可知上式蕴含 $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,k-1}^{\div}$，以及 $\div\boldsymbol{u}_h=0$. 
 
-记 $Q_T^{\rm div}: L^2(T; \mathbb{R}^d) \to \mathbb V_{k,\ell}^{\div}(T)$ 为 $L^2$ 正交投影算子. 
-回顾文献 ~\cite{HuangTang2025,ChenHuang2020,ChenHuangWei2024} 中建立的单元 $T\in\mathcal{T}_h$ 上的范数等价关系：
-\begin{align}
-%\label{ve-normeq}
-%\|v\|^2_{T} &\eqsim \|Q_{\ell,T}v\|^2_{T}+\sum_{F\in\mathcal{F}(T)}h_F\|Q_{k,F}v\|^2_{F} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T), \\
-\label{ve-infsup2}
-\|Q_{T}^{\rm div}\nabla v\|_{0,T}&\eqsim\|\nabla v\|_{0,T} \quad \forall \ v\in V_{k+1,\ell+2}^{\rm VE}(T).
-\end{align}
 
-在 \eqref{distribustokesH1pfemWG1} 中取 $(\boldsymbol{v}_h,\boldsymbol{\mu}_h)=(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)$， \eqref{distribustokesH1pfemWG2} 中取 $q_h=p_h$，并相加得 $\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)=0$，从而 $\boldsymbol{u}_h=0$，$\boldsymbol{\lambda}_h=0$. 再结合 \eqref{distribustokesH1pfemWG1} 与范数等价关系 \eqref{ve-infsup2} 可得 $p_h=0$. 
+在 \eqref{distribustokesH1pfemWG1} 中取 $(\boldsymbol{v}_h,\boldsymbol{\mu}_h)=(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)$， \eqref{distribustokesH1pfemWG2} 中取 $q_h=p_h$，并相加得 $\dev \grad_w(\boldsymbol{u}_h,\boldsymbol{\lambda}_h)=0$，从而由范数等价性 \eqref{eq:weakdevgradnormequiv} 知 $\boldsymbol{u}_h=0$ 和 $\boldsymbol{\lambda}_h=0$. 再结合 \eqref{distribustokesH1pfemWG1} 与范数等价关系 \eqref{ve-infsup2} 可得 $p_h=0$. 
 因此离散格式 \eqref{distribustokesH1pfemWG} 是适定的. 
 
 对于第二部分，由 \eqref{distribustokesH1pfemWG2} 可知 $\boldsymbol{u}_h\in\mathring{\mathbb{V}}_{k,\ell}^{\div}$，以及 $\div\boldsymbol{u}_h=0$. 
@@ -2123,7 +2200,7 @@ b_h(\boldsymbol{\tau}_h,q_h;\boldsymbol{v}_h)&:=\sum_{T\in \mathcal{T}_{h}}(\div
 \right\}
 \end{equation*}
 来离散无迹应力张量 $\boldsymbol{\sigma}$. 
-然而，约束条件 $\Pi_F \boldsymbol{\tau}_h \boldsymbol{n} \in \mathbb{P}_{k-1}(F; \mathbb{R}^{d-1})$ 使得~\cite{GopalakrishnanLedererSchoeberl2020a} 中的离散格式无法获得超收敛性质，例如估计式 \eqref{eq:errorestimate1} 中的 $\|\bs \sigma - \bs \sigma_h\|$ 与 $\|Q_{\ell} p - p_h\|$，以及 \eqref{eq:errorestimate4} 中的 $\|I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\|$. 
+然而，约束条件 $\Pi_F \boldsymbol{\tau}_h \boldsymbol{n} \in \mathbb{P}_{k-1}(F; \mathbb{R}^{d-1})$ 使得~\cite{GopalakrishnanLedererSchoeberl2020a} 中的离散格式无法获得超收敛性质，例如估计式 \eqref{eq:errorestimate1} 中的 $\|\bs \sigma - \bs \sigma_h\|$ 与 $\|Q_{\ell} p - p_h\|$，以及 \eqref{eq:stokeserrorestimate4} 中的 $\|I_{k,k}^{\div}\boldsymbol{u} - \boldsymbol{u}_h\|$. 
 
 在后续工作 \cite{GopalakrishnanLedererSchoeberl2020} 中，通过丰富应力空间获得了超收敛结果，但其方法要求 $k=\ell\ge1$. 
 相比之下，本节的离散格式不仅涵盖高阶情形，还自然适用于低阶情形 $(k,\ell)=(0,-1)$、$(0,0)$、$(1,0)$，并且在理论分析上更加简洁、透明. 

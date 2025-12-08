@@ -46,7 +46,7 @@
 \renewcommand{\div}{\operatorname{div}}
 %\renewcommand{\grad}{\operatorname{grad}}
 \newcommand{\grad}{\operatorname{grad}}
-\DeclareMathOperator*{\tr}{tr}
+\newcommand{\tr}{\operatorname{tr}}
 \newcommand{\rot}{\operatorname{rot}}
 % \DeclareMathOperator*{\rot}{rot}
 \newcommand{\var}{\operatorname{Var}}
@@ -59,6 +59,11 @@
 \newcommand{\sskw}{\operatorname{sskw}}
 \newcommand{\mskw}{\operatorname{mskw}}
 \newcommand{\vskw}{\operatorname{vskw}}
+\newcommand{\defm}{\operatorname{def}}
+\newcommand{\hess}{\operatorname{hess}}
+\newcommand{\inc}{\operatorname{inc}}
+\newcommand{\dex}{\operatorname{dex}}
+
 
 % \newtheorem{theorem}{Theorem}[section]
 % \newtheorem{lemma}{Lemma}[theorem]
@@ -118,7 +123,7 @@
 \cleardoublepage
 
 
-% \input{deRhamComplex}
+%%%%%%%%%%%%%%%%%% \input{deRhamComplex}
 
 \phantomsection
 \input{body/femdeRhamComplex.tex}
@@ -133,21 +138,21 @@
 \input{body/stokesmfem.tex}
 \cleardoublepage
 
-% \end{document} 
-
 
 \phantomsection
 \input{body/biharmonicequation.tex}
 \cleardoublepage
 
-% \input{polynomialcomplextensor}
+% \end{document} 
 
-% \input{femdivdivComplex2d}
+%%%%%%%%%%%%%%%%%% \input{polynomialcomplextensor}
 
-% \input{femdivdivComplex}
+%%%%%%%%%%%%%%%%%% \input{femdivdivComplex2d}
+
+%%%%%%%%%%%%%%%%%% \input{femdivdivComplex}
 
 
-%生成附录
+% 生成附录
 \phantomsection
 \begin{appendix}
 \phantomsection
