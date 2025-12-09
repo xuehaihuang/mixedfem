@@ -216,9 +216,9 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
 \[
     \operatorname{div}\operatorname{div} H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S}) = \operatorname{div}\operatorname{div}(\iota(H_0^1(\Omega))) = \Delta H_0^1(\Omega).
 \]
-结合 $\Delta H_0^1(\Omega) = H^{-1}(\Omega)$，可知 \eqref{divdivHn1Sonto} 成立。
+结合 $\Delta H_0^1(\Omega) = H^{-1}(\Omega)$，可知 \eqref{divdivHn1Sonto} 成立. 
 
-接下来证明 inf-sup 条件 \eqref{eq:divdivn1infsup}。
+接下来证明 inf-sup 条件 \eqref{eq:divdivn1infsup}. 
 对于任意 $v \in H_0^1(\Omega)$，通过计算可得：
 \[
     \langle \operatorname{div}\operatorname{div}(-\iota(v)), v\rangle = -\langle \operatorname{div}\operatorname{div}(\iota(v)), v\rangle = -\langle \Delta v, v\rangle = |v|_1^2,
@@ -233,7 +233,7 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
     \geq \frac{\langle \operatorname{div}\operatorname{div}(-\iota(v)), v\rangle}{\|-\iota(v)\|_{H^{-1}(\operatorname{div}\operatorname{div})}} 
     \gtrsim |v|_1.
 \]
-故 inf-sup 条件 \eqref{eq:divdivn1infsup} 成立。
+故 inf-sup 条件 \eqref{eq:divdivn1infsup} 成立. 
 \end{proof}
 
 
@@ -241,22 +241,22 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
 分布混合变分形式 \eqref{eq:hhjmixedformulation} 是适定的，且与问题 \eqref{eq:biharmonicvariatonalform} 等价. 即，若 $u\in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解，则 $\bs\sigma=-\nabla^2 u\in H^{-1}(\div\div,\Omega; \mathbb{S})$ 且 $(\bs\sigma, u)$ 是分布混合变分形式 \eqref{eq:hhjmixedformulation} 的解. 反之，若 $(\bs\sigma, u)\in H^{-1}(\div\div,\Omega; \mathbb{S})\times H_0^1(\Omega)$ 是分布混合变分形式 \eqref{eq:hhjmixedformulation} 的解，则 $u\in H_0^2(\Omega)$ 且 $u$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
 \end{theorem}
 \begin{proof}
-首先验证适定性。双线性形式 $(\cdot, \cdot)$ 在算子 $\operatorname{div}\operatorname{div}: H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S}) \to H^{-1}(\Omega)$ 的核空间上具有强制性：
+首先验证适定性. 双线性形式 $(\cdot, \cdot)$ 在算子 $\operatorname{div}\operatorname{div}: H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S}) \to H^{-1}(\Omega)$ 的核空间上具有强制性：
 \[
     (\boldsymbol{\tau}, \boldsymbol{\tau}) = \|\boldsymbol{\tau}\|^2 = \|\boldsymbol{\tau}\|_{H^{-1}(\operatorname{div}\operatorname{div})}^2, \quad \forall~\boldsymbol{\tau} \in H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S}) \cap \ker(\operatorname{div}\operatorname{div}).
 \]
-结合 inf-sup 条件 \eqref{eq:divdivn1infsup}，由 Brezzi 理论可知，分布混合变分形式 \eqref{eq:hhjmixedformulation} 是适定的。
+结合 inf-sup 条件 \eqref{eq:divdivn1infsup}，由 Brezzi 理论可知，分布混合变分形式 \eqref{eq:hhjmixedformulation} 是适定的. 
 
-接着证明分布混合变分形式 \eqref{eq:hhjmixedformulation} 与原问题 \eqref{eq:biharmonicvariatonalform} 的等价性。
-由于两个问题均存在唯一解，只需证明：若 $u$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解，且令 $\boldsymbol{\sigma} = -\nabla^2 u$，则 $(\boldsymbol{\sigma}, u)$ 满足分布混合变分形式 \eqref{eq:hhjmixedformulation}。
+接着证明分布混合变分形式 \eqref{eq:hhjmixedformulation} 与原问题 \eqref{eq:biharmonicvariatonalform} 的等价性. 
+由于两个问题均存在唯一解，只需证明：若 $u$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解，且令 $\boldsymbol{\sigma} = -\nabla^2 u$，则 $(\boldsymbol{\sigma}, u)$ 满足分布混合变分形式 \eqref{eq:hhjmixedformulation}. 
 
-假设 $u \in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解。
+假设 $u \in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
 显然 $\boldsymbol{\sigma} \in L^{2}(\Omega; \mathbb{S})$，且满足：
 \[
     (\boldsymbol{\sigma}, \nabla^2 v) = -\langle f, v\rangle, \quad \forall~v \in H_0^2(\Omega).
 \]
-这意味着在分布意义下 $\operatorname{div}\operatorname{div} \boldsymbol{\sigma} = -f \in H^{-1}(\Omega)$。
-因此，$\boldsymbol{\sigma} \in H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S})$ 且方程 \eqref{eq:hhjmixedformulation2} 成立。
+这意味着在分布意义下 $\operatorname{div}\operatorname{div} \boldsymbol{\sigma} = -f \in H^{-1}(\Omega)$. 
+因此，$\boldsymbol{\sigma} \in H^{-1}(\operatorname{div}\operatorname{div}, \Omega; \mathbb{S})$ 且方程 \eqref{eq:hhjmixedformulation2} 成立. 
 
 另一方面，根据 $\operatorname{div}\operatorname{div} \boldsymbol{\tau}$ 的分布定义，有
 \[
@@ -266,7 +266,7 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
 \[
     \langle \operatorname{div}\operatorname{div} \boldsymbol{\tau}, u\rangle = (\boldsymbol{\tau}, \nabla^2 u) = -(\boldsymbol{\tau}, \boldsymbol{\sigma}),
 \]
-移项即得 $(\boldsymbol{\sigma}, \boldsymbol{\tau}) + \langle \operatorname{div}\operatorname{div} \boldsymbol{\tau}, u\rangle = 0$，这证明了 \eqref{eq:hhjmixedformulation1} 成立。
+移项即得 $(\boldsymbol{\sigma}, \boldsymbol{\tau}) + \langle \operatorname{div}\operatorname{div} \boldsymbol{\tau}, u\rangle = 0$，这证明了 \eqref{eq:hhjmixedformulation1} 成立. 
 \end{proof}
 
 
@@ -322,7 +322,11 @@ $$
 结合上述两个等式即可推导出格林公式~\eqref{eq:greenidentitydivdiv}. 
 \end{proof}
 
-设 $\mathcal{T}_h$ 是 $\Omega$ 的一个多面体网格剖分. 记 $\mathcal{F}_h$ 和 $\mathcal{E}_h$ 分别是 $\mathcal{T}_h$ 中所有 $(d-1)$ 维面和 $(d-2)$ 维面的集合，并分别记 $\mathring{\mathcal F}_h$ 和 $\mathring{\mathcal E}_h$ 为其内部$(d-1)$ 维面和内部$(d-2)$ 维面的集合. 
+设 $\mathcal{T}_h$ 是 $\Omega$ 的一个多面体网格剖分. 记 $\Delta_{\ell}(\mathcal{T}_h)$ 和 $\Delta_{\ell}(\mathring{\mathcal{T}}_h)$ 分别是 $\mathcal{T}_h$ 中所有 $\ell$ 维面和内部 $\ell$ 维面的集合，并令 
+$$
+\mathcal{F}_h:=\Delta_{d-1}(\mathcal{T}_h),\quad \mathcal{E}_h:=\Delta_{d-2}(\mathcal{T}_h),\quad \mathring{\mathcal F}_h:=\Delta_{d-1}(\mathring{\mathcal{T}}_h),\quad \mathring{\mathcal E}_h:=\Delta_{d-2}(\mathring{\mathcal{T}}_h).
+$$
+% 记 $\mathcal{F}_h$ 和 $\mathcal{E}_h$ 分别是 $\mathcal{T}_h$ 中所有 $(d-1)$ 维面和 $(d-2)$ 维面的集合，并分别记 $\mathring{\mathcal F}_h$ 和 $\mathring{\mathcal E}_h$ 为其内部$(d-1)$ 维面和内部$(d-2)$ 维面的集合. 
 当在所有单元上求和时，假设测试函数 $v$ 足够光滑（例如 $v\in C^2(\Omega)$），我们可以合并内部面和棱上的项. 对于内部面 $F\in \mathring{\mathcal F}_h$，记包含 $F$ 的两个单元为 $K_1, K_2$. 
 引入如下跳量定义：
 \begin{align*}
@@ -354,41 +358,41 @@ H_{t,0}^{3/2}(\partial K)&:=\{v|_{\partial K}: v\in H^2(K), \partial_nv|_{\parti
 
 
 %\begin{lemma}
-%For any $\boldsymbol \tau\in\boldsymbol{H}(\div \boldsymbol{\div },K; \mathbb{S})$,  it holds
+%For any $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$,  it holds
 %\[
-%\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} \lesssim \|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div \boldsymbol{\div })}.
+%\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} \lesssim \|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })}.
 %\]
-%Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$, there exists some $\boldsymbol \tau\in\boldsymbol{H}(\div \boldsymbol{\div },K; \mathbb{S})$ such that
+%Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$, there exists some $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$ such that
 %\[
 %\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=g_n, \quad 
-%\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div \boldsymbol{\div })} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}.
+%\|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}.
 %\]
 %The hidden constants depend only the shape of the domain $K$.
 %\end{lemma}
 
 \begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 引理 3.2]\label{lem:Hdivdivtrace}
-对于任意 $\boldsymbol \tau\in\boldsymbol{H}(\div{\div },K; \mathbb{S})$，成立：
+对于任意 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$，成立：
 \[
-\|\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n\|_{H_n^{-1/2}(\partial K)} + \|2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)\|_{H_t^{-3/2}(\partial K)}\lesssim \|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div{\div },K)}.
+\|\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n\|_{H_n^{-1/2}(\partial K)} + \|2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)\|_{H_t^{-3/2}(\partial K)}\lesssim \|\boldsymbol{\tau}\|_{ H(\div{\div },K)}.
 \]
-反之，对于任意 $g_n\in H_n^{-1/2}(\partial K)$ 和 $g_t\in H_t^{-3/2}(\partial K)$，存在 $\boldsymbol \tau\in\boldsymbol{H}(\div{\div },K; \mathbb{S})$ 使得
+反之，对于任意 $g_n\in H_n^{-1/2}(\partial K)$ 和 $g_t\in H_t^{-3/2}(\partial K)$，存在 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$ 使得
 \[
 \boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n|_{\partial K}=g_n, \quad 2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)=g_t,
 \]
 且满足
 \[
-\|\boldsymbol{\tau}\|_{\boldsymbol{H}(\div{\div },K)} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}+\|g_t\|_{H_t^{-3/2}(\partial K)},
+\|\boldsymbol{\tau}\|_{ H(\div{\div },K)} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}+\|g_t\|_{H_t^{-3/2}(\partial K)},
 \]
 其中的隐含常数仅依赖于区域 $K$ 的形状.
 \end{lemma}
 
 
 
-注意，格林公式~\eqref{eq:greenidentitydivdiv} 中的项 $(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e$ 并未被引理~\ref{lem:Hdivdivtrace} 所覆盖. 事实上，$\boldsymbol{H}(\div{\div },K; \mathbb{S})$ 的迹的完整刻画由 $(\div{\div }\bs\tau, v)_K-\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}$ 给出，而该表达式无法被等价地解耦（参见文献~\cite[引理~3.2]{FuehrerHeuerNiemi2019}）.
+注意，格林公式~\eqref{eq:greenidentitydivdiv} 中的项 $(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e$ 并未被引理~\ref{lem:Hdivdivtrace} 所覆盖. 事实上，$ H(\div{\div },K; \mathbb{S})$ 的迹的完整刻画由 $(\div{\div }\bs\tau, v)_K-\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}$ 给出，而该表达式无法被等价地解耦（参见文献~\cite[引理~3.2]{FuehrerHeuerNiemi2019}）.
 然而，在施加额外光滑性假设的情况下，可以将此迹在各面上局部化.
 
 
-下面给出分段光滑函数属于 $\boldsymbol{H}(\div{\div },\Omega; \mathbb{S})$ 的一个充分条件. 
+下面给出分段光滑函数属于 $ H(\div{\div },\Omega; \mathbb{S})$ 的一个充分条件. 
 
 \begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 命题 3.6]\label{lm:divdivconforming}
 设 $\bs \sigma \in L^2(\Omega;\mathbb S)$ 且对任意 $K\in \mathcal T_h$ 有 $\bs \sigma|_K\in H^{2}(K;\mathbb S)$. 则 $\bs \sigma \in H(\div\div,\Omega;\mathbb S)$ 当且仅当满足以下条件：
@@ -1977,7 +1981,7 @@ b_h(\boldsymbol{\tau}, v-I_h^{\grad}v) = 0, \quad \forall~\boldsymbol{\tau}\in \
 \end{proof}
 
 \begin{theorem}
-HHJ 混合方法 \eqref{eq:hhjmfem} 是适定的，且满足
+HHJ 混合元方法 \eqref{eq:hhjmfem} 是适定的，且满足
 \begin{equation}\label{eq:divdivsigmah}
 (\div\div)_w(I_h^{nn}\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)=(\div\div)_w(\boldsymbol{\sigma}-\boldsymbol{\sigma}_h)=0.
 \end{equation}
@@ -1989,7 +1993,7 @@ HHJ 混合方法 \eqref{eq:hhjmfem} 是适定的，且满足
 \[
 \|\bs\tau_h\|_{0,h}^2\lesssim \|\bs\tau_h\|^2=(\bs\tau_h,\bs\tau_h)\quad\forall~\bs\tau_h\in\Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S}).
 \]
-结合离散 inf-sup 条件 \eqref{eq:HHJinfsup}，由 Brezzi 理论可得 HHJ 混合方法 \eqref{eq:hhjmfem} 的适定性.
+结合离散 inf-sup 条件 \eqref{eq:HHJinfsup}，由 Brezzi 理论可得 HHJ 混合元方法 \eqref{eq:hhjmfem} 的适定性.
 
 对任意 $v\in \mathring{V}_k^{\grad}(\mathcal{T}_h)$,
 由 \eqref{eq:hhjmfem2} 和 \eqref{eq:hhjmixedformulation2} 可得，
@@ -2358,325 +2362,256 @@ $$
 \end{proof}
 
 
-\subsection{HHJ 混合方法的 Hilbert 复形}
+\subsection{二维分布 div\,div 复形与 Hellan-Herrmann-Johnson 复形}
 
-在本节中，我们将推导 HHJ 混合方法~\eqref{mfem1}-\eqref{mfem2} 的正合序列及交换图. 
+在本节中，我们将给出二维分布 div\,div 复形 \eqref{eq:distribdivdivcomplex2d} 和  Hellan-Herrmann-Johnson (HHJ) 复形 \eqref{eq:hhjcomplex2d}. 
 
-%The first operator $B = \div \boldsymbol \div$ maps a symmetric tensor function to a vector function.
 
-对于向量值函数 $\boldsymbol{\phi}=(\phi_1, \phi_2)^{T}$，记 $\boldsymbol{\phi}^{\perp}:=(-\phi_2, \phi_1)^T$ 为垂直于 $\boldsymbol{\phi}$ 的向量. 
-标准对称梯度算子定义为
-\[
-\boldsymbol{\varepsilon}(\boldsymbol{\phi})=\frac{1}{2}\left(\boldsymbol{\nabla}\boldsymbol{\phi}+(\boldsymbol{\nabla}\boldsymbol{\phi})^T\right).
-\]
-对称旋度算子类似地定义为
+% \subsubsection{符号说明}
+对于标量函数~$v$, 定义
 $$
-\nabla ^s\times\boldsymbol \phi :=
-%\boldsymbol{L}^T\boldsymbol{\varepsilon}(\boldsymbol \phi^{\bot})\boldsymbol{L} = \frac{1}{2}\boldsymbol{L}^T(\nabla \boldsymbol \phi^{\bot} + \nabla^{T} \boldsymbol \phi^{\bot})\boldsymbol{L} =
-\frac{1}{2}\left ( \mathbf{curl} \boldsymbol \phi +  (\mathbf{curl}\boldsymbol \phi)^T\right ).
+\mskw v:=\begin{pmatrix}
+0 & -v \\
+v & 0
+\end{pmatrix},\quad \curl v:=\left(
+\frac{\partial v}{\partial x_2},
+-\frac{\partial v}{\partial x_1}
+\right)^{\intercal} = (\grad v)^{\perp},
 $$
-%with $\boldsymbol{L}=\left(
-%\begin{array}{cc}
-%0 & -1 \\
-%1 & 0
-%\end{array}
-%\right)$.
-%
-%Set
-%\[
-%\mathbf{Curl}\boldsymbol{\phi}=\left(
-%\begin{array}{ll}
-%\partial_2\phi_1 &  -\partial_1\phi_1 \\
-%\partial_2\phi_2 &  -\partial_1\phi_2 \\
-%\end{array}
-%\right), \quad \boldsymbol{\varepsilon}^{\bot}(\boldsymbol{\phi})= \frac{1}{2}\left(
-%\begin{array}{cc}
-%0 &  \boldsymbol{\nabla}\cdot\boldsymbol{\phi} \\
-%-\boldsymbol{\nabla}\cdot\boldsymbol{\phi} &  0 \\
-%\end{array}
-%\right) + \mathbf{Curl}\boldsymbol{\phi}.
-%\]
-%Then we have
-%\[
-%M_n(\boldsymbol{\varepsilon}^{\bot}(\boldsymbol{\phi}))=\partial_{\boldsymbol{t}}(\boldsymbol{\phi}\cdot\boldsymbol{n}), \quad M_{nt}(\boldsymbol{\varepsilon}^{\bot}(\boldsymbol{\phi}))=-\frac{1}{2}\boldsymbol{\nabla}\cdot\boldsymbol{\phi} + \partial_{\boldsymbol{t}}(\boldsymbol{\phi}\cdot\boldsymbol{t}).
-%\]
-令
-\[
-\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2):=\textrm{span}\left\{
-\left(\begin{array}{c}
-0 \\
-1
-\end{array}
-\right), \left(\begin{array}{c}
-1 \\
-0
-\end{array}
-\right),  \left(\begin{array}{c}
-x_1 \\
-x_2
-\end{array}
-\right)\right\}.
-\]
-易见，$\overline{\boldsymbol{P}}_1^{\textrm{Rot}}(\Omega; \mathbb{R}^2)$ 正是刚体运动空间，其中
-\[
-\overline{\boldsymbol{P}}_1^{\textrm{Rot}}(\Omega; \mathbb{R}^2):=\{\boldsymbol{\phi}\in\boldsymbol{L}^2(\Omega; \mathbb{R}^2): \boldsymbol{\phi}^{\perp}\in\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\}.
-\]
-
-
-\begin{lemma}\label{lem:1}
-如下 Kirchhoff 板的序列
-% \begin{equation}\label{exactsequence1}
-% \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)\autorightarrow{$\nabla ^s\times$}{} \boldsymbol{C}^{\infty}(\Omega; \mathbb{S}) \autorightarrow{$\mathrm{div}\boldsymbol{\mathrm{div}}$}{} C^{\infty}(\Omega)\autorightarrow{}{}0
-% \end{equation}
-是一个正合复形. 
-\end{lemma}
-\begin{proof}
-通过直接计算可知 \eqref{exactsequence1} 是一个复形，即 $\nabla ^s\times(\overline{\boldsymbol{P}}_1) = 0$ 且 $\mathrm{div}\boldsymbol{\mathrm{div}}~\nabla ^s\times = 0$. 接下来我们要验证其正合性. 
-
-首先证明 $\ker(\nabla ^s\times)=\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)$. 对于任意满足 $\nabla ^s\times\boldsymbol{\phi}=\boldsymbol{0}$ 的 $\boldsymbol{\phi}\in\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)$，有
-\[
-\nabla ^s\times\boldsymbol{\phi} = \boldsymbol{L}^T\boldsymbol{\varepsilon}(\boldsymbol \phi^{\bot})\boldsymbol{L}=\boldsymbol{0},
-\]
-其中 $\boldsymbol{L}=\left(
-\begin{array}{cc}
-0 & -1 \\
-1 & 0
-\end{array}
-\right)$. 
-因此我们有
-\[
-\boldsymbol{\varepsilon}(\boldsymbol \phi^{\bot})=\boldsymbol{0},
-\]
-这意味着 $\boldsymbol{\phi}\in\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)$. 
-
-接下来，利用文献~\cite[引理~1]{Beirao-da-VeigaNiiranenStenberg2007} 和 \cite[引理~3.1]{HuangHuangXu2011} 中采用的类似论证，证明 $\ker(\mathrm{div}\boldsymbol{\mathrm{div}})=\nabla ^s\times\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)$. 
-首先，通过直接计算可知 $\nabla ^s\times\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2) \subset \ker(\mathrm{div}\boldsymbol{\mathrm{div}})$. 
-对于任意 $\boldsymbol{\tau}\in \ker(\mathrm{div}\boldsymbol{\mathrm{div}})$，存在 $v\in C^{\infty}(\Omega)$ 使得
-$\boldsymbol{\mathrm{div}}\boldsymbol{\tau}=\mathbf{curl}v=-\boldsymbol{\mathrm{div}}(v\boldsymbol{L}),$
-这意味着
-$\boldsymbol{\mathrm{div}}(\boldsymbol{\tau}+v\boldsymbol{L})=0.$
-因此，存在向量函数 $\boldsymbol{\phi}\in\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)$ 满足
-\[
-\boldsymbol{\tau}+v\boldsymbol{L}=\mathbf{curl}\boldsymbol{\phi}.
-\]
-由于 $\boldsymbol{\tau}$ 是对称的，故有 $\boldsymbol{\tau}=\nabla ^s\times\boldsymbol{\phi}$. 
-从而 $\ker(\mathrm{div}\boldsymbol{\mathrm{div}})\subset \nabla ^s\times\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)$. 
-
-最后证明 $\mathrm{div}\boldsymbol{\mathrm{div}}\boldsymbol{C}^{\infty}(\Omega; \mathbb{S})=C^{\infty}(\Omega)$. 由文献 \cite[p. 405]{ArnoldWinther2002} 中的弹性力学复形可知，散度算子 $\boldsymbol \div :\boldsymbol{C}^{\infty}(\Omega; \mathbb{S})\to \boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)$ 是满射. 此外，根据文献 \cite[p. 27]{ArnoldFalkWinther2006} 中的 de Rham 复形，散度算子 $\div :\boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)\to C^{\infty}(\Omega)$ 也是满射. 因此我们有 $\mathrm{div}\boldsymbol{\mathrm{div}}\boldsymbol{C}^{\infty}(\Omega; \mathbb{S})=C^{\infty}(\Omega)$. 
-\end{proof}
-%\LC{write complex involving Sobolev spaces like $H^1\to H(\div\div)\to L^2$}
-%is exact.
-%\begin{remark}
-%This is a rotated version of the elasticity complex in two dimensions
-%$$
-%\overline{\boldsymbol{P}}_1^{\bot}(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \boldsymbol{C}^{\infty}(\Omega; \mathbb{R}^2)\autorightarrow{$\boldsymbol{\varepsilon}$}{} \boldsymbol{C}^{\infty}(\Omega; \mathbb{S}) \autorightarrow{$\curl \curl$}{} C^{\infty}(\Omega)\autorightarrow{}{}0
-%$$
-%\end{remark}
-
-接着，我们推导一个正则性要求较低的正合序列. 为此，定义 $B: \mathcal V\to \mathcal P^{\prime}$ 为
+其中~$(a,b)^{\perp} := (b, -a)$ 表示顺时针旋转 $90^{\circ}$. 定义 $\hess := \grad\grad$ 以及
 $$
-\langle B\boldsymbol{\tau}, v\rangle :=b(\boldsymbol{\tau}, v) \quad \forall~ v\in \mathcal P.
-$$
-对于任意 $(\boldsymbol{\tau}, v)\in\mathcal V\times \mathcal P$ 且 $v\in H_0^2(\Omega)$，由分部积分及 $\left [M_n(\boldsymbol{\tau}) \right ]|_{\mathcal{E}_h^i}=0$ 这一事实可得
-\begin{align}
-\langle B\boldsymbol{\tau}, v\rangle =& \int_{\Omega}\boldsymbol{\tau}:\boldsymbol{\nabla}^2v\, {\rm d}x - \sum_{K\in\mathcal{T}_h}\int_{\partial K}(\boldsymbol{\tau}\boldsymbol{n})\cdot\boldsymbol{\nabla}v\, {\rm d}s+\sum_{K\in\mathcal{T}_h}\int_{\partial K}M_{nt}(\boldsymbol{\tau})\partial_{\boldsymbol{t}}v\, {\rm d}s \notag\\
-=&\int_{\Omega}\boldsymbol{\tau}:\boldsymbol{\nabla}^2v\, {\rm d}x - \sum_{K\in\mathcal{T}_h}\int_{\partial K}M_{n}(\boldsymbol{\tau})\partial_{\boldsymbol{n}}v\, {\rm d}s \notag\\
-=&\int_{\Omega}\boldsymbol{\tau}:\boldsymbol{\nabla}^2v\, {\rm d}x=\langle \div\boldsymbol \div\boldsymbol{\tau}, v\rangle_{H^{-2}(\Omega)\times H_0^2(\Omega)}. \label{eq:temp8}
-\end{align}
-另一方面，对于任意 $(\boldsymbol{\tau}, v)\in\mathcal V\times \mathcal P$ 且 $\boldsymbol{\tau}\in \boldsymbol H(\boldsymbol \div,\Omega; \mathbb S): = \{\boldsymbol \tau \in L^2(\Omega; \mathbb S): \boldsymbol\div \boldsymbol \tau \in \boldsymbol{L}^{2}(\Omega; \mathbb{R}^2)\}$，由于 $v\in\mathcal P$ 意味着 $v$ 在 $\Omega$ 内连续，由 $\left [M_{nt}(\boldsymbol{\tau}) \right ]|_{\mathcal{E}_h^i}=0$ 可得
-\begin{align*}
-\langle B\boldsymbol{\tau}, v\rangle =&-\int_{\Omega}(\boldsymbol \div\boldsymbol{\tau})\cdot\boldsymbol{\nabla}v\, {\rm d}x + \sum_{K\in\mathcal{T}_h}\int_{\partial K}M_{nt}(\boldsymbol{\tau})\partial_{\boldsymbol{t}}v\, {\rm d}s \\
-=&-\int_{\Omega}(\boldsymbol \div\boldsymbol{\tau})\cdot\boldsymbol{\nabla}v\, {\rm d}x=\langle \div\boldsymbol \div\boldsymbol{\tau}, v\rangle_{H^{-1}(\Omega)\times H_0^1(\Omega)}.
-\end{align*}
-因此，双线性形式 $b(\cdot,\cdot)$ 既可以定义在 $\boldsymbol H(\boldsymbol \div,\Omega; \mathbb S)\times H_0^1(\Omega)$ 上，此时 $B=\div\boldsymbol \div$ 在 $H^{-1}(\Omega)$ 分布意义下成立；也可以定义在 $\boldsymbol L^2(\Omega)\times H^{2}_0(\Omega)$ 上，此时 $B=\div\boldsymbol \div$ 在 $H^{-2}(\Omega)$ 分布意义下成立. 然而，构造 $\boldsymbol H(\boldsymbol \div,\Omega; \mathbb S)$ 或 $H^{2}_0(\Omega)$ 的协调有限元空间十分困难. 直到本世纪，采用多项式形函数的 $\boldsymbol H(\boldsymbol \div,\Omega; \mathbb S)$ 协调混合有限元才在 \cite{Hu2015a,HuZhang2015c, HuZhang2015, ChenHuHuang2017, HuZhang2016, ArnoldWinther2002, AdamsCockburn2005, ArnoldAwanouWinther2008} 中被构造出来，而针对一般形状正则非结构网格的高效快速求解器直到最近才在 \cite{ChenHuHuang2017a} 中得到开发. 
-我们对这两个空间的光滑性进行了折衷，将双线性形式 $b(\cdot,\cdot)$ 理解为定义在 $\mathcal V\times \mathcal P$ 上，从而有
-$$
-\mathrm{div}\boldsymbol{\mathrm{div}}: \boldsymbol{H}^{-1}(\mathrm{div}\boldsymbol{\mathrm{div}},\Omega; \mathbb{S}) \to  H^{-1}(\Omega),
-$$
-其中空间 $\boldsymbol{H}^{-1}(\div\boldsymbol \div,\Omega; \mathbb S): = \{\boldsymbol \tau \in L^2(\Omega; \mathbb S): \div \boldsymbol\div \boldsymbol \tau \in H^{-1}(\Omega)\}$ 最早由 \cite{PechsteinSchoberl2011} 引入. 
-
-利用与引理~\ref{lem:1} 类似的论证，我们可以获得如下 Kirchhoff 板的 Hilbert 序列. 
-\begin{lemma}
-如下 Kirchhoff 板的 Hilbert 序列
-% \begin{equation}\label{eq:hhjexactsequencecontinuous}
-% \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \boldsymbol{H}^1(\Omega; \mathbb{R}^2)\autorightarrow{$\nabla ^s\times$}{} \boldsymbol{H}^{-1}(\mathrm{div}\boldsymbol{\mathrm{div}},\Omega; \mathbb{S}) \autorightarrow{$\mathrm{div}\boldsymbol{\mathrm{div}}$}{} H^{-1}(\Omega)\autorightarrow{}{}0
-% \end{equation}
-是一个正合复形. 
-\end{lemma}
-
-
-\begin{remark}\rm
-Kirchhoff 板的一个光滑性较低的正合 Hilbert 序列是
-% \begin{equation}\label{eq:lesssmoothexactsequencecontinuous}
-% \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \boldsymbol{L}^2(\Omega; \mathbb{R}^2)\autorightarrow{$\nabla ^s\times$}{} \boldsymbol{H}^{-2}(\mathrm{div}\boldsymbol{\mathrm{div}},\Omega; \mathbb{S}) \autorightarrow{$\mathrm{div}\boldsymbol{\mathrm{div}}$}{} H^{-2}(\Omega)\autorightarrow{}{}0,
-% \end{equation}
-其中 $\boldsymbol{H}^{-2}(\div\boldsymbol \div,\Omega; \mathbb S): = \{\boldsymbol \tau \in \boldsymbol H^{-1}(\Omega; \mathbb S): \div \boldsymbol\div \boldsymbol \tau \in H^{-2}(\Omega)\}$. 
-然而，$\boldsymbol{H}^{-2}(\div\boldsymbol \div,\Omega; \mathbb S)$ 的有限元空间很难构造. 事实上，在 HHJ 混合方法中，空间 $\mathcal V$ 和 $\mathcal V_h$ 也都不是 $\boldsymbol{H}^{-1}(\div\boldsymbol \div,\Omega; \mathbb S)$ 的子空间. 也就是说，HHJ 混合方法本质上仍是一种非协调方法. $\Box$
-\end{remark}
-
-\begin{remark}\rm
-序列 \eqref{eq:lesssmoothexactsequencecontinuous} 的对偶复形为
-% \[
-% 0\autorightarrow{$\subset$}{} H_0^2(\Omega)\autorightarrow{$\boldsymbol\nabla^2$}{} \boldsymbol{H}_0(\boldsymbol{\mathrm{rot}},\Omega; \mathbb{S}) \autorightarrow{$\boldsymbol{\mathrm{rot}}$}{} \boldsymbol{L}_0^2(\Omega; \mathbb{R}^2)\autorightarrow{}{}0,
-% \]
-其中
-\[
-\boldsymbol H_0(\mathbf{rot},\Omega; \mathbb S): = \{\boldsymbol \tau \in L^2(\Omega; \mathbb S): \mathbf{rot} \boldsymbol \tau \in \boldsymbol{L}^{2}(\Omega; \mathbb{R}^2),\, \textrm{ 且在 }\,\partial \Omega \textrm{ 上 }\,\boldsymbol \tau\boldsymbol t=\boldsymbol 0 \},
-\]
-\[
-\boldsymbol{L}_0^2(\Omega; \mathbb{R}^2): = \{\boldsymbol \phi \in \boldsymbol{L}^2(\Omega; \mathbb{R}^2): \int_{\Omega} \boldsymbol \phi\,\, {\rm d}x=\boldsymbol 0\}.
-\]
-值得注意的是，上述最后一个正合序列是二维弹性力学复形~\cite[(2.1)]{ArnoldWinther2002} 的旋转形式. $\Box$
-\end{remark}
-
+\air v:=\curl\curl v=\begin{pmatrix}
 \medskip
+\frac{\partial^2v}{\partial x_2^2} & -\frac{\partial^2v}{\partial x_1\partial x_2} \\
+-\frac{\partial^2v}{\partial x_1\partial x_2} & \frac{\partial^2v}{\partial x_1^2}
+\end{pmatrix}.
+$$
+由此可得恒等式~$\div(\mskw v) = -\curl v$. 
 
-在离散层面，我们将针对前述有限元空间推导类似的各个正合序列. 为此，首先讨论两个微分算子 $\nabla ^s\times$ 和 $\mathrm{div}\boldsymbol{\mathrm{div}}$ 的离散化. 由于 $\nabla ^s\times$ 仅要求 $H^1$ 的光滑性，可以通过选择有限元空间 $\mathcal S_h \subset H^1$ 来自然地离散化. 难点在于算子 $\mathrm{div}\boldsymbol{\mathrm{div}}$ 的离散化. 首先，我们可以将 $B : \mathcal{V}_h\to \mathcal{P}_h^{\prime}$ 理解为
-\[
-\langle B\boldsymbol{\tau}, v\rangle :=b(\boldsymbol{\tau}, v) \quad \forall~ v\in \mathcal{P}_h.
-\]
-%The space $\mathcal V$ is a
-%\[
-%\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \boldsymbol{H}^1(\Omega; \mathbb{R}^2)\autorightarrow{$\boldsymbol{\varepsilon}^{\bot}$}{} \boldsymbol{H}^{-1}(\div\boldsymbol{\div},\Omega; \mathbb{S}) \autorightarrow{$\boldsymbol{\nabla}\cdot(\boldsymbol{\nabla}\cdot)$}{} H^{-1}(\Omega)\autorightarrow{}{}0
-%\]
-%
-利用 $L^2$ 内积诱导的 Riesz 表示定理，我们可以将 $\mathcal{P}_h^{\prime}$ 等同于 $\mathcal I_h^{\grad}$，并最终定义 $(\mathrm{div}\boldsymbol{\mathrm{div}})_h: \mathcal{V}_h\to \mathcal{P}_h$ 如下：对于任意 $\boldsymbol{\tau}\in\mathcal{V}_h$，$(\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol{\tau}\in\mathcal{P}_h$ 由下式唯一确定
-\[
-\int_{\Omega}(\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol{\tau}\, v\,{\rm d}x=b(\boldsymbol{\tau}, v) \quad \forall~v\in\mathcal{P}_h.
-\]
-
-为了给出交换图，我们需要引入一些插值算子. 
-令 $Q_h$ 为从 $L^2(\Omega)$ 到 $\mathcal{P}_h$ 的 $L^2$ 正交投影算子，由于 $\mathcal I_h^{\grad} \subset H_0^1(\Omega)$，该算子可延拓为 $H^{-1}(\Omega) \to \mathcal I_h^{\grad}$. 
-
-
-对于任意单元 $K\in \mathcal{T}_h$，定义 $I_K: H^2(K)\to P_r(K)$ 如下 (参见 \cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980, Comodi1989,Stenberg1991})：给定 $w\in H^2(K)$，对于 $K$ 的任意顶点 $a$ 和任意边 $e$，
+对于向量函数~$\boldsymbol{v}=(v_1, v_2)$, 定义
+$$
+\rot\boldsymbol{v}:=\frac{\partial v_2}{\partial x_1}-\frac{\partial v_1}{\partial x_2} = \div \bs v^{\perp}.
+$$
+对于张量函数~$\boldsymbol{\tau}=\begin{pmatrix}
+\tau_{11} & \tau_{12} \\
+\tau_{21} & \tau_{22}
+\end{pmatrix}$，定义
 \begin{align*}
-I_Kw(a)&=w(a),\\
-\int_e(w-I_Kw)v\, {\rm d}s&=0 \quad \forall~v\in P_{r-2}(e),\\
-\int_K(w-I_Kw)v\, \, {\rm d}x&=0 \quad \forall~v\in P_{r-3}(K).
+\sym\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}+\boldsymbol{\tau}^{\intercal}),\,\;\; \skw\boldsymbol{\tau}:=\frac{1}{2}(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal}),\, \;\; \sskw\boldsymbol{\tau}:=\mskw^{-1}\circ\skw\boldsymbol{\tau}=\frac{1}{2}(\tau_{21}-\tau_{12}).
 \end{align*}
-相应的全局插值算子 $I_h$ 定义为
-\[
-(I_h)|_K:=I_K \quad\textrm{ 对所有 } K\in\mathcal{T}_h.
-\]
-令 $\boldsymbol{I}_K=I_K\times I_K$, $\boldsymbol{I}_h=I_h\times I_h$. 
-
-\smallskip
-\begin{lemma}\label{lem: Bcomforming}
-$(\mathrm{div}\boldsymbol{\mathrm{div}})_h$ 是算子 $B$ 的协调离散，意指 $\ker ((\mathrm{div}\boldsymbol{\mathrm{div}})_h)\subset \ker B$. 
-\end{lemma}
-\begin{proof}
-由 $I_h$ 的定义，我们有 (参见~\cite[p.~1058]{BabuvskaOsbornPitkaranta1980})
-\begin{equation}\label{eq:temp4}
- b(\boldsymbol \tau_h, v) =  b(\boldsymbol \tau_h, I_hv), \quad \forall \boldsymbol{\tau}_h\in \mathcal{V}_h, v\in \mathcal{P}.
+直接计算可得
+\begin{equation}\label{eq:anticommutativeprop1}
+\div\boldsymbol{v}=2\,\sskw(\curl \boldsymbol{v}), \quad \rot\boldsymbol{v} = 2\,\sskw(\grad \boldsymbol{v}).
 \end{equation}
 
-对于任意 $\boldsymbol{\tau}\in \ker ((\mathrm{div}\boldsymbol{\mathrm{div}})_h)$，由 \eqref{eq:temp4} 可知，对任意 $v\in \mathcal{P}$，
-\[
-\langle B\boldsymbol{\tau}, v\rangle =b(\boldsymbol{\tau}, v)=b(\boldsymbol \tau, I_hv)=\int_{\Omega}(\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol{\tau}\, I_hv\,{\rm d}x=0.
-\]
-因此 $\boldsymbol{\tau}\in \ker B$. 
-\end{proof}
-
-
-接着定义 $\boldsymbol{\Pi}_K: \boldsymbol{H}^1(K, \mathbb{S})\to \boldsymbol{P}_{r-1}(K, \mathbb{S})$ 如下 (参见~\cite{BabuvskaOsbornPitkaranta1980,FalkOsborn1980, Comodi1989,Brezzi.F;Fortin.M1991})：给定 $\boldsymbol{\tau}\in \boldsymbol{H}^1(K, \mathbb{S})$，对于任意单元 $K\in \mathcal{T}_h$ 和 $K$ 的任意边 $e$，
-\begin{align*}
-\int_eM_n\left((\boldsymbol{\tau}-\boldsymbol{\Pi}_K\boldsymbol{\tau})|_K\right)\mu\, {\rm d}s &=0 \quad \forall~\mu\in P_{r-1}(e),\\
-\int_K(\boldsymbol{\tau}-\boldsymbol{\Pi}_K\boldsymbol{\tau}):\boldsymbol{\varsigma}\,{\rm d}x &=0 \quad \forall~\boldsymbol{\varsigma}\in \boldsymbol{P}_{r-2}(K, \mathbb{S}).
-\end{align*}
-相应的全局插值算子 $\boldsymbol{\Pi}_h: \mathcal{V}\to \mathcal{V}_h$ 定义为
-\[
-(\boldsymbol{\Pi}_h)|_K:=\boldsymbol{\Pi}_K \quad\textrm{ 对所有 } K\in\mathcal{T}_h.
-\]
-由 $\boldsymbol{\Pi}_h$ 的定义可知
-\begin{equation}\label{eq:bpi0}
-b(\boldsymbol{\tau}-\boldsymbol{\Pi}_h\boldsymbol{\tau}, v)=0 \quad \forall~\boldsymbol{\tau}\in \mathcal{V}, v\in \mathcal{P}_h.
+\begin{lemma}
+设 $\Omega \subset \mathbb{R}^2$ 是有界可缩区域. 则成立：
+\begin{equation}\label{Hn1Sdivdivker}    
+H^{-1}(\div\div, \Omega; \mathbb{S}) \cap \ker(\div\div) = \sym\curl H^1(\Omega; \mathbb{R}^2).
 \end{equation}
-即 $Q_h B = (\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol\Pi_h$. 
-
-\smallskip
-\begin{lemma}\label{lem:hhjexactsequence}
-如下 HHJ 混合方法的序列
-% \begin{equation}\label{exactsequence2}
-% \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)\autorightarrow{$\subset$}{} \mathcal{S}_h\autorightarrow{$\nabla ^s\times$}{} \mathcal{V}_h \autorightarrow{$(\mathrm{div}\boldsymbol{\mathrm{div}})_h$}{} \mathcal{P}_h\autorightarrow{}{}0
-% \end{equation}
-是一个正合序列. 
 \end{lemma}
 \begin{proof}
-与 \eqref{exactsequence1} 类似，通过直接计算可知 \eqref{exactsequence2} 是一个复形. 随后我们证明 $\ker((\mathrm{div}\boldsymbol{\mathrm{div}})_h)=\nabla ^s\times\mathcal{S}_h$. 
-取任意 $\boldsymbol{\tau}\in\ker((\mathrm{div}\boldsymbol{\mathrm{div}})_h)$. 由于 $\ker((\mathrm{div}\boldsymbol{\mathrm{div}})_h)\subset\ker B$，利用 \eqref{eq:temp8} 以及连续层面的正合序列 \eqref{eq:hhjexactsequencecontinuous}，我们可以找到向量函数 $\boldsymbol{\phi}\in\boldsymbol{H}^{1}(\Omega; \mathbb{R}^2)$ 满足 $\boldsymbol{\tau}=\nabla ^s\times\boldsymbol{\phi}$. 通过直接计算，对每个 $K\in\mathcal{T}_h$ 成立
-\[
-\mathbf{curl}(\mathrm{div}(\boldsymbol{\phi}|_K))=2\mathbf{div}(\boldsymbol{\tau}|_K)\in \boldsymbol{P}_{r-2}(K, \mathbb{R}^2).
-\]
-因此 $\mathrm{div}(\boldsymbol{\phi}|_K)\in P_{r-1}(K)$，结合 $\nabla ^s\times\boldsymbol{\phi}=\boldsymbol{\tau}\in  \boldsymbol{P}_{r-1}(K, \mathbb{S})$ 可知 $\boldsymbol{\nabla}(\boldsymbol{\phi}|_K)\in  \boldsymbol{P}_{r-1}(K, \mathbb{S})$. 
-故 $\boldsymbol{\phi}|_K\in\boldsymbol{P}_{r}(K, \mathbb{R}^2)$，即 $\boldsymbol{\phi}\in\mathcal{S}_h$. 
+首先，容易验证包含关系 $\sym\curl H^1(\Omega; \mathbb{R}^2) \subseteq H^{-1}(\div\div, \Omega; \mathbb{S}) \cap \ker(\div\div)$. 
 
-利用与引理~\ref{lem:1} 类似的论证，我们有 $\ker(\nabla ^s\times)=\overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2)$. 
-为证明 \eqref{exactsequence2} 是正合的，我们需通过采用文献~\cite[p.~1056]{BabuvskaOsbornPitkaranta1980} 中的技巧证明 $(\mathrm{div}\boldsymbol{\mathrm{div}})_h(\mathcal{V}_h)=\mathcal{P}_h$. 
+接下来证明反向包含关系：$H^{-1}(\div\div, \Omega; \mathbb{S}) \cap \ker(\div\div) \subseteq \sym\curl H^1(\Omega; \mathbb{R}^2)$. 
 
-对于任意 $p\in \mathcal{P}_h$，令 $w_h\in \mathcal{P}_h$ 为下述方程的解：
+设 $\bs{\tau} \in H^{-1}(\div\div, \Omega; \mathbb{S}) \cap \ker(\div\div)$，则有 $\div\bs{\tau} \in H^{-1}(\Omega; \mathbb{R}^2) \cap \ker(\div)$. 由 de Rham 复形知 $H^{-1}(\Omega; \mathbb{R}^2) \cap \ker(\div) = \curl L^2(\Omega)$，故存在 $w \in L^2(\Omega)$ 使得 $\div\bs{\tau} = \curl w$. 利用恒等式 $\div(\mskw w) = -\curl w$，可得
 \[
-\int_{\Omega}\boldsymbol{\nabla}w_h\cdot \boldsymbol{\nabla}v\,{\rm d}x=-\int_{\Omega}pv\, {\rm d}x \quad \forall~v\in\mathcal{P}_h.
+\div(\bs{\tau} + \mskw w) = 0.
 \]
-令 $\boldsymbol{\sigma}_0=\left(
-\begin{array}{cc}
-w_h & 0 \\
-0 & w_h
-\end{array}
-\right)$. 由于
-$M_n(\boldsymbol{\sigma}_0)=\boldsymbol{n}^T\boldsymbol{\sigma}_0\boldsymbol{n}=w_h$ 且 $w_h\in \mathcal{P}_h$，故 $\boldsymbol{\sigma}_0\in\mathcal{V}$. 
-令 $\boldsymbol{\sigma}_I=\boldsymbol{\Pi}_h\boldsymbol{\sigma}_0\in\mathcal{V}_h$. 利用 \eqref{eq:bpi0}，两次分部积分，以及 $\boldsymbol{\sigma}_0$ 和 $w_h$ 的定义，对任意 $v\in\mathcal{P}_h$ 有
-\begin{align*}
-b(\boldsymbol{\sigma}_I, v)=&\, b(\boldsymbol{\sigma}_0, v)=\sum_{K\in\mathcal{T}_h}\int_{K}\boldsymbol{\sigma}_0:\nabla^2v \,{\rm d}x  - \sum_{K\in\mathcal{T}_h}\int_{\partial K}M_n(\boldsymbol{\sigma}_0)\partial_{\boldsymbol n}v \,{\rm d} s \\
-=&\sum_{K\in\mathcal{T}_h}\int_{K}w_h\Delta v \,{\rm d} s - \sum_{K\in\mathcal{T}_h}\int_{\partial K}w_h\partial_{\boldsymbol n}v \,{\rm d} s \\
-=& -\int_{\Omega}\boldsymbol{\nabla}w_h\cdot \boldsymbol{\nabla}v \,{\rm d}x=\int_{\Omega}pv \,{\rm d}x,
-\end{align*}
-由此可见 $p=(\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol{\sigma}_I$. 证明完毕. 
+再次利用 $L^{2}(\Omega; \mathbb{R}^2) \cap \ker(\div) = \curl H^1(\Omega)$，可知存在 $\bs{v} \in H^1(\Omega; \mathbb{R}^2)$ 使得 $\bs{\tau} + \mskw w = \curl \bs{v}$. 
+注意到 $\bs{\tau}$ 是对称张量（$\bs{\tau} \in \mathbb{S}$），因此
+\[
+\bs{\tau} = \sym \bs{\tau} = \sym(\bs{\tau} + \mskw w) = \sym\curl \bs{v}.
+\]
+即 $\bs{\tau} \in \sym\curl H^1(\Omega; \mathbb{R}^2)$. 证毕. 
 \end{proof}
 
-\smallskip
 \begin{theorem}
-我们得到如下 HHJ 混合方法的交换图：
-\[
-\begin{array}{c}
-\xymatrix{
-  \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2) \ar[r]^{\subset} & \boldsymbol{H}^{1}(\Omega; \mathbb{R}^2) \ar[d]^{\boldsymbol{I}_h} \ar[r]^-{\nabla ^s\times}
-                & \boldsymbol{H}^{-1}(\mathrm{div}\boldsymbol{\mathrm{div}},\Omega; \mathbb{S}) \ar[d]^{\boldsymbol{\Pi}_h}   \ar[r]^-{\mathrm{div}\boldsymbol{\mathrm{div}}} & \ar[d]^{Q_h}H^{-1}(\Omega) \ar[r]^{} & 0 \\
- \overline{\boldsymbol{P}}_1(\Omega; \mathbb{R}^2) \ar[r]^{\subset} & \mathcal{S}_h \ar[r]^{\nabla ^s\times}
-                & \mathcal{V}_h   \ar[r]^{(\mathrm{div}\boldsymbol{\mathrm{div}})_h} &  \mathcal{P}_h \ar[r]^{}& 0    }
-\end{array}.
-\]
+设 $\Omega\subset\mathbb R^2$ 是有界可缩区域. 如下二维分布 div\,div 复形
+\begin{equation}\label{eq:distribdivdivcomplex2d}
+\textrm{RT}\xrightarrow{\hookrightarrow} H^1(\Omega;\mathbb R^2)\xrightarrow{\sym\curl} H^{-1}(\div{\div},\Omega;\mathbb{S}) \xrightarrow{\div\div} H^{-1}(\Omega)\xrightarrow{}0
+\end{equation}
+是正合的.
 \end{theorem}
 \begin{proof}
-恒等式 $Q_h \mathrm{div}\boldsymbol{\mathrm{div}} = (\mathrm{div}\boldsymbol{\mathrm{div}})_h\boldsymbol \Pi_h$ 已在 \eqref{eq:bpi0} 中证明. 
-%First we prove that for any $\boldsymbol{\tau}\in\boldsymbol{C}^{\infty}(\Omega; \mathbb{S})$, $B_h\boldsymbol{\Pi}_h\boldsymbol{\tau}=T_hB\boldsymbol{\tau}$.
-%This can be achieved as follows by using
-% the definitions of $B_h$ and $B$, \eqref{eq:bpi0} and integration by parts
-%\[
-%\int_{\Omega}(B_h\boldsymbol{\Pi}_h\boldsymbol{\tau})v\, {\rm d}x=b(\boldsymbol{\Pi}_h\boldsymbol{\tau}, v)=b(\boldsymbol{\tau}, v)=\int_{\Omega}(B\boldsymbol{\tau})v\, {\rm d}x=\int_{\Omega}(T_hB\boldsymbol{\tau})v\, {\rm d}x\quad \forall~v\in\mathcal{P}_h.
-%\]
-
-接下来证明：对于任意 $\boldsymbol{\phi}\in \boldsymbol{H}^{1}(\Omega; \mathbb{R}^2)\cap {\rm dom}(\boldsymbol I_h)$，有 $\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})=\boldsymbol{\Pi}_h\nabla ^s\times\boldsymbol{\phi}$. 
-对任意 $\boldsymbol{\varsigma}\in \boldsymbol{P}_{r-2}(K, \mathbb{S})$ 和 $K\in\mathcal{T}_h$，由分部积分以及 $\boldsymbol{\Pi}_h$ 和 $\boldsymbol{I}_h$ 的定义可得
-\begin{equation}\label{eq:temp1}
-\int_K(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})-\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi})):\boldsymbol{\varsigma}\, {\rm d}x=\int_K\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi}-\boldsymbol{\phi}):\boldsymbol{\varsigma}\, {\rm d}x=0.
+结合 \eqref{divdivHn1Sonto} 的满射性与式 \eqref{Hn1Sdivdivker} 的核空间刻画，要证明复形正合，只需要证明
+\begin{equation}\label{eq:symcurlker2d}
+H^1(\Omega; \mathbb{R}^2) \cap \ker(\sym\curl) = \textrm{RT}.
 \end{equation}
-在每条边 $e\in \mathcal{E}_h(K)$ 上，由 $\boldsymbol{\Pi}_h$ 的定义，对任意 $\mu\in P_{r-1}(e)$ 成立
+显然 $\textrm{RT} \subseteq H^1(\Omega; \mathbb{R}^2) \cap \ker(\sym\curl)$. 现在我们证明反向包含关系. 
+
+设 $\boldsymbol{v} \in H^1(\Omega; \mathbb{R}^2) \cap \ker(\sym\curl)$，则 $\sym\curl\boldsymbol{v} = 0$. 这意味着 $\curl\boldsymbol{v}$ 是一个反对称矩阵. 
+利用关系式 \eqref{eq:anticommutativeprop1}，我们有 $\div\boldsymbol{v} = 2\sskw(\curl \boldsymbol{v})$. 
+由于 $\sym\curl\boldsymbol{v} = 0$，这意味着 $\curl\boldsymbol{v}$ 完全由其反对称部分决定，即 $\curl\boldsymbol{v} = \mskw(\frac{1}{2}\div\boldsymbol{v})$. 
+
+注意到 $\div(\curl \boldsymbol{v}) \equiv 0$（按行取散度），故对上式两边取散度可得：
 \[
-\int_eM_n(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})-\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi}))\mu ~\textrm{d}s=\int_eM_n(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi}-\boldsymbol{\phi}))\mu~\textrm{d}s.
+0 = \div\left(\mskw\left(\frac{1}{2}\div\boldsymbol{v}\right)\right) = -\frac{1}{2}\curl(\div\boldsymbol{v}).
 \]
-注意到事实 $M_n(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi}-\boldsymbol{\phi}))=\partial_{\boldsymbol{t}}((\boldsymbol{I}_h\boldsymbol{\phi}-\boldsymbol{\phi})\cdot\boldsymbol{n})$. 
-因此，由分部积分及 $\boldsymbol{I}_h$ 的定义可得
-\begin{align}
-\int_eM_n(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})-\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi}))\mu ~\textrm{d}s=& \int_e\partial_{\boldsymbol{t}}((\boldsymbol{I}_h\boldsymbol{\phi}-\boldsymbol{\phi})\cdot\boldsymbol{n})\mu ~\textrm{d}s=0. \label{eq:temp2}
-\end{align}
-由于 $(\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})-\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi}))|_K\in \boldsymbol{P}_{k-1}(K, \mathbb{S})$，式 \eqref{eq:temp1}-\eqref{eq:temp2} 结合 $\boldsymbol{\Pi}_h$ 的适定性意味着 $\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})-\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi})=\boldsymbol{0}$，即 $\nabla ^s\times(\boldsymbol{I}_h\boldsymbol{\phi})=\boldsymbol{\Pi}_h(\nabla ^s\times\boldsymbol{\phi})$. 
+这意味着标量函数 $\div\boldsymbol{v}$ 的旋度为零，即 $\div\boldsymbol{v}$ 是常数. 
+由此可知，$\curl \boldsymbol{v}$ 是一个常数反对称矩阵. 这意味着 $\grad\boldsymbol{v}$ 是对角矩阵，且对角元是相同的常数. 
+因此，$\boldsymbol{v}$ 具有形式 $\boldsymbol{v}(\boldsymbol{x}) = a\boldsymbol{x} + \boldsymbol{b}$，即 $\boldsymbol{v} \in \textrm{RT}$. 证毕. 
 \end{proof}
 
-\smallskip
-\begin{remark}\rm
-值得一提的是，我们在交换图的顶层序列中使用了具有最小正则性的自然 Sobolev 空间. 然而，插值算子 $\boldsymbol I_h$ 和 $\boldsymbol \Pi_h$ 是针对更光滑的函数定义的，且在相应的 Sobolev 范数下并非有界的. 换言之，我们将这些插值算子视为稠密定义的无界算子. 可以使用文献 \cite{ArnoldFalkWinther2006} 中的平滑过程来定义稳定的拟插值算子，同时保持交换性质. $\Box$
-\end{remark}
+\begin{lemma}\label{lem:divdivwkernel}
+设 $\boldsymbol{\tau} \in \Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S})$ 满足 $(\operatorname{div}\operatorname{div})_w \boldsymbol{\tau} = 0$，则其在分布意义下的双散度 $\operatorname{div}\operatorname{div}\boldsymbol{\tau} = 0$. 
+\end{lemma}
+\begin{proof}
+对任意 $v \in C_0^{\infty}(\Omega)$，利用分布导数的定义以及离散双散度算子的性质 \eqref{eq:bp0}，我们有
+\[
+\langle \operatorname{div}\operatorname{div}\boldsymbol{\tau}, v \rangle 
+= (\boldsymbol{\tau}, \nabla^2 v) = b_h(\boldsymbol{\tau}, v)
+= b_h(\boldsymbol{\tau}, I_h^{\operatorname{grad}} v) 
+= ((\operatorname{div}\operatorname{div})_w \boldsymbol{\tau}, I_h^{\operatorname{grad}} v) 
+= 0.
+\]
+因此，$\operatorname{div}\operatorname{div}\boldsymbol{\tau} = 0$. 
+\end{proof}
+
+
+\begin{theorem}
+设 $\Omega\subset\mathbb R^2$ 是有界可缩区域，且整数 $k\geq1$. 如下 Hellan-Herrmann-Johnson (HHJ) 复形
+\begin{equation}\label{eq:hhjcomplex2d}
+\textrm{RT}\xrightarrow{\hookrightarrow} V_k^{\grad}(\mathcal{T}_h;\mathbb R^2)\xrightarrow{\sym\curl} \Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S}) \xrightarrow{(\div\div)_w} \mathring{V}_k^{\grad}(\mathcal{T}_h) \xrightarrow{}0
+\end{equation}
+是正合的.
+\end{theorem}
+\begin{proof}
+首先考察 $\operatorname{sym}\operatorname{curl}$ 的核空间. 
+显然 $\textrm{RT} \subseteq V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 
+另一方面，由于 $V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2) \subseteq H^1(\Omega; \mathbb{R}^2)$，故
+\[
+V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2) \cap \ker(\operatorname{sym}\operatorname{curl}) \subseteq H^1(\Omega; \mathbb{R}^2) \cap \ker(\operatorname{sym}\operatorname{curl}).
+\]
+利用连续情形下的核空间性质 \eqref{eq:symcurlker2d} 可得 $V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2) \cap \ker(\operatorname{sym}\operatorname{curl}) = \textrm{RT}$. 
+
+接下来结合 \eqref{hhjweakdivdivonto} 的满射性，要证明复形正合，只需证明
+\begin{equation}\label{nnSdivdivwker}    
+\Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S}) \cap \ker((\operatorname{div}\operatorname{div})_w) = \operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2).
+\end{equation}
+
+我们先证明包含关系“$\supseteq$”. 设 $\boldsymbol{\tau} = \operatorname{sym}\operatorname{curl}\boldsymbol{v}$，其中 $\boldsymbol{v} \in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 
+根据弱双散度算子 $(\operatorname{div}\operatorname{div})_w$ 的定义和分部积分公式，对任意 $q \in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 成立：
+\begin{align*}
+((\operatorname{div}\operatorname{div})_w \boldsymbol{\tau}, q) 
+&= \sum_{T \in \mathcal{T}_h} (\operatorname{curl}\boldsymbol{v}, \nabla^2 q)_T - \sum_{T \in \mathcal{T}_h} (\boldsymbol{n}^{\intercal}(\operatorname{curl}\boldsymbol{v})\boldsymbol{n}, \partial_n q)_{\partial T} \\
+&= \sum_{T \in \mathcal{T}_h} (\partial_t(\boldsymbol{t} \cdot \boldsymbol{v}), \partial_t q)_{\partial T} 
+= 0.
+\end{align*}
+最后一个等号成立是因为 $\boldsymbol{v}$ 和 $q$ 的切向导数在单元边界上是连续的（或在边界处为零），边界积分项相互抵消. 
+即 $(\operatorname{div}\operatorname{div})_w \boldsymbol{\tau} = 0$. 故 $\operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2) \subseteq \Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S}) \cap \ker((\operatorname{div}\operatorname{div})_w)$. 
+
+现在证明反向包含关系“$\subseteq$”. 
+设 $\boldsymbol{\tau} \in \Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S}) \cap \ker((\operatorname{div}\operatorname{div})_w)$. 由引理~\ref{lem:divdivwkernel} 可知，其分布双散度 $\operatorname{div}\operatorname{div}\boldsymbol{\tau} = 0$. 
+根据连续复形的核空间刻画 \eqref{Hn1Sdivdivker}，存在 $\boldsymbol{v} \in H^1(\Omega; \mathbb{R}^2)$ 使得 $\boldsymbol{\tau} = \operatorname{sym}\operatorname{curl}\boldsymbol{v}$. 
+
+在每个单元 $T \in \mathcal{T}_h$ 上，对上式作用散度算子得：
+\[
+\operatorname{curl}(\operatorname{div}\boldsymbol{v}) = 2\operatorname{div}\boldsymbol{\tau}.
+\]
+由于 $\boldsymbol{\tau} \in \Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S})$ 是分片 $k-1$ 次多项式，故 $\operatorname{div}\boldsymbol{\tau} \in \mathbb{P}_{k-2}(T; \mathbb{R}^2)$. 
+这表明 $\operatorname{curl}(\operatorname{div}\boldsymbol{v}) \in \mathbb{P}_{k-2}(T; \mathbb{R}^2)$，从而 $\operatorname{div}\boldsymbol{v} \in \mathbb{P}_{k-1}(T)$. 
+利用关系式 \eqref{eq:anticommutativeprop1}，我们有 $\operatorname{curl}\boldsymbol{v} = \operatorname{sym}\operatorname{curl}\boldsymbol{v} + \operatorname{skw}\operatorname{curl}\boldsymbol{v} = \boldsymbol{\tau} + \operatorname{mskw}(\frac{1}{2}\operatorname{div}\boldsymbol{v})$. 
+由于 $\boldsymbol{\tau} \in \mathbb{P}_{k-1}(T; \mathbb{S})$ 且 $\operatorname{div}\boldsymbol{v} \in \mathbb{P}_{k-1}(T)$，因此 $(\operatorname{curl}\boldsymbol{v})|_T \in \mathbb{P}_{k-1}(T; \mathbb{M})$. 
+这意味着 $\nabla \boldsymbol{v}|_T \in \mathbb{P}_{k-1}(T; \mathbb{M})$，即 $\boldsymbol{v}|_T \in \mathbb{P}_{k}(T; \mathbb{R}^2)$. 
+综上，由于 $\boldsymbol{v} \in H^1(\Omega)$ 且是分片 $k$ 次多项式，故 $\boldsymbol{v} \in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 
+这也即证明了 $\boldsymbol{\tau} \in \operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 
+\end{proof}
+
+\subsection{Helmholtz 分解与等价的解偶格式}
+
+\begin{lemma}
+设 $\Omega\subset\mathbb R^2$ 是有界可缩区域. 如下 Helmholtz 分解成立：
+\begin{equation}\label{eq:distribdivdivHelmdecomp2d}
+H^{-1}(\operatorname{div}\operatorname{div},\Omega;\mathbb{S}) = \iota(H_0^1(\Omega)) \oplus \operatorname{sym}\operatorname{curl} H^1(\Omega; \mathbb{R}^2).
+\end{equation}
+即：对任意 $\boldsymbol{\tau}\in H^{-1}(\operatorname{div}\operatorname{div},\Omega;\mathbb{S})$，存在唯一的 $w\in H_0^1(\Omega)$ 和 $\boldsymbol{v}\in H^1(\Omega; \mathbb{R}^2)/\textrm{RT}$，使得
+\begin{equation*}
+\boldsymbol{\tau}= \iota(w) + \operatorname{sym}\operatorname{curl} \boldsymbol{v}, \quad \|w\|_1 + \|v\|_{H^1/\textrm{RT}} \lesssim \|\boldsymbol{\tau}\|_{H^{-1}(\operatorname{div}\operatorname{div})}.   
+\end{equation*}
+\end{lemma}
+\begin{proof}
+利用直和分解 \eqref{Hn1divdivSdecomp} 以及 $\operatorname{div}\operatorname{div}$ 算子核空间的刻画 \eqref{Hn1Sdivdivker} 即可直接得证.     
+\end{proof}
+
+\begin{lemma}[引理 3.1, 文献 \cite{HuangHuangXu2011}]
+设 $\Omega\subset\mathbb R^2$ 是有界可缩区域. 如下 Helmholtz 分解成立：
+\begin{equation}\label{eq:L2divdivHelmdecomp2d}
+L^{2}(\Omega;\mathbb{S}) = \nabla^2 H_0^2(\Omega) \oplus \operatorname{sym}\operatorname{curl} H^1(\Omega; \mathbb{R}^2).
+\end{equation}
+此分解是 $L^2$ 正交的. 即：对任意 $\boldsymbol{\tau}\in L^{2}(\Omega;\mathbb{S})$，存在 $w\in H_0^2(\Omega)$ 和 $\boldsymbol{v}\in H^1(\Omega; \mathbb{R}^2)$ 使得
+\begin{equation*}
+\boldsymbol{\tau}= \nabla^2 w + \operatorname{sym}\operatorname{curl} \boldsymbol{v}, \quad \|w\|_2 + \|v\|_1 \lesssim \|\boldsymbol{\tau}\|.   
+\end{equation*}
+\end{lemma}
+\begin{proof}
+设 $\boldsymbol{\tau}\in L^{2}(\Omega;\mathbb{S})$. 令 $w\in H_0^2(\Omega)$ 满足
+\[
+(\nabla^2 w, \nabla^2 v) = (\boldsymbol{\tau}, \nabla^2 v), \quad \forall\, v\in H_0^2(\Omega).
+\]
+根据 Lax-Milgram 定理，此方程显然是适定的. 令残量 $\boldsymbol{\sigma} = \boldsymbol{\tau} - \nabla^2 w$，则有
+\[
+(\boldsymbol{\sigma}, \nabla^2 v) = 0, \quad \forall\, v\in H_0^2(\Omega).
+\]
+这意味着在分布意义下 $\operatorname{div}\operatorname{div} \boldsymbol{\sigma} = 0$，即 $\boldsymbol{\sigma} \in L^{2}(\Omega;\mathbb{S})\cap\ker(\operatorname{div}\operatorname{div})$. 
+应用 $\operatorname{div}\operatorname{div}$ 算子核空间的刻画 \eqref{Hn1Sdivdivker}（注意 $L^2$ 包含于 $H^{-1}(\operatorname{div}\operatorname{div})$），可知存在 $\boldsymbol{v}\in H^1(\Omega; \mathbb{R}^2)$ 使得 $\boldsymbol{\sigma} = \operatorname{sym}\operatorname{curl}\boldsymbol{v}$. 证毕. 
+\end{proof}
+
+\begin{lemma}
+设 $\Omega\subset\mathbb R^2$ 是有界可缩区域. 如下离散 Helmholtz 分解成立：
+\begin{equation}\label{eq:hhjHelmdecomp2d}
+\Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S}) = I_h^{nn}\big(\iota(\mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h))\big) \oplus \operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2).
+\end{equation}
+% 即：对任意 $\boldsymbol{\tau}_h \in \Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S})$，存在 $w_h \in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 和 $\boldsymbol{v}_h \in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$ 使得
+% \begin{equation*}
+% \boldsymbol{\tau}_h = I_h^{nn}\big(\iota(w_h)\big) + \operatorname{sym}\operatorname{curl} \boldsymbol{v}_h.
+% \end{equation*}
+\end{lemma}
+\begin{proof}
+首先证明式 \eqref{eq:hhjHelmdecomp2d} 是直和分解. 
+设 $\boldsymbol{\tau} \in I_h^{nn}\big(\iota(\mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h))\big) \cap \operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 
+即存在 $w \in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 使得 $\boldsymbol{\tau} = I_h^{nn}(\iota(w))$，且 $\boldsymbol{\tau} \in \ker((\operatorname{div}\operatorname{div})_w)$（由 HHJ 复形 \eqref{eq:hhjcomplex2d} 的正合性可知 $\operatorname{sym}\operatorname{curl}$ 的像在 $(\operatorname{div}\operatorname{div})_w$ 的核中）. 
+于是，
+\[
+(\operatorname{div}\operatorname{div})_w \big( I_h^{nn}(\iota(w)) \big) = 0.
+\]
+利用交换性性质 \eqref{eq:bpi}，可得 $(\operatorname{div}\operatorname{div})_w (\iota(w)) = 0$. 
+根据弱双散度的定义，这意味着：
+$$
+0=((\div\div)_w(\iota(w)), w)= -|w|_1^2.
+$$
+故 $w=0$，进而 $\boldsymbol{\tau}=0$. 
+
+接着证明分解的存在性. 设 $\boldsymbol{\tau} \in \Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S})$. 令 $w \in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 满足
+\[
+(\nabla w, \nabla v) = -((\operatorname{div}\operatorname{div})_w \boldsymbol{\tau}, v), \quad \forall\, v \in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h).
+\]
+显然，此离散 Poisson 问题是适定的，且有 $(\div\div)_w(\iota(w))=(\div\div)_w\boldsymbol{\tau}$. 
+利用交换性 \eqref{eq:bpi} 可得 $(\operatorname{div}\operatorname{div})_w \big(I_h^{nn}(\iota(w))\big) = (\operatorname{div}\operatorname{div})_w \boldsymbol{\tau}$. 
+从而 $\boldsymbol{\tau} - I_h^{nn}\big(\iota(w)\big) \in \Sigma_{k-1}^{nn}(\mathcal{T}_h; \mathbb{S}) \cap \ker((\operatorname{div}\operatorname{div})_w)$. 
+最后，应用 $(\div\div)_w$ 算子核空间的刻画 \eqref{nnSdivdivwker}，可知 $\boldsymbol{\tau} - I_h^{nn}\big(\iota(w)\big) \in\operatorname{sym}\operatorname{curl} V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)$. 证毕. 
+\end{proof}
+
+
+应用 Helmholtz 分解 \eqref{eq:distribdivdivHelmdecomp2d}，我们将分布混合变分形式 \eqref{eq:hhjmixedformulation} 中的张量变量分解为 $\boldsymbol{\sigma}=\iota(w) + \operatorname{sym}\operatorname{curl} \boldsymbol{\phi}$ 和 $\boldsymbol{\tau}=\iota(\chi) + \operatorname{sym}\operatorname{curl} \boldsymbol{\psi}$. 由此，分布混合变分形式 \eqref{eq:hhjmixedformulation} 解耦为如下三个子问题：求 $w\in H_0^1(\Omega)$, $\boldsymbol{\phi}\in H^{1}(\Omega; \mathbb{R}^2)/\textrm{RT}$ 和 $u\in H_0^1(\Omega)$ 使得
+\begin{align}
+    (\nabla w, \nabla v) &= \langle f, v\rangle, && \forall~v\in H_0^1(\Omega), \label{eq:hhjmixedformdecouple1}\\
+    (\operatorname{sym}\operatorname{curl}\boldsymbol{\phi}, \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}) &= - (\iota(w), \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}), && \forall~\boldsymbol{\psi}\in H^{1}(\Omega; \mathbb{R}^2)/\textrm{RT}, \label{eq:hhjmixedformdecouple2}\\
+    (\nabla u, \nabla \chi) &= (\boldsymbol{\sigma}, \iota(\chi)), && \forall~\chi\in H_0^1(\Omega). \label{eq:hhjmixedformdecouple3}
+\end{align}
+
+类似地，应用离散 Helmholtz 分解 \eqref{eq:hhjHelmdecomp2d}，我们将 HHJ 混合元方法 \eqref{eq:hhjmfem} 中的张量变量分解为 $\boldsymbol{\sigma}_h=I_h^{nn}(\iota(w_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\phi}_h$ 和 $\boldsymbol{\tau}_h=I_h^{nn}(\iota(\chi_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\psi}_h$. 则 HHJ 混合元方法 \eqref{eq:hhjmfem} 解耦为：求 $w_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$, $\boldsymbol{\phi}_h\in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)/\textrm{RT}$ 和 $u_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 使得
+\begin{align}
+    (\nabla w_h, \nabla v_h) &= \langle f, v_h\rangle, && \forall~v_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h), \label{eq:hhjmixedformdecouple1_h}\\
+    (\operatorname{sym}\operatorname{curl}\boldsymbol{\phi}_h, \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}_h) &= - (I_h^{nn}(\iota(w_h)), \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}_h), && \forall~\boldsymbol{\psi}_h\in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)/\textrm{RT}, \label{eq:hhjmixedformdecouple2_h}\\
+    (\nabla u_h, \nabla \chi_h) &= (\boldsymbol{\sigma}_h, I_h^{nn}(\iota(\chi_h))), && \forall~\chi_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h). \label{eq:hhjmixedformdecouple3_h}
+\end{align}
+
+
+
 
 
 \section{可杂交混合有限元方法}
+
+待写.
