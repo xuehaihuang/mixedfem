@@ -27,6 +27,257 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
 
 \section{混合变分问题}
 
+\subsection{ $H(\div\div,\Omega; \mathbb{S})$ 空间和混合变分形式}
+
+在本节中，假设 $f\in L^{2}(\Omega)$. 
+定义 Hilbert 空间 %(参见 \cite{PechsteinSchoberl2011})：
+\[
+H(\div{\div },\Omega;
+\mathbb{S}):=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div \div\boldsymbol{\tau}\in L^2(\Omega)\},
+\]
+其范数平方定义为 
+$
+\|\boldsymbol{\tau}\|_{H(\div\div)}^2:=\|\boldsymbol{\tau}\|^2+\|\div \div\boldsymbol{\tau}\|^2
+$. 
+
+下面探讨分段光滑的张量函数属于 Sobolev 空间 $H(\div{\div },\Omega; \mathbb{S})$ 所需满足的连续性条件.
+设 $K$ 是一个多面体区域.
+迹算子 $\tr^{\div\div}\bs \sigma$ 在分布意义下定义为如下：
+$$
+\langle \tr^{\div\div}\bs \sigma, \tr^{\nabla^2} v \rangle_{\partial K}:= (\div\div\boldsymbol \sigma, v)_K - (\boldsymbol \sigma, \nabla^2v)_K.
+$$
+随后，我们将 $\tr^{\div\div}\bs \sigma$ 和 $\tr^{\nabla^2} v$ 进一步分解为两个 $(d-1)$ 维面迹算子和一个 $(d-2)$ 维面迹算子，以揭示其在分片结构下的连续性要求.
+
+回顾文献~\cite{ChenHuang2022a,ChenHuang2022} 中给出的 $\div\div$ 算子的格林公式.
+\begin{lemma}[文献~\cite{ChenHuang2022} 引理 5.2]
+对于任意 $\boldsymbol \sigma\in \mathcal C^2(K; \mathbb S)$ 和 $v\in H^2(K)$，成立如下格林公式：
+\begin{align}
+&\notag  (\div\div\boldsymbol \sigma, v)_K=(\boldsymbol \sigma, \nabla^2v)_K \\
+&- \sum_{F\in\partial K}\left[( \tr_1^{\div\div}(\bs \sigma), \tr_1^{\nabla^2}(v))_{F} -  ( \tr_2^{\div\div}(\bs \sigma), \tr_2^{\nabla^2}(v))_F\right] -\sum_{e\in\Delta_{d-2}(K)}(\tr_e^{\div\div}(\bs \sigma), \tr_e^{\nabla^2}(v))_e, \label{eq:greenidentitydivdiv} 
+\end{align}
+其中
+\begin{align*}
+&\tr_1^{\div\div}(\bs \sigma) = \boldsymbol  n_{\partial K}^{\intercal}\boldsymbol \sigma\boldsymbol  n_{\partial K}, &  & \tr_1^{\nabla^2}( v) = \partial_n v\mid_{\partial K},\\
+&\tr_2^{\div\div}(\bs \sigma) =  \boldsymbol n_{\partial K}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K}),&  & \tr_2^{\nabla^2}(v) = v\mid_{\partial K},\\
+&\tr_e^{\div\div}(\bs \sigma) = \sum_{F\in\partial K,e\in \partial F}\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K}, &  & \tr_e^{\nabla^2}(v) = v \mid_{\Delta_{d-2}(K)}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+应用分部积分公式可得：
+\begin{align*}
+\begin{aligned}
+(\operatorname{div}\div \boldsymbol \tau, v)_{K} &=-(\div\boldsymbol \tau, \nabla v)_{K}+\sum_{F \in \partial K}(\boldsymbol n^{\intercal}\div \boldsymbol \tau, v)_F \\
+&=\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}-\sum_{F \in \partial K} (\boldsymbol \tau \boldsymbol n, \nabla v)_F+\sum_{F \in \partial K}(\boldsymbol n^{\intercal} \div \boldsymbol \tau, v)_F.
+\end{aligned}
+\end{align*}
+接着我们利用分解 $\nabla v = \partial_nv\boldsymbol n+ \nabla_F v$ 并应用 Stokes 定理得到：
+\begin{align*}
+(\boldsymbol \tau \boldsymbol n, \nabla v)_F&=(\boldsymbol \tau \boldsymbol n, \partial_nv\boldsymbol n+ \nabla_F v)_F \\
+&=(\boldsymbol n^{\intercal}\boldsymbol \tau \boldsymbol n, \partial_nv)_F -( \div_F(\boldsymbol \tau\boldsymbol n), v)_F + \sum_{e\in\partial F} (\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e.
+\end{align*}
+结合上述两个等式即可推导出格林公式~\eqref{eq:greenidentitydivdiv}. 
+\end{proof}
+
+设 $\mathcal{T}_h$ 是 $\Omega$ 的一个多面体网格剖分. 记 $\Delta_{\ell}(\mathcal{T}_h)$ 和 $\Delta_{\ell}(\mathring{\mathcal{T}}_h)$ 分别是 $\mathcal{T}_h$ 中所有 $\ell$ 维面和内部 $\ell$ 维面的集合，并令 
+$$
+\mathcal{F}_h:=\Delta_{d-1}(\mathcal{T}_h),\quad \mathcal{E}_h:=\Delta_{d-2}(\mathcal{T}_h),\quad \mathring{\mathcal F}_h:=\Delta_{d-1}(\mathring{\mathcal{T}}_h),\quad \mathring{\mathcal E}_h:=\Delta_{d-2}(\mathring{\mathcal{T}}_h).
+$$
+% 记 $\mathcal{F}_h$ 和 $\mathcal{E}_h$ 分别是 $\mathcal{T}_h$ 中所有 $(d-1)$ 维面和 $(d-2)$ 维面的集合，并分别记 $\mathring{\mathcal F}_h$ 和 $\mathring{\mathcal E}_h$ 为其内部$(d-1)$ 维面和内部$(d-2)$ 维面的集合. 
+当在所有单元上求和时，假设测试函数 $v$ 足够光滑（例如 $v\in C^2(\Omega)$），我们可以合并内部面和棱上的项. 对于内部面 $F\in \mathring{\mathcal F}_h$，记包含 $F$ 的两个单元为 $K_1, K_2$. 
+引入如下跳量定义：
+\begin{align*}
+&[\tr_1^{\div\div}(\bs \sigma)]_F : = \bs n_{\partial K_1}^{\intercal}\bs \sigma \bs n_{\partial K_1} \mid _{F} - \bs n_{\partial K_2}^{\intercal}\bs \sigma \bs n_{\partial K_2} \mid _{F},  \\
+&[\tr_2^{\div\div}(\bs \sigma)]_F := (\boldsymbol n_{\partial K_1}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K_1}))\mid _{F} + (\boldsymbol n_{\partial K_2}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K_2}))\mid _{F},  &  &\\
+& [ \tr_e^{\div\div}(\bs \sigma)]|_e := \sum_{K\in \omega_e} \sum_{F\in\partial K, e\in\partial F} (\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K})|_e.  &  &
+\end{align*}
+
+回顾空间 $H(\div{\div },K; \mathbb{S})$ 在多面体 $K$ 的边界上 的迹（参见文献~\cite[Lemma 3.2]{FuehrerHeuerNiemi2019} 以及 \cite{Sinwel2009,PechsteinSchoeberl2018}）. 
+令 $H_{00}^{1/2}(F)$ 为 $\mathcal C_0^{\infty}(F)$ 关于范数 $\|\cdot\|_{H^{1/2}(\partial K)}$ 的闭包，该空间包含所有属于 $H^{1/2}(F)$ 且其零延拓至整个边界 $\partial K$ 后属于 $H^{1/2}(\partial K)$ 的函数. 
+定义如下迹空间：
+\begin{align*}
+H_{n,0}^{1/2}(\partial K)&:=\{\partial_n v|_{\partial K}: v\in H^2(K)\cap H_0^1(K)\} \\
+&\;=\{g\in L^2(\partial K): g|_F\in H_{00}^{1/2}(F)\;\;\forall~F\in\Delta_{d-1}(K)\},
+\end{align*}
+其范数为
+\[
+\|g\|_{H_{n,0}^{1/2}(\partial K)}:=\inf_{v\in H^2(K)\cap H_0^1(K), \; (\partial_n v)|_{\partial K}=g}\|v\|_{2,K},
+\]
+以及
+\begin{align*}
+H_{t,0}^{3/2}(\partial K)&:=\{v|_{\partial K}: v\in H^2(K), (\partial_n v)|_{\partial K}=0, v|_{e}=0\;\;\forall~e\in\Delta_{d-2}(K) \},
+\end{align*}
+其范数为
+\[
+\|g\|_{H_{t,0}^{3/2}(\partial K)}:=\inf_{v\in H^2(K)\atop (\partial_n v)|_{\partial K}=0, v|_{\partial K}=g}\|v\|_{2,K}.
+\]
+对于 $\tr_1^{\div\div}$，令 $H_n^{-1/2}(\partial K):=(H_{n,0}^{1/2}(\partial K))'$；对于 $\tr_2^{\div\div}$，令 $H_t^{-3/2}(\partial K):=(H_{t,0}^{3/2}(\partial K))'$.
+
+
+%\begin{lemma}
+%For any $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$,  it holds
+%\[
+%\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} \lesssim \|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })}.
+%\]
+%Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$, there exists some $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$ such that
+%\[
+%\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=g_n, \quad 
+%\|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}.
+%\]
+%The hidden constants depend only the shape of the domain $K$.
+%\end{lemma}
+
+\begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 引理 3.2]\label{lem:Hdivdivtrace}
+对于任意 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$，成立：
+\[
+\|\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n\|_{H_n^{-1/2}(\partial K)} + \|2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)\|_{H_t^{-3/2}(\partial K)}\lesssim \|\boldsymbol{\tau}\|_{ H(\div{\div },K)}.
+\]
+反之，对于任意 $g_n\in H_n^{-1/2}(\partial K)$ 和 $g_t\in H_t^{-3/2}(\partial K)$，存在 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$ 使得
+\[
+\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n|_{\partial K}=g_n, \quad 2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)=g_t,
+\]
+且满足
+\[
+\|\boldsymbol{\tau}\|_{ H(\div{\div },K)} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}+\|g_t\|_{H_t^{-3/2}(\partial K)},
+\]
+其中的隐含常数仅依赖于区域 $K$ 的形状.
+\end{lemma}
+
+
+
+注意，格林公式~\eqref{eq:greenidentitydivdiv} 中的项 $(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e$ 并未被引理~\ref{lem:Hdivdivtrace} 所覆盖. 事实上，$ H(\div{\div },K; \mathbb{S})$ 的迹的完整刻画由 $(\div{\div }\bs\tau, v)_K-\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}$ 给出，而该表达式无法被等价地解耦（参见文献~\cite[引理~3.2]{FuehrerHeuerNiemi2019}）.
+然而，在施加额外光滑性假设的情况下，可以将此迹在各面上局部化.
+
+
+下面给出分段光滑函数属于 $ H(\div{\div },\Omega; \mathbb{S})$ 的一个充分条件. 
+
+\begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 命题 3.6]\label{lm:divdivconforming}
+设 $\bs \sigma \in L^2(\Omega;\mathbb S)$ 且对任意 $K\in \mathcal T_h$ 有 $\bs \sigma|_K\in H^{2}(K;\mathbb S)$. 则 $\bs \sigma \in H(\div\div,\Omega;\mathbb S)$ 当且仅当满足以下条件：
+\begin{enumerate}
+\item $[\tr_1^{\div\div}(\bs \sigma)]_F = 0$ 对于所有 $F\in \mathring{\mathcal F}_h$ 成立；
+\smallskip
+\item $[\tr_2^{\div\div}(\bs \sigma)]_F = 0$ 对于所有 $F\in \mathring{\mathcal F}_h$ 成立；
+\smallskip
+\item $[ \tr_e^{\div\div}(\bs \sigma)]|_e = 0$ 对于所有 $e\in \mathring{\mathcal E}_h$ 成立. 
+\end{enumerate}
+\end{lemma}
+
+
+在构造 $H(\operatorname{div}\operatorname{div})$-协调有限元时，强制跳跃条件
+$[ \operatorname{tr}_e^{\div\div}(\boldsymbol{\sigma}) ]|_e = 0$
+是非常困难的，因为该约束是施加在与 $e$ 相邻的宏单元上的. 
+将 $\boldsymbol{\sigma}$ 在 $e\in \mathring{\mathcal E}_h$ 的法平面 $\mathcal N_e$ 上的投影保持连续，是一个充分但绝非必要的条件. 更具体地，作为一个 $(d-2)$-维子单纯形，边 $e$ 的法平面 $\mathcal N_e$ 的维数为 2. 为了施加该连续性条件，我们为每条边 $e\in \Delta_1(\mathcal{T}_h)$ 选取两个正交于 $e$ 的标准正交方向 ${\bs n_1, \bs n_2}$. 需要强调的是，$\mathcal N_e$ 仅由 $e$ 决定，而与包含 $e$ 的单元无关. 
+
+我们将 $\mathcal N_e$ 上的 $2\times 2$ 对称矩阵空间记为 $\mathbb S(\mathcal N_e)$，并将
+\[
+Q_{\mathcal N_e}(\bs \sigma):=(\bs n_i^{\intercal}\bs \sigma\bs n_j)_{i,j=1,2}
+\]
+定义为 $\boldsymbol{\sigma}\in \mathbb S$ 在 $\mathbb S(\mathcal N_e)$ 上的投影. 
+
+
+
+\begin{lemma}\label{lm:edgejump}
+设 $\boldsymbol{\sigma}\in L^2(\Omega;\mathbb S)$，且对每个单元 $K\in \mathcal T_h$ 有 $\boldsymbol{\sigma}|_K \in H^{2}(K;\mathbb S)$. 
+若 $Q_{\mathcal N_e}(\boldsymbol{\sigma})$ 在 $e$ 上连续，则对所有 $e\in \mathring{\mathcal E}_h$ 都有
+$[ \operatorname{tr}_e^{\div\div}(\boldsymbol{\sigma}) ]|_e = 0$. 
+\end{lemma}
+\begin{proof}
+对于任意包含 $e\in \mathring{\mathcal E}_h$ 的面 $F$，由于 $F$ 也是内部面，因此在 $\omega_e$ 中恰有两个单元 $K_1$ 与 $K_2$ 满足 $F \subset \partial K_i,\ i=1,2$. 
+法向量 $\bs n_{F,e}$ 由 $F$ 的定向诱导，该定向独立于单元，而 $\bs n_{\partial K}$ 是依赖于包含 $F$ 的单元 $K$ 的外法向，且 $\bs n_{\partial K_1}\mid_F = -\bs n_{\partial K_2}\mid _F$. 
+由此可得
+$(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K_1} + \boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K_2})|_e = 0$，
+从而推出
+$[ \operatorname{tr}_e(\boldsymbol{\sigma}) ]|_e = 0$. 
+这完成了证明. 
+\end{proof}
+
+
+重调和方程 \eqref{eq:biharmonic2variables} 的一种混合变分形式为：
+% Hellan-Herrmann-Johnson (HHJ) 混合格式 \cite{KrendlRafetsederZulehner2016,Hellan1967,Herrmann1967,Johnson1973} 是
+找 $(\boldsymbol{\sigma} , u)\in H(\div\div,\Omega; \mathbb{S})\times L^2(\Omega)$ 使得：
+\begin{subequations}\label{eq:divdivmixedformulation}
+\begin{align}
+(\boldsymbol\sigma, \boldsymbol\tau)+ (\div\div\boldsymbol\tau, u)  & =0 \quad\quad\quad\;\;
+\forall~\boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S}), \label{eq:divdivmixedformulation1}\\
+(\div\div\boldsymbol\sigma, v) & =-(f, v)  \quad \forall~v\in L^2(\Omega). \label{eq:divdivmixedformulation2}
+\end{align}
+\end{subequations}
+% 其中
+% \[
+% a(\boldsymbol\sigma, \boldsymbol\tau):=(\boldsymbol\sigma, \boldsymbol\tau),\quad b(\boldsymbol\tau, v):=\langle \div\div\boldsymbol\tau, v\rangle.
+% \]
+
+显然，对于任意 $\boldsymbol\sigma, \boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S})$ 和 $v\in L^2(\Omega)$，有
+\[
+(\boldsymbol\sigma, \boldsymbol\tau)\leq\|\boldsymbol\sigma\|\|\boldsymbol\tau\|\leq\|\boldsymbol\sigma\|_{H(\div\div)}\|\boldsymbol\tau\|_{H(\div\div)},
+\]
+\[
+(\div\div\boldsymbol\tau, v) \leq\|\div\div\boldsymbol\tau\| \|v\|\leq \|\boldsymbol\tau\|_{H(\div\div)}\|v\|.
+\]
+
+\begin{lemma}
+成立
+$$
+\div\div H(\div\div,\Omega; \mathbb{S})=L^2(\Omega),
+$$
+即成立如下的 inf-sup 条件： 
+\begin{equation}\label{eq:divdivinfsup}
+  \|v\|\lesssim \sup_{\bs\tau\in H(\div\div,\Omega; \mathbb{S})}\frac{(\div\div\boldsymbol\tau, v)}{\|\boldsymbol\tau\|_{H(\div\div)}}\qquad \forall~v\in L^2(\Omega).
+\end{equation}
+\end{lemma}
+\begin{proof}
+显然 $\div\div H(\div\div,\Omega; \mathbb{S})\subseteq L^2(\Omega)$, 故只需证明 inf-sup 条件 \eqref{eq:divdivinfsup} 即可.
+
+任取 $v\in L^2(\Omega)$. 由 $\div H^1(\Omega;\mathbb R^d)=L^2(\Omega)$ 知，存在 $\boldsymbol{w}\in H^1(\Omega;\mathbb R^d)$ 使得
+\begin{equation*}
+\div\boldsymbol{w}=v,\quad \|\boldsymbol{w}\|_{1}\lesssim \|v\|.
+\end{equation*}
+进一步，由$\div H^2(\Omega;\mathbb M)=H^1(\Omega;\mathbb R^d)$ 知，存在 $\boldsymbol{\tau}\in H^2(\Omega;\mathbb M)$ 使得
+\begin{equation*}
+\div\boldsymbol{\tau}=\boldsymbol{w},\quad \|\boldsymbol{\tau}\|_{2}\lesssim \|\boldsymbol{w}\|_1.
+\end{equation*}
+从而，有
+\begin{equation*}
+\div\div\boldsymbol{\tau}=v,\quad \|\boldsymbol{\tau}\|_{H(\div\div)}\lesssim \|\boldsymbol{\tau}\|_2\lesssim \|\boldsymbol{w}\|_1\lesssim \|v\|.
+\end{equation*}
+故 inf-sup 条件 \eqref{eq:divdivinfsup} 成立.
+\end{proof}
+
+
+\begin{theorem}
+混合变分形式 \eqref{eq:divdivmixedformulation} 是适定的，且与问题 \eqref{eq:biharmonicvariatonalform} 等价. 即，如果 $u\in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解，则 $\bs\sigma=-\nabla^2 u\in H(\div\div,\Omega; \mathbb{S})$ 且 $(\bs\sigma, u)$ 是混合变分形式 \eqref{eq:divdivmixedformulation} 的解. 反之，如果 $(\bs\sigma, u)\in H(\div\div,\Omega; \mathbb{S})\times L^2(\Omega)$ 是混合变分形式 \eqref{eq:divdivmixedformulation} 的解，则 $u\in H_0^2(\Omega)$ 且 $u$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
+\end{theorem}
+\begin{proof}
+在算子 $\div\div: H(\div\div,\Omega; \mathbb{S})\to L^2(\Omega)$ 的核空间
+$$
+H(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div)=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div\div\boldsymbol{\tau}=0\}
+$$ 
+上具有强制性：
+\[
+(\boldsymbol\tau, \boldsymbol\tau)=\|\boldsymbol\tau\|^2=\|\boldsymbol\tau\|_{H(\div\div)}^2\quad\forall~\boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div).
+\]
+结合 inf-sup 条件 \eqref{eq:divdivinfsup} ，
+由 Brezzi 理论可得混合变分形式 \eqref{eq:divdivmixedformulation} 的适定性. 
+
+两个问题均是唯一可解的. 因此，只需证明若 $u$ 解问题 \eqref{eq:biharmonicvariatonalform}，则令 $\bs\sigma=-\nabla^2 u$，$(\bs\sigma, u)$ 满足混合变分形式 \eqref{eq:divdivmixedformulation} 即可. 
+假设 $u\in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
+显然 $\bs\sigma\in L^{2}(\Omega; \mathbb{S})$ 且
+\[
+(\bs\sigma, \nabla^2v)=-(f, v)\quad\forall~v\in H_0^2(\Omega),
+\]
+这意味着在分布意义下 $\div\div\bs\sigma=-f\in L^{2}(\Omega)$. 
+因此，$\bs\sigma\in H(\div\div,\Omega; \mathbb{S})$ 且式 \eqref{eq:divdivmixedformulation2} 成立. 
+
+根据 $\div\div\bs\tau$ 的分布定义，我们有
+\[
+(\div\div\boldsymbol\tau, v) =(\boldsymbol\tau, \nabla^2v)\quad\forall~v\in C_0^{\infty}(\Omega).
+\]
+由于 $C_0^{\infty}(\Omega)$ 在 $H_0^2(\Omega)$ 中稠密，取 $v=u$ 可得
+\[
+(\div\div\boldsymbol\tau, u)=(\boldsymbol\tau, \nabla^2u)=-(\boldsymbol\tau, \bs\sigma),
+\]
+这证明了 \eqref{eq:divdivmixedformulation1}. 
+\end{proof}
+
 \subsection{ $H^{-1}(\div\div,\Omega; \mathbb{S})$ 空间和分布混合变分形式}
 
 定义 Hilbert 空间 (参见 \cite{PechsteinSchoberl2011})：
@@ -42,11 +293,11 @@ $.
 \begin{lemma}
 成立直和分解:
 \begin{equation}\label{Hn1divdivSdecomp}
-H^{-1}(\div{\div },\Omega;\mathbb{S}) = \iota(H_0^1(\Omega)) \oplus \big(H^{-1}(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div)\big),
+H^{-1}(\div{\div },\Omega;\mathbb{S}) = \iota(H_0^1(\Omega)) \oplus \big(L^{2}(\Omega; \mathbb{S})\cap \ker(\div\div)\big),
 \end{equation}
 其中 $\iota (v) = v \boldsymbol I_{d\times d}$，以及 
 $$
-H^{-1}(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div)=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div\div\boldsymbol{\tau}=0\}
+L^{2}(\Omega; \mathbb{S})\cap \ker(\div\div)=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div\div\boldsymbol{\tau}=0\}
 $$ 
 \end{lemma}
 \begin{proof}
@@ -59,7 +310,7 @@ $$
 因此，$\boldsymbol{\tau}-\iota(v)$ 属于核空间 $\ker(\operatorname{div}\operatorname{div})$. 证毕. 
 \end{proof}
 
-若 $\Omega$ 为可缩区域，则核空间 $H^{-1}(\operatorname{div}\operatorname{div},\Omega; \mathbb{S})\cap \ker(\operatorname{div}\operatorname{div})$ 可被显式刻画.
+若 $\Omega$ 为可缩区域，则核空间 $L^{2}(\Omega; \mathbb{S})\cap \ker(\operatorname{div}\operatorname{div})$ 可被显式刻画.
 特别地，当 $d=2$ 时，\eqref{Hn1divdivSdecomp} 中的直和分解可表示为：
 $$
 H^{-1}(\operatorname{div}\operatorname{div},\Omega;\mathbb{S}) = \iota(H_0^1(\Omega)) \oplus \operatorname{sym}\operatorname{curl} H^1(\Omega;\mathbb R^2).
@@ -70,22 +321,23 @@ H^{-1}(\operatorname{div}\operatorname{div},\Omega;\mathbb{S}) = \iota(H_0^1(\Om
 $$
 
 下面讨论空间 $H^{-1}(\div{\div },\Omega;\mathbb{S})$ 在边界上的迹.
-令
-\[
-H_{n,0}^{1/2}(\Gamma):=\{\partial_{n}\varphi: \varphi\in H^2(\Omega)\cap H_0^1(\Omega)\},
-\]
-并赋予范数
-\[
-\|w\|_{H_{n,0}^{1/2}(\Gamma)}:=\inf_{\varphi\in H^2(\Omega)\cap H_0^1(\Omega), \partial_{n}\varphi=w}\|\varphi\|_{H^2(\Omega)}.
-\]
-对任意的 $\varphi\in H^2(\Omega)\cap H_0^1(\Omega)$，显然有 $(\partial_{n}\varphi)|_{\Gamma}\in H_{n,0}^{1/2}(\Gamma)$，且满足
-$$
-\|\partial_{n}\varphi\|_{H_{n,0}^{1/2}(\Gamma)}\leq \|\varphi\|_{H^2(\Omega)}\quad\forall\,\varphi\in H^2(\Omega)\cap H_0^1(\Omega).
-$$
-定义
-\[
-H_{n}^{-1/2}(\Gamma):=\left(H_{n,0}^{1/2}(\Gamma)\right)'.
-\]
+% 记 $\Gamma:=\partial\Omega$.
+% 令
+% \[
+% H_{n,0}^{1/2}(\Gamma):=\{(\partial_{n}\varphi)|_{\Gamma}: \varphi\in H^2(\Omega)\cap H_0^1(\Omega)\},
+% \]
+% 并赋予范数
+% \[
+% \|g\|_{H_{n,0}^{1/2}(\Gamma)}:=\inf_{\varphi\in H^2(\Omega)\cap H_0^1(\Omega), (\partial_{n}\varphi)|_{\Gamma}=g}\|\varphi\|_{H^2(\Omega)}.
+% \]
+% 对任意的 $\varphi\in H^2(\Omega)\cap H_0^1(\Omega)$，显然有 $(\partial_{n}\varphi)|_{\Gamma}\in H_{n,0}^{1/2}(\Gamma)$，且满足
+% $$
+% \|\partial_{n}\varphi\|_{H_{n,0}^{1/2}(\Gamma)}\leq \|\varphi\|_{H^2(\Omega)}\quad\forall\,\varphi\in H^2(\Omega)\cap H_0^1(\Omega).
+% $$
+% 定义
+% \[
+% H_{n}^{-1/2}(\Gamma):=\left(H_{n,0}^{1/2}(\Gamma)\right)'.
+% \]
 
 \begin{lemma}[定理 3.34，文献 \cite{Sinwel2009}]
 设 $\Omega\subset\mathbb R^d$ 是具有光滑或 Lipschitz 边界 $\Gamma=\partial\Omega$ 的有界区域. 
@@ -105,7 +357,7 @@ H_{n}^{-1/2}(\Gamma):=\left(H_{n,0}^{1/2}(\Gamma)\right)'.
 (a)
 根据范数 $\|\cdot\|_{H_{n}^{-1/2}(\Gamma)}$ 和 $\|\cdot\|_{H_{n,0}^{1/2}(\Gamma)}$ 的定义，对于任意 $\boldsymbol\tau\in C^{\infty}(\Omega;\mathbb{S})$，有
 \begin{align*}
-\|\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\|_{H_{n}^{-1/2}(\Gamma)}&=\sup_{w\in H_{n,0}^{1/2}(\Gamma)}\frac{\langle \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}, w\rangle}{\|w\|_{H_{n,0}^{1/2}(\Gamma)}}=\sup_{\varphi\in H^2(\Omega)\cap H_0^1(\Omega)}\frac{\langle \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}, \partial_{n}\varphi\rangle}{\|\varphi\|_{H^2(\Omega)}}.
+\|\boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}\|_{H_{n}^{-1/2}(\Gamma)}&=\sup_{g\in H_{n,0}^{1/2}(\Gamma)}\frac{\langle \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}, g\rangle}{\|g\|_{H_{n,0}^{1/2}(\Gamma)}}=\sup_{\varphi\in H^2(\Omega)\cap H_0^1(\Omega)}\frac{\langle \boldsymbol{n}^{\intercal}\bs\tau\boldsymbol{n}, \partial_{n}\varphi\rangle}{\|\varphi\|_{H^2(\Omega)}}.
 \end{align*}
 由 $\varphi\in H^2(\Omega)\cap H_0^1(\Omega)$ 和分部积分公式可得
 \begin{align*}
@@ -269,258 +521,6 @@ u|_{\partial\Omega}=\partial_{n}u|_{\partial\Omega}=0.
 移项即得 $(\boldsymbol{\sigma}, \boldsymbol{\tau}) + \langle \operatorname{div}\operatorname{div} \boldsymbol{\tau}, u\rangle = 0$，这证明了 \eqref{eq:hhjmixedformulation1} 成立. 
 \end{proof}
 
-
-
-\subsection{ $H(\div\div,\Omega; \mathbb{S})$ 空间和混合变分形式}
-
-在本节中，假设 $f\in L^{2}(\Omega)$. 
-定义 Hilbert 空间 %(参见 \cite{PechsteinSchoberl2011})：
-\[
-H(\div{\div },\Omega;
-\mathbb{S}):=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div \div\boldsymbol{\tau}\in L^2(\Omega)\},
-\]
-其范数平方定义为 
-$
-\|\boldsymbol{\tau}\|_{H(\div\div)}^2:=\|\boldsymbol{\tau}\|^2+\|\div \div\boldsymbol{\tau}\|^2
-$. 
-
-下面探讨分段光滑的张量函数属于 Sobolev 空间 $H(\div{\div },\Omega; \mathbb{S})$ 所需满足的连续性条件.
-设 $K$ 是一个多面体区域.
-迹算子 $\tr^{\div\div}\bs \sigma$ 在分布意义下定义为如下：
-$$
-\langle \tr^{\div\div}\bs \sigma, \tr^{\nabla^2} v \rangle_{\partial K}:= (\div\div\boldsymbol \sigma, v)_K - (\boldsymbol \sigma, \nabla^2v)_K.
-$$
-随后，我们将 $\tr^{\div\div}\bs \sigma$ 和 $\tr^{\nabla^2} v$ 进一步分解为两个 $(d-1)$ 维面迹算子和一个 $(d-2)$ 维面迹算子，以揭示其在分片结构下的连续性要求.
-
-回顾文献~\cite{ChenHuang2022a,ChenHuang2022} 中给出的 $\div\div$ 算子的格林公式.
-\begin{lemma}[文献~\cite{ChenHuang2022} 引理 5.2]
-对于任意 $\boldsymbol \sigma\in \mathcal C^2(K; \mathbb S)$ 和 $v\in H^2(K)$，成立如下格林公式：
-\begin{align}
-&\notag  (\div\div\boldsymbol \sigma, v)_K=(\boldsymbol \sigma, \nabla^2v)_K \\
-&- \sum_{F\in\partial K}\left[( \tr_1(\bs \sigma), \tr_1(v))_{F} -  ( \tr_2(\bs \sigma), \tr_2(v))_F\right] -\sum_{e\in\Delta_{d-2}(K)}(\tr_e(\bs \sigma), \tr_e(v))_e, \label{eq:greenidentitydivdiv} 
-\end{align}
-其中
-\begin{align*}
-&\tr_1(\bs \sigma) = \boldsymbol  n_{\partial K}^{\intercal}\boldsymbol \sigma\boldsymbol  n_{\partial K}, &  & \tr_1( v) = \partial_n v\mid_{\partial K},\\
-&\tr_2(\bs \sigma) =  \boldsymbol n_{\partial K}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K}),&  & \tr_2(v) = v\mid_{\partial K},\\
-&\tr_e(\bs \sigma) = \sum_{F\in\partial K,e\in \partial F}\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K}, &  & \tr_e(v) = v \mid_{\Delta_{d-2}(K)}.
-\end{align*}
-\end{lemma}
-\begin{proof}
-应用分部积分公式可得：
-\begin{align*}
-\begin{aligned}
-(\operatorname{div}\div \boldsymbol \tau, v)_{K} &=-(\div\boldsymbol \tau, \nabla v)_{K}+\sum_{F \in \partial K}(\boldsymbol n^{\intercal}\div \boldsymbol \tau, v)_F \\
-&=\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}-\sum_{F \in \partial K} (\boldsymbol \tau \boldsymbol n, \nabla v)_F+\sum_{F \in \partial K}(\boldsymbol n^{\intercal} \div \boldsymbol \tau, v)_F.
-\end{aligned}
-\end{align*}
-接着我们利用分解 $\nabla v = \partial_nv\boldsymbol n+ \nabla_F v$ 并应用 Stokes 定理得到：
-\begin{align*}
-(\boldsymbol \tau \boldsymbol n, \nabla v)_F&=(\boldsymbol \tau \boldsymbol n, \partial_nv\boldsymbol n+ \nabla_F v)_F \\
-&=(\boldsymbol n^{\intercal}\boldsymbol \tau \boldsymbol n, \partial_nv)_F -( \div_F(\boldsymbol \tau\boldsymbol n), v)_F + \sum_{e\in\partial F} (\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e.
-\end{align*}
-结合上述两个等式即可推导出格林公式~\eqref{eq:greenidentitydivdiv}. 
-\end{proof}
-
-设 $\mathcal{T}_h$ 是 $\Omega$ 的一个多面体网格剖分. 记 $\Delta_{\ell}(\mathcal{T}_h)$ 和 $\Delta_{\ell}(\mathring{\mathcal{T}}_h)$ 分别是 $\mathcal{T}_h$ 中所有 $\ell$ 维面和内部 $\ell$ 维面的集合，并令 
-$$
-\mathcal{F}_h:=\Delta_{d-1}(\mathcal{T}_h),\quad \mathcal{E}_h:=\Delta_{d-2}(\mathcal{T}_h),\quad \mathring{\mathcal F}_h:=\Delta_{d-1}(\mathring{\mathcal{T}}_h),\quad \mathring{\mathcal E}_h:=\Delta_{d-2}(\mathring{\mathcal{T}}_h).
-$$
-% 记 $\mathcal{F}_h$ 和 $\mathcal{E}_h$ 分别是 $\mathcal{T}_h$ 中所有 $(d-1)$ 维面和 $(d-2)$ 维面的集合，并分别记 $\mathring{\mathcal F}_h$ 和 $\mathring{\mathcal E}_h$ 为其内部$(d-1)$ 维面和内部$(d-2)$ 维面的集合. 
-当在所有单元上求和时，假设测试函数 $v$ 足够光滑（例如 $v\in C^2(\Omega)$），我们可以合并内部面和棱上的项. 对于内部面 $F\in \mathring{\mathcal F}_h$，记包含 $F$ 的两个单元为 $K_1, K_2$. 
-引入如下跳量定义：
-\begin{align*}
-&[\tr_1(\bs \sigma)]_F : = \bs n_{\partial K_1}^{\intercal}\bs \sigma \bs n_{\partial K_1} \mid _{F} - \bs n_{\partial K_2}^{\intercal}\bs \sigma \bs n_{\partial K_2} \mid _{F},  \\
-&[\tr_2(\bs \sigma)]_F := (\boldsymbol n_{\partial K_1}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K_1}))\mid _{F} + (\boldsymbol n_{\partial K_2}^{\intercal}\div \boldsymbol \sigma +  \div_F(\boldsymbol\sigma \boldsymbol n_{\partial K_2}))\mid _{F},  &  &\\
-& [ \tr_e(\bs \sigma)]|_e := \sum_{K\in \omega_e} \sum_{F\in\partial K, e\in\partial F} (\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K})|_e.  &  &
-\end{align*}
-
-回顾空间 $H(\div{\div },K; \mathbb{S})$ 在多面体 $K$ 的边界上 的迹（参见文献~\cite[Lemma 3.2]{FuehrerHeuerNiemi2019} 以及 \cite{Sinwel2009,PechsteinSchoeberl2018}）. 
-令 $H_{00}^{1/2}(F)$ 为 $\mathcal C_0^{\infty}(F)$ 关于范数 $\|\cdot\|_{H^{1/2}(\partial K)}$ 的闭包，该空间包含所有属于 $H^{1/2}(F)$ 且其零延拓至整个边界 $\partial K$ 后属于 $H^{1/2}(\partial K)$ 的函数. 
-定义如下迹空间：
-\begin{align*}
-H_{n,0}^{1/2}(\partial K)&:=\{\partial_n v|_{\partial K}: v\in H^2(K)\cap H_0^1(K)\} \\
-&\;=\{g\in L^2(\partial K): g|_F\in H_{00}^{1/2}(F)\;\;\forall~F\in\mathcal F(K)\},
-\end{align*}
-其范数为
-\[
-\|g\|_{H_{n,0}^{1/2}(\partial K)}:=\inf_{v\in H^2(K)\cap H_0^1(K)\atop \partial_n v=g}\|v\|_2,
-\]
-以及
-\begin{align*}
-H_{t,0}^{3/2}(\partial K)&:=\{v|_{\partial K}: v\in H^2(K), \partial_nv|_{\partial K}=0, v|_{e}=0\;\;\forall~e\in\mathcal E(K) \},
-\end{align*}
-其范数为
-\[
-\|g\|_{H_{t,0}^{3/2}(\partial K)}:=\inf_{v\in H^2(K)\atop \partial_n v=0, v=g}\|v\|_2.
-\]
-对于 $\tr_1$，令 $H_n^{-1/2}(\partial K):=(H_{n,0}^{1/2}(\partial K))'$；对于 $\tr_2$，令 $H_t^{-3/2}(\partial K):=(H_{t,0}^{3/2}(\partial K))'$.
-
-
-%\begin{lemma}
-%For any $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$,  it holds
-%\[
-%\|\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n\|_{H_n^{-1/2}(\partial K)} \lesssim \|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })}.
-%\]
-%Conversely, for any $g_n\in H_n^{-1/2}(\partial K)$, there exists some $\boldsymbol \tau\in H(\div \boldsymbol{\div },K; \mathbb{S})$ such that
-%\[
-%\boldsymbol  n^{\intercal}\boldsymbol \tau\boldsymbol  n|_{\partial K}=g_n, \quad 
-%\|\boldsymbol{\tau}\|_{ H(\div \boldsymbol{\div })} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}.
-%\]
-%The hidden constants depend only the shape of the domain $K$.
-%\end{lemma}
-
-\begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 引理 3.2]\label{lem:Hdivdivtrace}
-对于任意 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$，成立：
-\[
-\|\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n\|_{H_n^{-1/2}(\partial K)} + \|2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)\|_{H_t^{-3/2}(\partial K)}\lesssim \|\boldsymbol{\tau}\|_{ H(\div{\div },K)}.
-\]
-反之，对于任意 $g_n\in H_n^{-1/2}(\partial K)$ 和 $g_t\in H_t^{-3/2}(\partial K)$，存在 $\boldsymbol \tau\in H(\div{\div },K; \mathbb{S})$ 使得
-\[
-\boldsymbol n^{\intercal}\boldsymbol \tau\boldsymbol n|_{\partial K}=g_n, \quad 2\div_F(\boldsymbol\tau \boldsymbol n)+ \partial_n(\boldsymbol n^{\intercal} \boldsymbol \tau\boldsymbol n)=g_t,
-\]
-且满足
-\[
-\|\boldsymbol{\tau}\|_{ H(\div{\div },K)} \lesssim \|g_n\|_{H_n^{-1/2}(\partial K)}+\|g_t\|_{H_t^{-3/2}(\partial K)},
-\]
-其中的隐含常数仅依赖于区域 $K$ 的形状.
-\end{lemma}
-
-
-
-注意，格林公式~\eqref{eq:greenidentitydivdiv} 中的项 $(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \tau \boldsymbol n, v)_e$ 并未被引理~\ref{lem:Hdivdivtrace} 所覆盖. 事实上，$ H(\div{\div },K; \mathbb{S})$ 的迹的完整刻画由 $(\div{\div }\bs\tau, v)_K-\left(\boldsymbol \tau, \nabla^{2} v\right)_{K}$ 给出，而该表达式无法被等价地解耦（参见文献~\cite[引理~3.2]{FuehrerHeuerNiemi2019}）.
-然而，在施加额外光滑性假设的情况下，可以将此迹在各面上局部化.
-
-
-下面给出分段光滑函数属于 $ H(\div{\div },\Omega; \mathbb{S})$ 的一个充分条件. 
-
-\begin{lemma}[文献~\cite{FuehrerHeuerNiemi2019} 命题 3.6]\label{lm:divdivconforming}
-设 $\bs \sigma \in L^2(\Omega;\mathbb S)$ 且对任意 $K\in \mathcal T_h$ 有 $\bs \sigma|_K\in H^{2}(K;\mathbb S)$. 则 $\bs \sigma \in H(\div\div,\Omega;\mathbb S)$ 当且仅当满足以下条件：
-\begin{enumerate}
-\item $[\tr_1(\bs \sigma)]_F = 0$ 对于所有 $F\in \mathring{\mathcal F}_h$ 成立；
-\smallskip
-\item $[\tr_2(\bs \sigma)]_F = 0$ 对于所有 $F\in \mathring{\mathcal F}_h$ 成立；
-\smallskip
-\item $[ \tr_e(\bs \sigma)]|_e = 0$ 对于所有 $e\in \mathring{\mathcal E}_h$ 成立. 
-\end{enumerate}
-\end{lemma}
-
-
-在构造 $H(\operatorname{div}\operatorname{div})$-协调有限元时，强制跳跃条件
-$[ \operatorname{tr}_e(\boldsymbol{\sigma}) ]|_e = 0$
-是非常困难的，因为该约束是施加在与 $e$ 相邻的宏单元上的. 
-将 $\boldsymbol{\sigma}$ 在 $e\in \mathring{\mathcal E}_h$ 的法平面 $\mathcal N_e$ 上的投影保持连续，是一个充分但绝非必要的条件. 更具体地，作为一个 $(d-2)$-维子单纯形，边 $e$ 的法平面 $\mathcal N_e$ 的维数为 2. 为了施加该连续性条件，我们为每条边 $e\in \Delta_1(\mathcal{T}_h)$ 选取两个正交于 $e$ 的标准正交方向 ${\bs n_1, \bs n_2}$. 需要强调的是，$\mathcal N_e$ 仅由 $e$ 决定，而与包含 $e$ 的单元无关. 
-
-我们将 $\mathcal N_e$ 上的 $2\times 2$ 对称矩阵空间记为 $\mathbb S(\mathcal N_e)$，并将
-\[
-Q_{\mathcal N_e}(\bs \sigma):=(\bs n_i^{\intercal}\bs \sigma\bs n_j)_{i,j=1,2}
-\]
-定义为 $\boldsymbol{\sigma}\in \mathbb S$ 在 $\mathbb S(\mathcal N_e)$ 上的投影. 
-
-
-
-\begin{lemma}\label{lm:edgejump}
-设 $\boldsymbol{\sigma}\in L^2(\Omega;\mathbb S)$，且对每个单元 $K\in \mathcal T_h$ 有 $\boldsymbol{\sigma}|_K \in H^{2}(K;\mathbb S)$. 
-若 $Q_{\mathcal N_e}(\boldsymbol{\sigma})$ 在 $e$ 上连续，则对所有 $e\in \mathring{\mathcal E}_h$ 都有
-$[ \operatorname{tr}_e(\boldsymbol{\sigma}) ]|_e = 0$. 
-\end{lemma}
-\begin{proof}
-对于任意包含 $e\in \mathring{\mathcal E}_h$ 的面 $F$，由于 $F$ 也是内部面，因此在 $\omega_e$ 中恰有两个单元 $K_1$ 与 $K_2$ 满足 $F \subset \partial K_i,\ i=1,2$. 
-法向量 $\bs n_{F,e}$ 由 $F$ 的定向诱导，该定向独立于单元，而 $\bs n_{\partial K}$ 是依赖于包含 $F$ 的单元 $K$ 的外法向，且 $\bs n_{\partial K_1}\mid_F = -\bs n_{\partial K_2}\mid _F$. 
-由此可得
-$(\boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K_1} + \boldsymbol n_{F,e}^{\intercal}\boldsymbol \sigma \boldsymbol n_{\partial K_2})|_e = 0$，
-从而推出
-$[ \operatorname{tr}_e(\boldsymbol{\sigma}) ]|_e = 0$. 
-这完成了证明. 
-\end{proof}
-
-
-重调和方程 \eqref{eq:biharmonic2variables} 的一种混合变分形式为：
-% Hellan-Herrmann-Johnson (HHJ) 混合格式 \cite{KrendlRafetsederZulehner2016,Hellan1967,Herrmann1967,Johnson1973} 是
-找 $(\boldsymbol{\sigma} , u)\in H(\div\div,\Omega; \mathbb{S})\times L^2(\Omega)$ 使得：
-\begin{subequations}\label{eq:divdivmixedformulation}
-\begin{align}
-(\boldsymbol\sigma, \boldsymbol\tau)+ (\div\div\boldsymbol\tau, u)  & =0 \quad\quad\quad\;\;
-\forall~\boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S}), \label{eq:divdivmixedformulation1}\\
-(\div\div\boldsymbol\sigma, v) & =-(f, v)  \quad \forall~v\in L^2(\Omega). \label{eq:divdivmixedformulation2}
-\end{align}
-\end{subequations}
-% 其中
-% \[
-% a(\boldsymbol\sigma, \boldsymbol\tau):=(\boldsymbol\sigma, \boldsymbol\tau),\quad b(\boldsymbol\tau, v):=\langle \div\div\boldsymbol\tau, v\rangle.
-% \]
-
-显然，对于任意 $\boldsymbol\sigma, \boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S})$ 和 $v\in L^2(\Omega)$，有
-\[
-(\boldsymbol\sigma, \boldsymbol\tau)\leq\|\boldsymbol\sigma\|\|\boldsymbol\tau\|\leq\|\boldsymbol\sigma\|_{H(\div\div)}\|\boldsymbol\tau\|_{H(\div\div)},
-\]
-\[
-(\div\div\boldsymbol\tau, v) \leq\|\div\div\boldsymbol\tau\| \|v\|\leq \|\boldsymbol\tau\|_{H(\div\div)}\|v\|.
-\]
-
-\begin{lemma}
-成立
-$$
-\div\div H(\div\div,\Omega; \mathbb{S})=L^2(\Omega),
-$$
-即成立如下的 inf-sup 条件： 
-\begin{equation}\label{eq:divdivinfsup}
-  \|v\|\lesssim \sup_{\bs\tau\in H(\div\div,\Omega; \mathbb{S})}\frac{(\div\div\boldsymbol\tau, v)}{\|\boldsymbol\tau\|_{H(\div\div)}}\qquad \forall~v\in L^2(\Omega).
-\end{equation}
-\end{lemma}
-\begin{proof}
-显然 $\div\div H(\div\div,\Omega; \mathbb{S})\subseteq L^2(\Omega)$, 故只需证明 inf-sup 条件 \eqref{eq:divdivinfsup} 即可.
-
-任取 $v\in L^2(\Omega)$. 由 $\div H^1(\Omega;\mathbb R^d)=L^2(\Omega)$ 知，存在 $\boldsymbol{w}\in H^1(\Omega;\mathbb R^d)$ 使得
-\begin{equation*}
-\div\boldsymbol{w}=v,\quad \|\boldsymbol{w}\|_{1}\lesssim \|v\|.
-\end{equation*}
-进一步，由$\div H^2(\Omega;\mathbb M)=H^1(\Omega;\mathbb R^d)$ 知，存在 $\boldsymbol{\tau}\in H^2(\Omega;\mathbb M)$ 使得
-\begin{equation*}
-\div\boldsymbol{\tau}=\boldsymbol{w},\quad \|\boldsymbol{\tau}\|_{2}\lesssim \|\boldsymbol{w}\|_1.
-\end{equation*}
-从而，有
-\begin{equation*}
-\div\div\boldsymbol{\tau}=v,\quad \|\boldsymbol{\tau}\|_{H(\div\div)}\lesssim \|\boldsymbol{\tau}\|_2\lesssim \|\boldsymbol{w}\|_1\lesssim \|v\|.
-\end{equation*}
-故 inf-sup 条件 \eqref{eq:divdivinfsup} 成立.
-\end{proof}
-
-
-\begin{theorem}
-混合变分形式 \eqref{eq:divdivmixedformulation} 是适定的，且与问题 \eqref{eq:biharmonicvariatonalform} 等价. 即，如果 $u\in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解，则 $\bs\sigma=-\nabla^2 u\in H(\div\div,\Omega; \mathbb{S})$ 且 $(\bs\sigma, u)$ 是混合变分形式 \eqref{eq:divdivmixedformulation} 的解. 反之，如果 $(\bs\sigma, u)\in H(\div\div,\Omega; \mathbb{S})\times L^2(\Omega)$ 是混合变分形式 \eqref{eq:divdivmixedformulation} 的解，则 $u\in H_0^2(\Omega)$ 且 $u$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
-\end{theorem}
-\begin{proof}
-在算子 $\div\div: H(\div\div,\Omega; \mathbb{S})\to L^2(\Omega)$ 的核空间
-$$
-H(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div)=\{\boldsymbol{\tau}\in L^{2}(\Omega; \mathbb{S}): \div\div\boldsymbol{\tau}=0\}
-$$ 
-上具有强制性：
-\[
-(\boldsymbol\tau, \boldsymbol\tau)=\|\boldsymbol\tau\|^2=\|\boldsymbol\tau\|_{H(\div\div)}^2\quad\forall~\boldsymbol\tau\in H(\div\div,\Omega; \mathbb{S})\cap \ker(\div\div).
-\]
-结合 inf-sup 条件 \eqref{eq:divdivinfsup} ，
-由 Brezzi 理论可得混合变分形式 \eqref{eq:divdivmixedformulation} 的适定性. 
-
-两个问题均是唯一可解的. 因此，只需证明若 $u$ 解问题 \eqref{eq:biharmonicvariatonalform}，则令 $\bs\sigma=-\nabla^2 u$，$(\bs\sigma, u)$ 满足混合变分形式 \eqref{eq:divdivmixedformulation} 即可. 
-假设 $u\in H_0^2(\Omega)$ 是问题 \eqref{eq:biharmonicvariatonalform} 的解. 
-显然 $\bs\sigma\in L^{2}(\Omega; \mathbb{S})$ 且
-\[
-(\bs\sigma, \nabla^2v)=-(f, v)\quad\forall~v\in H_0^2(\Omega),
-\]
-这意味着在分布意义下 $\div\div\bs\sigma=-f\in L^{2}(\Omega)$. 
-因此，$\bs\sigma\in H(\div\div,\Omega; \mathbb{S})$ 且式 \eqref{eq:divdivmixedformulation2} 成立. 
-
-根据 $\div\div\bs\tau$ 的分布定义，我们有
-\[
-(\div\div\boldsymbol\tau, v) =(\boldsymbol\tau, \nabla^2v)\quad\forall~v\in C_0^{\infty}(\Omega).
-\]
-由于 $C_0^{\infty}(\Omega)$ 在 $H_0^2(\Omega)$ 中稠密，取 $v=u$ 可得
-\[
-(\div\div\boldsymbol\tau, u)=(\boldsymbol\tau, \nabla^2u)=-(\boldsymbol\tau, \bs\sigma),
-\]
-这证明了 \eqref{eq:divdivmixedformulation1}. 
-\end{proof}
 
 \section{$H(\div)$ 协调对称张量有限元}\label{sec:divS}
 本节我们将构造$H(\div)$ 协调对称张量有限元 \cite{ChenHuang2022}. 
@@ -1863,7 +1863,7 @@ v(\delta),\quad \delta\in\Delta_0(T);\quad \int_evq\dd s,\quad q\in \mathbb P_{k
 \end{equation*}
 
 
-基于分布混合变分形式 \eqref{eq:hhjmixedformulation} 的 Hellan-Herrmann-Johnson (HHJ) 混合有限元方法为： 找 $\boldsymbol{\sigma}_h\in \Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S})$ 和 $u_h\in \mathring{V}_k^{\grad}(\mathcal{T}_h)$ 满足
+基于分布混合变分形式 \eqref{eq:hhjmixedformulation} 的 Hellan-Herrmann-Johnson (HHJ) 混合有限元方法 \cite{Hellan1967,Herrmann1967,Johnson1973} 为： 找 $\boldsymbol{\sigma}_h\in \Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S})$ 和 $u_h\in \mathring{V}_k^{\grad}(\mathcal{T}_h)$ 满足
 \begin{subequations}\label{eq:hhjmfem}
 \begin{align}
 (\boldsymbol\sigma_h, \boldsymbol\tau_h)+ ((\div\div)_w\boldsymbol\tau_h, u_h) & =0 \quad\quad\quad\quad \forall~\boldsymbol\tau_h\in\Sigma_{k-1}^{nn}(\mathcal{T}_h;\mathbb{S}), \label{eq:hhjmfem1}\\
@@ -2595,21 +2595,27 @@ $$
 
 
 应用 Helmholtz 分解 \eqref{eq:distribdivdivHelmdecomp2d}，我们将分布混合变分形式 \eqref{eq:hhjmixedformulation} 中的张量变量分解为 $\boldsymbol{\sigma}=\iota(w) + \operatorname{sym}\operatorname{curl} \boldsymbol{\phi}$ 和 $\boldsymbol{\tau}=\iota(\chi) + \operatorname{sym}\operatorname{curl} \boldsymbol{\psi}$. 由此，分布混合变分形式 \eqref{eq:hhjmixedformulation} 解耦为如下三个子问题：求 $w\in H_0^1(\Omega)$, $\boldsymbol{\phi}\in H^{1}(\Omega; \mathbb{R}^2)/\textrm{RT}$ 和 $u\in H_0^1(\Omega)$ 使得
+\begin{subequations}\label{eq:hhjmixedformdecouple}
 \begin{align}
     (\nabla w, \nabla v) &= \langle f, v\rangle, && \forall~v\in H_0^1(\Omega), \label{eq:hhjmixedformdecouple1}\\
     (\operatorname{sym}\operatorname{curl}\boldsymbol{\phi}, \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}) &= - (\iota(w), \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}), && \forall~\boldsymbol{\psi}\in H^{1}(\Omega; \mathbb{R}^2)/\textrm{RT}, \label{eq:hhjmixedformdecouple2}\\
     (\nabla u, \nabla \chi) &= (\boldsymbol{\sigma}, \iota(\chi)), && \forall~\chi\in H_0^1(\Omega). \label{eq:hhjmixedformdecouple3}
 \end{align}
+\end{subequations}
+该系统是解耦的，求解流程如下：首先求解 Poisson 方程 \eqref{eq:hhjmixedformdecouple1} 得到 $w$；接着求解方程 \eqref{eq:hhjmixedformdecouple2} 得到 $\boldsymbol{\phi}$，从而确定 $\boldsymbol{\sigma}$；最后求解 Poisson 方程 \eqref{eq:hhjmixedformdecouple3} 得到 $u$. 
+相比于原始变分问题 \eqref{eq:biharmonicvariatonalform}，为解耦后的形式构造协调有限元空间要容易得多. 这是因为系统的阶数降低了，且针对 Poisson 方程的有限元理论与算法已十分成熟. 
 
-类似地，应用离散 Helmholtz 分解 \eqref{eq:hhjHelmdecomp2d}，我们将 HHJ 混合元方法 \eqref{eq:hhjmfem} 中的张量变量分解为 $\boldsymbol{\sigma}_h=I_h^{nn}(\iota(w_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\phi}_h$ 和 $\boldsymbol{\tau}_h=I_h^{nn}(\iota(\chi_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\psi}_h$. 则 HHJ 混合元方法 \eqref{eq:hhjmfem} 解耦为：求 $w_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$, $\boldsymbol{\phi}_h\in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)/\textrm{RT}$ 和 $u_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 使得
+此类分解最早由 Krendl 等人 \cite{KrendlRafetsederZulehner2016} 提出，并在 \cite{RafetsederZulehner2018} 中推广至混合边界条件情形. 类似地，混合变分形式 \eqref{eq:hhjmixedformulation} 与解耦形式 \eqref{eq:hhjmixedformdecouple} 之间的等价性亦可推广至三维情形 \cite{PaulyZulehner2020}. 
+
+同样地，应用离散 Helmholtz 分解 \eqref{eq:hhjHelmdecomp2d}，我们将 HHJ 混合元方法 \eqref{eq:hhjmfem} 中的张量变量分解为 $\boldsymbol{\sigma}_h=I_h^{nn}(\iota(w_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\phi}_h$ 和 $\boldsymbol{\tau}_h=I_h^{nn}(\iota(\chi_h)) + \operatorname{sym}\operatorname{curl} \boldsymbol{\psi}_h$. 则 HHJ 混合元方法 \eqref{eq:hhjmfem} 解耦为 \cite{KrendlRafetsederZulehner2016,ChenHuHuang2018}：求 $w_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$, $\boldsymbol{\phi}_h\in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)/\textrm{RT}$ 和 $u_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h)$ 使得
 \begin{align}
     (\nabla w_h, \nabla v_h) &= \langle f, v_h\rangle, && \forall~v_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h), \label{eq:hhjmixedformdecouple1_h}\\
     (\operatorname{sym}\operatorname{curl}\boldsymbol{\phi}_h, \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}_h) &= - (I_h^{nn}(\iota(w_h)), \operatorname{sym}\operatorname{curl}\boldsymbol{\psi}_h), && \forall~\boldsymbol{\psi}_h\in V_k^{\operatorname{grad}}(\mathcal{T}_h; \mathbb{R}^2)/\textrm{RT}, \label{eq:hhjmixedformdecouple2_h}\\
     (\nabla u_h, \nabla \chi_h) &= (\boldsymbol{\sigma}_h, I_h^{nn}(\iota(\chi_h))), && \forall~\chi_h\in \mathring{V}_k^{\operatorname{grad}}(\mathcal{T}_h). \label{eq:hhjmixedformdecouple3_h}
 \end{align}
+因此，求解 HHJ 混合元方法 \eqref{eq:hhjmfem} 等价于求解两个 Poisson 方程的 Lagrange 元方法以及一个类线弹性问题的 Lagrange 元方法 \eqref{eq:hhjmixedformdecouple2_h}. 
 
-
-
+文献 \cite{ChenHuang2018} 建立了一个通用框架，能够系统地将高阶椭圆方程解耦为 Poisson 型方程与 Stokes 型方程的组合. 其核心思想是在统一的体系下构造涉及相关复形与 Helmholtz 分解的底层交换图表. 对解耦后的变分形式进行离散化，可以自然地导出 Galerkin 投影与解耦近似解之间的超收敛性. 该框架的应用范畴涵盖但不限于重调和方程、四阶旋度方程以及三调和方程的原始变分形式与混合变分形式. 
 
 
 \section{可杂交混合有限元方法}
