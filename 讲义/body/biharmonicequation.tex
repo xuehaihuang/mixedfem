@@ -774,7 +774,7 @@ $$
  $\div: E_{0,k}^{\bot}(\mathbb S) \to \mathbb P_{k-1,{\rm RM}}^{\bot}$
  是双射. 
 
- 对于 $\boldsymbol v\in E_{0,k}^{\bot}(\mathbb S)$，若对所有 $\boldsymbol q\in \mathbb P_{k-1}(T;\mathbb R^d)$ 都有 $(\boldsymbol v, \defm\boldsymbol q)_T = 0$，则 $\div \boldsymbol v = \boldsymbol 0$，即 $\boldsymbol v\in E_{0,k}(\mathbb S)$. 于是 $\boldsymbol v\in E_{0,k}(\mathbb S)\cap E_{0,k}^{\bot}(\mathbb S) = \{\boldsymbol 0\}$. 因此 $E_{0,k}^{\bot}(\mathbb S)$ 由 $\mathcal N(\defm \mathbb P_{k-1}(T;\mathbb R^d))$ 确定. 由由维数匹配可知结论成立. 
+ 对于 $\boldsymbol v\in E_{0,k}^{\bot}(\mathbb S)$，若对所有 $\boldsymbol q\in \mathbb P_{k-1}(T;\mathbb R^d)$ 都有 $(\boldsymbol v, \defm\boldsymbol q)_T = 0$，则 $\div \boldsymbol v = \boldsymbol 0$，即 $\boldsymbol v\in E_{0,k}(\mathbb S)$. 于是 $\boldsymbol v\in E_{0,k}(\mathbb S)\cap E_{0,k}^{\bot}(\mathbb S) = \{\boldsymbol 0\}$. 因此 $E_{0,k}^{\bot}(\mathbb S)$ 由 $\mathcal N(\defm \mathbb P_{k-1}(T;\mathbb R^d))$ 确定. 由维数匹配可知结论成立. 
 \end{proof}
  
 
@@ -1022,16 +1022,6 @@ $$
 % 文献 \cite{PechsteinSchoberl2011} 中已经给出了一种构造方法. 在此，我们给出一种不同的构造，该方法利用内蕴基，从而避免了到参考单元的复杂变换. 
 
 设 $\boldsymbol{t}_{i,j}$ 为从顶点 $\texttt{v}_i$ 指向顶点 $\texttt{v}_j$ 的向量，即 $\boldsymbol{t}_{i,j}= \texttt{v}_j - \texttt{v}_i$. 
-我们将形函数空间选取为 $\mathbb P_k(T; \mathbb S) := \mathbb P_k(T) \otimes \mathbb S$. 自由度定义如下：
-\begin{subequations}\label{eq:hhjnd}
- \begin{align}
-\int_F \boldsymbol{n}^{\intercal}\boldsymbol{\tau} \boldsymbol{n}\, q \, \mathrm{d} S, &\quad q\in \mathbb P_k(F), F\in \Delta_{d-1}(T),\label{eq:dofFnn}\\
-\int_T \boldsymbol{\tau}: \boldsymbol{q} \, \mathrm{d}x, &\quad \boldsymbol{q}\in  \mathbb P_{k-1}(T; \mathbb S), \label{eq:dofTk-1}\\
-\int_{F_i} \boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{t}_{0,j}\, q \, \mathrm{d} S, &\quad q\in \mathbb P_k(F_i), i=1,\ldots, d-2, j=i+1, \ldots, d. \label{eq:dofFnt}
-\end{align}
-\end{subequations}
-这里，$F_i\in\Delta_{d-1}(T)$ 是与顶点 $\texttt{v}_i$ 相对的面.
-自由度 \eqref{eq:dofFnt} 被视为单纯形 $T$ 的内部自由度，即如果在两个相邻单元中选取该自由度，其值将是双值的（非连续的）. 
 
 \begin{lemma}\label{lem:Sbasis}
 我们有如下分解：
@@ -1078,6 +1068,19 @@ $$
 $$
 \mathbb{S}=\operatorname{span}\{\boldsymbol{n}_0\boldsymbol{n}_0^{\intercal}, \boldsymbol{n}_1\boldsymbol{n}_1^{\intercal}, \boldsymbol{n}_2\boldsymbol{n}_2^{\intercal}\}.
 $$
+
+
+我们将形函数空间选取为 $\mathbb P_k(T; \mathbb S) := \mathbb P_k(T) \otimes \mathbb S$. 自由度定义如下：
+\begin{subequations}\label{eq:hhjnd}
+ \begin{align}
+\int_F \boldsymbol{n}^{\intercal}\boldsymbol{\tau} \boldsymbol{n}\, q \, \mathrm{d} S, &\quad q\in \mathbb P_k(F), F\in \Delta_{d-1}(T),\label{eq:dofFnn}\\
+\int_T \boldsymbol{\tau}: \boldsymbol{q} \, \mathrm{d}x, &\quad \boldsymbol{q}\in  \mathbb P_{k-1}(T; \mathbb S), \label{eq:dofTk-1}\\
+\int_{F_i} \boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{t}_{0,j}\, q \, \mathrm{d} S, &\quad q\in \mathbb P_k(F_i), i=1,\ldots, d-2, j=i+1, \ldots, d. \label{eq:dofFnt}
+\end{align}
+\end{subequations}
+这里，$F_i\in\Delta_{d-1}(T)$ 是与顶点 $\texttt{v}_i$ 相对的面.
+自由度 \eqref{eq:dofFnt} 被视为单纯形 $T$ 的内部自由度，即如果在两个相邻单元中选取该自由度，其值将是双值的（非连续的）. 
+
 
 \begin{lemma}
 自由度 \eqref{eq:hhjnd} 对于空间 $\mathbb P_k(T; \mathbb S)$ 是唯一可解的. 
